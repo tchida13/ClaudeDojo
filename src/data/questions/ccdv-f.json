@@ -1,0 +1,2965 @@
+[
+ {
+  "id": "ccdv-f-d1-001",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "あるチームが、請求書PDFから「項目抽出 → 合計の検証 → 社内フォーマットへの整形」を毎回同じ順序で行う処理を構築します。手順は事前に完全に分かっています。最も適切な設計はどれですか。",
+   "en": "A team is building a process that, for every invoice PDF, performs \"extract fields -> validate totals -> format into the internal schema\" in the same order each time. All steps are known in advance. Which design fits best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "モデルに利用可能なツールをすべて渡し、自律的に手順を決めさせる自律エージェント",
+    "en": "A fully autonomous agent given every tool that decides its own steps"
+   },
+   {
+    "id": "B",
+    "ja": "サブエージェントを階層状に何層も重ねるマネージャー型アーキテクチャ",
+    "en": "A deep manager/subagent hierarchy with several layers"
+   },
+   {
+    "id": "C",
+    "ja": "各ステップを専用プロンプトで順に呼び出す prompt chaining のワークフロー",
+    "en": "A prompt-chaining workflow that calls a dedicated prompt for each step in order"
+   },
+   {
+    "id": "D",
+    "ja": "全工程を1つの巨大なプロンプトに詰め込み、1回の呼び出しで完結させる",
+    "en": "One giant prompt that performs all steps in a single call"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "手順が固定で予測可能な場合は、エージェントよりワークフロー（prompt chaining）が適しています。各ステップを独立にテスト・検証でき、コスト・レイテンシ・再現性の面でも有利です。",
+   "en": "When steps are fixed and predictable, a workflow (prompt chaining) beats an agent: each step can be tested and validated independently, with better cost, latency and predictability."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "手順が固定なら自律性は不要で、コストと不確実性が増えるだけです。",
+    "en": "Autonomy is unnecessary for fixed steps and only adds cost and variability."
+   },
+   "B": {
+    "ja": "階層化は複雑さを増やすだけで、固定手順の問題には過剰です。",
+    "en": "Hierarchies add complexity and are overkill for a fixed pipeline."
+   },
+   "D": {
+    "ja": "1回の呼び出しに詰め込むと、途中結果の検証やデバッグが難しくなり精度も落ちやすくなります。",
+    "en": "Cramming everything into one call makes intermediate validation and debugging hard and often hurts accuracy."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d1-002",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Messages API を使って自作のエージェントループを実装しています。ループを継続すべきか終了すべきかを判断する最も適切な方法はどれですか。",
+   "en": "You are implementing a custom agent loop on the Messages API. What is the most appropriate way to decide whether to continue or stop the loop?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ループを常に10回で打ち切る",
+    "en": "Always stop after exactly 10 iterations"
+   },
+   {
+    "id": "B",
+    "ja": "stop_reason が \"tool_use\" ならツールを実行して結果を返し再度呼び出し、\"end_turn\" なら終了する",
+    "en": "Run the tools and call again when stop_reason is \"tool_use\"; stop when it is \"end_turn\""
+   },
+   {
+    "id": "C",
+    "ja": "応答テキストに「完了」という語が含まれるかを正規表現で調べる",
+    "en": "Regex the response text for the word \"done\""
+   },
+   {
+    "id": "D",
+    "ja": "最初の応答の後は必ずループを終了する",
+    "en": "Always exit after the first response"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "stop_reason が tool_use の場合、モデルがツール実行を要求しています。tool_result を追加して再度呼び出し、end_turn になれば完了です。無限ループ防止のため最大反復回数などの安全上限も併用すべきです。",
+   "en": "stop_reason \"tool_use\" means the model wants a tool run; append tool_result and call again until \"end_turn\". A max-iteration safety cap should be added as a guard against runaway loops."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "固定回数では不足も無駄も生じます（上限としては有用ですが主たる終了条件ではありません）。",
+    "en": "A fixed count either cuts work short or wastes calls; it is a guard, not the primary exit condition."
+   },
+   "C": {
+    "ja": "テキスト内の語の検出は脆く、構造化された stop_reason を使うべきです。",
+    "en": "Text matching is brittle; use the structured stop_reason."
+   },
+   "D": {
+    "ja": "ツール呼び出しが必要なタスクが完了しなくなります。",
+    "en": "Tasks that need tool calls would never complete."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d1-003",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "コーディングエージェントが大規模リポジトリの調査で大量のファイルを読み、メインの会話コンテキストが急速に膨らんでいます。サブエージェントを使う最大の利点はどれですか。",
+   "en": "A coding agent reads many files while investigating a large repo, and its main context is bloating fast. What is the main benefit of using a subagent for the investigation?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "サブエージェントはモデルのパラメータ数が増えるため推論精度が上がる",
+    "en": "Subagents have more parameters, so reasoning is more accurate"
+   },
+   {
+    "id": "B",
+    "ja": "サブエージェントを使うと API 料金が必ず無料になる",
+    "en": "Subagent calls are always free of charge"
+   },
+   {
+    "id": "C",
+    "ja": "サブエージェントはツール権限の制約を一切受けない",
+    "en": "Subagents are never subject to tool permission limits"
+   },
+   {
+    "id": "D",
+    "ja": "独立したコンテキストで調査を行い、要約した結果だけを親に返せるためメインのコンテキストを節約できる",
+    "en": "It investigates in its own isolated context and returns only a condensed result, keeping the parent's context lean"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "サブエージェントの価値はコンテキスト分離です。大量の中間出力は子の中に留まり、親には結論だけが渡ります。並列化や専門化にも役立ちます。",
+   "en": "The value of subagents is context isolation: noisy intermediate output stays in the child and the parent receives only the conclusion. They also help with parallelism and specialization."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "モデル自体は変わらず、精度向上の根拠にはなりません。",
+    "en": "The underlying model is unchanged; this is not a reason for better accuracy."
+   },
+   "B": {
+    "ja": "トークンは通常通り課金されます。",
+    "en": "Tokens are billed as usual."
+   },
+   "C": {
+    "ja": "権限は設定で制限でき、むしろ最小権限を割り当てるのが望ましいです。",
+    "en": "Permissions can and should be restricted per subagent (least privilege)."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d1-004",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "「ファイルを編集したら必ず linter を実行する」という要件を、エージェントが確実に毎回守るようにしたいと考えています。最も信頼性の高い方法はどれですか。",
+   "en": "You need a linter to run every single time the agent edits a file. Which approach is the most reliable?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "編集ツール実行後に linter を起動する PostToolUse フックを設定する",
+    "en": "Configure a PostToolUse hook that runs the linter after the edit tool"
+   },
+   {
+    "id": "B",
+    "ja": "システムプロンプトに「編集後は必ず linter を実行して」と太字で書く",
+    "en": "Write \"always run the linter after editing\" in bold in the system prompt"
+   },
+   {
+    "id": "C",
+    "ja": "毎回ユーザーのメッセージ末尾に同じ依頼文を付ける",
+    "en": "Append the same reminder to every user message"
+   },
+   {
+    "id": "D",
+    "ja": "temperature を 0 にして指示遵守率を上げる",
+    "en": "Set temperature to 0 to improve instruction following"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "フックはエージェントのライフサイクルの特定時点で決定論的に実行されるコードで、モデルの判断に依存しません。必ず実行したい処理にはプロンプトではなくフックを使います。",
+   "en": "Hooks are code run deterministically at lifecycle points, independent of model judgment. Use hooks, not prompts, for things that must always happen."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "プロンプトでの依頼は確率的で、守られない可能性が残ります。",
+    "en": "A prompt instruction is probabilistic and can still be skipped."
+   },
+   "C": {
+    "ja": "毎回の依頼文も同様にモデルの判断に依存します。",
+    "en": "A repeated reminder still relies on model compliance."
+   },
+   "D": {
+    "ja": "temperature は決定論的な実行を保証しません。",
+    "en": "Temperature does not guarantee deterministic behavior."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d1-005",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "あるチームがエージェントを本番運用します。インフラ運用の負担を最小化しつつ、サンドボックスやセッション管理を提供側に任せたいと考えています。一方、別のチームは社内ネットワーク内でデータを完全に管理する必要があります。正しい組み合わせはどれですか。",
+   "en": "One team will run an agent in production and wants to minimize infrastructure work, leaving sandboxing and session management to the provider. Another team must keep all data inside its own network. Which pairing is correct?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "前者は自社ホスト、後者は Anthropic ホスト型",
+    "en": "First: self-hosted; second: Anthropic-hosted"
+   },
+   {
+    "id": "B",
+    "ja": "両チームとも Anthropic ホスト型にすれば要件を満たす",
+    "en": "Both teams should use the Anthropic-hosted model"
+   },
+   {
+    "id": "C",
+    "ja": "前者は Anthropic ホスト型のマネージドエージェント、後者は Agent SDK 等による自社ホスト",
+    "en": "First: Anthropic-hosted managed agent; second: self-hosted using the Agent SDK or a custom loop"
+   },
+   {
+    "id": "D",
+    "ja": "両チームとも自社ホストにしないとエージェントは動かない",
+    "en": "Both must self-host because agents cannot run otherwise"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "ホスト型は運用負担を下げる代わりに実行環境の制御が限られ、自社ホストは運用負担と引き換えにネットワーク・データ境界を完全に制御できます。要件に応じてトレードオフを選びます。",
+   "en": "Hosted deployment reduces operational burden but gives less control over the runtime; self-hosting costs operational effort but gives full control of network and data boundaries. Choose per requirement."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "組み合わせが逆です。",
+    "en": "The pairing is reversed."
+   },
+   "B": {
+    "ja": "データを社内に留める要件は一般にホスト型だけでは満たせません。",
+    "en": "A strict in-network data requirement generally cannot be met by hosted alone."
+   },
+   "D": {
+    "ja": "両方式が存在し、どちらでも動作します。",
+    "en": "Both models exist and both work."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccdv-f-d1-006",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "あるチームが複数ステップ・分岐・再開可能な状態管理が必要なワークフローを作る際、LangGraph のようなフレームワークの採用を検討しています。最も妥当な判断基準はどれですか。",
+   "en": "A team building a workflow with branching, multiple steps and resumable state is considering a framework like LangGraph. Which is the most sound decision criterion?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "フレームワークを使うとモデルの精度が自動的に向上する",
+    "en": "A framework automatically improves model accuracy"
+   },
+   {
+    "id": "B",
+    "ja": "フレームワークを使うとプロンプトを書く必要がなくなる",
+    "en": "A framework removes the need to write prompts"
+   },
+   {
+    "id": "C",
+    "ja": "フレームワークは常に素の API 呼び出しより優れているので必ず採用する",
+    "en": "Frameworks always beat raw API calls, so always adopt one"
+   },
+   {
+    "id": "D",
+    "ja": "状態管理・分岐・再開などの定型機能の恩恵が、抽象化による不透明さやデバッグ難度のコストを上回るかで判断する",
+    "en": "Adopt it if the benefit of built-in state, branching and resumption outweighs the cost of added abstraction and harder debugging"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "フレームワークはボイラープレートを減らす一方、内部のプロンプトやレスポンスを隠してデバッグを難しくすることがあります。メリットと抽象化のコストを比較して選びます。",
+   "en": "Frameworks cut boilerplate but can obscure underlying prompts and responses and complicate debugging. Weigh benefits against abstraction cost."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "フレームワークはモデルの能力を変えません。",
+    "en": "Frameworks do not change model capability."
+   },
+   "B": {
+    "ja": "プロンプト設計は依然として必要です。",
+    "en": "Prompt design is still required."
+   },
+   "C": {
+    "ja": "単純なケースでは素の API の方が簡潔で透明です。",
+    "en": "For simple cases the raw API is simpler and more transparent."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d1-007",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "長時間動作するエージェントが、複数セッションをまたいで調査の進捗や決定事項を引き継ぐ必要があります。コンテキストウィンドウに依存しない最も適切な方法はどれですか。",
+   "en": "A long-running agent must carry progress and decisions across multiple sessions. What is the most appropriate approach that does not depend on the context window?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "すべての過去会話を毎回そのままプロンプトに貼り付ける",
+    "en": "Paste the entire past conversation into each prompt"
+   },
+   {
+    "id": "B",
+    "ja": "進捗や決定事項をファイルやメモリストアなどの外部に書き出し、次のセッション開始時に必要分だけ読み込む",
+    "en": "Persist progress and decisions to files or a memory store and load only what is needed at session start"
+   },
+   {
+    "id": "C",
+    "ja": "モデルが前回のセッションを自動的に覚えていると想定する",
+    "en": "Assume the model remembers the previous session automatically"
+   },
+   {
+    "id": "D",
+    "ja": "max_tokens を最大にして1回で完了させる",
+    "en": "Maximize max_tokens and finish in one call"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "モデルはセッション間で状態を保持しません。外部メモリに要点を永続化し必要なときに選択的に読み込むことで、コンテキストを抑えつつ継続性を保てます。",
+   "en": "The model keeps no state across sessions. Persisting key points externally and loading them selectively preserves continuity while keeping context small."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "コンテキスト上限を超え、コストも増え、ノイズも増えます。",
+    "en": "It overruns the context limit and adds cost and noise."
+   },
+   "C": {
+    "ja": "API はステートレスで、自動的な記憶はありません。",
+    "en": "The API is stateless; there is no automatic memory."
+   },
+   "D": {
+    "ja": "max_tokens は出力の上限で、継続性とは無関係です。",
+    "en": "max_tokens caps output length and is unrelated to continuity."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d1-008",
+  "exam": "CCDV-F",
+  "domain": 1,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "次のうち、固定ワークフローではなく自律エージェントのアプローチが適している状況を2つ選んでください。",
+   "en": "Select TWO situations where an autonomous agent approach is more appropriate than a fixed workflow."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "毎回まったく同じ3ステップを同じ順序で実行する帳票変換",
+    "en": "A report conversion that always runs the same three steps in the same order"
+   },
+   {
+    "id": "B",
+    "ja": "必要なステップ数や使用ツールが入力ごとに変わり、事前に決め打てないバグ調査",
+    "en": "A bug investigation where the number of steps and tools needed vary per input and cannot be predetermined"
+   },
+   {
+    "id": "C",
+    "ja": "レイテンシが数百ミリ秒以内に厳密に収まる必要がある分類",
+    "en": "A classification that must reliably finish within a few hundred milliseconds"
+   },
+   {
+    "id": "D",
+    "ja": "途中結果を見てモデルが次の行動を選ぶ必要がある、オープンエンドなリサーチタスク",
+    "en": "An open-ended research task where the model must choose its next action from intermediate results"
+   },
+   {
+    "id": "E",
+    "ja": "監査のため実行経路が常に完全に同一でなければならない承認処理",
+    "en": "An approval process whose execution path must be identical every time for audit"
+   }
+  ],
+  "answer": [
+   "B",
+   "D"
+  ],
+  "explanation": {
+   "ja": "ステップが事前に定まらず、観察結果に応じて行動を選ぶ必要があるタスクがエージェントに向いています。固定手順・厳密な低レイテンシ・経路の完全再現が必要なものはワークフローの領域です。",
+   "en": "Agents suit tasks whose steps cannot be predetermined and depend on observations. Fixed steps, strict latency and fully reproducible paths belong to workflows."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "手順が固定なのでワークフローで十分です。",
+    "en": "Fixed steps: a workflow suffices."
+   },
+   "C": {
+    "ja": "自律ループは遅く、厳密な低レイテンシには不向きです。",
+    "en": "Autonomous loops are slow and poor for strict latency."
+   },
+   "E": {
+    "ja": "経路の再現性が要件なので、決定論的なワークフローが適します。",
+    "en": "Path reproducibility is required, so a deterministic workflow fits."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccdv-f-d2-001",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "顧客サポートチャットで「回答の表示開始までの待ち時間を短く感じさせたい」という要件があります。API 利用方法として最も適切なものはどれですか。",
+   "en": "A support chat requires that users perceive a fast start to each answer. Which API usage best meets this?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "Message Batches API で回答を生成する",
+    "en": "Generate answers with the Message Batches API"
+   },
+   {
+    "id": "B",
+    "ja": "ストリーミングを有効にし、生成されたテキストを到着順に画面へ表示する",
+    "en": "Enable streaming and render text to the UI as it arrives"
+   },
+   {
+    "id": "C",
+    "ja": "max_tokens を 1 にして応答を高速化する",
+    "en": "Set max_tokens to 1 to speed up responses"
+   },
+   {
+    "id": "D",
+    "ja": "全文が完成するまで待ってから一括表示する",
+    "en": "Wait for the full response and display it at once"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "ストリーミングでは最初のトークンが生成され次第届くため、体感レイテンシが大幅に改善します。総生成時間は変わらなくても、UX 要件を満たせます。",
+   "en": "Streaming delivers tokens as they are generated, greatly improving perceived latency even though total generation time is unchanged."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "バッチは非同期・大量処理向けで、対話の低レイテンシには不向きです。",
+    "en": "Batches target asynchronous bulk work, not interactive latency."
+   },
+   "C": {
+    "ja": "回答が切り詰められ、実用になりません。",
+    "en": "The answer would be truncated and useless."
+   },
+   "D": {
+    "ja": "待ち時間が最大になり、要件に反します。",
+    "en": "This maximizes the wait, contradicting the requirement."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d2-002",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "新しい Claude 搭載アプリの設計前に確認すべき「インフラ（非機能）要件」を2つ選んでください。",
+   "en": "Select TWO items that are infrastructure (non-functional) requirements to gather before designing a new Claude-powered app."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ピーク時の同時リクエスト数とレート制限に対する想定スループット",
+    "en": "Expected peak concurrent requests and throughput relative to rate limits"
+   },
+   {
+    "id": "B",
+    "ja": "回答に含めるべき情報項目（例：返品ポリシーの引用）",
+    "en": "Which information answers must contain (e.g., quoting the return policy)"
+   },
+   {
+    "id": "C",
+    "ja": "データの保管場所や機密データの取り扱いに関する制約",
+    "en": "Constraints on data residency and handling of sensitive data"
+   },
+   {
+    "id": "D",
+    "ja": "チャットボットがユーザーにどの機能を提供するか",
+    "en": "Which features the chatbot offers to users"
+   },
+   {
+    "id": "E",
+    "ja": "回答の文体を丁寧語にするか",
+    "en": "Whether answers use a polite tone"
+   }
+  ],
+  "answer": [
+   "A",
+   "C"
+  ],
+  "explanation": {
+   "ja": "スループット、レイテンシ、データ所在地、可用性などは非機能（インフラ）要件で、アーキテクチャ選定に直結します。提供機能・回答内容・文体は機能要件です。",
+   "en": "Throughput, latency, data residency and availability are non-functional requirements that drive architecture; features, answer content and tone are functional requirements."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "回答内容は機能要件です。",
+    "en": "Answer content is a functional requirement."
+   },
+   "D": {
+    "ja": "提供機能は機能要件です。",
+    "en": "Offered features are functional requirements."
+   },
+   "E": {
+    "ja": "文体は機能（振る舞い）要件です。",
+    "en": "Tone is a functional (behavior) requirement."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-003",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "プロンプトを頻繁に改善している社内アプリで、プロンプト変更が原因の品質劣化が本番で発覚しました。ライフサイクル管理として最も適切な再発防止策はどれですか。",
+   "en": "In an internal app whose prompts change often, a prompt edit caused a quality regression discovered in production. Which lifecycle practice best prevents recurrence?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "プロンプトを本番の管理画面で直接編集し、問題があれば手で戻す",
+    "en": "Edit prompts directly in a production admin UI and revert by hand if needed"
+   },
+   {
+    "id": "B",
+    "ja": "プロンプトの変更はモデルの更新時のみ許可する",
+    "en": "Allow prompt changes only when the model is updated"
+   },
+   {
+    "id": "C",
+    "ja": "プロンプトをバージョン管理し、評価セットでの回帰テストを通過してから段階的にリリースする",
+    "en": "Version prompts, require a passing regression run on an eval set, and roll out gradually"
+   },
+   {
+    "id": "D",
+    "ja": "変更後に社内の1人が数回試して問題なければリリースする",
+    "en": "Release after one person tries it a few times"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "プロンプトはコードと同様に成果物として扱い、バージョン管理・自動評価・段階的ロールアウト・ロールバック手段を備えるのが SDLC の基本です。",
+   "en": "Treat prompts like code: version control, automated evals, gradual rollout and a rollback path."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "履歴も検証もなく、再発しやすい運用です。",
+    "en": "No history or validation; regressions will recur."
+   },
+   "B": {
+    "ja": "改善の機会を失い、問題の根本対策になりません。",
+    "en": "It blocks improvement and does not address the root cause."
+   },
+   "D": {
+    "ja": "少数の手動確認ではカバレッジが不足します。",
+    "en": "A few manual tries give insufficient coverage."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-004",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Messages API を使ったマルチターンのチャットを実装しています。2回目のリクエストでモデルが1回目の内容を覚えていません。原因として最も適切なものはどれですか。",
+   "en": "In a multi-turn chat on the Messages API, the model does not remember the first turn on the second request. What is the most likely cause?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "モデルの温度が高すぎる",
+    "en": "Temperature is too high"
+   },
+   {
+    "id": "B",
+    "ja": "API キーが2回目で無効になっている",
+    "en": "The API key became invalid on the second call"
+   },
+   {
+    "id": "C",
+    "ja": "サーバー側のセッションが30秒でタイムアウトした",
+    "en": "The server-side session timed out after 30 seconds"
+   },
+   {
+    "id": "D",
+    "ja": "Messages API はステートレスであり、これまでの会話履歴を毎回 messages に含めて送っていない",
+    "en": "The Messages API is stateless and the earlier conversation was not included in messages on each request"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "Messages API は会話状態を保持しません。クライアントが user/assistant のターンを蓄積し、毎回送信する必要があります。",
+   "en": "The Messages API holds no conversation state; the client must accumulate user/assistant turns and send them each time."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "温度は記憶とは無関係です。",
+    "en": "Temperature does not affect memory."
+   },
+   "B": {
+    "ja": "キーが無効なら認証エラーになり、応答自体が返りません。",
+    "en": "An invalid key yields an auth error, not an answer lacking memory."
+   },
+   "C": {
+    "ja": "サーバー側セッションという概念はこの API にありません。",
+    "en": "The API has no server-side session concept."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d2-005",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "ストリーミングで応答を受信する際、テキストを段階的に取り出す方法として正しいものはどれですか。",
+   "en": "When consuming a streaming response, which describes correctly how to extract text incrementally?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "SSE イベントのうち content_block_delta の text_delta を順次連結する",
+    "en": "Concatenate the text_delta payloads from content_block_delta server-sent events"
+   },
+   {
+    "id": "B",
+    "ja": "最初の message_start イベントに全文が入っているので、それだけを読む",
+    "en": "Read only message_start, which contains the full text"
+   },
+   {
+    "id": "C",
+    "ja": "ストリームを閉じてから全イベントを破棄し、非ストリームで再リクエストする",
+    "en": "Close the stream, discard events and re-request without streaming"
+   },
+   {
+    "id": "D",
+    "ja": "WebSocket 接続を確立し、フレームごとに JSON を受け取る",
+    "en": "Open a WebSocket and receive JSON per frame"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "Messages API のストリーミングは SSE で、content_block_delta イベントの delta（text_delta など）を連結してテキストを復元します。最終的な stop_reason や usage は message_delta で届きます。",
+   "en": "Streaming uses SSE; concatenating delta payloads (text_delta) from content_block_delta rebuilds the text, while stop_reason and usage arrive in message_delta."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "message_start には本文は含まれません。",
+    "en": "message_start carries metadata, not the full text."
+   },
+   "C": {
+    "ja": "二重にコストと時間がかかり、ストリーミングの意味がありません。",
+    "en": "That doubles cost and time and defeats streaming."
+   },
+   "D": {
+    "ja": "この API のストリーミングは WebSocket ではなく HTTP の SSE です。",
+    "en": "Streaming here is SSE over HTTP, not WebSockets."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-006",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Message Batches API で 5,000 件のリクエストを投入しました。結果を取得したところ、順序が入力と異なっていました。正しい対処はどれですか。",
+   "en": "You submitted 5,000 requests with the Message Batches API and the results do not follow the input order. What is the correct handling?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "結果は入力順に並ぶはずなので API の不具合として報告する",
+    "en": "Report it as an API bug since results must be in input order"
+   },
+   {
+    "id": "B",
+    "ja": "バッチを1件ずつ再投入して順序を保証する",
+    "en": "Resubmit items one by one to guarantee order"
+   },
+   {
+    "id": "C",
+    "ja": "各リクエストに一意の custom_id を付け、結果の custom_id で突き合わせる",
+    "en": "Give each request a unique custom_id and match results by custom_id"
+   },
+   {
+    "id": "D",
+    "ja": "結果のファイルを文字列ソートして対応させる",
+    "en": "Sort the result file lexically to align it"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "バッチ結果の順序は保証されません。リクエストごとの custom_id で入力と結果を対応付けます。",
+   "en": "Batch result order is not guaranteed; correlate inputs and results using each request's custom_id."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "順序は保証されていない仕様です。",
+    "en": "Ordering is explicitly not guaranteed."
+   },
+   "B": {
+    "ja": "バッチの利点（コスト削減・大量処理）を失います。",
+    "en": "That forfeits the benefits of batching."
+   },
+   "D": {
+    "ja": "ソートでは元のリクエストと正しく対応付けられません。",
+    "en": "Sorting cannot reliably map results back to requests."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-007",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "約 15,000 トークンの同一の製品マニュアルを毎回システムプロンプトに含め、数千件の質問に答えるアプリがあります。プロンプトキャッシュを効果的に使うための実装はどれですか。",
+   "en": "An app answers thousands of questions, each request embedding the same ~15,000-token product manual. How should prompt caching be applied effectively?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "質問文をマニュアルより前に置き、末尾に cache_control を付ける",
+    "en": "Put the question before the manual and place cache_control at the end"
+   },
+   {
+    "id": "B",
+    "ja": "マニュアルなど不変の部分をプロンプトの先頭側に置き、その末尾に cache_control のブレークポイントを設定し、可変の質問は後ろに置く",
+    "en": "Put the static manual first, set a cache_control breakpoint at its end, and place the variable question after it"
+   },
+   {
+    "id": "C",
+    "ja": "リクエストごとにマニュアルの冒頭へタイムスタンプを入れる",
+    "en": "Insert a timestamp at the start of the manual on every request"
+   },
+   {
+    "id": "D",
+    "ja": "キャッシュは自動で効くので何も変えなくてよい",
+    "en": "Caching is automatic; change nothing"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "キャッシュはプレフィックス一致で機能します。不変部分を先頭に置いてブレークポイントを設定し、可変部分を後ろに配置することでヒット率が上がります。先頭が変わるとキャッシュは無効になります。",
+   "en": "Caching is prefix-based: put stable content first with a breakpoint after it and variable content last. Any change earlier in the prefix invalidates the cache."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "可変部分が先頭だとプレフィックスが毎回変わり、ヒットしません。",
+    "en": "A variable prefix changes every time, so no hits."
+   },
+   "C": {
+    "ja": "先頭が毎回変わるためキャッシュが常にミスになります。",
+    "en": "A changing start causes constant cache misses."
+   },
+   "D": {
+    "ja": "明示的なブレークポイント設計や安定したプレフィックスが必要です。",
+    "en": "You must structure a stable prefix and breakpoints."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-008",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "ユーザーがアップロードした領収書の画像から金額を抽出するアプリを作ります。画像を Claude に渡す正しい方法はどれですか。",
+   "en": "You are building an app that extracts amounts from user-uploaded receipt images. What is the correct way to pass the image to Claude?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "画像のファイル名をテキストで書いて渡す",
+    "en": "Write the image filename in the text"
+   },
+   {
+    "id": "B",
+    "ja": "system パラメータに画像を入れる",
+    "en": "Put the image in the system parameter"
+   },
+   {
+    "id": "C",
+    "ja": "tools の input_schema に画像を埋め込む",
+    "en": "Embed the image in a tool input_schema"
+   },
+   {
+    "id": "D",
+    "ja": "user メッセージの content に type が image のブロック（base64 または URL ソース）と指示テキストを含める",
+    "en": "Include an image content block (base64 or URL source) plus instruction text in the user message content"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "画像は user メッセージの content ブロックとして渡します。base64 データまたは URL 等のソースを指定し、同じ content にテキストの指示を併記できます。",
+   "en": "Images are passed as content blocks in a user message with a base64 or URL source, alongside text instructions."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "ファイル名だけでは画像の内容を取得できません。",
+    "en": "A filename gives the model no image content."
+   },
+   "B": {
+    "ja": "system は画像ブロックを置く場所ではありません。",
+    "en": "The system parameter is not for image blocks."
+   },
+   "C": {
+    "ja": "input_schema はツール引数の型定義であり、画像の入力経路ではありません。",
+    "en": "input_schema defines tool arguments, not image input."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d2-009",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "本番アプリで API が一時的に 429（レート制限）や 529（過負荷）を返すことがあります。最も適切なエラーハンドリングはどれですか。",
+   "en": "A production app occasionally gets 429 (rate limit) or 529 (overloaded) from the API. What is the best error handling?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "指数バックオフとジッターを付けて再試行し、retry-after ヘッダーがあれば尊重し、上限回数を設ける",
+    "en": "Retry with exponential backoff and jitter, honor a retry-after header if present, and cap attempts"
+   },
+   {
+    "id": "B",
+    "ja": "即座に無制限で再試行する",
+    "en": "Retry immediately and without limit"
+   },
+   {
+    "id": "C",
+    "ja": "最初のエラーでアプリを終了する",
+    "en": "Crash the app on the first error"
+   },
+   {
+    "id": "D",
+    "ja": "エラー応答の本文をそのままユーザーの回答として表示する",
+    "en": "Show the raw error body to the user as the answer"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "429/529 は一時的な状況が多く、バックオフ付き再試行が定石です。ジッターで再試行の集中を避け、上限を設けて最終的には優雅に失敗させます。公式 SDK は既定で再試行機能を持ちます。",
+   "en": "429/529 are usually transient; backoff with jitter avoids retry storms, and a cap ensures graceful failure. Official SDKs include built-in retries."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "即時の無制限再試行は状況を悪化させます。",
+    "en": "Immediate unlimited retries worsen the overload."
+   },
+   "C": {
+    "ja": "一時的エラーで停止するのは可用性を損ないます。",
+    "en": "Crashing on transient errors hurts availability."
+   },
+   "D": {
+    "ja": "内部情報の漏洩と UX 悪化につながります。",
+    "en": "It leaks internals and gives a poor UX."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-010",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "1,000 件の独立したテキストを要約する処理を Python から実行します。レート制限を超えない範囲で全体の所要時間を短縮する実装はどれですか。",
+   "en": "You must summarize 1,000 independent texts from Python. Which implementation shortens total time while staying within rate limits?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "1件ずつ同期的に逐次処理する",
+    "en": "Process them one by one synchronously"
+   },
+   {
+    "id": "B",
+    "ja": "1,000件すべてを同時に無制限で送信する",
+    "en": "Send all 1,000 at the same time with no limit"
+   },
+   {
+    "id": "C",
+    "ja": "非同期クライアントで並行実行し、セマフォ等で同時実行数を制限する",
+    "en": "Use an async client with concurrency and cap in-flight requests with a semaphore"
+   },
+   {
+    "id": "D",
+    "ja": "各リクエストの間に必ず10分待つ",
+    "en": "Wait 10 minutes between every request"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "独立した I/O 待ち処理は非同期で並行化すると効率的です。同時実行数を制限することでレート制限エラーを避けます。リアルタイム性が不要なら Batches API も選択肢です。",
+   "en": "Independent I/O-bound calls benefit from async concurrency; bounding concurrency avoids rate-limit errors. If real time is not needed, the Batches API is another option."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "遅く、リソースの無駄です。",
+    "en": "Slow and wasteful."
+   },
+   "B": {
+    "ja": "レート制限に確実に抵触します。",
+    "en": "This will hit rate limits."
+   },
+   "D": {
+    "ja": "不必要に遅くなります。",
+    "en": "Needlessly slow."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-011",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "チームは Pull Request ごとに Claude でコードレビューのコメントを自動生成する仕組みを CI に組み込みます。運用として最も適切なものはどれですか。",
+   "en": "A team adds automated Claude code-review comments to every pull request in CI. Which operating principle is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "Claude が承認した PR は人間のレビューなしで自動マージする",
+    "en": "Auto-merge PRs that Claude approves with no human review"
+   },
+   {
+    "id": "B",
+    "ja": "Claude の出力は助言として PR にコメントし、最終的なレビューと承認は人間が行う",
+    "en": "Post Claude's output as advisory comments; humans do the final review and approval"
+   },
+   {
+    "id": "C",
+    "ja": "差分ではなくリポジトリ全体を毎回プロンプトに貼る",
+    "en": "Paste the entire repository into every prompt rather than the diff"
+   },
+   {
+    "id": "D",
+    "ja": "レビュー結果の検証を省くため、出力形式は自由記述にしない",
+    "en": "Avoid structured output so no validation is needed"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "AI レビューは人間のレビューを補完するもので、置き換えるものではありません。差分に絞った入力でコストと精度を保ち、出力は助言として扱うのが安全です。",
+   "en": "AI review complements, not replaces, human review. Feeding the diff keeps cost and relevance in check, and output should be advisory."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "誤検知・見逃しがあり、品質と安全性のリスクがあります。",
+    "en": "False positives and misses create quality and safety risk."
+   },
+   "C": {
+    "ja": "コストとノイズが増え、コンテキストも浪費します。",
+    "en": "This wastes cost and context and adds noise."
+   },
+   "D": {
+    "ja": "構造化出力の検証は有益で、省略する理由がありません。",
+    "en": "Structured output is useful; avoiding it gains nothing."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-012",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "数十万行のレガシーコードを Claude Code でリファクタリングします。安全な進め方として適切なものを2つ選んでください。",
+   "en": "You will refactor a few hundred thousand lines of legacy code with Claude Code. Select TWO appropriate practices for doing this safely."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "全モジュールを1回のプロンプトで一括書き換えさせる",
+    "en": "Have it rewrite every module in one prompt"
+   },
+   {
+    "id": "B",
+    "ja": "先に現状の挙動を固定するテスト（特性化テスト）を用意する",
+    "en": "Create characterization tests that pin down current behavior first"
+   },
+   {
+    "id": "C",
+    "ja": "既存テストが失敗しても気にせず進める",
+    "en": "Proceed even if existing tests fail"
+   },
+   {
+    "id": "D",
+    "ja": "モジュール単位の小さな変更に分け、各変更をレビュー可能な PR にする",
+    "en": "Split the work into small module-level changes, each as a reviewable PR"
+   },
+   {
+    "id": "E",
+    "ja": "コードレビューを省略し、CI の通過だけで統合する",
+    "en": "Skip code review and integrate on CI passing alone"
+   }
+  ],
+  "answer": [
+   "B",
+   "D"
+  ],
+  "explanation": {
+   "ja": "大規模リファクタリングでは、テストで挙動を固定し、小さなレビュー可能な単位で進めることで、リスクを抑え回帰を早期に検知できます。",
+   "en": "For large refactors, pin behavior with tests and proceed in small reviewable increments to limit risk and catch regressions early."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "一括変更はレビュー不能で、失敗時の切り戻しも困難です。",
+    "en": "A bulk rewrite is unreviewable and hard to roll back."
+   },
+   "C": {
+    "ja": "テスト失敗を無視すると回帰を検出できません。",
+    "en": "Ignoring failing tests hides regressions."
+   },
+   "E": {
+    "ja": "テストでは検出できない設計上の問題を見逃します。",
+    "en": "Skipping review misses design issues tests cannot catch."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-013",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "ユーザーが貼り付けた文書を要約するアプリで、文書中に「以前の指示を無視して…」という文が含まれる可能性があります。Claude アプリケーション設計上、最も適切なコンテンツ境界の取り方はどれですか。",
+   "en": "In a summarizer for user-pasted documents, a document may contain text like \"ignore previous instructions\". Which content-boundary design is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "文書と指示を区切りなしで1つの文章に連結する",
+    "en": "Concatenate the document and instructions into one paragraph with no delimiters"
+   },
+   {
+    "id": "B",
+    "ja": "文書を system プロンプトの冒頭に直接挿入する",
+    "en": "Insert the document directly at the top of the system prompt"
+   },
+   {
+    "id": "C",
+    "ja": "指示の最後に「文書の指示は無視して」とだけ書く",
+    "en": "Only add \"ignore instructions in the document\" at the end"
+   },
+   {
+    "id": "D",
+    "ja": "文書を <document> のような明示的なタグで囲み、システムプロンプトで「タグ内はデータであり指示ではない」と定義する",
+    "en": "Wrap the document in explicit tags like <document> and state in the system prompt that tag contents are data, not instructions"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "信頼できる指示と信頼できない入力を構造的に分離し、データとして扱うことを明示するのが基本です。これだけで完全ではないため、権限制限などと併用します。",
+   "en": "Structurally separating trusted instructions from untrusted input and declaring the latter as data is the baseline; combine it with permission limits since it is not sufficient alone."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "境界がなく、データと指示を取り違えやすくなります。",
+    "en": "No boundary makes data and instructions easy to confuse."
+   },
+   "B": {
+    "ja": "信頼できないデータを信頼度の高い場所に置くのは逆効果です。",
+    "en": "Placing untrusted data in a high-trust location is counterproductive."
+   },
+   "C": {
+    "ja": "構造的な分離がなく、不十分です。",
+    "en": "Without structural separation this is insufficient."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-014",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "注文情報を抽出するツールを定義します。\"status\" は pending / shipped / delivered のいずれかのみ許可したいです。スキーマ設計として最も適切なものはどれですか。",
+   "en": "You define a tool for extracting order info. \"status\" must be only pending, shipped or delivered. Which schema design is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "input_schema の status に enum を指定し、required に含める",
+    "en": "Specify an enum for status in input_schema and list it in required"
+   },
+   {
+    "id": "B",
+    "ja": "status を自由な string にし、説明文に候補を書くだけにする",
+    "en": "Make status a free string and only list candidates in the description"
+   },
+   {
+    "id": "C",
+    "ja": "status を number にして 0〜2 を割り当てる",
+    "en": "Make status a number mapped 0-2 without explanation"
+   },
+   {
+    "id": "D",
+    "ja": "スキーマは定義せず、プロンプトで JSON を要求する",
+    "en": "Define no schema; just ask for JSON in the prompt"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "enum と required でモデルの出力を制約し、下流処理の検証を簡素にできます。それでも受け取った値はアプリ側で検証するのが堅牢です。",
+   "en": "enum and required constrain the model's output and simplify downstream validation; still validate received values in the application."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "制約が弱く、想定外の値が返りやすくなります。",
+    "en": "Weak constraints invite unexpected values."
+   },
+   "C": {
+    "ja": "意味が不明瞭で誤りやすく、可読性も下がります。",
+    "en": "Unclear semantics are error-prone and less readable."
+   },
+   "D": {
+    "ja": "構造の保証が弱く、パース失敗が増えます。",
+    "en": "Weaker structure guarantees and more parse failures."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-015",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "同じチャットセッションで、1時間かけて認証機能を実装した後、まったく別の課金モジュールの調査を始めます。セッション衛生の観点で最も適切な行動はどれですか。",
+   "en": "In one chat session you spent an hour on an auth feature and now start on an unrelated billing module. Which action best reflects session hygiene?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "同じセッションを続け、過去の文脈をすべて保持する",
+    "en": "Continue in the same session and keep all prior context"
+   },
+   {
+    "id": "B",
+    "ja": "モデルを別のものに変えれば文脈は自動的にリセットされる",
+    "en": "Switching models automatically resets the context"
+   },
+   {
+    "id": "C",
+    "ja": "必要な要点を引き継いだ上で新しいセッションを開始し、無関係な文脈を持ち込まない",
+    "en": "Start a fresh session carrying over only the essentials, leaving unrelated context behind"
+   },
+   {
+    "id": "D",
+    "ja": "以前の会話を毎回ゼロから全文再入力する",
+    "en": "Retype the whole previous conversation each time"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "無関係な履歴はコンテキストを消費し、注意を散らして精度を下げます。タスクが切り替わったら新規セッションを開始し、必要な情報のみ引き継ぎます。",
+   "en": "Unrelated history consumes context and distracts the model. Start a new session on task switches and carry over only what is needed."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "不要な履歴がノイズとコストになります。",
+    "en": "Stale history becomes noise and cost."
+   },
+   "B": {
+    "ja": "モデル変更は履歴の扱いとは別で、リセットされません。",
+    "en": "Changing models does not reset history."
+   },
+   "D": {
+    "ja": "履歴を全部持ち込むのは逆効果です。",
+    "en": "Dragging all history back defeats the purpose."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-016",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "本番アプリが、Anthropic が新しいモデルを公開した直後に出力の書式が微妙に変わり不具合が出ました。構成管理の観点で最も適切な対策はどれですか。",
+   "en": "A production app broke when output formatting shifted right after a new Claude model was released. What configuration-management measure fits best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "モデル名を指定せず、常に最新を自動で使う",
+    "en": "Do not specify a model and always use the latest automatically"
+   },
+   {
+    "id": "B",
+    "ja": "プロンプトを毎日手作業で書き換える",
+    "en": "Rewrite the prompts by hand every day"
+   },
+   {
+    "id": "C",
+    "ja": "不具合が出たらその都度 temperature を変える",
+    "en": "Change temperature whenever something breaks"
+   },
+   {
+    "id": "D",
+    "ja": "本番では特定のモデルバージョンを固定（ピン留め）し、評価で問題ないことを確認してから計画的に移行する",
+    "en": "Pin a specific model version in production and migrate deliberately after verifying with evals"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "モデルのバージョンをピン留めすると予期せぬ挙動変化を避けられます。新モデルへの移行は評価セットで検証して計画的に行います。",
+   "en": "Pinning the model version avoids surprise behavior changes; migrate on a plan after verifying with evals."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "自動追従は同様の予期せぬ変化を再発させます。",
+    "en": "Auto-following reintroduces such surprises."
+   },
+   "B": {
+    "ja": "場当たり的で再現性・追跡性がありません。",
+    "en": "Ad hoc and neither reproducible nor traceable."
+   },
+   "C": {
+    "ja": "根本原因（モデル変更）に対処していません。",
+    "en": "It does not address the root cause: the model change."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d2-017",
+  "exam": "CCDV-F",
+  "domain": 2,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "Claude Code の settings.json のスコープについて正しい記述を2つ選んでください。",
+   "en": "Select TWO correct statements about Claude Code settings.json scopes."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "プロジェクトの .claude/settings.json はリポジトリにコミットしてチームで共有できる",
+    "en": "Project .claude/settings.json can be committed and shared across the team"
+   },
+   {
+    "id": "B",
+    "ja": "個人用の .claude/settings.local.json は通常コミットせず、自分だけの上書き設定に使う",
+    "en": "Personal .claude/settings.local.json is typically not committed and holds your own overrides"
+   },
+   {
+    "id": "C",
+    "ja": "CLAUDE.md に書いた禁止事項は settings.json の permissions と同様に技術的に強制される",
+    "en": "Prohibitions written in CLAUDE.md are technically enforced just like settings.json permissions"
+   },
+   {
+    "id": "D",
+    "ja": "プロジェクト設定は組織管理（managed）設定より常に優先される",
+    "en": "Project settings always take precedence over organization-managed settings"
+   },
+   {
+    "id": "E",
+    "ja": "設定ファイルは JSON ではなく YAML 形式で記述する",
+    "en": "Settings files are written in YAML, not JSON"
+   }
+  ],
+  "answer": [
+   "A",
+   "B"
+  ],
+  "explanation": {
+   "ja": "settings.json はチーム共有用のプロジェクト設定と個人用の local 設定に分けて運用できます。CLAUDE.md は指示（ガイダンス）であり、強制は permissions やフックで行います。管理設定は上位で優先されます。",
+   "en": "Settings split into team-shared project settings and personal local overrides. CLAUDE.md is guidance; enforcement belongs to permissions and hooks, and managed settings sit higher in precedence."
+  },
+  "optionRationale": {
+   "C": {
+    "ja": "CLAUDE.md は指示であり強制力はありません。",
+    "en": "CLAUDE.md is guidance and not enforced."
+   },
+   "D": {
+    "ja": "管理設定の方が優先されます。",
+    "en": "Managed settings take precedence."
+   },
+   "E": {
+    "ja": "settings は JSON です。",
+    "en": "Settings use JSON."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d3-001",
+  "exam": "CCDV-F",
+  "domain": 3,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "チーム共通のコーディング規約を Claude Code に守らせたいです。CLAUDE.md について正しい記述を2つ選んでください。",
+   "en": "You want Claude Code to follow shared team coding conventions. Select TWO correct statements about CLAUDE.md."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "CLAUDE.md に書いた内容は、モデルが必ず従う決定論的な強制ルールである",
+    "en": "Content in CLAUDE.md is a deterministic rule the model always obeys"
+   },
+   {
+    "id": "B",
+    "ja": "リポジトリのルートの CLAUDE.md をコミットすれば、チーム全員の Claude Code に共通の指示を共有できる",
+    "en": "Committing a root CLAUDE.md shares common instructions with everyone's Claude Code"
+   },
+   {
+    "id": "C",
+    "ja": "ユーザーのホームにある ~/.claude/CLAUDE.md はリポジトリ経由でチームに共有される",
+    "en": "~/.claude/CLAUDE.md in the home directory is shared with the team through the repo"
+   },
+   {
+    "id": "D",
+    "ja": "サブディレクトリに置いた CLAUDE.md は、そのディレクトリ配下のファイルを扱うときに追加で読み込まれる",
+    "en": "A CLAUDE.md in a subdirectory is loaded additionally when working on files under it"
+   },
+   {
+    "id": "E",
+    "ja": "CLAUDE.md はリポジトリのルートにしか置けない",
+    "en": "CLAUDE.md can only be placed at the repo root"
+   }
+  ],
+  "answer": [
+   "B",
+   "D"
+  ],
+  "explanation": {
+   "ja": "CLAUDE.md は階層構造を持ち、ユーザー、プロジェクト、サブディレクトリの各レベルでコンテキストを与えます。ただしあくまで指示であり、確実な強制にはフックや権限設定を使います。",
+   "en": "CLAUDE.md is hierarchical (user, project, subdirectory) and supplies context, but it is guidance; use hooks or permissions for guaranteed enforcement."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "指示は守られない可能性があり、強制にはフックや permissions が必要です。",
+    "en": "It is guidance, not enforcement; use hooks or permissions."
+   },
+   "C": {
+    "ja": "ユーザーレベルは個人用で、リポジトリには含まれません。",
+    "en": "User-level is personal and not part of the repo."
+   },
+   "E": {
+    "ja": "サブディレクトリ等にも配置できます。",
+    "en": "It can also live in subdirectories and elsewhere."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d3-002",
+  "exam": "CCDV-F",
+  "domain": 3,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "CI パイプラインで Claude Code を対話なしで実行し、結果を後続スクリプトが解析できる形式で受け取りたいです。最も適切なものはどれですか。",
+   "en": "You want to run Claude Code non-interactively in CI and receive output that a downstream script can parse. What is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ヘッドレスモード（claude -p \"...\"）を使い、出力形式に JSON を指定する",
+    "en": "Use headless mode (claude -p \"...\") and select a JSON output format"
+   },
+   {
+    "id": "B",
+    "ja": "対話 UI を起動し、画面出力をスクリーンスクレイピングする",
+    "en": "Launch the interactive UI and screen-scrape it"
+   },
+   {
+    "id": "C",
+    "ja": "VS Code を CI 上で手動操作する",
+    "en": "Manually operate VS Code on the CI runner"
+   },
+   {
+    "id": "D",
+    "ja": "スラッシュコマンドを CI の標準入力に人手で入力する",
+    "en": "Have a human type slash commands into CI stdin"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "ヘッドレス（print）モードは非対話実行向けで、JSON などの出力形式を指定してスクリプトから扱えます。CI や自動化の標準的な使い方です。",
+   "en": "Headless (print) mode is for non-interactive runs, and a JSON output format makes results scriptable: the standard approach for CI and automation."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "画面スクレイピングは脆く、自動化に不向きです。",
+    "en": "Screen scraping is brittle and unsuitable."
+   },
+   "C": {
+    "ja": "CI では GUI の手動操作ができません。",
+    "en": "CI has no manual GUI operation."
+   },
+   "D": {
+    "ja": "人手の入力は自動化になりません。",
+    "en": "Human typing is not automation."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d4-001",
+  "exam": "CCDV-F",
+  "domain": 4,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "アプリの API 呼び出しが 400 invalid_request_error を返しました。再試行の方針として最も適切なものはどれですか。",
+   "en": "Your API call returned 400 invalid_request_error. Which retry policy is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "バックオフ付きで10回再試行する",
+    "en": "Retry 10 times with backoff"
+   },
+   {
+    "id": "B",
+    "ja": "別のモデルに切り替えて同じリクエストを再送する",
+    "en": "Switch to another model and resend the same request"
+   },
+   {
+    "id": "C",
+    "ja": "再試行せず、リクエスト内容（パラメータやメッセージ構造）の誤りを調べて修正する",
+    "en": "Do not retry; inspect and fix the request (parameters or message structure)"
+   },
+   {
+    "id": "D",
+    "ja": "API キーを再発行する",
+    "en": "Regenerate the API key"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "400 系のリクエストエラーは同じ内容を再送しても成功しません。一方、429 や 5xx/過負荷は一時的で再試行に適しています。エラーの種類で回復戦略を分けます。",
+   "en": "A 400-class request error will not succeed on resend; transient errors (429, 5xx/overloaded) suit retries. Choose recovery by error type."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "内容が同じなら何度送っても失敗します。",
+    "en": "An identical request fails every time."
+   },
+   "B": {
+    "ja": "原因はリクエストの不備であり、モデルの問題ではありません。",
+    "en": "The cause is a malformed request, not the model."
+   },
+   "D": {
+    "ja": "認証エラーなら 401 になります。キーは原因ではありません。",
+    "en": "A key problem would produce 401, not 400."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d4-002",
+  "exam": "CCDV-F",
+  "domain": 4,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "エージェントが「在庫は0件」とユーザーに答えましたが、実際は12件あります。トレースを見ると、在庫検索ツールの tool_result は正しく {\"stock\": 12} を返しています。問題の発生箇所はどこですか。",
+   "en": "An agent told the user \"stock is 0\" while actual stock is 12. The trace shows the inventory tool's tool_result correctly returned {\"stock\": 12}. Where does the problem originate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "在庫検索ツールの実装（統合層）",
+    "en": "The inventory tool implementation (integration layer)"
+   },
+   {
+    "id": "B",
+    "ja": "ツール結果を受けた後のモデルの解釈・回答生成（モデル出力側）であり、プロンプトや出力検証を見直す",
+    "en": "The model's interpretation after receiving the tool result (model-output side), so review the prompt and output validation"
+   },
+   {
+    "id": "C",
+    "ja": "ネットワーク障害",
+    "en": "A network failure"
+   },
+   {
+    "id": "D",
+    "ja": "在庫データベースの内容",
+    "en": "The inventory database contents"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "トレースで各段階の入出力を確認し、問題を層ごとに切り分けます。ツールが正しい値を返しているなら、原因はモデルの解釈・回答生成側にあります。",
+   "en": "Trace analysis isolates faults by layer: if the tool returned the correct value, the fault is in how the model interpreted it or generated the answer."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "ツールの出力は正しいので、ここが原因ではありません。",
+    "en": "The tool output was correct."
+   },
+   "C": {
+    "ja": "通信が失敗していればツール結果自体が得られません。",
+    "en": "A network failure would have prevented the tool result."
+   },
+   "D": {
+    "ja": "データベースが正しい値を返している証拠があります。",
+    "en": "The correct value shows the database was fine."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccdv-f-d5-001",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "max_tokens パラメータについて正しい説明はどれですか。",
+   "en": "Which statement about the max_tokens parameter is correct?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "入力と出力の合計トークン数の上限を指定する",
+    "en": "It caps the combined number of input and output tokens"
+   },
+   {
+    "id": "B",
+    "ja": "モデルが生成する出力トークン数の上限を指定する",
+    "en": "It caps the number of output tokens the model may generate"
+   },
+   {
+    "id": "C",
+    "ja": "コンテキストウィンドウの大きさを拡張する",
+    "en": "It enlarges the context window"
+   },
+   {
+    "id": "D",
+    "ja": "出力のランダム性を調整する",
+    "en": "It tunes the randomness of the output"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "max_tokens は生成する出力の上限です。入力と出力の合計はモデルのコンテキストウィンドウに収まる必要があります。上限に達すると stop_reason は max_tokens になります。",
+   "en": "max_tokens limits generated output; input plus output must fit in the context window. Reaching the cap yields stop_reason \"max_tokens\"."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "入力は対象外です。",
+    "en": "Input is not counted against it."
+   },
+   "C": {
+    "ja": "コンテキストサイズはモデル固有で、この値では変わりません。",
+    "en": "The context window is model-specific and unaffected."
+   },
+   "D": {
+    "ja": "ランダム性は temperature や top_p 等の領域です。",
+    "en": "Randomness is governed by temperature/top_p."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d5-002",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "同じプロンプトを temperature 0 で複数回実行したところ、まれに出力が微妙に異なります。この事実から導くべき設計方針はどれですか。",
+   "en": "Running the same prompt multiple times at temperature 0 occasionally gives slightly different outputs. What design stance follows?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "API の不具合なので、問題が直るまで本番導入を止める",
+    "en": "It is an API defect, so halt production until fixed"
+   },
+   {
+    "id": "B",
+    "ja": "同じ出力が得られるまで自動で何度も再実行する",
+    "en": "Automatically rerun until identical output appears"
+   },
+   {
+    "id": "C",
+    "ja": "temperature を 0 より大きくすれば決定的になる",
+    "en": "Raising temperature above 0 makes it deterministic"
+   },
+   {
+    "id": "D",
+    "ja": "LLM は完全な決定性を保証しないものと考え、出力の検証や許容範囲を持つ設計にする",
+    "en": "Assume LLMs are not perfectly deterministic and design with output validation and tolerance"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "temperature 0 でも完全な再現性は保証されません。厳密な一致を前提にせず、スキーマ検証・評価・許容範囲で品質を担保します。",
+   "en": "Temperature 0 does not guarantee exact reproducibility. Rely on schema validation, evals and tolerances rather than exact match."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "これは仕様上起こり得る挙動です。",
+    "en": "This is expected behavior."
+   },
+   "B": {
+    "ja": "非効率で、そもそも前提が誤りです。",
+    "en": "Inefficient, and the premise is flawed."
+   },
+   "C": {
+    "ja": "temperature を上げるとむしろランダム性が増します。",
+    "en": "Raising temperature increases randomness."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d5-003",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "商品レビューを「ポジティブ／ネガティブ／中立」に分類させる際、出力ラベルの形式がばらつきます。最も効果的で低コストな改善はどれですか。",
+   "en": "When classifying reviews as positive/negative/neutral, the output label format varies. What is the most effective low-cost improvement?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "モデルをファインチューニングする",
+    "en": "Fine-tune the model"
+   },
+   {
+    "id": "B",
+    "ja": "温度を上げて多様な回答を得る",
+    "en": "Raise the temperature for variety"
+   },
+   {
+    "id": "C",
+    "ja": "入力と期待ラベルの例を数個（few-shot）示し、出力形式を明示する",
+    "en": "Add a few input/label examples (few-shot) and state the output format explicitly"
+   },
+   {
+    "id": "D",
+    "ja": "ラベル名を指定せず、モデルに自由に分類させる",
+    "en": "Leave labels unspecified and let the model classify freely"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "few-shot 例と出力形式の明示は、一貫した形式を引き出す低コストで効果的な手法です。zero-shot で不安定な場合にまず試します。",
+   "en": "Few-shot examples plus an explicit format are a cheap and effective way to get consistent output; try them first when zero-shot is unstable."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "コストと手間が大きく、最初の手段ではありません。",
+    "en": "Costly and not a first resort."
+   },
+   "B": {
+    "ja": "ばらつきを増やすだけです。",
+    "en": "It only increases variance."
+   },
+   "D": {
+    "ja": "ばらつきが悪化します。",
+    "en": "It would worsen the inconsistency."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d5-004",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "複雑な多段階の推論（数学的な証明など）が必要な機能と、単純な固定ラベル分類の機能があります。拡張思考（extended thinking）／適応的思考や effort の扱いとして最も適切なものはどれですか。",
+   "en": "One feature needs complex multi-step reasoning (e.g., proofs); another is simple fixed-label classification. How should extended/adaptive thinking and effort be applied?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "推論が重い機能では思考を有効にし／effort を高め、単純な分類では思考を使わずコストとレイテンシを抑える",
+    "en": "Enable thinking and/or a higher effort for the reasoning-heavy feature; skip it for simple classification to save cost and latency"
+   },
+   {
+    "id": "B",
+    "ja": "すべての機能で常に最大の思考予算を使う",
+    "en": "Always use the maximum thinking budget everywhere"
+   },
+   {
+    "id": "C",
+    "ja": "思考機能は精度に影響しないので、どこでも無効にする",
+    "en": "Thinking never affects accuracy, so disable it everywhere"
+   },
+   {
+    "id": "D",
+    "ja": "分類のほうが難しいので、分類にだけ思考を使う",
+    "en": "Classification is harder, so use thinking only there"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "思考は追加のトークン（コストとレイテンシ）と引き換えに難しい推論の質を高めます。タスクの難易度に合わせて使い分けます。",
+   "en": "Thinking trades extra tokens (cost, latency) for better hard reasoning; match its use to task difficulty."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "単純なタスクでは無駄なコストとレイテンシが生じます。",
+    "en": "Wasteful cost and latency on simple tasks."
+   },
+   "C": {
+    "ja": "複雑な推論では精度向上が期待できます。",
+    "en": "It can improve accuracy on complex reasoning."
+   },
+   "D": {
+    "ja": "難易度の関係が逆です。",
+    "en": "The difficulty relationship is reversed."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d5-005",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "REST API を直接 HTTP で呼び出すコードを書いたチームが、リトライ、ストリーミングのパース、型付けの実装に苦労しています。最も適切な改善はどれですか。",
+   "en": "A team hand-wrote raw HTTP calls and struggles with retries, stream parsing and typing. What is the best improvement?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "WebSocket に切り替える",
+    "en": "Switch to WebSockets"
+   },
+   {
+    "id": "B",
+    "ja": "自前の HTTP クライアントをさらに作り込む",
+    "en": "Further build out the custom HTTP client"
+   },
+   {
+    "id": "C",
+    "ja": "公式 SDK を利用する。SDK は REST API をラップし、リトライ・ストリーミング・型を提供する",
+    "en": "Use the official SDK, which wraps the REST API and provides retries, streaming helpers and types"
+   },
+   {
+    "id": "D",
+    "ja": "ストリーミングをやめ、リトライも行わない",
+    "en": "Drop streaming and retries entirely"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "公式 SDK は REST API の薄いラッパーとして、認証、リトライ、ストリーミング処理、型定義などの定型処理を提供し、実装コストと不具合を減らします。ストリーミングは HTTP 上の SSE です。",
+   "en": "Official SDKs wrap the REST API with auth, retries, streaming helpers and types, reducing effort and bugs. Streaming is SSE over HTTP."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "Messages API のストリーミングは SSE であり、WebSocket ではありません。",
+    "en": "Streaming is SSE, not WebSockets."
+   },
+   "B": {
+    "ja": "車輪の再発明で保守コストが増えます。",
+    "en": "Reinventing the wheel increases maintenance."
+   },
+   "D": {
+    "ja": "機能と信頼性を損ないます。",
+    "en": "That sacrifices functionality and reliability."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d5-006",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "数百万件のログ行を低コスト・低レイテンシでカテゴリ分類したい一方、別の機能では複雑なマルチステップのコーディングタスクを自律実行させたいです。モデル選択の考え方として最も適切なものはどれですか。",
+   "en": "You must classify millions of log lines cheaply with low latency, and separately run complex autonomous multi-step coding tasks. Which model-selection approach is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "両方とも最上位の最大モデルを使う",
+    "en": "Use the largest top-tier model for both"
+   },
+   {
+    "id": "B",
+    "ja": "両方とも最小・最速のモデルを使う",
+    "en": "Use the smallest, fastest model for both"
+   },
+   {
+    "id": "C",
+    "ja": "モデルは精度が同じなので、名前の順に選ぶ",
+    "en": "Models are equivalent in accuracy, so pick alphabetically"
+   },
+   {
+    "id": "D",
+    "ja": "分類には小型・高速な Haiku 系、複雑なエージェント型タスクにはより高性能な Sonnet/Opus 系を選び、評価で確認する",
+    "en": "Pick a small, fast Haiku-class model for classification and a more capable Sonnet/Opus-class model for complex agentic tasks, and verify with evals"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "品質・レイテンシ・コストのトレードオフに基づき、ワークロードごとにモデル階層を使い分けます。選択は評価で裏付けます。",
+   "en": "Choose the tier per workload based on the quality/latency/cost tradeoff, and back the choice with evals."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "高コストで遅く、分類には過剰です。",
+    "en": "Expensive and slow, overkill for classification."
+   },
+   "B": {
+    "ja": "複雑なタスクで品質が不足するおそれがあります。",
+    "en": "Quality may fall short on complex tasks."
+   },
+   "C": {
+    "ja": "モデルごとに能力・速度・価格が異なります。",
+    "en": "Capability, speed and price differ per model."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d5-007",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "新しいモデルがリリースされ、移行を検討しています。モデルのリリース間で挙動が変わる可能性があることを踏まえ、最も適切な手順はどれですか。",
+   "en": "A new model has been released and you plan to migrate. Given behavior can change between releases, what is the best procedure?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "リリース当日に本番のモデル指定を切り替え、問題が出てから対応する",
+    "en": "Switch production to it on release day and react to problems later"
+   },
+   {
+    "id": "B",
+    "ja": "自前の評価セットで候補モデルを現行と比較し、プロンプトを必要に応じ調整してから段階的に切り替える",
+    "en": "Compare the candidate against the current model on your own eval set, tune prompts if needed, then switch gradually"
+   },
+   {
+    "id": "C",
+    "ja": "リリースノートを読まずに移行する",
+    "en": "Migrate without reading release notes"
+   },
+   {
+    "id": "D",
+    "ja": "古いモデルは使えなくなるので急いで移行する",
+    "en": "Rush to migrate because old models stop working immediately"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "モデル更新ではフォーマット・拡張思考の扱い・指示遵守などが変わることがあります。評価による事前検証と段階的移行がリスクを下げます。ただし廃止スケジュールは公式に確認します。",
+   "en": "Updates can change formatting, thinking handling and instruction following; pre-verify with evals and migrate gradually. Check official deprecation schedules too."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "検証なしの切替は予期せぬ劣化の危険があります。",
+    "en": "Unverified switching risks regressions."
+   },
+   "C": {
+    "ja": "リリースノートは破壊的変更を把握する重要な情報源です。",
+    "en": "Release notes document important behavior changes."
+   },
+   "D": {
+    "ja": "廃止には告知期間があり、検証せず急ぐ理由にはなりません。",
+    "en": "Deprecations come with notice; that is no reason to skip validation."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d5-008",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "本番アプリのコストを分析するため、リクエストごとのトークン使用量を把握したいです。最も適切な方法はどれですか。",
+   "en": "To analyze cost in production, you want per-request token usage. What is the most appropriate method?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "API 応答の usage フィールド（入力・出力トークン、キャッシュ関連の項目など）を記録して集計する",
+    "en": "Log and aggregate the usage field in API responses (input/output tokens, cache-related counts)"
+   },
+   {
+    "id": "B",
+    "ja": "文字数を数えて、1文字1トークンとして概算する",
+    "en": "Count characters and assume 1 token per character"
+   },
+   {
+    "id": "C",
+    "ja": "月末の請求書だけを見る",
+    "en": "Only look at the month-end invoice"
+   },
+   {
+    "id": "D",
+    "ja": "ユーザー数から推測する",
+    "en": "Estimate from user count"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "レスポンスの usage には実際に消費されたトークン数が含まれ、ユーザー・機能別のコストモデリングに使えます。事前見積もりにはトークンカウント機能も使えます。",
+   "en": "The response usage field reports actual token consumption, enabling per-user/feature cost modeling; a token-counting endpoint helps with estimates."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "トークン数は文字数と一致しません。",
+    "en": "Tokens do not equal characters."
+   },
+   "C": {
+    "ja": "粒度が粗く、原因分析ができません。",
+    "en": "Too coarse to attribute costs."
+   },
+   "D": {
+    "ja": "実測に基づかない推測です。",
+    "en": "A guess not grounded in measurement."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d5-009",
+  "exam": "CCDV-F",
+  "domain": 5,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "毎回 20,000 トークンの同一システムプロンプトを使い、夜間の非緊急バッチ分析と日中の対話の両方があるサービスのコスト削減策として適切なものを2つ選んでください。",
+   "en": "A service uses the same 20,000-token system prompt for both nightly non-urgent batch analysis and daytime chat. Select TWO appropriate cost-reduction measures."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "max_tokens を最大値に設定してやり直しを減らす",
+    "en": "Set max_tokens to the maximum to reduce retries"
+   },
+   {
+    "id": "B",
+    "ja": "共通の固定プレフィックスにプロンプトキャッシュを使う",
+    "en": "Use prompt caching for the shared static prefix"
+   },
+   {
+    "id": "C",
+    "ja": "夜間の非緊急分析には Message Batches API を使う",
+    "en": "Use the Message Batches API for the nightly non-urgent analysis"
+   },
+   {
+    "id": "D",
+    "ja": "システムプロンプトを毎回ランダムに並べ替える",
+    "en": "Shuffle the system prompt randomly each time"
+   },
+   {
+    "id": "E",
+    "ja": "日中の対話も含めてすべてを Batches API に回す",
+    "en": "Route everything, including daytime chat, to the Batches API"
+   }
+  ],
+  "answer": [
+   "B",
+   "C"
+  ],
+  "explanation": {
+   "ja": "繰り返される固定プレフィックスにはキャッシュ、遅延許容の大量処理には Batches API が有効です。対話にはバッチは不向きです。",
+   "en": "Caching suits repeated static prefixes and Batches suit latency-tolerant bulk work; batches do not fit interactive chat."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "出力上限の拡大はコストを下げません。",
+    "en": "A larger output cap does not reduce cost."
+   },
+   "D": {
+    "ja": "並べ替えるとキャッシュが効かなくなります。",
+    "en": "Shuffling breaks the cache prefix."
+   },
+   "E": {
+    "ja": "対話は即時性が必要で、バッチは適しません。",
+    "en": "Chat needs immediacy; batches are unsuitable."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d6-001",
+  "exam": "CCDV-F",
+  "domain": 6,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "エージェントが検索ツールから毎回 5,000 行の生 JSON を受け取り、コンテキストが急速に埋まります。最も適切な対処はどれですか。",
+   "en": "An agent receives 5,000 lines of raw JSON from a search tool each time, quickly filling its context. What is the best remedy?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ツール側で必要なフィールドや上位 N 件のみに絞り込み・要約してから結果を返す",
+    "en": "Have the tool filter or summarize to needed fields / top N results before returning"
+   },
+   {
+    "id": "B",
+    "ja": "全データをそのまま返し、コンテキストウィンドウが大きいモデルに頼る",
+    "en": "Return everything and rely on a larger context window"
+   },
+   {
+    "id": "C",
+    "ja": "ツールの結果を無視するようにプロンプトで指示する",
+    "en": "Instruct the model in the prompt to ignore tool results"
+   },
+   {
+    "id": "D",
+    "ja": "会話を毎ターン最初から作り直す",
+    "en": "Rebuild the conversation from scratch every turn"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "ツール出力の剪定は、コンテキストの肥大化とドリフトを防ぐ基本手段です。必要な情報だけを返すことでコストと精度の両面に効きます。",
+   "en": "Pruning tool output is a core way to avoid context bloat and drift, helping both cost and accuracy."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "大きくても無制限ではなく、ノイズとコストが増えます。",
+    "en": "Even large windows are finite, and noise and cost grow."
+   },
+   "C": {
+    "ja": "結果を無視すると、ツールを使う意味がなくなります。",
+    "en": "Ignoring results defeats the tool's purpose."
+   },
+   "D": {
+    "ja": "必要な状態まで失われます。",
+    "en": "Required state would be lost."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d6-002",
+  "exam": "CCDV-F",
+  "domain": 6,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "数時間動くエージェントがコンテキスト上限に近づいています。決定事項や未完了タスクを失わずに継続する手法はどれですか。",
+   "en": "A multi-hour agent is nearing its context limit. Which technique continues without losing decisions and open tasks?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "古いメッセージを無作為に削除する",
+    "en": "Delete old messages at random"
+   },
+   {
+    "id": "B",
+    "ja": "最新の1メッセージだけを残す",
+    "en": "Keep only the latest message"
+   },
+   {
+    "id": "C",
+    "ja": "古いターンを要約（コンパクション）し、決定事項・未完了タスク・重要な制約を保持した状態で続行する",
+    "en": "Compact older turns into a summary that retains decisions, open tasks and key constraints, then continue"
+   },
+   {
+    "id": "D",
+    "ja": "エラーが出るまで続ける",
+    "en": "Continue until an error occurs"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "コンパクションは、履歴を要点に圧縮して継続性を保ちます。何を残すか（決定・TODO・制約）を設計することが重要です。",
+   "en": "Compaction condenses history while preserving continuity; the key is deciding what to retain (decisions, TODOs, constraints)."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "重要な文脈が失われるおそれがあります。",
+    "en": "Important context may be lost."
+   },
+   "B": {
+    "ja": "作業状態が失われます。",
+    "en": "Working state would be lost."
+   },
+   "D": {
+    "ja": "上限超過で失敗します。",
+    "en": "It fails once the limit is exceeded."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d6-003",
+  "exam": "CCDV-F",
+  "domain": 6,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Claude アプリのプロンプト設計で、システムプロンプトとユーザーメッセージの役割分担として最も適切なものはどれですか。",
+   "en": "In prompt design, which split between the system prompt and user messages is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "すべてをユーザーメッセージに入れ、system は空にする",
+    "en": "Put everything in user messages and leave system empty"
+   },
+   {
+    "id": "B",
+    "ja": "役割・ルール・出力形式など恒常的な指示は system に、リクエストごとに変わる入力データは user メッセージに置く",
+    "en": "Place persistent role, rules and output format in system, and per-request input data in user messages"
+   },
+   {
+    "id": "C",
+    "ja": "ユーザーの入力データをすべて system に連結する",
+    "en": "Concatenate all user input data into system"
+   },
+   {
+    "id": "D",
+    "ja": "指示は毎回ランダムな場所に置く",
+    "en": "Place instructions at random locations each time"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "システムプロンプトは恒常的な役割や方針に、ユーザーメッセージは個別の入力に使うと、一貫性・キャッシュ効率・保守性が高まります。",
+   "en": "System holds persistent role/policy and user messages hold per-request input, improving consistency, cacheability and maintainability."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "恒常的な指示と可変データが混在し、管理が難しくなります。",
+    "en": "Mixing persistent and variable content hurts manageability."
+   },
+   "C": {
+    "ja": "信頼できない入力を高信頼の位置に置くのは危険です。",
+    "en": "Putting untrusted input in a high-trust slot is risky."
+   },
+   "D": {
+    "ja": "配置の一貫性が失われます。",
+    "en": "Consistency is lost."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d6-004",
+  "exam": "CCDV-F",
+  "domain": 6,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "「製品説明を書いて」という曖昧なプロンプトの出力が安定しません。改善策として適切なものを2つ選んでください。",
+   "en": "The vague prompt \"write a product description\" gives unstable output. Select TWO appropriate improvements."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "対象読者・長さ・トーン・含めるべき項目・出力形式を具体的に指定する",
+    "en": "Specify audience, length, tone, required items and output format"
+   },
+   {
+    "id": "B",
+    "ja": "「絶対に失敗するな！！！」と大文字で強調を重ねる",
+    "en": "Pile on all-caps emphasis such as \"NEVER FAIL!!!\""
+   },
+   {
+    "id": "C",
+    "ja": "背景情報を削って短くする",
+    "en": "Remove background information to shorten it"
+   },
+   {
+    "id": "D",
+    "ja": "望ましい出力例を1〜3個添える",
+    "en": "Add one to three examples of desired output"
+   },
+   {
+    "id": "E",
+    "ja": "「創造的に」とだけ追加する",
+    "en": "Just add \"be creative\""
+   }
+  ],
+  "answer": [
+   "A",
+   "D"
+  ],
+  "explanation": {
+   "ja": "明確な制約と具体的な例は、出力の安定性を高める基本です。感情的な強調や情報の削減は、品質の改善につながりません。",
+   "en": "Clear constraints and concrete examples are the fundamentals of stable output; emotional emphasis or removing context does not help."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "強調の連発は明確さを与えません。",
+    "en": "Shouting adds no clarity."
+   },
+   "C": {
+    "ja": "文脈不足が悪化します。",
+    "en": "It worsens the lack of context."
+   },
+   "E": {
+    "ja": "曖昧さが残ります。",
+    "en": "Ambiguity remains."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d6-005",
+  "exam": "CCDV-F",
+  "domain": 6,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Claude に請求書の内容を JSON で返させ、会計システムに自動登録します。出力処理として最も堅牢な設計はどれですか。",
+   "en": "Claude returns invoice data as JSON that is automatically posted to an accounting system. Which output-handling design is most robust?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "返ってきた JSON を検証せずに、そのまま登録する",
+    "en": "Post the returned JSON without validation"
+   },
+   {
+    "id": "B",
+    "ja": "JSON に見える文字列を正規表現で抜き出し、欠損は0として補完する",
+    "en": "Extract JSON-looking text by regex and fill missing fields with 0"
+   },
+   {
+    "id": "C",
+    "ja": "出力が崩れたらユーザーに謝って終了する",
+    "en": "Apologize to the user and stop on malformed output"
+   },
+   {
+    "id": "D",
+    "ja": "構造化出力（スキーマ）の機能を使い、受け取った値をアプリ側でもスキーマ検証し、失敗時は再試行やレビューに回す",
+    "en": "Use structured output with a schema, also validate in the app, and retry or route to review on failure"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "構造化出力でフォーマットの逸脱を減らしても、受信側での検証は不可欠です。値の妥当性まで確認し、失敗時の経路を用意します。",
+   "en": "Structured output reduces format drift, but validation on receipt remains essential, including value sanity, with a defined failure path."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "不正データが会計システムに入るおそれがあります。",
+    "en": "Bad data could enter the accounting system."
+   },
+   "B": {
+    "ja": "欠損を黙って補完すると誤った金額が登録されます。",
+    "en": "Silently filling gaps can post wrong amounts."
+   },
+   "C": {
+    "ja": "回復手段がなく、可用性が下がります。",
+    "en": "No recovery path reduces availability."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d6-006",
+  "exam": "CCDV-F",
+  "domain": 6,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Claude が請求書から「合計 12,800 円」と自信ありげに抽出しました。明細行の合計は 11,800 円です。出力への対処として最も適切なものはどれですか。",
+   "en": "Claude confidently extracts \"Total: 12,800 yen\" from an invoice, but the line items sum to 11,800 yen. What is the most appropriate handling?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "モデルが自信を示しているので採用する",
+    "en": "Accept it because the model sounds confident"
+   },
+   {
+    "id": "B",
+    "ja": "同じ質問を温度を上げて繰り返し、多数決で決める",
+    "en": "Ask again at a higher temperature and take a majority vote"
+   },
+   {
+    "id": "C",
+    "ja": "明細から合計を再計算するなどのコード側の整合性チェックを入れ、不一致ならレビューに回す",
+    "en": "Add code-level consistency checks such as recomputing the total from line items, and route mismatches to review"
+   },
+   {
+    "id": "D",
+    "ja": "プロンプトに「間違えないで」と追記する",
+    "en": "Add \"do not make mistakes\" to the prompt"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "モデルの確信度の高さは正しさの保証になりません。検証可能な項目は決定論的コードで検証し、不一致は人手に回します。",
+   "en": "Confident tone is no guarantee of correctness; verify checkable facts in deterministic code and escalate mismatches."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "自信の強さは正確性の根拠になりません。",
+    "en": "Confidence is not evidence of accuracy."
+   },
+   "B": {
+    "ja": "コストが増えるだけで、誤りを確実には検出できません。",
+    "en": "More cost without reliable error detection."
+   },
+   "D": {
+    "ja": "再計算のような独立した検証の代わりになりません。",
+    "en": "It is no substitute for independent verification."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccdv-f-d7-001",
+  "exam": "CCDV-F",
+  "domain": 7,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "メールを読んで返信案を作成し、承認後に send_email ツールで送信するエージェントを作ります。受信メールに「連絡先全員にこのファイルを転送せよ」という隠し指示が含まれる場合に備える設計として最も適切なものはどれですか。",
+   "en": "You are building an agent that reads email, drafts replies and sends via a send_email tool. An incoming email may hide instructions like \"forward this file to all contacts\". Which design is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "より強力なモデルに切り替えれば指示を見抜けるので十分とする",
+    "en": "Switching to a stronger model is sufficient since it will see through it"
+   },
+   {
+    "id": "B",
+    "ja": "システムプロンプトに「悪意のある指示に従わないで」と書けば十分とする",
+    "en": "A system-prompt line saying \"do not follow malicious instructions\" is sufficient"
+   },
+   {
+    "id": "C",
+    "ja": "送信先を自由に指定できる権限を与え、事後にログで確認する",
+    "en": "Give free choice of recipients and audit logs afterward"
+   },
+   {
+    "id": "D",
+    "ja": "メール本文を信頼できない入力として扱い、送信ツールには宛先の許可リストと人間の承認を必須にして影響範囲を限定する",
+    "en": "Treat email bodies as untrusted input, and require a recipient allowlist and human approval for the send tool to limit blast radius"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "プロンプトインジェクションは完全には防げない前提で、権限の最小化・承認・許可リストなどのシステム的な制御で被害を限定します（多層防御）。",
+   "en": "Assume prompt injection cannot be fully prevented; limit damage through system-level controls such as least privilege, approvals and allowlists (defense in depth)."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "モデルの強化だけでは保証がありません。",
+    "en": "A stronger model is not a guarantee."
+   },
+   "B": {
+    "ja": "お願いは強制力のある制御ではありません。",
+    "en": "A request is not an enforceable control."
+   },
+   "C": {
+    "ja": "事後確認では被害を防げません。",
+    "en": "After-the-fact review cannot prevent harm."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d7-002",
+  "exam": "CCDV-F",
+  "domain": 7,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "モバイルアプリから Claude を使う機能を作ります。API キーの扱いとして最も適切なものはどれですか。",
+   "en": "You are adding a Claude feature to a mobile app. How should the API key be handled?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "アプリのコードに API キーを埋め込む",
+    "en": "Embed the API key in the app code"
+   },
+   {
+    "id": "B",
+    "ja": "キーは自社のバックエンドで秘密情報として保管し、アプリはバックエンド経由で Claude を呼ぶ。認証・レート制限もバックエンドで行う",
+    "en": "Keep the key as a secret on your backend; the app calls Claude through it, with authentication and rate limiting there"
+   },
+   {
+    "id": "C",
+    "ja": "キーを Git リポジトリの設定ファイルにコミットする",
+    "en": "Commit the key in a config file in the git repo"
+   },
+   {
+    "id": "D",
+    "ja": "キーを全ユーザーに共有して使わせる",
+    "en": "Share the key with all users"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "クライアントに配布されるコードは解析され得るため、API キーを置いてはいけません。環境変数やシークレット管理基盤に保管し、サーバー側で利用します。漏洩時はローテーションします。",
+   "en": "Client-distributed code can be extracted, so never ship API keys in it. Store secrets in env vars or a secrets manager, use them server-side, and rotate on leak."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "抽出されて悪用されます。",
+    "en": "It can be extracted and abused."
+   },
+   "C": {
+    "ja": "リポジトリ履歴に残り漏洩します。",
+    "en": "It persists in repo history and leaks."
+   },
+   "D": {
+    "ja": "個別の無効化・監査・制御ができません。",
+    "en": "No per-user revocation, auditing or control."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccdv-f-d7-003",
+  "exam": "CCDV-F",
+  "domain": 7,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "コーディングエージェントが誤って破壊的なシェルコマンド（rm -rf など）や .env への書き込みを実行しないようにしたいです。最も確実な方法はどれですか。",
+   "en": "You want a coding agent never to run destructive shell commands (e.g., rm -rf) or write to .env. What is the most reliable method?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ツール実行前に呼ばれる PreToolUse フックで、該当コマンドやパスを検査してブロックする",
+    "en": "A PreToolUse hook that inspects commands and paths and blocks matches before execution"
+   },
+   {
+    "id": "B",
+    "ja": "CLAUDE.md に「危険なコマンドは実行しない」と書く",
+    "en": "Write \"do not run dangerous commands\" in CLAUDE.md"
+   },
+   {
+    "id": "C",
+    "ja": "ユーザーに毎回注意を促す",
+    "en": "Remind the user to be careful every time"
+   },
+   {
+    "id": "D",
+    "ja": "実行後にログを確認する",
+    "en": "Review logs after execution"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "フックは決定論的な安全ガードを実現します。実行前にブロックでき、モデルの判断に依存しません。permissions の deny ルールや最小権限と併用すると効果的です。",
+   "en": "Hooks provide deterministic guardrails that block actions before execution regardless of model judgment; combine with permission deny rules and least privilege."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "指示は強制ではなく、無視される可能性があります。",
+    "en": "Guidance is not enforcement and can be ignored."
+   },
+   "C": {
+    "ja": "人の注意に依存し、再現性がありません。",
+    "en": "Relies on human vigilance and is not reliable."
+   },
+   "D": {
+    "ja": "事後確認では損害を防げません。",
+    "en": "Post-hoc review cannot prevent damage."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d7-004",
+  "exam": "CCDV-F",
+  "domain": 7,
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "顧客の問い合わせ内容（氏名や住所などの PII を含む）を Claude で要約するシステムのプライバシー対策として適切なものを2つ選んでください。",
+   "en": "Select TWO appropriate privacy measures for a system that summarizes customer inquiries containing PII such as names and addresses."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "デバッグしやすいよう、生のプロンプトと応答を全文ログに残す",
+    "en": "Log raw prompts and responses in full for easy debugging"
+   },
+   {
+    "id": "B",
+    "ja": "タスクに不要な PII は送信前にマスキング・削除し、必要最小限のデータだけを渡す",
+    "en": "Mask or remove PII not needed for the task before sending, passing only minimal data"
+   },
+   {
+    "id": "C",
+    "ja": "PII を含む可能性があるため、アクセス制御は設けず全社員に公開する",
+    "en": "Open access to all employees without access control"
+   },
+   {
+    "id": "D",
+    "ja": "ログや保存データでも PII を伏せ、保持期間とアクセス権限を管理する",
+    "en": "Redact PII in logs and stored data, and manage retention and access"
+   },
+   {
+    "id": "E",
+    "ja": "モデルが PII を覚えないので、対策は不要とする",
+    "en": "The model does not remember PII, so no measures are needed"
+   }
+  ],
+  "answer": [
+   "B",
+   "D"
+  ],
+  "explanation": {
+   "ja": "データ最小化（不要な PII を渡さない）と、保存・ログ・アクセス権の管理が基本です。生ログの全文保管や無制限のアクセスは漏洩リスクを高めます。",
+   "en": "Data minimization plus controlled storage, logging, retention and access are the basics; full raw logs and open access raise leak risk."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "全文ログは PII の二次的な漏洩源になります。",
+    "en": "Full logs become a secondary PII leak source."
+   },
+   "C": {
+    "ja": "最小権限・アクセス制御が必要です。",
+    "en": "Least privilege and access control are required."
+   },
+   "E": {
+    "ja": "アプリ側のログ・保存データなど、モデル以外の経路にもリスクがあります。",
+    "en": "Risk remains in logs and storage outside the model."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d8-001",
+  "exam": "CCDV-F",
+  "domain": 8,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "あるツールの description が「データを取得する」だけです。モデルが他のツールと取り違えたり、不適切な引数を渡したりします。最も効果的な改善はどれですか。",
+   "en": "A tool's description just says \"gets data\". The model confuses it with other tools or passes poor arguments. What is the most effective improvement?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ツール名をランダムな文字列にする",
+    "en": "Rename the tool to a random string"
+   },
+   {
+    "id": "B",
+    "ja": "何をするか、いつ使うか（使わないか）、各引数の意味と形式、戻り値の内容を詳しく記述する",
+    "en": "Describe in detail what it does, when to use or not use it, each parameter's meaning and format, and what it returns"
+   },
+   {
+    "id": "C",
+    "ja": "description を空にし、スキーマだけに頼る",
+    "en": "Leave description empty and rely on the schema"
+   },
+   {
+    "id": "D",
+    "ja": "温度を 0 にする",
+    "en": "Set temperature to 0"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "モデルはツールの選択と引数生成を description とスキーマに強く依存します。目的・使用条件・引数・戻り値を具体的に書くのが最も効果的です。",
+   "en": "The model relies heavily on the description and schema for selection and argument generation; a specific description of purpose, conditions, parameters and returns helps most."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "名前も手がかりの一部で、悪化します。",
+    "en": "The name is a cue too; this makes it worse."
+   },
+   "C": {
+    "ja": "説明がないと選択の根拠が弱くなります。",
+    "en": "Without a description, selection grounds are weak."
+   },
+   "D": {
+    "ja": "温度では情報不足を補えません。",
+    "en": "Temperature cannot compensate for missing information."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d8-002",
+  "exam": "CCDV-F",
+  "domain": 8,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "自作ツールが外部 API の失敗（タイムアウトなど）に遭遇しました。エージェントが自力で回復を試みられるようにするための、最も適切なエラーの返し方はどれですか。",
+   "en": "Your custom tool hit an external API failure (e.g., timeout). How should the error be returned so the agent can try to recover on its own?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "例外を握りつぶし、成功したかのように空の結果を返す",
+    "en": "Swallow the exception and return an empty result as if successful"
+   },
+   {
+    "id": "B",
+    "ja": "アプリケーション全体をクラッシュさせる",
+    "en": "Crash the whole application"
+   },
+   {
+    "id": "C",
+    "ja": "スタックトレース全文を内部情報ごとそのまま返す",
+    "en": "Return the full stack trace including internals"
+   },
+   {
+    "id": "D",
+    "ja": "tool_result で is_error を true にし、原因と取り得る対処を簡潔に説明するメッセージを返す",
+    "en": "Return a tool_result with is_error true and a concise message explaining the cause and possible next steps"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "エラーを明示的にモデルへ返すことで、再試行・別手段・ユーザーへの報告といった判断が可能になります。握りつぶすと誤った前提で進みます。内部情報の過剰な露出は避けます。",
+   "en": "Surfacing the error lets the model retry, try alternatives or report; swallowing it leads to false assumptions. Avoid over-exposing internals."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "失敗を成功と誤認させます。",
+    "en": "It misleads the model into thinking it succeeded."
+   },
+   "B": {
+    "ja": "回復の機会を失います。",
+    "en": "Eliminates any chance of recovery."
+   },
+   "C": {
+    "ja": "ノイズが多く、機密情報の露出にもなります。",
+    "en": "Noisy and may expose sensitive internals."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d8-003",
+  "exam": "CCDV-F",
+  "domain": 8,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "クライアント側ツール（独自の関数）とサーバー側ツール（例：Anthropic が実行する web search）の違いとして正しいものはどれですか。",
+   "en": "Which statement correctly distinguishes client-side tools (your own functions) from server-side tools (e.g., web search run by Anthropic)?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "クライアント側ツールは Anthropic が実行し、結果は自動で戻る",
+    "en": "Anthropic executes client tools and results come back automatically"
+   },
+   {
+    "id": "B",
+    "ja": "サーバー側ツールでは開発者が必ず tool_result を返す必要がある",
+    "en": "With server tools the developer must always return the tool_result"
+   },
+   {
+    "id": "C",
+    "ja": "クライアント側ツールでは、モデルが tool_use を返したら開発者のコードが実行して tool_result を返す。サーバー側ツールは API 側で実行される",
+    "en": "With client tools, your code runs the tool on tool_use and returns tool_result; server tools run on the API side"
+   },
+   {
+    "id": "D",
+    "ja": "両者に違いはない",
+    "en": "There is no difference"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "自作のクライアント側ツールは、実行責任がアプリ側にあり、ループで tool_result を返します。サーバー側ツールは Anthropic のインフラで実行され、結果が応答に含まれます。",
+   "en": "Client tools place execution on your app, which returns tool_result in the loop; server tools execute on Anthropic's infrastructure with results included in the response."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "実行主体が逆です。",
+    "en": "The executor is reversed."
+   },
+   "B": {
+    "ja": "サーバー側ツールは API 側で実行されるため、開発者は返す必要がありません。",
+    "en": "Server tools run on the API side; no tool_result from you."
+   },
+   "D": {
+    "ja": "実行主体とループの責任が異なります。",
+    "en": "Execution responsibility differs."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d8-004",
+  "exam": "CCDV-F",
+  "domain": 8,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "同じ PC 上の Claude Desktop などから、ローカルのファイルシステムを操作する MCP サーバーを使いたいです。一方、チーム全員が共有するリモートの社内サービスを MCP で公開することも検討しています。適切なトランスポートの選び方はどれですか。",
+   "en": "You want a local MCP server controlling the local filesystem for a client on the same machine, and also want to expose a shared remote internal service to the whole team over MCP. Which transport choice is appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ローカルは stdio（クライアントがサブプロセスとして起動）、共有のリモートサービスは HTTP ベース（Streamable HTTP）",
+    "en": "stdio for the local server (launched as a subprocess by the client); HTTP-based (Streamable HTTP) for the shared remote service"
+   },
+   {
+    "id": "B",
+    "ja": "ローカルも共有リモートも stdio にする",
+    "en": "stdio for both"
+   },
+   {
+    "id": "C",
+    "ja": "ローカルは HTTP、共有リモートは stdio にする",
+    "en": "HTTP for local and stdio for the shared remote"
+   },
+   {
+    "id": "D",
+    "ja": "MCP にはトランスポートの選択肢がない",
+    "en": "MCP has no transport choices"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "stdio は同一マシン上のサブプロセスとして動くローカル連携に適し、HTTP ベースのトランスポートは複数クライアントが共有するリモートサーバーに適します。リモートでは認証も必要です。",
+   "en": "stdio fits local subprocess integration on the same machine; HTTP-based transport fits remote servers shared by multiple clients, which also need authentication."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "stdio ではネットワーク越しの共有ができません。",
+    "en": "stdio cannot be shared across the network."
+   },
+   "C": {
+    "ja": "用途と逆の組み合わせです。",
+    "en": "This is the reverse of the sensible pairing."
+   },
+   "D": {
+    "ja": "stdio と HTTP などのトランスポートが定義されています。",
+    "en": "MCP defines transports such as stdio and HTTP."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccdv-f-d8-005",
+  "exam": "CCDV-F",
+  "domain": 8,
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "社内の「週次レポートの書式と文体ルール」という手順的な知識を複数のプロジェクトで再利用したいです。一方で、社内の在庫システムのリアルタイムデータへもアクセスさせたいです。それぞれに最も適した仕組みの組み合わせはどれですか。",
+   "en": "You want to reuse procedural knowledge about weekly-report format and style across projects, and also give access to live data in an internal inventory system. Which pairing is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "書式ルールは MCP、在庫データは Skill",
+    "en": "Format rules as MCP, inventory data as a Skill"
+   },
+   {
+    "id": "B",
+    "ja": "どちらも Skill にする",
+    "en": "Both as Skills"
+   },
+   {
+    "id": "C",
+    "ja": "書式ルールは Skill、在庫のライブデータへの接続は MCP サーバー（またはカスタムツール）",
+    "en": "Format rules as a Skill; the live inventory connection as an MCP server (or custom tool)"
+   },
+   {
+    "id": "D",
+    "ja": "どちらもプロンプトに全文を貼る",
+    "en": "Paste both in full into every prompt"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "Skill は再利用可能な手順・指示・資材をまとめ必要時に読み込む仕組みで、MCP は外部システムのデータや操作へ接続する標準的な方法です。目的に応じて使い分けます。",
+   "en": "Skills package reusable procedures and instructions loaded on demand, while MCP is the standard way to connect external data and actions. Choose by purpose."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "役割が逆で、ライブデータへの接続は Skill の役割ではありません。",
+    "en": "Roles are reversed; live connections are not a Skill's job."
+   },
+   "B": {
+    "ja": "ライブデータへの接続には外部システム連携が必要です。",
+    "en": "Live data needs an external-system integration."
+   },
+   "D": {
+    "ja": "コンテキストを浪費し、ライブデータにも対応できません。",
+    "en": "Wastes context and cannot provide live data."
+   }
+  },
+  "difficulty": 2
+ }
+]

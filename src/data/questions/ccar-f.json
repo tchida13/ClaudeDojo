@@ -1,0 +1,4181 @@
+[
+ {
+  "id": "ccar-f-s1-001",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.1",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Agent SDK で実装した問い合わせ対応エージェントのループが、ときどき途中で止まったり、完了後も回り続けたりします。ループ制御の実装として最も適切なものはどれですか。",
+   "en": "The support agent's loop sometimes halts midway or keeps running after the work is done. Which loop-control implementation is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "最大反復回数を 5 回に固定し、上限到達を主な終了条件とする。",
+    "en": "Fix the iteration cap at 5 and use hitting the cap as the primary stopping condition."
+   },
+   {
+    "id": "B",
+    "ja": "アシスタントのテキストに「解決しました」などの完了表現が含まれたらループを抜ける。",
+    "en": "Exit the loop when the assistant text contains a completion phrase such as \"resolved\"."
+   },
+   {
+    "id": "C",
+    "ja": "テキストブロックが 1 つでも返ったらその時点で最終回答とみなして終了する。",
+    "en": "Treat the first text block returned as the final answer and stop immediately."
+   },
+   {
+    "id": "D",
+    "ja": "応答の stop_reason が \"tool_use\" の間はツールを実行して結果を会話履歴に追加し続け、\"end_turn\" で終了する。",
+    "en": "Keep executing tools and appending results to history while stop_reason is \"tool_use\", and terminate on \"end_turn\"."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "ループ制御はモデルが返す stop_reason に基づくのが正式な方法です。\"tool_use\" ならツール結果を履歴へ追加して次の反復へ、\"end_turn\" なら終了します。",
+   "en": "Loop control should be driven by the stop_reason the model returns: on \"tool_use\", append tool results to history and iterate; on \"end_turn\", finish."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "反復回数の上限は安全装置であって主な終了条件ではなく、必要な作業を途中で打ち切る恐れがあります。",
+    "en": "An iteration cap is a safety net, not the primary stop condition, and can cut off needed work."
+   },
+   "B": {
+    "ja": "自然言語の文言解析は脆く、言い回しの違いで誤判定します。",
+    "en": "Parsing natural-language phrases is brittle and misfires on wording differences."
+   },
+   "C": {
+    "ja": "テキストとツール呼び出しは同じ応答に共存し得るため、テキストの有無は完了の指標になりません。",
+    "en": "Text and tool calls can coexist in one response, so presence of text does not signal completion."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s1-002",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.4",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "ログ解析の結果、エージェントが顧客本人の確認を済ませる前に、注文番号だけを根拠に process_refund を呼ぶケースが数 % 見つかりました。返金は金銭的影響があります。最も有効な対策はどれですか。",
+   "en": "Logs show that in a few percent of conversations the agent calls process_refund based only on an order number before the customer's identity is verified. Refunds have financial impact. Which fix is most effective?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "本人確認済みの顧客 ID が存在しない限り process_refund の実行をブロックする前提条件ゲートをコード側に実装する。",
+    "en": "Implement a code-level prerequisite gate that blocks process_refund unless a verified customer ID exists."
+   },
+   {
+    "id": "B",
+    "ja": "システムプロンプトに「必ず本人確認を先に行うこと」を大文字で強調して追記する。",
+    "en": "Add an emphasized line in the system prompt: \"ALWAYS verify the customer first\"."
+   },
+   {
+    "id": "C",
+    "ja": "temperature を 0 に下げて挙動を安定させる。",
+    "en": "Lower temperature to 0 to make behavior more stable."
+   },
+   {
+    "id": "D",
+    "ja": "本人確認から返金までの正しい流れを示す Few-shot 例を 10 件追加する。",
+    "en": "Add ten few-shot examples showing the correct verify-then-refund flow."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "金銭に関わる順序要件には、プロンプトでは得られない決定論的保証が必要です。前提条件ゲートなら、モデルが手順を飛ばしても不正な呼び出しが実行されません。",
+   "en": "Ordering requirements with financial consequences need deterministic guarantees that prompts cannot give. A prerequisite gate blocks the call even if the model skips a step."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "プロンプトによる指示は確率的で、失敗率はゼロになりません。",
+    "en": "Prompt instructions are probabilistic; the failure rate never reaches zero."
+   },
+   "C": {
+    "ja": "temperature はツールの呼び出し順序の遵守を保証しません。",
+    "en": "Temperature does not guarantee tool-call ordering compliance."
+   },
+   "D": {
+    "ja": "Few-shot も同様に確率的な誘導にすぎず、保証にはなりません。",
+    "en": "Few-shot examples are likewise probabilistic guidance, not a guarantee."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-003",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.5",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "ポリシーでは、500 ドルを超える返金は必ず人間の承認が必要です。現在はプロンプトで指示していますが、まれに超過返金が実行されます。どう実装すべきですか。",
+   "en": "Policy requires human approval for any refund over $500. It is currently enforced via the prompt, but over-limit refunds occasionally go through. How should this be implemented?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "返金処理後に監査ジョブで超過分を検出し、事後に取り消す。",
+    "en": "Detect over-limit refunds in an audit job after the fact and reverse them."
+   },
+   {
+    "id": "B",
+    "ja": "process_refund 呼び出しを実行前にインターセプトするフックで金額を検査し、閾値超過なら呼び出しをブロックして escalate_to_human に誘導する。",
+    "en": "Use a hook that intercepts process_refund calls before execution, checks the amount, and on exceeding the threshold blocks the call and redirects to escalate_to_human."
+   },
+   {
+    "id": "C",
+    "ja": "process_refund の PostToolUse フックで結果に警告文を付加する。",
+    "en": "Add a warning message to the result through a PostToolUse hook on process_refund."
+   },
+   {
+    "id": "D",
+    "ja": "プロンプトの該当箇所を長くして具体例を追加する。",
+    "en": "Expand the prompt section with more concrete examples."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "ビジネスルールの確実な遵守には、ツール呼び出しを事前に遮断できるフックが適切です。違反行為そのものが実行されず、代替フロー（人間へのエスカレーション）にも誘導できます。",
+   "en": "For guaranteed compliance with a business rule, a pre-execution hook is right: the violating action never runs and the flow can be redirected to human escalation."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "事後検出では、すでに金銭的損害が発生しています。",
+    "en": "After-the-fact detection means the financial damage has already occurred."
+   },
+   "C": {
+    "ja": "PostToolUse は実行後に結果を加工するためのもので、返金の実行自体は防げません。",
+    "en": "PostToolUse transforms results after execution and cannot prevent the refund itself."
+   },
+   "D": {
+    "ja": "プロンプトの強化は確率的な遵守にとどまります。",
+    "en": "A stronger prompt still yields only probabilistic compliance."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-004",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.5",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "get_customer は ISO 8601 の日付、lookup_order は Unix タイムスタンプ、さらに別システムは数値のステータスコードを返します。エージェントが日付比較や状態判断を誤ることがあります。最適な対処はどれですか。",
+   "en": "get_customer returns ISO 8601 dates, lookup_order returns Unix timestamps, and another system returns numeric status codes. The agent sometimes mis-compares dates or misreads statuses. What is the best fix?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "日付の比較専用のサブエージェントを追加する。",
+    "en": "Add a dedicated subagent just for date comparisons."
+   },
+   {
+    "id": "B",
+    "ja": "各バックエンドシステムの出力形式を全社的に統一するよう改修を依頼する。",
+    "en": "Ask each backend team to change their output format company-wide."
+   },
+   {
+    "id": "C",
+    "ja": "システムプロンプトにすべてのフォーマットの変換ルールを記載し、モデルに毎回変換させる。",
+    "en": "Document every format conversion in the system prompt and have the model convert each time."
+   },
+   {
+    "id": "D",
+    "ja": "PostToolUse フックでツール結果を統一形式（ISO 8601 とステータスの文字列ラベル）に正規化してからモデルに渡す。",
+    "en": "Use a PostToolUse hook to normalize tool results into a uniform format (ISO 8601 and string status labels) before the model sees them."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "PostToolUse フックはモデルが結果を処理する前にデータを変換できます。決定論的で再利用でき、モデルの推論負荷も減ります。",
+   "en": "PostToolUse hooks transform data before the model processes it: deterministic, reusable, and it reduces reasoning load on the model."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "サブエージェントを足すのは過剰で、根本的な形式不一致を解消しません。",
+    "en": "Another subagent is excessive and does not remove the underlying format mismatch."
+   },
+   "B": {
+    "ja": "他システムの改修は現実的でなく、エージェント側で即時に対処できません。",
+    "en": "Changing other systems is impractical and does not fix the agent immediately."
+   },
+   "C": {
+    "ja": "変換をモデルに任せると誤変換のリスクが残り、トークンも消費します。",
+    "en": "Delegating conversion to the model risks errors and wastes tokens."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-005",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.4",
+  "scenarioId": "S1",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "エージェントが人間のオペレーターへエスカレーションします。オペレーターは会話の記録を参照できません。引き継ぎサマリに含めるべき項目を 2 つ選んでください（select 2）。",
+   "en": "The agent escalates to a human operator who cannot see the conversation transcript. Select the TWO items that belong in the handoff summary (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "会話全文をそのまま貼り付けた生ログ",
+    "en": "A raw dump of the full conversation"
+   },
+   {
+    "id": "B",
+    "ja": "顧客の感情の強さを示すセンチメントスコア",
+    "en": "A sentiment score indicating how upset the customer is"
+   },
+   {
+    "id": "C",
+    "ja": "原因の分析と推奨する次のアクション",
+    "en": "Root-cause analysis and the recommended next action"
+   },
+   {
+    "id": "D",
+    "ja": "顧客 ID・確認済みの注文情報・返金額など、案件を特定し続行できる構造化された事実",
+    "en": "Structured facts that identify and continue the case: customer ID, verified order details, refund amount"
+   },
+   {
+    "id": "E",
+    "ja": "エージェントが自己申告した確信度（1〜10）",
+    "en": "The agent's self-reported confidence (1-10)"
+   }
+  ],
+  "answer": [
+   "C",
+   "D"
+  ],
+  "explanation": {
+   "ja": "記録を見られない担当者が即座に動けるよう、案件の特定情報、根本原因、推奨アクションを構造化して渡します。",
+   "en": "A human without the transcript needs structured case identifiers, the root cause, and the recommended action to act immediately."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "生ログは読む負担が大きく、重要な事実が埋もれます。",
+    "en": "A raw log is costly to read and buries key facts."
+   },
+   "B": {
+    "ja": "センチメントはケースの複雑さを表さず、対応判断の材料として弱いものです。",
+    "en": "Sentiment does not reflect case complexity and is weak input for the human's decision."
+   },
+   "E": {
+    "ja": "自己申告の確信度は較正が悪く、引き継ぎの役に立ちません。",
+    "en": "Self-reported confidence is poorly calibrated and does not help the handoff."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-006",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.4",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "顧客が 1 通のメッセージで「破損商品の返金」「請求額の二重課金」「配送先の変更」を同時に依頼してきました。望ましい処理方針はどれですか。",
+   "en": "In one message a customer asks for a refund on a damaged item, a double-charge fix, and a shipping address change. Which handling approach is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "依頼を個別の項目に分解し、検証済みの顧客コンテキストを共有して各項目を並行して調査し、最後に 1 つの統合された回答にまとめる。",
+    "en": "Decompose into distinct items, investigate each in parallel using the shared verified customer context, then synthesize one unified resolution."
+   },
+   {
+    "id": "B",
+    "ja": "最初に言及された破損商品のみ処理し、残りは別途問い合わせるよう案内する。",
+    "en": "Handle only the first-mentioned damaged item and tell the customer to contact support separately for the rest."
+   },
+   {
+    "id": "C",
+    "ja": "複雑なので 3 件とも直ちに人間へエスカレーションする。",
+    "en": "Because it is complex, escalate all three to a human right away."
+   },
+   {
+    "id": "D",
+    "ja": "3 件を別々の会話として切り分け、それぞれ別のエージェントインスタンスで共有コンテキストなしに処理する。",
+    "en": "Split into three separate conversations with independent agent instances and no shared context."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "複数の関心事は分解して並行調査し、共有コンテキスト（本人確認など）を再利用して統合回答を返すのが効率的で一貫性もあります。",
+   "en": "Decomposing multi-concern requests, investigating in parallel with shared context, and synthesizing a single answer is efficient and consistent."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "一部しか解決せず、初回解決率の目標に反します。",
+    "en": "This resolves only part of the request and hurts the first-contact resolution target."
+   },
+   "C": {
+    "ja": "複雑さだけではエスカレーションの理由になりません。3 件ともエージェントの権限内で解決可能です。",
+    "en": "Complexity alone is not an escalation trigger; all three are within the agent's capability."
+   },
+   "D": {
+    "ja": "共有コンテキストがないと本人確認や注文情報を重複取得し、矛盾も生じ得ます。",
+    "en": "Without shared context, verification and order data get duplicated and may conflict."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-007",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.1",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "check_status と verify_order という 2 つのツールの説明がどちらも「注文の情報を取得する」としか書かれておらず、エージェントがどちらを呼ぶか不安定です。最初に取るべき対策は何ですか。",
+   "en": "Two tools, check_status and verify_order, are both described only as \"retrieves order information\", and the agent picks between them inconsistently. What is the best first step?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "両ツールの説明に、入力形式、出力内容、使用例、境界条件、類似ツールとの使い分けを明記する。",
+    "en": "Expand both descriptions with input formats, outputs, example queries, edge cases, and when to use each versus the similar tool."
+   },
+   {
+    "id": "B",
+    "ja": "ユーザー入力のキーワードでツールを事前選択するルーティング層を構築する。",
+    "en": "Build a routing layer that pre-selects tools from keywords in the user input."
+   },
+   {
+    "id": "C",
+    "ja": "システムプロンプトに両ツールの Few-shot 例を 15 件追加する。",
+    "en": "Add 15 few-shot examples of both tools to the system prompt."
+   },
+   {
+    "id": "D",
+    "ja": "モデルをより大きなものに切り替える。",
+    "en": "Switch to a larger model."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "ツール選択の主な手がかりはツール説明です。説明が貧弱なら、説明の改善が最小コストで効果の高い最初の一手です。",
+   "en": "Tool descriptions are the primary selection signal; improving thin descriptions is the lowest-effort, highest-leverage first step."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "ルーティング層は過剰設計で、モデルの言語理解を迂回します。",
+    "en": "A routing layer is over-engineered and bypasses the model's language understanding."
+   },
+   "C": {
+    "ja": "Few-shot はトークンを消費し、根本原因（説明不足）を直しません。",
+    "en": "Few-shot adds token overhead without fixing the root cause of thin descriptions."
+   },
+   "D": {
+    "ja": "モデルを大きくしても、情報のない説明から区別はできません。",
+    "en": "A larger model still cannot distinguish tools from uninformative descriptions."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s1-008",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.1",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "システムプロンプトに「顧客のアカウント情報を必ず確認してから対応すること」と書いたところ、顧客が注文番号を示した場合でも get_customer ばかり呼ばれ、lookup_order が使われなくなりました。原因として最も可能性が高いものは何ですか。",
+   "en": "After adding \"always review the customer's account information before responding\" to the system prompt, the agent calls get_customer even when the customer gives an order number, and rarely uses lookup_order. What is the most likely cause?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ツールの数が多すぎるため選択が失敗している。",
+    "en": "There are too many tools, so selection is failing."
+   },
+   {
+    "id": "B",
+    "ja": "lookup_order のツール定義に構文エラーがある。",
+    "en": "lookup_order has a syntax error in its definition."
+   },
+   {
+    "id": "C",
+    "ja": "stop_reason の処理が誤っている。",
+    "en": "stop_reason handling is incorrect."
+   },
+   {
+    "id": "D",
+    "ja": "プロンプト内の \"account information\" という語がツール説明と結びつき、意図しないツール選択の関連付けを生んでいる。",
+    "en": "The phrase \"account information\" in the prompt is keyword-associated with a tool description and creates unintended tool selection bias."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "システムプロンプトのキーワード依存の指示は、よく書かれたツール説明を上書きして特定ツールに偏らせることがあります。プロンプトの文言を見直し、ツール説明と整合させます。",
+   "en": "Keyword-sensitive prompt wording can override well-written tool descriptions and bias toward a tool. Review the wording and align it with the descriptions."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "このエージェントのツール数は少なく、問題がプロンプト変更の直後に始まった点とも合致しません。",
+    "en": "With only a handful of tools, count is unlikely, and the issue began right after the prompt change."
+   },
+   "B": {
+    "ja": "定義エラーなら他のケースでも呼ばれないはずで、症状と一致しません。",
+    "en": "A definition error would break all uses, which does not match the symptom."
+   },
+   "C": {
+    "ja": "stop_reason の誤りはループ終了の問題を生み、特定ツールへの偏りは説明できません。",
+    "en": "stop_reason errors affect loop termination, not tool bias."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s1-009",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.2",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "process_refund が失敗すると、ツールは常に \"Operation failed\" とだけ返します。エージェントは再試行すべきか、顧客に説明すべきか、エスカレーションすべきか判断できません。どう改善しますか。",
+   "en": "When process_refund fails it always returns just \"Operation failed\". The agent cannot tell whether to retry, explain to the customer, or escalate. How should this be improved?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "失敗しても成功として空の結果を返し、エージェントに任せる。",
+    "en": "Return an empty result marked as success and let the agent figure it out."
+   },
+   {
+    "id": "B",
+    "ja": "失敗時は常に 3 回自動再試行してから諦めるようエージェントに指示する。",
+    "en": "Instruct the agent to always retry three times before giving up."
+   },
+   {
+    "id": "C",
+    "ja": "isError と、errorCategory（transient/validation/business/permission）、isRetryable、人が読める説明を含む構造化エラーを返す。",
+    "en": "Return isError with a structured payload: errorCategory (transient/validation/business/permission), isRetryable, and a human-readable description."
+   },
+   {
+    "id": "D",
+    "ja": "例外を投げてエージェントループ全体を終了させる。",
+    "en": "Throw an exception that terminates the whole agent loop."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "エラーの種類と再試行可否を構造化して返せば、エージェントは適切な回復（再試行・説明・エスカレーション）を選べ、無駄な再試行も避けられます。",
+   "en": "Structured category and retryability let the agent pick the right recovery (retry, explain, escalate) and avoid wasted retries."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "失敗を成功に偽装するとエージェントが誤った前提で進行します。",
+    "en": "Masking failure as success makes the agent proceed on a false premise."
+   },
+   "B": {
+    "ja": "ビジネスルール違反や権限エラーは再試行しても成功せず、無駄になります。",
+    "en": "Business-rule or permission errors never succeed on retry, so this wastes calls."
+   },
+   "D": {
+    "ja": "1 回の失敗でワークフロー全体を止めるのはアンチパターンです。",
+    "en": "Killing the whole workflow on a single failure is an anti-pattern."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-010",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.2",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "lookup_order が、顧客に該当する注文なしの場合も、バックエンドのタイムアウトの場合も、同じく空配列を返します。エージェントが「注文は存在しない」と誤案内する事象が出ています。どう設計すべきですか。",
+   "en": "lookup_order returns an empty array both when the customer has no matching orders and when the backend times out, so the agent sometimes wrongly tells customers no order exists. How should it be designed?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "有効な空結果は成功として空配列を返し、タイムアウトは isError と transient カテゴリ・isRetryable: true の構造化エラーとして返す。",
+    "en": "Return an empty array as a successful result for no matches, and return timeouts as isError with a transient category and isRetryable: true."
+   },
+   {
+    "id": "B",
+    "ja": "タイムアウト時は例外を握りつぶし、過去のキャッシュ結果を成功として返す。",
+    "en": "Swallow the timeout and return a cached older result as success."
+   },
+   {
+    "id": "C",
+    "ja": "空の結果もすべて isError として扱い、再試行させる。",
+    "en": "Treat every empty result as an error and force retries."
+   },
+   {
+    "id": "D",
+    "ja": "両ケースとも空配列のままにし、プロンプトで「空なら再度確認」と指示する。",
+    "en": "Keep an empty array in both cases and instruct in the prompt to double-check on empty results."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "アクセス失敗と「一致なし」という有効な結果は別物です。区別して返すことで、エージェントは再試行か結果の伝達かを正しく判断できます。",
+   "en": "An access failure and a valid empty result are different things. Distinguishing them lets the agent correctly choose between retrying and reporting no match."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "古いキャッシュを成功として返すのは、失敗の隠蔽で誤情報の原因になります。",
+    "en": "Returning stale cache as success hides the failure and spreads misinformation."
+   },
+   "C": {
+    "ja": "有効な空結果を失敗扱いにすると、無意味な再試行が発生します。",
+    "en": "Treating valid empties as errors causes pointless retries."
+   },
+   "D": {
+    "ja": "同じ出力では区別できず、プロンプトで補うことは確率的な対処にすぎません。",
+    "en": "Identical output remains indistinguishable; prompt patching is only probabilistic."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s1-011",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.1",
+  "scenarioId": "S1",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "複数の問題を含む長いセッションで、エージェントが途中で金額や注文番号、顧客が述べた期待を曖昧に言い換えて、後続の回答で誤りが出ます。主因は履歴の要約です。どう防ぎますか。",
+   "en": "In long multi-issue sessions, the agent paraphrases amounts, order numbers, and stated customer expectations loosely after summarization, causing later mistakes. How do you prevent this?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "古いメッセージをすべて破棄し、直近 3 ターンだけを渡す。",
+    "en": "Discard all older messages and pass only the last three turns."
+   },
+   {
+    "id": "B",
+    "ja": "モデルに「数値は正確に覚えておくこと」と指示する。",
+    "en": "Instruct the model to \"remember numbers exactly\"."
+   },
+   {
+    "id": "C",
+    "ja": "取引に関わる事実（金額・日付・注文番号・状態）を抽出して永続的な「ケースファクト」ブロックとして要約対象外に保持し、各プロンプトに含める。",
+    "en": "Extract transactional facts (amounts, dates, order numbers, statuses) into a persistent \"case facts\" block kept outside summarized history and included in every prompt."
+   },
+   {
+    "id": "D",
+    "ja": "履歴要約の頻度をさらに上げてコンテキストを小さく保つ。",
+    "en": "Summarize history even more frequently to keep context small."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "累積的な要約は数値や日付を曖昧化します。重要な事実は構造化して別の層で保持し、要約の影響を受けないようにします。",
+   "en": "Progressive summarization blurs numbers and dates. Keep critical facts in a structured layer immune to summarization."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "直近のみでは、以前に確認した事実を失います。",
+    "en": "Keeping only recent turns discards previously confirmed facts."
+   },
+   "B": {
+    "ja": "指示は確率的で、要約で失われた情報は取り戻せません。",
+    "en": "An instruction is probabilistic and cannot recover information lost in summarization."
+   },
+   "D": {
+    "ja": "要約を増やすほど情報の劣化が進みます。",
+    "en": "More summarization worsens information loss."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s1-012",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.2",
+  "scenarioId": "S1",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "エージェントがいつ人間へエスカレーションすべきかのシステムプロンプト基準を設計します。適切なトリガーを 2 つ選んでください（select 2）。",
+   "en": "You are defining escalation criteria for the agent's system prompt. Select the TWO appropriate triggers (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "顧客が長文で書いている場合は複雑案件と見なしてエスカレーションする。",
+    "en": "Escalate whenever the customer writes a long message because it implies complexity."
+   },
+   {
+    "id": "B",
+    "ja": "顧客の文面が苛立った口調に見えた場合は自動的にエスカレーションする。",
+    "en": "Automatically escalate whenever the customer's tone appears frustrated."
+   },
+   {
+    "id": "C",
+    "ja": "顧客が人間の担当者との対応を明示的に求めた場合。まず調査を試みることなく速やかに引き継ぐ。",
+    "en": "The customer explicitly asks for a human; hand off promptly without first attempting investigation."
+   },
+   {
+    "id": "D",
+    "ja": "エージェントの自己申告する確信度が 7 未満の場合に自動的にエスカレーションする。",
+    "en": "Automatically escalate whenever the agent's self-reported confidence is below 7."
+   },
+   {
+    "id": "E",
+    "ja": "ポリシーが顧客の依頼内容（例えば他社価格への合わせ）について曖昧または規定がない場合。",
+    "en": "The policy is ambiguous or silent on the customer's specific request (for example competitor price matching)."
+   }
+  ],
+  "answer": [
+   "C",
+   "E"
+  ],
+  "explanation": {
+   "ja": "明確なエスカレーション基準は、顧客の明示的な要望、ポリシーの空白や例外、進展できない状況です。感情や自己申告の確信度は案件の実際の複雑さの代理指標として信頼できません。",
+   "en": "Sound triggers are explicit customer requests, policy gaps/exceptions, and inability to progress. Sentiment and self-reported confidence are unreliable proxies for real complexity."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "文章の長さは複雑さや権限外であることを示しません。",
+    "en": "Message length does not indicate complexity or out-of-scope authority."
+   },
+   "B": {
+    "ja": "苛立ちを認めつつ、エージェントの権限内なら解決を申し出るのが基本です。再度希望された場合のみエスカレーションします。",
+    "en": "Acknowledge frustration and offer resolution when within capability; escalate only if the customer reiterates the preference."
+   },
+   "D": {
+    "ja": "自己申告の確信度は較正が悪く、難しい案件でも高く出るなど、複雑さと相関しません。",
+    "en": "Self-reported confidence is poorly calibrated and does not track case difficulty."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-001",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.2",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "チーム共有の /release-notes スキルがリポジトリにあります。あなたは出力形式を自分好みに変えたいのですが、チームメイトには影響を与えたくありません。どうしますか。",
+   "en": "Your repository has a team-shared /release-notes skill. You want a differently formatted variant for yourself without affecting teammates. What should you do?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "~/.claude/skills/ に別名で個人用のバリアントを作成する。",
+    "en": "Create a personal variant under ~/.claude/skills/ with a different name."
+   },
+   {
+    "id": "B",
+    "ja": "スキルの SKILL.md を削除してコマンドを無効にする。",
+    "en": "Delete the SKILL.md to disable the command."
+   },
+   {
+    "id": "C",
+    "ja": "リポジトリ内の .claude/skills/ の SKILL.md を直接書き換えてコミットする。",
+    "en": "Edit the SKILL.md in the repo's .claude/skills/ directly and commit it."
+   },
+   {
+    "id": "D",
+    "ja": "~/.claude/CLAUDE.md に出力形式の好みを書いて、スキルの内容を上書きさせる。",
+    "en": "Put your formatting preferences in ~/.claude/CLAUDE.md to override the skill."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "個人用のスキルはユーザースコープ（~/.claude/skills/）に別名で作れば、チーム共有のものと衝突せず、他人に影響しません。",
+   "en": "A personal skill in user scope (~/.claude/skills/) with a distinct name avoids collisions and leaves teammates unaffected."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "削除は共有資産を壊す変更で、チーム全員に影響します。",
+    "en": "Deleting breaks a shared asset for the whole team."
+   },
+   "C": {
+    "ja": "リポジトリ内のファイルを変えると全員に影響します。",
+    "en": "Changing the repo file affects everyone."
+   },
+   "D": {
+    "ja": "CLAUDE.md は常時読み込まれる指示であり、スキル定義の置き換え手段ではありません。",
+    "en": "CLAUDE.md is always-loaded guidance, not a way to replace a skill definition."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-002",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.2",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "/analyze-deps スキルは大量の調査出力を生成し、実行後にメイン会話のコンテキストが圧迫されます。メインのセッションを汚さずに使うには、スキルをどう設定すべきですか。",
+   "en": "The /analyze-deps skill produces very verbose output that crowds the main conversation after each run. How should the skill be configured to avoid polluting the main session?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "スキルの内容を CLAUDE.md に移し、常時読み込ませる。",
+    "en": "Move the skill contents into CLAUDE.md so they are always loaded."
+   },
+   {
+    "id": "B",
+    "ja": "SKILL.md の frontmatter に context: fork を指定し、分離したサブエージェントコンテキストで実行する。",
+    "en": "Set context: fork in the SKILL.md frontmatter so it runs in an isolated sub-agent context."
+   },
+   {
+    "id": "C",
+    "ja": "実行のたびに会話を手動でクリアする運用ルールを設ける。",
+    "en": "Adopt a team rule to manually clear the conversation after each run."
+   },
+   {
+    "id": "D",
+    "ja": "allowed-tools を空にしてスキルが何も出力しないようにする。",
+    "en": "Empty allowed-tools so the skill produces no output."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "context: fork は、スキルを分離したコンテキストで実行し、冗長な出力がメイン会話を汚すのを防ぎます。要約結果だけが戻ります。",
+   "en": "context: fork runs the skill in an isolated context so verbose output does not pollute the main conversation; only the result returns."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "CLAUDE.md は常時ロードの指針用で、むしろ毎回コンテキストを消費します。",
+    "en": "CLAUDE.md is always loaded and would consume context on every session."
+   },
+   "C": {
+    "ja": "手動運用は忘れやすく、同じ会話の有用な文脈も失います。",
+    "en": "Manual rules are error-prone and discard useful context too."
+   },
+   "D": {
+    "ja": "allowed-tools はツールの利用範囲を制限する設定で、出力量の制御とは別です。",
+    "en": "allowed-tools restricts tool access; it does not control output volume."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-003",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.2",
+  "scenarioId": "S2",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "破壊的な変更を避けたい /audit-config スキルを作成します。対象ファイル名はユーザーが指定する必要があります。適切な frontmatter 設定を 2 つ選んでください（select 2）。",
+   "en": "You are creating an /audit-config skill that must avoid destructive actions, and the user must supply a target filename. Select the TWO appropriate frontmatter settings (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "SKILL.md ではなく CLAUDE.md の先頭にスキル名を書いておく。",
+    "en": "Write the skill name at the top of CLAUDE.md instead of using SKILL.md."
+   },
+   {
+    "id": "B",
+    "ja": "context: fork を使い、これによってすべてのツール権限が自動的に無効になるようにする。",
+    "en": "Use context: fork, which automatically disables all tool permissions."
+   },
+   {
+    "id": "C",
+    "ja": "argument-hint を設定し、引数なしで呼び出されたときに必要なパラメータを開発者に促す。",
+    "en": "Set argument-hint so developers are prompted for the required parameter when invoking without arguments."
+   },
+   {
+    "id": "D",
+    "ja": "allowed-tools に読み取り系ツールだけを列挙して、実行中のツールアクセスを制限する。",
+    "en": "List only read-oriented tools in allowed-tools to restrict tool access during the skill run."
+   },
+   {
+    "id": "E",
+    "ja": "ファイル名をスキル本文にハードコードする。",
+    "en": "Hardcode the filename in the skill body."
+   }
+  ],
+  "answer": [
+   "C",
+   "D"
+  ],
+  "explanation": {
+   "ja": "allowed-tools はスキル実行中のツールを絞り、argument-hint は必須引数を利用者に促します。",
+   "en": "allowed-tools narrows tools during execution and argument-hint prompts for required arguments."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "CLAUDE.md への記載ではスキルは定義されず、オンデマンド呼び出しもできません。",
+    "en": "Writing in CLAUDE.md does not define a skill or give on-demand invocation."
+   },
+   "B": {
+    "ja": "context: fork は実行の分離用で、ツール権限の無効化機能ではありません。",
+    "en": "context: fork isolates context; it does not disable tool permissions."
+   },
+   "E": {
+    "ja": "ハードコードでは再利用できません。",
+    "en": "Hardcoding prevents reuse across files."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s2-004",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.1",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "新しく参加したメンバーのセッションだけ、チームのコーディング規約に従わない出力になります。他のメンバーは問題ありません。調査で最初に確認すべきことは何ですか。",
+   "en": "Only a new team member's sessions ignore the team coding standards; everyone else is fine. What should you check first?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "新メンバーの OS が他のメンバーと異なること。",
+    "en": "Whether the new member uses a different OS."
+   },
+   {
+    "id": "B",
+    "ja": "その規約が ~/.claude/CLAUDE.md（ユーザーレベル）にしか書かれておらず、プロジェクトの CLAUDE.md に含まれていないこと。",
+    "en": "Whether the standards live only in a user-level ~/.claude/CLAUDE.md rather than the project CLAUDE.md."
+   },
+   {
+    "id": "C",
+    "ja": "リポジトリの .gitignore が CLAUDE.md を除外していないこと。",
+    "en": "Whether .gitignore excludes CLAUDE.md in the repo."
+   },
+   {
+    "id": "D",
+    "ja": "新メンバーの Claude のモデルバージョンが古いこと。",
+    "en": "Whether the new member's Claude model version is outdated."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "ユーザーレベルの設定はそのユーザーにしか適用されず、バージョン管理で共有されません。チーム規約はプロジェクトレベルに置くべきです。他メンバーが問題ない点からも、共有ファイルではなく個人設定の差が疑われます。",
+   "en": "User-level settings apply only to that user and are not shared via version control. Team standards belong at project level; the fact that others are fine points to a per-user config difference."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "OS の違いは CLAUDE.md の読み込みに影響しません。",
+    "en": "OS differences do not affect CLAUDE.md loading."
+   },
+   "C": {
+    "ja": ".gitignore の問題なら他のメンバーも読み込めないはずです。",
+    "en": "If .gitignore excluded it, other members would also lack it."
+   },
+   "D": {
+    "ja": "モデルのバージョン差は規約の無視という症状と結びつきにくい。",
+    "en": "A model version difference rarely explains ignoring specific standards."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s2-005",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.1",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "モノレポの CLAUDE.md が 900 行に膨らみ、各パッケージのチームは自分たちに関係ない規約まで読み込まれています。各パッケージの担当者の知識で、関連する規約だけを取り込みたいです。最適な構成はどれですか。",
+   "en": "A monorepo CLAUDE.md has grown to 900 lines, and each package team gets conventions irrelevant to them. You want each package to pull in only relevant standards based on maintainers' knowledge. Which structure is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "すべてを 1 つの CLAUDE.md に残し、見出しで区分けして Claude に判断させる。",
+    "en": "Keep one CLAUDE.md with headings and let Claude decide what applies."
+   },
+   {
+    "id": "B",
+    "ja": "各開発者の ~/.claude/CLAUDE.md に必要な規約をコピーする。",
+    "en": "Copy needed standards into each developer's ~/.claude/CLAUDE.md."
+   },
+   {
+    "id": "C",
+    "ja": "各パッケージ配下の CLAUDE.md から @import 構文で、そのパッケージに関係する規約ファイルだけを参照する。",
+    "en": "Have each package's CLAUDE.md use @import to reference only the standards files relevant to that package."
+   },
+   {
+    "id": "D",
+    "ja": "規約をすべて README に移し、Claude に必要時に探させる。",
+    "en": "Move all standards to a README and let Claude search when needed."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "@import を使えば、CLAUDE.md をモジュール化し、各パッケージが必要な規約だけを明示的に取り込めます。",
+   "en": "@import modularizes CLAUDE.md so each package explicitly includes only the standards it needs."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "1 つの巨大ファイルは無関係な文脈を常時消費し、適用判断も推測に頼ります。",
+    "en": "One giant file consumes irrelevant context and relies on inference about applicability."
+   },
+   "B": {
+    "ja": "個人コピーはバージョン管理で共有されず、更新も分散します。",
+    "en": "Personal copies are not shared via version control and drift out of sync."
+   },
+   "D": {
+    "ja": "README は自動的に規約として読み込まれず、検索に依存すると不安定です。",
+    "en": "A README is not auto-loaded as instructions, and relying on search is unreliable."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-006",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.3",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "リポジトリの terraform/ 配下を編集するときだけ適用したい厳格な命名・タグ付け規約があります。それ以外の作業ではこの規約でコンテキストを消費したくありません。最適な方法はどれですか。",
+   "en": "You have strict naming and tagging conventions that should apply only when editing files under terraform/. You do not want them consuming context elsewhere. What is the best approach?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "スキルを作成して、全開発者が毎回手動で /terraform-rules を呼ぶ運用にする。",
+    "en": "Create a skill and require every developer to invoke /terraform-rules manually each time."
+   },
+   {
+    "id": "B",
+    "ja": ".claude/rules/ にルールファイルを作成し、YAML frontmatter の paths に terraform/**/* を指定して一致ファイル編集時のみ読み込ませる。",
+    "en": "Create a rule file in .claude/rules/ with YAML frontmatter paths: [\"terraform/**/*\"] so it loads only when editing matching files."
+   },
+   {
+    "id": "C",
+    "ja": "ルート CLAUDE.md に規約を書き、「Terraform の場合のみ従うこと」と添える。",
+    "en": "Put the conventions in the root CLAUDE.md with \"follow only when working on Terraform\"."
+   },
+   {
+    "id": "D",
+    "ja": "規約を毎回手動でプロンプトに貼り付ける。",
+    "en": "Manually paste the conventions into the prompt each time."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "paths に glob を指定した .claude/rules/ のファイルは、一致するファイルの編集時だけ読み込まれ、無関係な文脈とトークン消費を避けられます。",
+   "en": "Rule files with glob paths load only when editing matching files, avoiding irrelevant context and token cost."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "手動起動では自動適用の要件を満たせません。",
+    "en": "Manual invocation does not meet the automatic-application need."
+   },
+   "C": {
+    "ja": "ルートの CLAUDE.md は常時読み込まれ、条件適用も Claude の推測頼みになります。",
+    "en": "Root CLAUDE.md is always loaded, and conditional application relies on inference."
+   },
+   "D": {
+    "ja": "手動貼り付けは忘れやすく、一貫性を保証できません。",
+    "en": "Manual pasting is forgettable and inconsistent."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-007",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.4",
+  "scenarioId": "S2",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "プランモードを選ぶべきタスクを 2 つ選んでください（select 2）。",
+   "en": "Select the TWO tasks for which plan mode is the right choice (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "スタックトレースで原因が明確な、1 ファイル内の off-by-one バグを修正する。",
+    "en": "Fixing a single-file off-by-one bug where the stack trace pinpoints the cause."
+   },
+   {
+    "id": "B",
+    "ja": "60 以上のファイルに影響する ORM ライブラリの移行を、互換方式が複数ある状態で進める。",
+    "en": "Migrating an ORM library affecting 60+ files where several compatible approaches exist."
+   },
+   {
+    "id": "C",
+    "ja": "ローカル変数名を 1 つ変更する。",
+    "en": "Renaming a single local variable."
+   },
+   {
+    "id": "D",
+    "ja": "インフラ要件の異なる 2 つの連携方式から選び、アーキテクチャ上の決定を行う。",
+    "en": "Choosing between two integration approaches with different infrastructure requirements."
+   },
+   {
+    "id": "E",
+    "ja": "1 つの関数に null チェックを追加する。",
+    "en": "Adding a null check to one function."
+   }
+  ],
+  "answer": [
+   "B",
+   "D"
+  ],
+  "explanation": {
+   "ja": "広範囲な変更や複数の妥当な方式、アーキテクチャ上の判断を伴うタスクは、実装前に探索と設計ができるプランモードが向いています。範囲が明確な小さな変更は直接実行で十分です。",
+   "en": "Large-scale changes, multiple valid approaches, and architectural decisions benefit from exploring and designing first. Small, well-scoped changes are fine with direct execution."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "原因が特定済みの単一ファイル修正は直接実行が適切です。",
+    "en": "A single-file fix with a known cause suits direct execution."
+   },
+   "C": {
+    "ja": "変数名の変更は範囲が明確で、計画のオーバーヘッドが不要です。",
+    "en": "A rename is clearly scoped and does not justify planning overhead."
+   },
+   "E": {
+    "ja": "単純な 1 関数の変更はプラン不要です。",
+    "en": "A simple one-function change needs no plan."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-008",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.4",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "大きなライブラリ移行の初期調査で、探索の出力が大量になりコンテキストが埋まり始めました。移行の実装はまだこれからです。次の進め方として最適なものはどれですか。",
+   "en": "During initial investigation for a large library migration, discovery output is flooding your context and implementation has not even started. What is the best way to proceed?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "探索を続け、コンテキストが尽きるまで 1 つの会話で進める。",
+    "en": "Keep exploring in a single conversation until context runs out."
+   },
+   {
+    "id": "B",
+    "ja": "Explore サブエージェントに冗長な探索を任せて要約だけを受け取り、プランモードで方針を固めてから直接実行で実装する。",
+    "en": "Delegate verbose discovery to the Explore subagent and receive summaries, settle the approach in plan mode, then implement with direct execution."
+   },
+   {
+    "id": "C",
+    "ja": "計画なしで直接実行に切り替え、実装しながら学ぶ。",
+    "en": "Skip planning, switch to direct execution, and learn while implementing."
+   },
+   {
+    "id": "D",
+    "ja": "探索結果をすべてそのままプロンプトに貼り付けて新しいセッションを開始する。",
+    "en": "Start a fresh session pasting the full raw discovery output into the prompt."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "Explore サブエージェントは冗長な探索出力を分離し、要約だけをメインに返します。調査にプランモード、実装に直接実行を組み合わせるのが効果的です。",
+   "en": "The Explore subagent isolates verbose discovery and returns summaries; combine plan mode for investigation with direct execution for implementation."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "コンテキスト枯渇により、品質が劣化し作業が失われます。",
+    "en": "Context exhaustion degrades quality and loses work."
+   },
+   "C": {
+    "ja": "広範囲な移行を計画なしで進めると、手戻りが大きくなります。",
+    "en": "Unplanned execution of a broad migration risks costly rework."
+   },
+   "D": {
+    "ja": "生の出力を貼り直すだけでは、コンテキスト圧迫の問題が再発します。",
+    "en": "Pasting raw output just recreates the context pressure."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s2-009",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.5",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "日付文字列を正規化する変換ロジックの要件を文章で詳しく説明しましたが、Claude の実装は入力ごとに解釈がぶれます。次に何をすべきですか。",
+   "en": "You described a date-normalizing transformation in detailed prose, but Claude's implementation interprets inputs inconsistently. What should you do next?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ぶれが解消するまで /compact を繰り返す。",
+    "en": "Run /compact repeatedly until the variance disappears."
+   },
+   {
+    "id": "B",
+    "ja": "説明をさらに長くして、同じ内容を別の言い回しで繰り返す。",
+    "en": "Make the prose even longer, restating the same rules differently."
+   },
+   {
+    "id": "C",
+    "ja": "2〜3 件の具体的な入力と期待出力の例を提示して、変換内容を明確にする。",
+    "en": "Provide two or three concrete input/output examples to pin down the transformation."
+   },
+   {
+    "id": "D",
+    "ja": "すべての処理をプランモードで実行する。",
+    "en": "Run everything in plan mode."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "文章の説明が一貫して解釈されない場合は、具体的な入出力例が最も効果的に期待する変換を伝えます。",
+   "en": "When prose is interpreted inconsistently, concrete input/output examples are the most effective way to convey the expected transformation."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "/compact はコンテキスト削減用で、要件の曖昧さとは無関係です。",
+    "en": "/compact reduces context; it is unrelated to requirement ambiguity."
+   },
+   "B": {
+    "ja": "言い換えを増やしても曖昧さは解消しにくい。",
+    "en": "More rephrasing rarely removes ambiguity."
+   },
+   "D": {
+    "ja": "プランモードは設計判断向けで、仕様の曖昧さを直接解消しません。",
+    "en": "Plan mode helps design decisions, not ambiguity in spec."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-010",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.7",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "先週、認証モジュールの分析セッションを行いました。その後チームがリファクタリングを進め、分析対象のファイルの大半が変更されています。作業を再開する最善の方法は何ですか。",
+   "en": "Last week you ran an analysis session on the auth module. Since then the team refactored and most analyzed files have changed. What is the best way to continue?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "古いツール結果が陳腐化しているため、それまでの分析の要点を構造化サマリにして新しいセッションに注入して始める。",
+    "en": "Because prior tool results are stale, start a new session and inject a structured summary of the earlier findings."
+   },
+   {
+    "id": "B",
+    "ja": "--resume で古いセッションをそのまま再開し、以前の分析結果を信頼して進める。",
+    "en": "Resume the old session with --resume and trust the earlier analysis as-is."
+   },
+   {
+    "id": "C",
+    "ja": "古いセッションをフォークして同じ内容を 2 つに増やす。",
+    "en": "Fork the old session to duplicate the same stale content."
+   },
+   {
+    "id": "D",
+    "ja": "何も伝えずに再開し、Claude に変更を自力で検出させる。",
+    "en": "Resume without telling it anything and let Claude detect changes on its own."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "大半のファイルが変わると、古いツール結果は誤解を招きます。構造化された要約を持つ新規セッションのほうが再開より信頼できます。変更が少ない場合は、再開して変更点を伝える選択になります。",
+   "en": "When most files changed, stale tool results mislead. A fresh session seeded with a structured summary is more reliable; if few files changed, resume and inform it of the changes."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "陳腐化した結果を前提にすると、誤った結論を導きます。",
+    "en": "Relying on stale results leads to wrong conclusions."
+   },
+   "C": {
+    "ja": "フォークは分岐探索用で、陳腐化の問題を解決しません。",
+    "en": "Forking is for divergent exploration and does not fix staleness."
+   },
+   "D": {
+    "ja": "変更を知らせないと、古い結果を基に誤判断します。",
+    "en": "Without being told, it will reason from outdated results."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s2-011",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.7",
+  "scenarioId": "S2",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "共有の依存関係分析を終えた後、同じ出発点から「段階的リファクタリング」と「一括書き換え」の 2 つの方針を独立に試して比較したいです。どう進めますか。",
+   "en": "After finishing a shared dependency analysis, you want to try two approaches independently from the same baseline, incremental refactoring and a full rewrite, and compare them. How?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "方針をプランモードで 1 つに絞り、比較はしない。",
+    "en": "Pick one approach in plan mode without comparison."
+   },
+   {
+    "id": "B",
+    "ja": "分析済みセッションから fork_session で 2 つの独立した分岐を作り、それぞれの方針を並行して探索する。",
+    "en": "Use fork_session to create two independent branches from the analyzed session and explore each approach in parallel."
+   },
+   {
+    "id": "C",
+    "ja": "分析結果を消して 2 つの新しいセッションをゼロから始める。",
+    "en": "Discard the analysis and start two fresh sessions from scratch."
+   },
+   {
+    "id": "D",
+    "ja": "1 つのセッションで両方を順番に試し、会話の後半で比較する。",
+    "en": "Try both sequentially in one session and compare later in the conversation."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "fork_session は共有の分析を基点に独立した分岐を作り、互いに干渉せず異なる方針を探索できます。",
+   "en": "fork_session creates independent branches from a shared analysis baseline, letting you explore divergent approaches without interference."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "比較しないと、複数の妥当な方針の選択ができません。",
+    "en": "Without comparison you cannot choose among valid approaches."
+   },
+   "C": {
+    "ja": "分析の再実施は無駄で、基点の共有が失われます。",
+    "en": "Redoing analysis wastes effort and loses the shared baseline."
+   },
+   "D": {
+    "ja": "1 セッションで順番に行うと、前の方針の文脈が次に混入します。",
+    "en": "Sequential work in one session lets the first approach's context bleed into the second."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s2-012",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.4",
+  "scenarioId": "S2",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "長時間のコードベース探索セッションで、Claude が以前に見つけた具体的なクラス名ではなく「一般的なパターン」を参照し始めました。コンテキストの劣化に対する有効な対処を 2 つ選んでください（select 2）。",
+   "en": "In a long codebase-exploration session, Claude starts citing \"typical patterns\" instead of the specific classes it found earlier. Select the TWO effective responses to this context degradation (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "同じファイルを毎ターン読み直させて記憶を補強する。",
+    "en": "Make it re-read the same files every turn to reinforce memory."
+   },
+   {
+    "id": "B",
+    "ja": "セッションをそのまま続けて、劣化が収まるのを待つ。",
+    "en": "Continue as-is and wait for the degradation to pass."
+   },
+   {
+    "id": "C",
+    "ja": "重要な発見をスクラッチパッドファイルに記録し、後続の質問ではそれを参照させる。",
+    "en": "Record key findings in a scratchpad file and reference it for later questions."
+   },
+   {
+    "id": "D",
+    "ja": "冗長な探索結果が溜まったときに /compact でコンテキストを圧縮する。",
+    "en": "Use /compact to condense context once verbose discovery output has accumulated."
+   },
+   {
+    "id": "E",
+    "ja": "「具体的に覚えておくこと」とプロンプトで念押しする。",
+    "en": "Add a prompt reminder to \"remember specifics\"."
+   }
+  ],
+  "answer": [
+   "C",
+   "D"
+  ],
+  "explanation": {
+   "ja": "スクラッチパッドで重要な発見を保持し、/compact で冗長な出力を整理することで劣化に対処できます。",
+   "en": "A scratchpad preserves key findings across context boundaries, and /compact reclaims space from verbose output."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "再読込はコンテキストをさらに圧迫し、劣化を悪化させます。",
+    "en": "Re-reading adds more context and worsens degradation."
+   },
+   "B": {
+    "ja": "放置しても劣化は自然には解消しません。",
+    "en": "Degradation does not resolve on its own."
+   },
+   "E": {
+    "ja": "念押しの指示は確率的で、失われた文脈を復元しません。",
+    "en": "A reminder is probabilistic and cannot restore lost context."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-001",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.2",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "リサーチシステムは、どんな質問でも「Web 検索 → 文書分析 → 統合 → レポート作成」の全工程を固定で実行します。「ある企業の設立年は？」のような単純な質問でも数分かかり、コストが高くなっています。コーディネーターの設計をどう改善しますか。",
+   "en": "The research system always runs the full pipeline (web search, document analysis, synthesis, report) for every query. Even \"what year was this company founded?\" takes minutes and costs a lot. How should the coordinator be redesigned?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "コーディネーターがクエリの要件と複雑さを分析し、必要なサブエージェントだけを動的に選んで呼び出す。",
+    "en": "Have the coordinator analyze the query's requirements and complexity and dynamically invoke only the subagents needed."
+   },
+   {
+    "id": "B",
+    "ja": "すべての質問に対して全サブエージェントを並列で起動してレイテンシを下げる。",
+    "en": "Launch all subagents in parallel for every query to cut latency."
+   },
+   {
+    "id": "C",
+    "ja": "単純な質問を検出するキーワード一覧を作り、全工程をスキップするルールを書く。",
+    "en": "Write a keyword list to detect simple questions and skip the pipeline entirely."
+   },
+   {
+    "id": "D",
+    "ja": "すべてのサブエージェントを 1 つに統合して、コーディネーターをなくす。",
+    "en": "Merge all subagents into one and eliminate the coordinator."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "コーディネーターの役割は、タスク分解と、クエリの複雑さに応じたサブエージェントの選択です。固定パイプラインで常に全工程を通す必要はありません。",
+   "en": "The coordinator's role includes decomposing tasks and choosing which subagents to invoke based on query complexity, rather than always running the full pipeline."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "並列化してもコストは減らず、不要な作業が増えるだけです。",
+    "en": "Parallelizing does not reduce cost; it just runs unnecessary work."
+   },
+   "C": {
+    "ja": "キーワードルールは脆く、モデルの判断力を活かせません。",
+    "en": "Keyword rules are brittle and waste the model's judgment."
+   },
+   "D": {
+    "ja": "統合すると専門化と分離のメリットを失い、複雑な調査の品質が下がります。",
+    "en": "Merging removes specialization benefits and hurts quality on complex research."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-002",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.2",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "各サブエージェント同士が必要な情報を直接やり取りできるようにするか、すべてコーディネーター経由にするかを検討しています。コーディネーター経由に統一する主な利点はどれですか。",
+   "en": "You are deciding between letting subagents exchange information directly or routing everything through the coordinator. What is the main advantage of coordinator-only routing?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "サブエージェントの数を無制限に増やせる。",
+    "en": "It allows an unlimited number of subagents."
+   },
+   {
+    "id": "B",
+    "ja": "サブエージェントが互いの会話履歴を自動的に共有できる。",
+    "en": "Subagents automatically share each other's conversation history."
+   },
+   {
+    "id": "C",
+    "ja": "トークンの使用量が必ず減る。",
+    "en": "Token usage is guaranteed to fall."
+   },
+   {
+    "id": "D",
+    "ja": "通信の可観測性、一貫したエラー処理、情報フローの制御が得られる。",
+    "en": "Observability, consistent error handling, and controlled information flow."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "ハブ・アンド・スポーク構成では、コーディネーターがすべての通信・エラー処理・情報ルーティングを管理するため、観測と制御が容易です。",
+   "en": "In hub-and-spoke, the coordinator manages all communication, error handling, and routing, which makes the system observable and controllable."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "数の上限は経由方式の利点ではありません。コーディネーターがボトルネックにもなり得ます。",
+    "en": "Unlimited scale is not a benefit; the coordinator can even be a bottleneck."
+   },
+   "B": {
+    "ja": "サブエージェントは分離コンテキストで動作し、履歴は自動共有されません。",
+    "en": "Subagents have isolated context; history is not shared automatically."
+   },
+   "C": {
+    "ja": "経由すると往復が増え、トークンは減るとは限りません。",
+    "en": "Routing adds hops; tokens do not necessarily drop."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-003",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.3",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "統合サブエージェントが、Web 検索サブエージェントの調査結果を踏まえたレポートではなく、一般的で根拠のない記述を出力します。コーディネーターのログでは、検索サブエージェントは正常に結果を返しています。最も可能性の高い原因は何ですか。",
+   "en": "The synthesis subagent produces generic, ungrounded text instead of a report based on the web search subagent's findings, though the search subagent returned results fine. What is the most likely cause?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "統合サブエージェントのモデルが小さすぎる。",
+    "en": "The synthesis subagent's model is too small."
+   },
+   {
+    "id": "B",
+    "ja": "コーディネーターが統合サブエージェントのプロンプトに先行する調査結果を明示的に含めておらず、サブエージェントは親のコンテキストを継承しない。",
+    "en": "The coordinator did not include the prior findings explicitly in the synthesis subagent's prompt, and subagents do not inherit parent context."
+   },
+   {
+    "id": "C",
+    "ja": "Web 検索サブエージェントが結果を保存していない。",
+    "en": "The web search subagent failed to store its results."
+   },
+   {
+    "id": "D",
+    "ja": "検索サブエージェントの allowedTools に Task が含まれていない。",
+    "en": "The search subagent's allowedTools lacks Task."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "サブエージェントは親の会話履歴を自動では継承せず、メモリも共有しません。必要な調査結果はプロンプトに完全な形で渡す必要があります。",
+   "en": "Subagents do not automatically inherit parent history or share memory; required findings must be passed completely in the prompt."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "モデルサイズは「根拠のなさ」の原因として一貫しません。入力がなければ小さくなくても同じ結果になります。",
+    "en": "With no input, even a large model would produce the same ungrounded text."
+   },
+   "C": {
+    "ja": "ログ上は検索サブエージェントが結果を返しており、問題は引き渡しにあります。",
+    "en": "The logs show results were returned; the problem is handoff."
+   },
+   "D": {
+    "ja": "Task は子を生成するコーディネーター側の要件で、検索サブエージェントには不要です。",
+    "en": "Task is a coordinator-side requirement for spawning; the search subagent does not need it."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s3-004",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.3",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "コーディネーターを実装しましたが、サブエージェントの呼び出しが一度も発生せず、コーディネーター自身がすべてを処理しようとします。AgentDefinition でサブエージェントは定義済みです。最初に確認すべき設定はどれですか。",
+   "en": "You built the coordinator, but it never invokes any subagent and tries to do everything itself, although the AgentDefinitions exist. Which configuration should you check first?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "コーディネーターの allowedTools に \"Task\" が含まれているか。",
+    "en": "Whether the coordinator's allowedTools includes \"Task\"."
+   },
+   {
+    "id": "B",
+    "ja": "会話履歴の最大長が十分大きいか。",
+    "en": "Whether max conversation length is large enough."
+   },
+   {
+    "id": "C",
+    "ja": "サブエージェントのシステムプロンプトが 500 トークン以内か。",
+    "en": "Whether subagent system prompts are under 500 tokens."
+   },
+   {
+    "id": "D",
+    "ja": "temperature の値が 1.0 になっているか。",
+    "en": "Whether temperature is set to 1.0."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "サブエージェントは Task ツールで生成されるため、コーディネーターの allowedTools に \"Task\" が必要です。含まれていないと呼び出せません。",
+   "en": "Subagents are spawned via the Task tool, so the coordinator's allowedTools must include \"Task\"; otherwise it cannot invoke them."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "履歴長は、呼び出しが一度も起きない症状の主因ではありません。",
+    "en": "History length is not the main cause of zero invocations."
+   },
+   "C": {
+    "ja": "プロンプト長の制限は呼び出しの可否を決めません。",
+    "en": "Prompt length limits do not gate invocation."
+   },
+   "D": {
+    "ja": "temperature はサブエージェントを呼び出せるかどうかとは無関係です。",
+    "en": "Temperature does not determine whether subagents can be invoked."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s3-005",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.3",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "3 つの独立したトピックを調べるため、コーディネーターが Web 検索サブエージェントを 1 つずつ順番に呼び、レイテンシが大きくなっています。並列化する最も適切な方法はどれですか。",
+   "en": "To research three independent topics, the coordinator invokes the web search subagent one at a time, causing high latency. What is the most appropriate way to parallelize?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ユーザーに 3 回に分けて質問してもらう。",
+    "en": "Ask the user to submit three separate questions."
+   },
+   {
+    "id": "B",
+    "ja": "1 つのサブエージェントに 3 トピックすべてを逐次処理させる。",
+    "en": "Make one subagent process all three topics sequentially."
+   },
+   {
+    "id": "C",
+    "ja": "各トピックのたびにターンを分けて Task を呼ぶが、間隔を短くする。",
+    "en": "Call Task across separate turns with shorter gaps."
+   },
+   {
+    "id": "D",
+    "ja": "1 回のコーディネーター応答の中で、複数の Task ツール呼び出しを同時に出力する。",
+    "en": "Emit multiple Task tool calls in a single coordinator response."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "複数の Task 呼び出しを 1 回の応答で出すと、サブエージェントが並列に実行されます。ターンを分けると逐次実行になります。",
+   "en": "Multiple Task calls in a single response run subagents in parallel; separate turns run sequentially."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "ユーザー負担を増やすだけで、設計上の解決になりません。",
+    "en": "This burdens the user and is not an architectural fix."
+   },
+   "B": {
+    "ja": "1 つに逐次処理させても遅延は解消しません。",
+    "en": "Sequential processing in one subagent does not fix latency."
+   },
+   "C": {
+    "ja": "ターンを分けると並列にならず、間隔も本質ではありません。",
+    "en": "Separate turns are not parallel; gap length is not the issue."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-006",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.3",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "コーディネーターのプロンプトに、各サブエージェントへの手順を細かく 12 ステップで書いたところ、想定外のクエリでサブエージェントが適応できず失敗します。より良い設計はどれですか。",
+   "en": "You wrote a 12-step procedure into the coordinator's prompts for each subagent, but the subagents fail to adapt on unexpected queries. Which design is better?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "失敗するたびに手順を 1 つ追加するパッチ運用を続ける。",
+    "en": "Keep patching by adding one more step each time it fails."
+   },
+   {
+    "id": "B",
+    "ja": "サブエージェントのツールをすべて外し、コーディネーターがすべて実行する。",
+    "en": "Remove all subagent tools and have the coordinator do everything."
+   },
+   {
+    "id": "C",
+    "ja": "手順を削除し、調査の目標と品質基準（網羅性、出典の質など）を指定して、方法はサブエージェントに任せる。",
+    "en": "Remove the procedures and specify research goals and quality criteria (coverage, source quality), letting subagents choose methods."
+   },
+   {
+    "id": "D",
+    "ja": "手順をさらに細かくして例外ケースを網羅する。",
+    "en": "Make the steps even finer and cover every exception."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "目標と品質基準を示すプロンプトは、サブエージェントが状況に応じて適応する余地を残します。手順の指定は脆く、想定外に弱くなります。",
+   "en": "Goal and criteria prompts let subagents adapt; step-by-step procedures are brittle against unexpected queries."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "パッチ運用は根本の脆さを解消しません。",
+    "en": "Patching never fixes the underlying brittleness."
+   },
+   "B": {
+    "ja": "ツールなしでは専門化の意味がなくなり、コーディネーターに負荷が集中します。",
+    "en": "Without tools, specialization is pointless and the coordinator is overloaded."
+   },
+   "D": {
+    "ja": "細分化するほど柔軟性が下がり、保守も困難になります。",
+    "en": "More granularity reduces flexibility and maintainability."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s3-007",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.2",
+  "scenarioId": "S3",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "2 つの検索サブエージェントが似た記事を重複して調べ、トークンを浪費しています。重複を減らす適切な方法を 2 つ選んでください（select 2）。",
+   "en": "Two search subagents research overlapping articles, wasting tokens. Select the TWO appropriate ways to reduce duplication (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "サブエージェントの数を倍にして網羅性を高める。",
+    "en": "Double the number of subagents to improve coverage."
+   },
+   {
+    "id": "B",
+    "ja": "サブエージェント同士が直接通信して重複を調整するようにする。",
+    "en": "Let subagents talk directly to coordinate duplicates."
+   },
+   {
+    "id": "C",
+    "ja": "ソースの種類（学術論文とニュースなど）でサブエージェントの担当を分ける。",
+    "en": "Divide subagents by source type, such as academic papers versus news."
+   },
+   {
+    "id": "D",
+    "ja": "両者に同じクエリを与えて、結果の多数決を取る。",
+    "en": "Give both the same query and take a majority vote."
+   },
+   {
+    "id": "E",
+    "ja": "各サブエージェントに、別々のサブトピックを割り当てる。",
+    "en": "Assign each subagent a distinct subtopic."
+   }
+  ],
+  "answer": [
+   "C",
+   "E"
+  ],
+  "explanation": {
+   "ja": "調査範囲をサブトピックまたはソース種別で明確に分割すると、重複を最小化できます。",
+   "en": "Partitioning scope by distinct subtopics or source types minimizes duplication."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "数を増やすと重複と費用がさらに増えます。",
+    "en": "More subagents add more overlap and cost."
+   },
+   "B": {
+    "ja": "直接通信はコーディネーター経由の統制を崩し、観測性も下がります。",
+    "en": "Direct communication undermines coordinator-controlled flow and observability."
+   },
+   "D": {
+    "ja": "同一クエリでは重複が最大になります。",
+    "en": "Identical queries maximize duplication."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-008",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.3",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "レポート生成サブエージェントに 18 個のツール（検索、スクレイピング、ファイル操作など）を与えたところ、本来使うべきでないツールを選んだり、選択が不安定になったりします。どう改善しますか。",
+   "en": "The report-generation subagent was given 18 tools (search, scraping, file ops, etc.) and now picks inappropriate tools or behaves inconsistently. How do you improve it?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "そのサブエージェントの役割に必要な 4〜5 個のツールだけに絞り、専門外のツールを持たせない。",
+    "en": "Restrict the subagent to the 4-5 tools its role needs and remove out-of-specialty tools."
+   },
+   {
+    "id": "B",
+    "ja": "ツール選択を毎回ユーザーに確認する。",
+    "en": "Ask the user to confirm each tool choice."
+   },
+   {
+    "id": "C",
+    "ja": "18 個のツール説明をすべて長くして、使い分けを書き込む。",
+    "en": "Lengthen all 18 tool descriptions to explain the distinctions."
+   },
+   {
+    "id": "D",
+    "ja": "モデルのコンテキストウィンドウを大きくする。",
+    "en": "Increase the model's context window."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "ツールが多すぎると選択の複雑さが増して信頼性が下がり、専門外のツールは誤用されがちです。役割に合わせたスコープ付きのツール構成が適切です。",
+   "en": "Too many tools increase decision complexity and degrade reliability, and out-of-specialty tools get misused. Role-scoped tool sets are appropriate."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "ユーザー確認は自律性を損ない、実用的ではありません。",
+    "en": "User confirmation destroys autonomy and is impractical."
+   },
+   "C": {
+    "ja": "説明を長くしても選択肢の数自体が複雑さの原因として残ります。",
+    "en": "Longer descriptions do not remove the complexity of the sheer number of options."
+   },
+   "D": {
+    "ja": "ウィンドウの大きさはツール選択の複雑さと関係しません。",
+    "en": "Window size does not address tool-selection complexity."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-009",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.1",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "文書分析サブエージェントの analyze_document ツールは、データ抽出・要約・主張の裏取りのすべてをこなす汎用ツールとして定義されており、呼ぶたびに出力形式がまちまちです。最適な改善はどれですか。",
+   "en": "The document-analysis subagent's analyze_document tool is a catch-all for data extraction, summarization, and claim verification, and its output format varies each call. What is the best improvement?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "プロンプトに「出力形式を毎回そろえること」と追記する。",
+    "en": "Add \"keep the output format consistent\" to the prompt."
+   },
+   {
+    "id": "B",
+    "ja": "analyze_document を extract_data_points、summarize_content、verify_claim_against_source のような目的別ツールに分割し、各ツールに入出力契約を定義する。",
+    "en": "Split analyze_document into purpose-specific tools such as extract_data_points, summarize_content, and verify_claim_against_source, each with a defined input/output contract."
+   },
+   {
+    "id": "C",
+    "ja": "ツール名を analyze_document_v2 に変更する。",
+    "en": "Rename the tool to analyze_document_v2."
+   },
+   {
+    "id": "D",
+    "ja": "すべての処理を 1 回の巨大な自由記述出力にする。",
+    "en": "Return everything as one large free-form output."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "汎用ツールを入出力契約が明確な目的別ツールに分割すると、選択が明確になり、出力も一貫します。",
+   "en": "Splitting a generic tool into purpose-specific ones with clear contracts clarifies selection and makes outputs consistent."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "プロンプトの念押しは確率的で、ツール境界の曖昧さを残します。",
+    "en": "A prompt reminder is probabilistic and leaves the vague tool boundary."
+   },
+   "C": {
+    "ja": "名前の変更だけでは役割も契約も変わりません。",
+    "en": "Renaming alone changes neither role nor contract."
+   },
+   "D": {
+    "ja": "自由記述は下流での利用や出典の保持を難しくします。",
+    "en": "Free-form output makes downstream use and source preservation harder."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-010",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.2",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "Web 検索サブエージェントが一時的なタイムアウトに遭遇しました。エラー処理として最も適切な設計はどれですか。",
+   "en": "The web search subagent hits a transient timeout. Which error-handling design is most appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "1 回でもタイムアウトしたらリサーチ全体を中止する。",
+    "en": "Abort the entire research run after any single timeout."
+   },
+   {
+    "id": "B",
+    "ja": "あらゆるエラーを即座にコーディネーターへ丸投げし、再試行の判断を任せる。",
+    "en": "Hand every error to the coordinator immediately and let it decide on retries."
+   },
+   {
+    "id": "C",
+    "ja": "サブエージェント内で一時的な障害はローカルに再試行して回復し、解決できない場合のみ、試行内容と部分的な結果を添えてコーディネーターに伝える。",
+    "en": "Recover from transient failures locally with retries inside the subagent, and propagate to the coordinator only unresolved errors along with what was attempted and partial results."
+   },
+   {
+    "id": "D",
+    "ja": "失敗を握りつぶして、空の結果を成功として返す。",
+    "en": "Swallow the failure and return empty results as success."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "一時的な障害はできるだけ局所で解決し、解決不能なものだけを、文脈（試行内容・部分結果）つきで上位に伝えると、コーディネーターの負荷も回復判断の質も保たれます。",
+   "en": "Resolving transient issues locally and escalating only unresolved ones with context keeps the coordinator light and its recovery decisions informed."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "単一の失敗で全体を止めるのはアンチパターンです。",
+    "en": "Terminating on a single failure is an anti-pattern."
+   },
+   "B": {
+    "ja": "すべてを上位に渡すとコーディネーターが些細な障害で埋まります。",
+    "en": "Passing everything upstream floods the coordinator with trivia."
+   },
+   "D": {
+    "ja": "失敗の隠蔽は、カバレッジの欠落を気づかせません。",
+    "en": "Hiding failure conceals coverage gaps."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s3-011",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.6",
+  "scenarioId": "S3",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "2 つの信頼できる情報源が、市場規模について異なる数値を報告しています。統合サブエージェントはどう扱うべきですか。",
+   "en": "Two credible sources report different market size figures. How should the synthesis agent handle this?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "両方の数値を出典の帰属とともに明示し、矛盾を注記して、確定した知見と争点のある知見を区別して提示する。",
+    "en": "Present both values with source attribution, annotate the conflict, and distinguish well-established from contested findings."
+   },
+   {
+    "id": "B",
+    "ja": "新しいほうの数値を採用し、もう一方は静かに無視する。",
+    "en": "Adopt the more recent figure and silently ignore the other."
+   },
+   {
+    "id": "C",
+    "ja": "両者の平均値を計算して 1 つの数字として示す。",
+    "en": "Compute the average and present a single number."
+   },
+   {
+    "id": "D",
+    "ja": "矛盾のある項目をレポートから削除する。",
+    "en": "Drop the conflicting item from the report."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "矛盾する統計は任意に選ばず、出典を付けて併記し、争点を明示します。これにより読者が判断でき、出典の追跡性も保てます。",
+   "en": "Conflicting statistics should be annotated with sources rather than arbitrarily resolved, preserving traceability and letting readers judge."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "黙って一方を捨てると情報が失われ、偏りが生じます。",
+    "en": "Silently dropping one loses information and biases the report."
+   },
+   "C": {
+    "ja": "平均値はどの出典にも存在しない捏造された数値になります。",
+    "en": "An average is a fabricated figure that no source reports."
+   },
+   "D": {
+    "ja": "削除はカバレッジを下げ、重要な論点を隠します。",
+    "en": "Deleting reduces coverage and hides an important issue."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s3-012",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.6",
+  "scenarioId": "S3",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "最終レポートで出典の対応づけと時間的な解釈の正確さを保つため、サブエージェントの出力に必要な要件を 2 つ選んでください（select 2）。",
+   "en": "To preserve claim-to-source mapping and correct temporal interpretation in the final report, select the TWO requirements to place on subagent outputs (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "出版日またはデータ収集日を構造化出力に含める。",
+    "en": "Include publication or data-collection dates in the structured output."
+   },
+   {
+    "id": "B",
+    "ja": "古い情報は日付を付けずに現在の事実として統合する。",
+    "en": "Merge older information as current fact without dates."
+   },
+   {
+    "id": "C",
+    "ja": "各主張に、出典 URL または文書名と関連する抜粋を結びつけた構造化された対応づけを含める。",
+    "en": "Include structured claim-source mappings with source URLs or document names and relevant excerpts."
+   },
+   {
+    "id": "D",
+    "ja": "出典はまとめて最後の 1 段落にのみ書く。",
+    "en": "List sources only in a single paragraph at the end."
+   },
+   {
+    "id": "E",
+    "ja": "主張の本文は要約し、出典は統合担当が推測で補う。",
+    "en": "Summarize claims and let the synthesis agent infer sources."
+   }
+  ],
+  "answer": [
+   "A",
+   "C"
+  ],
+  "explanation": {
+   "ja": "主張と出典の構造化マッピングは要約を経ても帰属を保たせ、日付は時間差を矛盾と誤解するのを防ぎます。",
+   "en": "Structured claim-source mappings preserve attribution through summarization, and dates prevent temporal differences from being misread as contradictions."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "日付がなければ、時期の違いが矛盾に見えるか、古い数値が現在のものと誤解されます。",
+    "en": "Without dates, temporal differences look like contradictions or old numbers read as current."
+   },
+   "D": {
+    "ja": "末尾にまとめると、どの主張がどの出典か対応が失われます。",
+    "en": "A trailing list loses which claim came from which source."
+   },
+   "E": {
+    "ja": "推測による補完は出典の捏造につながります。",
+    "en": "Inferred sources amount to fabricated attribution."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s4-001",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.5",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "新しい開発者向けエージェントが、「processPayment 関数を呼んでいるすべての箇所」と「リポジトリ内のすべての *.spec.ts ファイル」を調べる必要があります。それぞれに最適なビルトインツールの組み合わせはどれですか。",
+   "en": "A developer-productivity agent must find (1) every call site of the processPayment function and (2) all *.spec.ts files in the repo. Which built-in tool pairing fits best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "(1) Read、(2) Bash の ls",
+    "en": "(1) Read, (2) Bash ls"
+   },
+   {
+    "id": "B",
+    "ja": "(1) Glob、(2) Grep",
+    "en": "(1) Glob, (2) Grep"
+   },
+   {
+    "id": "C",
+    "ja": "(1) Grep（ファイル内容の検索）、(2) Glob（ファイル名パターンの照合）",
+    "en": "(1) Grep (content search), (2) Glob (file-path pattern matching)"
+   },
+   {
+    "id": "D",
+    "ja": "(1) と (2) の両方に Write",
+    "en": "Write for both"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "Grep は関数名やエラー文言などファイル内容のパターン検索、Glob は名前や拡張子によるファイルパスの照合に使います。",
+   "en": "Grep searches file contents for patterns such as function names; Glob matches file paths by name or extension."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "Read は既知のファイルの全文読み込み用で、全体の検索には向きません。",
+    "en": "Read loads a known file; it is not for repo-wide search."
+   },
+   "B": {
+    "ja": "役割が逆です。Glob はファイルの内容を検索できません。",
+    "en": "Reversed: Glob cannot search file contents."
+   },
+   "D": {
+    "ja": "Write はファイルを書き込むツールで、検索はできません。",
+    "en": "Write creates files; it cannot search."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s4-002",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.5",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "エージェントが設定ファイルの 1 箇所を Edit で変更しようとしましたが、対象の文字列がファイル内に複数あり、一意に特定できず失敗しました。信頼できる対処はどれですか。",
+   "en": "The agent tried to change one spot in a config file with Edit, but the target text appears multiple times and cannot be uniquely matched. What is a reliable fallback?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "Read でファイル全体を読み込み、変更後の内容を Write で書き戻す。",
+    "en": "Read the whole file and write back the modified content with Write."
+   },
+   {
+    "id": "B",
+    "ja": "Edit をあきらめ、変更せずに完了と報告する。",
+    "en": "Give up on editing and report the task complete without the change."
+   },
+   {
+    "id": "C",
+    "ja": "同じ Edit を何度も再試行する。",
+    "en": "Retry the same Edit repeatedly."
+   },
+   {
+    "id": "D",
+    "ja": "Bash の sed で全ファイルを一括置換する。",
+    "en": "Use bash sed to replace across the whole file."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "Edit は一意なテキスト一致を前提とします。一意な足場が見つからないときは、Read で全文を取得して Write で書き戻すのが確実なフォールバックです。",
+   "en": "Edit needs a unique text match; when no unique anchor exists, Read the full file and Write it back as a dependable fallback."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "変更せずに完了とするのは虚偽の報告です。",
+    "en": "Reporting completion without the change is false reporting."
+   },
+   "C": {
+    "ja": "同じ条件では同じ失敗が繰り返されます。",
+    "en": "Same input yields the same failure."
+   },
+   "D": {
+    "ja": "全箇所を置換すると、意図しない箇所まで書き換わります。",
+    "en": "A blanket replace changes unintended occurrences."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s4-003",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.5",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "見慣れない大規模コードベースで、ユーザー登録のフローを理解したいです。エージェントの探索戦略として最も適切なものはどれですか。",
+   "en": "You need to understand the user-registration flow in an unfamiliar large codebase. Which exploration strategy is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "無作為に 10 ファイルを選んで要約する。",
+    "en": "Pick ten random files and summarize them."
+   },
+   {
+    "id": "B",
+    "ja": "README だけを読んで残りは推測する。",
+    "en": "Read only the README and infer the rest."
+   },
+   {
+    "id": "C",
+    "ja": "まず Grep で登録処理のエントリポイントを探し、Read で import をたどって呼び出しの流れを追う。",
+    "en": "Start with Grep to find registration entry points, then Read to follow imports and trace the flow."
+   },
+   {
+    "id": "D",
+    "ja": "src/ 配下のすべてのファイルを最初に Read で読み込んでから分析する。",
+    "en": "Read every file under src/ first, then analyze."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "コードの理解は段階的に進めます。Grep でエントリポイントを見つけ、Read で import をたどると、関連箇所に絞って効率よく文脈を構築できます。",
+   "en": "Build understanding incrementally: Grep to find entry points, then Read to follow imports, keeping context focused."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "無作為な選択では登録フローを網羅できません。",
+    "en": "Random sampling will not cover the flow."
+   },
+   "B": {
+    "ja": "推測に頼ると、実際の実装との乖離が生じます。",
+    "en": "Guessing diverges from the actual implementation."
+   },
+   "D": {
+    "ja": "すべてを先に読むとコンテキストを浪費し、重要な情報が埋もれます。",
+    "en": "Reading everything upfront wastes context and buries what matters."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s4-004",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.4",
+  "scenarioId": "S4",
+  "type": "multiple",
+  "select": 3,
+  "stem": {
+   "ja": "チーム共有の GitHub MCP サーバー、個人で試す実験的 MCP サーバー、Jira 連携の設定を整えます。適切な方針を 3 つ選んでください（select 3）。",
+   "en": "You are setting up a team-shared GitHub MCP server, a personal experimental MCP server, and a Jira integration. Select the THREE correct practices (select 3)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "共有サーバーはプロジェクトスコープの .mcp.json に定義し、トークンは ${GITHUB_TOKEN} のような環境変数展開で参照する。",
+    "en": "Define the shared server in the project-scoped .mcp.json and reference the token with environment variable expansion such as ${GITHUB_TOKEN}."
+   },
+   {
+    "id": "B",
+    "ja": "認証トークンを .mcp.json に直接書き込んでコミットする。",
+    "en": "Write the auth token directly into .mcp.json and commit it."
+   },
+   {
+    "id": "C",
+    "ja": "Jira のような標準的な連携には、まず既存のコミュニティ製 MCP サーバーを検討し、カスタム実装はチーム固有のワークフローに限る。",
+    "en": "For standard integrations like Jira, prefer an existing community MCP server first and reserve custom servers for team-specific workflows."
+   },
+   {
+    "id": "D",
+    "ja": "個人の実験用サーバーはユーザースコープの ~/.claude.json に設定する。",
+    "en": "Configure the personal experimental server in the user-scoped ~/.claude.json."
+   },
+   {
+    "id": "E",
+    "ja": "複数の MCP サーバーを設定すると、最初に接続したサーバーのツールしか使えない。",
+    "en": "With multiple MCP servers configured, only the first connected server's tools are available."
+   }
+  ],
+  "answer": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": {
+   "ja": "共有ツールは .mcp.json、個人用は ~/.claude.json に分け、秘密情報は環境変数展開で扱います。標準連携はコミュニティ製サーバーを活用します。接続時にすべてのサーバーのツールが同時に使えます。",
+   "en": "Shared tooling goes in .mcp.json and personal tooling in ~/.claude.json, with secrets via env expansion; use community servers for standard integrations. Tools from all configured servers are available simultaneously."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "秘密情報のコミットは重大なセキュリティ問題です。",
+    "en": "Committing secrets is a serious security flaw."
+   },
+   "E": {
+    "ja": "すべてのサーバーのツールは接続時に発見され、同時に利用できます。",
+    "en": "Tools from all servers are discovered at connection time and usable together."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s4-005",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.4",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "社内のコード検索 MCP ツール search_symbols を追加しましたが、エージェントはより高機能なこのツールを使わず、ビルトインの Grep ばかり使います。最初に取るべき対策はどれですか。",
+   "en": "You added an internal MCP code-search tool, search_symbols, but the agent keeps using built-in Grep instead of this more capable tool. What should you do first?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "システムプロンプトに大文字で「search_symbols を使え」と繰り返し書く。",
+    "en": "Repeat \"USE search_symbols\" in capital letters in the system prompt."
+   },
+   {
+    "id": "B",
+    "ja": "search_symbols の説明に、機能・出力内容・Grep では得られない価値（型情報や参照解決など）を詳しく書く。",
+    "en": "Expand search_symbols' description with its capabilities, outputs, and what it provides that Grep cannot (such as type info and reference resolution)."
+   },
+   {
+    "id": "C",
+    "ja": "Grep を使用不可にして強制する。",
+    "en": "Disable Grep to force usage."
+   },
+   {
+    "id": "D",
+    "ja": "MCP サーバーを削除して Grep のみ使う。",
+    "en": "Remove the MCP server and just use Grep."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "ツール選択は説明に大きく依存します。MCP ツールの能力と出力を詳しく説明すると、より適切な場面でビルトインを上回って選ばれやすくなります。",
+   "en": "Tool selection depends heavily on descriptions; detailing the MCP tool's capabilities and outputs helps it get chosen over built-ins when appropriate."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "繰り返しの強調は、他のキーワード依存の問題を招く恐れがあり、根本対策ではありません。",
+    "en": "Shouting repeats risk other keyword effects and do not fix the root cause."
+   },
+   "C": {
+    "ja": "Grep が適切な場面まで奪い、柔軟性を損ないます。",
+    "en": "That removes Grep even where it is the right tool and harms flexibility."
+   },
+   "D": {
+    "ja": "有益な機能を捨てることは解決になりません。",
+    "en": "Discarding a useful capability is not a solution."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s4-006",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.6",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "数万行のレガシーコードベースに「包括的なテストを追加する」というタスクがあります。構造がよくわかっていません。分解戦略として最も適切なものはどれですか。",
+   "en": "You must \"add comprehensive tests\" to a legacy codebase of tens of thousands of lines whose structure is poorly understood. Which decomposition strategy is best?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "1 回のプロンプトで全体のテストを一括生成する。",
+    "en": "Generate all tests in one prompt."
+   },
+   {
+    "id": "B",
+    "ja": "ファイルをアルファベット順に処理して、各ファイルに同じテンプレートでテストを書く。",
+    "en": "Process files alphabetically and write tests with the same template for each."
+   },
+   {
+    "id": "C",
+    "ja": "まず構造を調べて影響の大きい領域を特定し、優先順位付きの計画を作り、依存関係を発見するたびに計画を適応させる。",
+    "en": "First map the structure, identify high-impact areas, build a prioritized plan, and adapt it as dependencies are discovered."
+   },
+   {
+    "id": "D",
+    "ja": "構造を調べず、固定された 3 段階のパイプラインを事前に決めて実行する。",
+    "en": "Skip exploration and run a predetermined fixed three-stage pipeline."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "オープンエンドな調査的タスクには動的な分解が向きます。構造把握、高影響領域の特定、優先付け、発見に応じた計画の更新という順序です。",
+   "en": "Open-ended investigative tasks suit dynamic decomposition: map structure, find high-impact areas, prioritize, and adapt as discoveries occur."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "一括生成は品質の低いテストと見落としを生みます。",
+    "en": "One-shot generation yields low-quality tests and gaps."
+   },
+   "B": {
+    "ja": "アルファベット順はリスクや重要度を無視します。",
+    "en": "Alphabetical order ignores risk and importance."
+   },
+   "D": {
+    "ja": "固定パイプラインは、実際に見つかる依存関係に適応できません。",
+    "en": "A fixed pipeline cannot adapt to discovered dependencies."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s4-007",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.6",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "次の 2 つのワークフローに最も適した分解パターンの組み合わせはどれですか。(a) すべての PR に毎回同じ観点（スタイル、セキュリティ、テスト）で行うレビュー。(b) 「このシステムの性能ボトルネックを調べて」という調査。",
+   "en": "Which pairing of decomposition patterns best fits (a) a review run on every PR with the same aspects (style, security, tests) and (b) an open-ended \"find this system's performance bottlenecks\" investigation?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "(a) 動的な適応型分解、(b) 固定の逐次パイプライン",
+    "en": "(a) dynamic adaptive decomposition, (b) fixed sequential pipeline"
+   },
+   {
+    "id": "B",
+    "ja": "(a) プロンプトチェーン（固定された逐次ステップ）、(b) 中間の発見に基づいてサブタスクを生成する適応型の調査計画",
+    "en": "(a) prompt chaining with fixed sequential steps, (b) an adaptive plan that generates subtasks from intermediate findings"
+   },
+   {
+    "id": "C",
+    "ja": "(a) と (b) の両方に固定パイプライン",
+    "en": "fixed pipelines for both"
+   },
+   {
+    "id": "D",
+    "ja": "(a) と (b) の両方に動的分解",
+    "en": "dynamic decomposition for both"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "予測可能な多面的レビューにはプロンプトチェーンが適し、結果が事前にわからない調査には発見に応じて計画を更新する適応型が適しています。",
+   "en": "Predictable multi-aspect work fits prompt chaining; open-ended investigations fit adaptive plans that evolve with findings."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "割り当てが逆です。",
+    "en": "The assignment is reversed."
+   },
+   "C": {
+    "ja": "調査は途中の発見で次の手順が変わるため、固定では対応できません。",
+    "en": "Investigations need to change course with findings, so fixed fails."
+   },
+   "D": {
+    "ja": "毎回同じ観点のレビューは固定のほうが一貫性・コスト面で有利です。",
+    "en": "Fixed steps give consistency and cost benefits for repeatable reviews."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s4-008",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.7",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "数日にわたって「決済モジュールのリファクタリング調査」を続けています。毎日同じ調査を再開したいとき、最も適切な方法はどれですか。",
+   "en": "You are investigating a payments-module refactor across several days. What is the most appropriate way to continue the same investigation each day?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "調査セッションに名前を付け、--resume <session-name> でその会話を再開する。",
+    "en": "Name the investigation session and continue it using --resume <session-name>."
+   },
+   {
+    "id": "B",
+    "ja": "毎回、前日の会話を手動でコピーして新しいセッションに貼り付ける。",
+    "en": "Copy and paste the previous day's conversation into a new session each time."
+   },
+   {
+    "id": "C",
+    "ja": "新しいセッションを作り、前日の結論を口頭で記憶に頼って説明する。",
+    "en": "Start a new session and describe yesterday's conclusions from memory."
+   },
+   {
+    "id": "D",
+    "ja": "毎日、リポジトリのファイルを最初から読み直す。",
+    "en": "Re-read repository files from scratch every day."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "名前付きセッションと --resume を使えば、特定の過去の会話を継続できます。前提が概ね有効な場合に適しています。",
+   "en": "Named sessions with --resume continue a specific prior conversation, appropriate when prior context is mostly still valid."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "手動コピーは手間がかかり、ツール結果などの構造も失われます。",
+    "en": "Manual copying is laborious and loses structure."
+   },
+   "C": {
+    "ja": "記憶頼みの説明は不正確になり、詳細を失います。",
+    "en": "Recalling from memory is inaccurate and loses detail."
+   },
+   "D": {
+    "ja": "毎回読み直すと時間とコンテキストの無駄です。",
+    "en": "Re-reading wastes time and context."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s4-009",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.4",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "メインエージェントが認証フロー全体を調査するため多数のファイルを開き、コンテキストが埋まって全体の方針を見失い始めています。どの対策が最も効果的ですか。",
+   "en": "The main agent is opening many files to investigate the whole auth flow, filling its context and losing track of the overall plan. Which measure is most effective?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "調査の個別の問いをサブエージェントに委任し、冗長な出力を隔離して、要点の要約だけをメインが受け取る。",
+    "en": "Delegate specific questions to subagents so verbose output is isolated and the main agent receives only concise findings."
+   },
+   {
+    "id": "B",
+    "ja": "ファイルを読む回数を制限するルールを課す。",
+    "en": "Impose a rule limiting how many files may be read."
+   },
+   {
+    "id": "C",
+    "ja": "調査を止めて、推測で実装に進む。",
+    "en": "Stop investigating and implement on guesses."
+   },
+   {
+    "id": "D",
+    "ja": "メインのモデルのコンテキストを大きくして放置する。",
+    "en": "Increase the model's context size and leave it."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "冗長な探索をサブエージェントに隔離し、メインは高レベルの調整に専念すれば、コンテキスト劣化を防げます。",
+   "en": "Isolating verbose exploration in subagents lets the main agent focus on high-level coordination and avoids context degradation."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "読む量の制限は調査の網羅性を下げます。",
+    "en": "Limiting reads reduces investigation coverage."
+   },
+   "C": {
+    "ja": "推測による実装は品質リスクが高いです。",
+    "en": "Implementing on guesses is risky."
+   },
+   "D": {
+    "ja": "大きなコンテキストでも劣化や位置効果は残ります。",
+    "en": "Larger contexts still suffer degradation and position effects."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s4-010",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.4",
+  "scenarioId": "S4",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "複数のエージェントが長時間の調査を行うシステムで、クラッシュからの回復手段を設計します。適切な設計を 2 つ選んでください（select 2）。",
+   "en": "You are designing crash recovery for a system where multiple agents run long investigations. Select the TWO appropriate design elements (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "状態はメモリ上だけに保持して、再起動時に自動復元されることを期待する。",
+    "en": "Keep state only in memory and expect automatic restoration on restart."
+   },
+   {
+    "id": "B",
+    "ja": "マニフェストの内容を、再開後に各エージェントのプロンプトに注入する。",
+    "en": "Inject manifest contents into each agent's prompt after resuming."
+   },
+   {
+    "id": "C",
+    "ja": "すべてのエージェントが同じ 1 つのファイルに同時に書き込む。",
+    "en": "All agents write simultaneously to one shared file."
+   },
+   {
+    "id": "D",
+    "ja": "各エージェントが状態を既知の場所へエクスポートし、コーディネーターが再開時にマニフェストを読み込む。",
+    "en": "Each agent exports its state to a known location, and the coordinator loads a manifest on resume."
+   },
+   {
+    "id": "E",
+    "ja": "クラッシュしたら調査を最初からやり直す前提にする。",
+    "en": "Assume crashes mean restarting investigations from scratch."
+   }
+  ],
+  "answer": [
+   "B",
+   "D"
+  ],
+  "explanation": {
+   "ja": "構造化された状態のエクスポートとマニフェストによる再開、およびそれらのプロンプトへの注入で、作業を失わずに回復できます。",
+   "en": "Structured state export, a manifest on resume, and injecting it into prompts allow recovery without losing work."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "メモリ上の状態はクラッシュで失われ、自動では復元されません。",
+    "en": "In-memory state is lost on crash and not auto-restored."
+   },
+   "C": {
+    "ja": "同時書き込みは競合と破損を招きます。",
+    "en": "Concurrent writes cause conflicts and corruption."
+   },
+   "E": {
+    "ja": "再実行は時間とコストの損失です。",
+    "en": "Restarting wastes time and cost."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s4-011",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.1",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "同じリポジトリで、開発者ごとに Claude Code が従う規約が異なる、という報告があります。どの規約ファイルが読み込まれているかを確認するために使えるコマンドはどれですか。",
+   "en": "Developers report that Claude Code follows different conventions per person in the same repo. Which command helps verify which memory files are loaded?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "/resume",
+    "en": "/resume"
+   },
+   {
+    "id": "B",
+    "ja": "/compact",
+    "en": "/compact"
+   },
+   {
+    "id": "C",
+    "ja": "/clear",
+    "en": "/clear"
+   },
+   {
+    "id": "D",
+    "ja": "/memory",
+    "en": "/memory"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "/memory を使うと、読み込まれている CLAUDE.md などのメモリファイルを確認でき、セッション間の挙動の不一致を診断できます。",
+   "en": "/memory shows which memory files such as CLAUDE.md are loaded, helping diagnose inconsistent behavior across sessions."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "/resume は過去のセッションを再開するコマンドです。",
+    "en": "/resume continues a prior session."
+   },
+   "B": {
+    "ja": "/compact はコンテキストを圧縮するコマンドで、読み込みファイルの確認ではありません。",
+    "en": "/compact condenses context; it does not list loaded files."
+   },
+   "C": {
+    "ja": "/clear は会話をリセットするだけです。",
+    "en": "/clear just resets the conversation."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s4-012",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.4",
+  "scenarioId": "S4",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "レガシーな認証ライブラリを、影響範囲が 45 ファイル以上ある新ライブラリへ移行します。方式の選択肢も複数あります。最も適切な進め方はどれですか。",
+   "en": "You will migrate a legacy auth library to a new one affecting 45+ files, with several viable approaches. What is the most appropriate workflow?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "全ファイルをコンテキストに入れて 1 回のプロンプトで一括置換する。",
+    "en": "Load all files into context and replace them in a single prompt."
+   },
+   {
+    "id": "B",
+    "ja": "移行はユーザーが手作業で行い、Claude には使わせない。",
+    "en": "Have the user migrate by hand and avoid Claude entirely."
+   },
+   {
+    "id": "C",
+    "ja": "ファイルごとに直接実行で置換を始め、問題が出たら考える。",
+    "en": "Start direct replacement file by file and deal with problems as they arise."
+   },
+   {
+    "id": "D",
+    "ja": "プランモードで影響調査と方式の選定を行い、計画が固まってから直接実行で実装する。",
+    "en": "Investigate impact and choose the approach in plan mode, then implement via direct execution once the plan is settled."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "広範囲かつ複数案があるタスクは、プランモードで安全に調査・設計し、その後に直接実行で実装すると手戻りが減ります。",
+   "en": "Broad tasks with several valid approaches benefit from safe investigation and design in plan mode followed by direct execution, reducing rework."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "45 ファイル超は文脈に収まらず、一括置換は品質が下がります。",
+    "en": "45+ files will not fit well, and bulk replacement lowers quality."
+   },
+   "B": {
+    "ja": "Claude を使わない選択は課題の解決ではありません。",
+    "en": "Avoiding Claude does not address the task."
+   },
+   "C": {
+    "ja": "行き当たりばったりの置換は手戻りが大きくなります。",
+    "en": "Ad hoc replacement causes costly rework."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-001",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.6",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "CI で Claude Code がレビュー結果を出力し、スクリプトがそれを解析して PR にインラインコメントとして投稿します。自由な文章出力だとパースが頻繁に失敗します。最適な構成はどれですか。",
+   "en": "In CI, Claude Code produces review results that a script parses and posts as inline PR comments. Free-form prose output often breaks parsing. What is the best setup?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "出力が崩れたら、CI ジョブ全体を自動的に再実行する。",
+    "en": "Automatically rerun the whole CI job whenever output is malformed."
+   },
+   {
+    "id": "B",
+    "ja": "出力を正規表現で解析し、失敗したら手作業で修正する。",
+    "en": "Parse the output with regex and fix failures manually."
+   },
+   {
+    "id": "C",
+    "ja": "-p で非対話実行し、--output-format json と --json-schema で機械可読な構造化結果を出力させる。",
+    "en": "Run non-interactively with -p and use --output-format json with --json-schema to produce machine-parseable structured findings."
+   },
+   {
+    "id": "D",
+    "ja": "レビュー出力は Markdown の表にするよう CLAUDE.md に書く。",
+    "en": "Ask for Markdown tables in CLAUDE.md."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "CLI の --output-format json と --json-schema は、投稿処理がそのまま使える構造化された指摘を得るためのものです。-p は対話待ちによるハングを防ぎます。",
+   "en": "--output-format json with --json-schema yields structured findings ready for automated posting, and -p prevents interactive hangs."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "再実行はコストが増えるだけで、形式を保証しません。",
+    "en": "Reruns add cost without guaranteeing format."
+   },
+   "B": {
+    "ja": "正規表現と手作業は脆く、自動化の目的に反します。",
+    "en": "Regex plus manual fixes is brittle and defeats automation."
+   },
+   "D": {
+    "ja": "Markdown の表は依然として自由形式で、スキーマ保証はありません。",
+    "en": "Markdown tables are still free-form with no schema guarantee."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-002",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.6",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "同じ PR に新しいコミットがプッシュされるたびにレビューが走り、前回と同じ指摘が重複してコメントされて開発者が苛立っています。どう改善しますか。",
+   "en": "Each time a new commit is pushed to a PR the review reruns and re-posts the same findings, annoying developers. How do you improve this?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "すべてのコメントを自動で削除してから、毎回新しく投稿する。",
+    "en": "Delete all comments automatically and repost everything each time."
+   },
+   {
+    "id": "B",
+    "ja": "再実行時に過去のレビュー指摘をコンテキストに含め、新規または未対応の問題だけを報告するよう指示する。",
+    "en": "Include prior review findings in context on reruns and instruct Claude to report only new or still-unaddressed issues."
+   },
+   {
+    "id": "C",
+    "ja": "レビューを PR あたり 1 回に制限し、以降のコミットは無視する。",
+    "en": "Limit reviews to one per PR and ignore later commits."
+   },
+   {
+    "id": "D",
+    "ja": "重複するコメントを人手で解決済みにする運用ルールを作る。",
+    "en": "Create a team rule to manually resolve duplicate comments."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "過去の指摘をコンテキストに渡して、新規または未解決のものだけを報告させれば、重複コメントを避けつつ継続的にレビューできます。",
+   "en": "Passing prior findings and asking for only new or unresolved issues avoids duplicates while keeping reviews continuous."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "削除と再投稿は議論の履歴を失わせ、ノイズも減りません。",
+    "en": "Delete-and-repost loses discussion history and does not reduce noise."
+   },
+   "C": {
+    "ja": "新しいコミットで入った問題を見逃します。",
+    "en": "Issues introduced in later commits would be missed."
+   },
+   "D": {
+    "ja": "人手の運用は自動化の目的に反し、負担を増やします。",
+    "en": "Manual process defeats automation and adds toil."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-003",
+  "exam": "CCAR-F",
+  "domain": 3,
+  "taskStatement": "3.6",
+  "scenarioId": "S5",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "CI で Claude Code にテスト生成をさせていますが、既存のテストと重複したり、価値の低いテストが増えます。品質を高める施策を 2 つ選んでください（select 2）。",
+   "en": "Claude Code generates tests in CI but duplicates existing tests and produces low-value ones. Select the TWO measures that improve quality (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "テスト基準、価値のあるテストの条件、使用可能なフィクスチャを CLAUDE.md に記載する。",
+    "en": "Document testing standards, criteria for valuable tests, and available fixtures in CLAUDE.md."
+   },
+   {
+    "id": "B",
+    "ja": "カバレッジ率だけを最大化するよう指示する。",
+    "en": "Instruct it to maximize coverage percentage only."
+   },
+   {
+    "id": "C",
+    "ja": "生成後に重複を目視で削除する運用にする。",
+    "en": "Remove duplicates by eye after generation."
+   },
+   {
+    "id": "D",
+    "ja": "テスト数の上限を 100 に設定して数で抑える。",
+    "en": "Cap the number of tests at 100."
+   },
+   {
+    "id": "E",
+    "ja": "既存のテストファイルをコンテキストとして渡し、すでにカバー済みのシナリオを提案しないようにする。",
+    "en": "Provide existing test files as context so it avoids suggesting scenarios already covered."
+   }
+  ],
+  "answer": [
+   "A",
+   "E"
+  ],
+  "explanation": {
+   "ja": "既存テストの提示は重複を減らし、CLAUDE.md のテスト基準やフィクスチャ情報は生成の質を向上させます。",
+   "en": "Showing existing tests reduces duplicates, and CLAUDE.md standards and fixture info raise generation quality."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "カバレッジ最大化は、価値の低い冗長なテストを増やしがちです。",
+    "en": "Maximizing coverage tends to produce low-value, redundant tests."
+   },
+   "C": {
+    "ja": "人手による後処理は自動化の利点を損ないます。",
+    "en": "Manual cleanup erodes the benefit of automation."
+   },
+   "D": {
+    "ja": "上限は品質を保証せず、重要なテストが漏れる可能性があります。",
+    "en": "A cap does not ensure quality and may drop important tests."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-004",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.1",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "自動レビューの指摘の約半数が、スタイルの好みや局所的な慣習に関する些細なものです。開発者は信頼を失い始めています。どのプロンプト変更が最も有効ですか。",
+   "en": "About half of automated review findings are trivial style preferences or local conventions, and developers are losing trust. Which prompt change is most effective?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "「正確にレビューすること」を何度も繰り返す。",
+    "en": "Repeat \"review accurately\" multiple times."
+   },
+   {
+    "id": "B",
+    "ja": "報告対象（バグ、セキュリティ）と対象外（軽微なスタイル、局所的なパターン）を明確に示した具体的なカテゴリ基準を書く。",
+    "en": "Write specific categorical criteria defining what to report (bugs, security) and what to skip (minor style, local patterns)."
+   },
+   {
+    "id": "C",
+    "ja": "指摘数に上限を設け、最初の 5 件だけ投稿する。",
+    "en": "Cap the output at the first five findings."
+   },
+   {
+    "id": "D",
+    "ja": "「保守的に判断し、確信度の高い指摘のみ報告すること」と指示する。",
+    "en": "Instruct: \"be conservative and only report high-confidence findings\"."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "一般的な「保守的に」「高確信のみ」の指示は精度向上に効きません。報告・非報告の基準を具体的なカテゴリで明示すると偽陽性が減ります。",
+   "en": "General cautions such as \"be conservative\" do not improve precision; explicit categorical criteria for what to report and skip reduce false positives."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "抽象的な念押しでは具体的な判断基準になりません。",
+    "en": "Vague repetition gives no concrete decision criteria."
+   },
+   "C": {
+    "ja": "上限は重要な指摘を落とし、偽陽性の原因も解決しません。",
+    "en": "A cap may drop real issues and does not address false-positive causes."
+   },
+   "D": {
+    "ja": "確信度ベースのフィルタリングは、基準のない曖昧な指示で精度が上がりません。",
+    "en": "Confidence-based filtering without criteria does not improve precision."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-005",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.1",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "「コメントの正確性」カテゴリは偽陽性が非常に多く、他のカテゴリ（バグ・セキュリティ）の正確な指摘まで開発者に無視され始めました。開発者の信頼を回復するための対応として最も適切なものはどれですか。",
+   "en": "The \"comment accuracy\" category yields very many false positives, and developers have begun ignoring even accurate bug and security findings. What is the most appropriate action to restore trust?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "レビューシステム全体を無効にする。",
+    "en": "Disable the whole review system."
+   },
+   {
+    "id": "B",
+    "ja": "開発者に偽陽性を無視するよう周知する。",
+    "en": "Tell developers to ignore false positives."
+   },
+   {
+    "id": "C",
+    "ja": "偽陽性の高いカテゴリを一時的に無効化し、そのカテゴリのプロンプトを改善してから再有効化する。",
+    "en": "Temporarily disable the high-false-positive category, improve its prompt, then re-enable."
+   },
+   {
+    "id": "D",
+    "ja": "全カテゴリの重大度を一律に下げる。",
+    "en": "Lower severity for all categories equally."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "偽陽性の多いカテゴリは全体の信頼を損ないます。一時的に切り離して改善すれば、精度の高いカテゴリへの信頼を守れます。",
+   "en": "A noisy category undermines trust in the whole system; temporarily isolating it while improving protects confidence in accurate categories."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "全体停止は価値ある検出まで失わせます。",
+    "en": "Disabling everything loses valuable detection."
+   },
+   "B": {
+    "ja": "周知は信頼低下を悪化させ、重要な指摘も見逃されます。",
+    "en": "This worsens trust erosion and real issues get missed."
+   },
+   "D": {
+    "ja": "一律の調整は良質な指摘まで目立たなくします。",
+    "en": "Uniform changes mute good findings too."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s5-006",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.1",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "レビューの重大度（critical / major / minor）の付け方が、実行ごとにばらつきます。一貫した分類を得るための最も効果的な方法はどれですか。",
+   "en": "Severity labels (critical / major / minor) vary from run to run. What is the most effective way to get consistent classification?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "同じレビューを 3 回走らせて平均を取る。",
+    "en": "Run the same review three times and average."
+   },
+   {
+    "id": "B",
+    "ja": "各重大度の定義を具体的なコード例とともに明示する。",
+    "en": "Define each severity level explicitly with concrete code examples."
+   },
+   {
+    "id": "C",
+    "ja": "重大度を付けない運用にする。",
+    "en": "Drop severity labels entirely."
+   },
+   {
+    "id": "D",
+    "ja": "重大度のラベル名をより印象的なものに変える。",
+    "en": "Rename the severity labels to be more evocative."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "各レベルに具体的なコード例を付けた明示的な基準は、分類を一貫させます。",
+   "en": "Explicit severity criteria with concrete code examples for each level produce consistent classification."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "平均は基準の曖昧さを解消せず、コストが増えるだけです。",
+    "en": "Averaging does not fix ambiguous criteria and adds cost."
+   },
+   "C": {
+    "ja": "重大度は優先順位付けに必要な情報です。",
+    "en": "Severity is needed to prioritize fixes."
+   },
+   "D": {
+    "ja": "ラベル名の変更では判断基準は変わりません。",
+    "en": "Renaming labels does not change judgment criteria."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-007",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.2",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "レビューエージェントが、実は問題のない意図的な防御的コード（冗長な null チェックなど）を欠陥として指摘してしまいます。新しい類似パターンにも汎化させたいです。何をすべきですか。",
+   "en": "The review agent flags intentional defensive code (such as redundant null checks) as defects. You want it to generalize to similar new patterns. What should you do?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "既知の誤検出パターンを正規表現で除外する後処理を実装する。",
+    "en": "Implement a regex post-filter excluding known false-positive patterns."
+   },
+   {
+    "id": "B",
+    "ja": "「防御的コードは指摘しない」という一行を追加するのみとする。",
+    "en": "Add one line saying \"do not flag defensive code\" and nothing else."
+   },
+   {
+    "id": "C",
+    "ja": "例を 50 件以上追加してモデルに網羅的に記憶させる。",
+    "en": "Add 50+ examples so the model memorizes everything."
+   },
+   {
+    "id": "D",
+    "ja": "許容できるコードパターンと本物の問題を対比し、判断理由を示した 2〜4 件の具体的な Few-shot 例を追加する。",
+    "en": "Add two to four targeted few-shot examples contrasting acceptable code patterns with genuine issues, with reasoning for each."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "判断理由つきの少数の Few-shot 例は、事前に列挙されていない新規パターンにも判断を汎化させる効果があります。",
+   "en": "A few reasoned few-shot examples help the model generalize judgment to novel patterns not enumerated in advance."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "正規表現は列挙済みのパターンにしか対応できず、汎化しません。",
+    "en": "Regex only covers enumerated patterns and does not generalize."
+   },
+   "B": {
+    "ja": "一行の規則では境界事例の判断を教えられません。",
+    "en": "A single rule line cannot teach boundary cases."
+   },
+   "C": {
+    "ja": "大量の例は過剰で、トークンを浪費し、汎化にも寄与しにくいです。",
+    "en": "Dozens of examples waste tokens and add little generalization."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-008",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.5",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "チームは次の 2 つにも Claude を使う予定です。(1) マージ前に結果が必須の PR チェック、(2) 毎晩実行される全モジュールのテスト生成レポート。コスト削減のための API の選択として適切なものはどれですか。",
+   "en": "The team plans Claude for (1) a blocking PR check required before merge and (2) a nightly all-module test-generation report. Which API choice appropriately reduces cost?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "(1) は同期 API のまま、(2) を Message Batches API に切り替える。",
+    "en": "Keep (1) on the synchronous API and move (2) to the Message Batches API."
+   },
+   {
+    "id": "B",
+    "ja": "(1) を Message Batches API に切り替え、(2) は同期 API のままにする。",
+    "en": "Move (1) to batches and keep (2) synchronous."
+   },
+   {
+    "id": "C",
+    "ja": "どちらも同期 API のままにし、バッチ API は使わない。",
+    "en": "Keep both synchronous and never use batches."
+   },
+   {
+    "id": "D",
+    "ja": "(1) と (2) の両方を Message Batches API にする。",
+    "en": "Use the Message Batches API for both."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "Message Batches API は 50% のコスト削減ですが、処理に最大 24 時間かかり、レイテンシの保証がありません。ブロッキングなマージ前チェックには不向きで、夜間のレポートに向きます。",
+   "en": "Batches save 50% but may take up to 24 hours with no latency SLA: unsuitable for blocking pre-merge checks, ideal for overnight reports."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "逆です。ブロッキングに遅延リスクを持ち込み、夜間処理の節約を逃します。",
+    "en": "Reversed: it adds latency risk to blocking work and forgoes savings on nightly work."
+   },
+   "C": {
+    "ja": "夜間レポートは遅延許容で、バッチによる 50% の節約を逃します。",
+    "en": "The nightly report tolerates latency, so skipping batches forfeits a 50% saving."
+   },
+   "D": {
+    "ja": "ブロッキングなチェックが長時間待たされます。",
+    "en": "The blocking check could wait up to a day."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-009",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.6",
+  "scenarioId": "S5",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "Claude Code が生成したコードを、同じ Claude Code セッションでセルフレビューさせても、微妙な問題を見逃しがちです。レビューの品質を高める方法を 2 つ選んでください（select 2）。",
+   "en": "Having the same Claude Code session self-review the code it generated tends to miss subtle issues. Select the TWO ways to improve review quality (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "生成時の推論コンテキストを持たない、独立した Claude インスタンスにレビューさせる。",
+    "en": "Use an independent Claude instance without the generator's reasoning context."
+   },
+   {
+    "id": "B",
+    "ja": "同じセッションの拡張思考を長くする。",
+    "en": "Lengthen extended thinking in the same session."
+   },
+   {
+    "id": "C",
+    "ja": "レビューを生成と同じプロンプトにまとめる。",
+    "en": "Merge review into the generation prompt."
+   },
+   {
+    "id": "D",
+    "ja": "同じセッションで「もっと批判的に」と指示する。",
+    "en": "Tell the same session to be more critical."
+   },
+   {
+    "id": "E",
+    "ja": "レビュー出力に各指摘の自己申告の確信度を含め、検証パスで確信度に基づくレビュー経路の振り分けに使う。",
+    "en": "Have the review output include self-reported confidence per finding, and use a verification pass to route review based on it."
+   }
+  ],
+  "answer": [
+   "A",
+   "E"
+  ],
+  "explanation": {
+   "ja": "生成時の推論文脈を持たない独立インスタンスは問題を見つけやすく、確信度を併記する検証パスは、較正されたレビュー振り分けを可能にします。",
+   "en": "An independent instance catches more subtle issues, and a verification pass with confidence enables calibrated review routing."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "拡張思考でも、生成時の文脈への偏りは残ります。",
+    "en": "Extended thinking retains the bias from generation context."
+   },
+   "C": {
+    "ja": "同じプロンプトにすると、独立性がさらに失われます。",
+    "en": "Merging removes independence even further."
+   },
+   "D": {
+    "ja": "同一セッションは自らの判断を疑いにくく、指示だけでは変わりません。",
+    "en": "The same session is reluctant to question its own decisions; instruction alone does not fix this."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s5-010",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.4",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "開発者が一部の自動レビュー指摘を「却下」しています。どのコード構成が偽陽性を生んでいるのかを体系的に分析し、プロンプトを改善したいです。構造化出力にどんな工夫を入れますか。",
+   "en": "Developers dismiss some automated review findings. You want to analyze systematically which code constructs cause the false positives and improve the prompt. What should you add to the structured output?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "指摘の重大度をすべて同じにする。",
+    "en": "Give every finding the same severity."
+   },
+   {
+    "id": "B",
+    "ja": "却下の理由を、開発者に自由記述で入力させて集計する。",
+    "en": "Collect free-text dismissal reasons from developers."
+   },
+   {
+    "id": "C",
+    "ja": "各指摘に、指摘を引き起こしたコード構成を示す detected_pattern フィールドを含める。",
+    "en": "Include a detected_pattern field on each finding identifying the code construct that triggered it."
+   },
+   {
+    "id": "D",
+    "ja": "指摘の本文をできるだけ長くする。",
+    "en": "Make finding descriptions as long as possible."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "detected_pattern を付与すると、どの構成が却下されやすいかを集計して分析でき、プロンプト改善に直結します。",
+   "en": "A detected_pattern field lets you aggregate which constructs get dismissed, directly informing prompt improvements."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "重大度の均一化は分析の手がかりを減らします。",
+    "en": "Uniform severity removes signal."
+   },
+   "B": {
+    "ja": "自由記述は集計しづらく、負担も増えます。",
+    "en": "Free text is hard to aggregate and burdensome."
+   },
+   "D": {
+    "ja": "長さは偽陽性の原因分析に役立ちません。",
+    "en": "Length does not help diagnose false positives."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s5-011",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.6",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "22 ファイルにまたがる PR で、ある API の戻り値の型が変更されましたが、呼び出し側の一部がそれに追従していません。1 回の通しレビューではこの不整合を見落とします。どう再構成しますか。",
+   "en": "In a 22-file PR an API's return type changed, but some callers were not updated. The one-pass review misses this inconsistency. How should the review be restructured?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "より長いコンテキストを持つモデルに通しレビューを任せる。",
+    "en": "Hand the one-pass review to a model with a longer context."
+   },
+   {
+    "id": "B",
+    "ja": "1 パスのレビューを繰り返し、一度でも指摘されたら採用する。",
+    "en": "Repeat the single-pass review and accept any finding flagged even once."
+   },
+   {
+    "id": "C",
+    "ja": "PR を開発者に最大 3 ファイルずつの小さな PR に分割させる。",
+    "en": "Require developers to split the PR into three-file PRs."
+   },
+   {
+    "id": "D",
+    "ja": "ファイルごとの局所的な分析パスの後に、ファイル間のデータフローと契約を確認する独立した統合パスを実行する。",
+    "en": "Run per-file local analysis passes followed by a separate integration pass examining cross-file data flow and contracts."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "局所的な問題はファイルごとのパスで、ファイル間の不整合は専用の統合パスで検出します。注意の分散を避ける構造です。",
+   "en": "Per-file passes catch local issues while a dedicated integration pass catches cross-file inconsistencies, avoiding attention dilution."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "長いコンテキストは注意の質の問題を解決しません。",
+    "en": "A longer context does not fix attention quality."
+   },
+   "B": {
+    "ja": "繰り返しは根本原因を解消せず、偽陽性を増やします。",
+    "en": "Repeats do not remove the cause and increase false positives."
+   },
+   "C": {
+    "ja": "分割を強いても、PR を超えた整合の確認は必要で、負担も開発者に移ります。",
+    "en": "Splitting shifts burden to developers and still requires cross-PR consistency checks."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s5-012",
+  "exam": "CCAR-F",
+  "domain": 1,
+  "taskStatement": "1.6",
+  "scenarioId": "S5",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "CI でのテスト生成は「対象関数の分析 → 境界条件の洗い出し → テスト作成 → 既存スイートとの重複確認」の順で、各段階が前段の出力に依存します。適切な設計はどれですか。",
+   "en": "CI test generation proceeds as: analyze target function, list edge cases, write tests, check overlap with the existing suite, with each stage depending on the previous output. Which design is appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "重複確認だけを最初に行う。",
+    "en": "Do only the overlap check first."
+   },
+   {
+    "id": "B",
+    "ja": "すべてを 1 つの巨大なプロンプトで同時に実行させる。",
+    "en": "Run everything at once in one giant prompt."
+   },
+   {
+    "id": "C",
+    "ja": "ステップごとに焦点を絞った逐次のプロンプトチェーンにして、各段の出力を次段の入力として渡す。",
+    "en": "Use a prompt chain of focused sequential steps, passing each output as input to the next."
+   },
+   {
+    "id": "D",
+    "ja": "各段階をランダムな順で並列に実行する。",
+    "en": "Run the stages in parallel in random order."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "依存関係のある予測可能な手順には、焦点を絞ったステップを逐次連結するプロンプトチェーンが適します。",
+   "en": "Predictable, dependent steps suit a prompt chain of focused sequential stages."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "重複確認は生成されたテストがあって初めて意味を持ちます。",
+    "en": "The overlap check only makes sense once tests exist."
+   },
+   "B": {
+    "ja": "一括では各観点への注意が分散し、品質が不安定になります。",
+    "en": "One giant prompt dilutes attention and makes quality uneven."
+   },
+   "D": {
+    "ja": "前段の出力に依存するため、並列実行はできません。",
+    "en": "Stages depend on earlier outputs, so they cannot run in parallel."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s6-001",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.3",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "請求書から項目を抽出するパイプラインで、プロンプトに「JSON のみを返すこと」と書いていますが、ときどき前置き文や壊れた JSON が混ざり、下流のパーサーが失敗します。最も確実な対策はどれですか。",
+   "en": "Your invoice extraction pipeline tells the model \"return only JSON\", but the output occasionally includes preamble text or malformed JSON, breaking the downstream parser. What is the most reliable fix?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "JSON スキーマを入力パラメータとする抽出ツールを定義し、tool_use の入力から構造化データを取り出す。",
+    "en": "Define an extraction tool whose input parameters follow the JSON schema and read the structured data from the tool_use input."
+   },
+   {
+    "id": "B",
+    "ja": "失敗するたびに全文書を手作業で修正する。",
+    "en": "Manually fix every failed document."
+   },
+   {
+    "id": "C",
+    "ja": "プロンプトの「JSON のみ」を太字で強調する。",
+    "en": "Bold the \"JSON only\" instruction in the prompt."
+   },
+   {
+    "id": "D",
+    "ja": "出力から最初の { と最後の } の間を正規表現で切り出す。",
+    "en": "Regex-extract the text between the first { and last } in the output."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "スキーマ付きのツール利用（tool_use）は、スキーマに準拠した構造化出力を得る最も信頼できる方法で、JSON の構文エラーを排除できます。",
+   "en": "Tool use with JSON schemas is the most reliable way to obtain schema-compliant output and eliminates JSON syntax errors."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "手作業は自動化のスケールに合いません。",
+    "en": "Manual repair does not scale."
+   },
+   "C": {
+    "ja": "プロンプトによる強調は確率的で、保証がありません。",
+    "en": "Emphasis is probabilistic with no guarantee."
+   },
+   "D": {
+    "ja": "切り出しは壊れた JSON を直せず、脆い対処です。",
+    "en": "Slicing cannot repair malformed JSON and is brittle."
+   }
+  },
+  "difficulty": 1
+ },
+ {
+  "id": "ccar-f-s6-002",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.3",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "契約書から「解約通知期間（日数）」を抽出しています。この項目が記載されていない契約書でも、モデルがもっともらしい日数（30 など）を出力してしまいます。スキーマ設計としてどう対処しますか。",
+   "en": "You extract \"notice period (days)\" from contracts. For contracts that never state it, the model still outputs a plausible number such as 30. How should the schema be designed?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "デフォルト値 30 をスキーマに設定する。",
+    "en": "Set a default value of 30 in the schema."
+   },
+   {
+    "id": "B",
+    "ja": "この項目を必須（required）にして、必ず値を出すよう強制する。",
+    "en": "Make the field required so a value must always be returned."
+   },
+   {
+    "id": "C",
+    "ja": "この項目の抽出を諦めて削除する。",
+    "en": "Drop the field entirely."
+   },
+   {
+    "id": "D",
+    "ja": "この項目を任意（null 許容）にして、原文に記載がない場合は null を返せるようにする。",
+    "en": "Make the field optional (nullable) so the model can return null when the source lacks it."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "原文に情報がない可能性のある項目は null 許容にすると、値を埋めるための捏造を防げます。必須にするとモデルは値を作り出す圧力を受けます。",
+   "en": "Fields that may be absent from the source should be nullable; making them required pressures the model to fabricate values."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "既定値は実在しない情報を事実として混入させます。",
+    "en": "A default injects non-existent information as fact."
+   },
+   "B": {
+    "ja": "必須化は捏造を誘発します。",
+    "en": "Required fields invite fabrication."
+   },
+   "C": {
+    "ja": "項目を削除すると、記載がある文書の価値ある情報も失われます。",
+    "en": "Dropping the field loses valuable data where it is present."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s6-003",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.3",
+  "scenarioId": "S6",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "抽出スキーマの設計と挙動について、正しい記述を 2 つ選んでください（select 2）。",
+   "en": "Select the TWO correct statements about extraction schema design and behavior (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "スキーマに適合していれば、フィールドの値は常に原文と一致する。",
+    "en": "If output conforms to the schema, field values always match the source."
+   },
+   {
+    "id": "B",
+    "ja": "拡張可能なカテゴリには、\"other\" と詳細を書く文字列フィールドを併せた enum が有効である。",
+    "en": "For extensible categories, an enum with \"other\" plus a detail string field is effective."
+   },
+   {
+    "id": "C",
+    "ja": "厳密なスキーマを用いたツール利用は構文エラーを排除するが、行項目の合計が請求総額と合わないといった意味的な誤りは防げない。",
+    "en": "Strict-schema tool use eliminates syntax errors but does not prevent semantic errors, such as line items that do not sum to the total."
+   },
+   {
+    "id": "D",
+    "ja": "ツール利用を使うと、入力文書の書式の不統一を自動で正規化してくれる。",
+    "en": "Tool use automatically normalizes inconsistent source formatting."
+   },
+   {
+    "id": "E",
+    "ja": "曖昧なケースに備えた \"unclear\" のような値は、抽出精度を下げるため避けるべきである。",
+    "en": "Values like \"unclear\" for ambiguous cases should be avoided because they hurt accuracy."
+   }
+  ],
+  "answer": [
+   "B",
+   "C"
+  ],
+  "explanation": {
+   "ja": "スキーマはシンタックスを保証しますが、意味の正しさは保証しません。拡張可能な分類には \"other\"＋詳細、曖昧な場合には \"unclear\" を用意して、無理な分類を避けます。",
+   "en": "Schemas guarantee syntax but not semantic correctness. Use \"other\" plus detail for extensible categories and \"unclear\" values to avoid forced classification."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "適合は値が正しいことを意味しません。",
+    "en": "Conformance does not mean values are correct."
+   },
+   "D": {
+    "ja": "書式の正規化には、プロンプトでの正規化ルールの指定が別途必要です。",
+    "en": "Normalization requires explicit normalization rules in the prompt."
+   },
+   "E": {
+    "ja": "\"unclear\" は曖昧な事例で誤った分類を強いるのを避ける有益な選択肢です。",
+    "en": "\"unclear\" is a useful option that prevents forced misclassification."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s6-004",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.4",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "抽出結果の日付が \"March 3rd, 2024\" のように ISO 8601 になっておらず、バリデーションに失敗しました。原文には正しい日付が記載されています。再試行の方法として最も効果的なものはどれですか。",
+   "en": "An extracted date came out as \"March 3rd, 2024\" instead of ISO 8601 and failed validation; the source contains the correct date. What is the most effective retry approach?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "同じリクエストをそのまま再送する。",
+    "en": "Resend the identical request."
+   },
+   {
+    "id": "B",
+    "ja": "日付項目を検証対象から外す。",
+    "en": "Remove the date field from validation."
+   },
+   {
+    "id": "C",
+    "ja": "その文書を人間の担当に回す。",
+    "en": "Route the document to a human."
+   },
+   {
+    "id": "D",
+    "ja": "元の文書、失敗した抽出結果、具体的な検証エラーを含むフォローアップのリクエストを送り、モデルに自己修正させる。",
+    "en": "Send a follow-up including the original document, the failed extraction, and the specific validation error so the model can self-correct."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "書式の不一致のような修正可能な誤りには、具体的な検証エラーを添えた再試行が有効です。元文書も含めて渡します。",
+   "en": "Fixable errors such as format mismatches respond well to retries that include the specific validation error plus the original document."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "同一入力の再送では同じ誤りが再現されやすいです。",
+    "en": "An identical resend tends to reproduce the same error."
+   },
+   "B": {
+    "ja": "検証をなくすと、下流に誤ったデータが流れます。",
+    "en": "Removing validation lets bad data flow downstream."
+   },
+   "C": {
+    "ja": "書式の問題なら自動修正で解決でき、人手は過剰です。",
+    "en": "A format issue is fixable automatically; human routing is excessive."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s6-005",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.4",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "請求書の抽出で「発注番号」が必須検証に失敗しています。調べると、この請求書には発注番号が最初から記載されておらず、別システムの発注書にしか存在しません。パイプラインはどう設計すべきですか。",
+   "en": "Extraction fails required validation on \"purchase order number\". The invoice never contains one; it exists only in a separate PO system. How should the pipeline respond?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "この種の欠落は再試行では解消できないと判定し、項目を null として扱うか、別ソースの参照や人間によるレビューにルーティングする。",
+    "en": "Recognize that retries cannot fix absence of the information; treat the field as null or route to another source lookup or human review."
+   },
+   {
+    "id": "B",
+    "ja": "検証エラーを添えて最大 5 回までリトライする。",
+    "en": "Retry up to five times with the validation error attached."
+   },
+   {
+    "id": "C",
+    "ja": "ダミーの番号を補完して検証を通す。",
+    "en": "Fill in a dummy number to pass validation."
+   },
+   {
+    "id": "D",
+    "ja": "プロンプトに「発注番号を必ず見つけること」と強調する。",
+    "en": "Emphasize in the prompt \"you must find the PO number\"."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "リトライが効くのは書式や構造の誤りです。情報が原文に存在しない場合は、何度やっても得られません。欠落として扱い、別の手段へ回します。",
+   "en": "Retries fix format or structural errors; when the information is absent from the source, no number of retries can produce it. Treat it as missing and route elsewhere."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "情報が存在しないため、リトライは時間と費用の無駄で、捏造を誘います。",
+    "en": "Retries waste cost and tempt fabrication when the information does not exist."
+   },
+   "C": {
+    "ja": "ダミーの値はデータの信頼性を損ないます。",
+    "en": "Dummy values destroy data reliability."
+   },
+   "D": {
+    "ja": "強調は捏造を促すだけです。",
+    "en": "Emphasis just encourages fabrication."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s6-006",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.4",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "請求書の行項目の合計と記載された総額が一致しない文書を、下流の処理前に自動で検出したいです。スキーマ設計としてどれが適切ですか。",
+   "en": "You want to automatically detect documents where line items do not sum to the stated total before downstream processing. Which schema design is appropriate?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "総額が合わない文書を黙って破棄する。",
+    "en": "Silently discard documents with mismatched totals."
+   },
+   {
+    "id": "B",
+    "ja": "記載された総額（stated_total）と、行項目から計算した合計（calculated_total）を両方抽出し、不一致は検証でフラグを立てる。必要に応じて conflict_detected も加える。",
+    "en": "Extract both stated_total and a calculated_total computed from the line items, flag mismatches in validation, and optionally add a conflict_detected boolean."
+   },
+   {
+    "id": "C",
+    "ja": "常に計算した合計を採用し、記載された総額は無視する。",
+    "en": "Always take the calculated sum and ignore the stated total."
+   },
+   {
+    "id": "D",
+    "ja": "総額フィールドを 1 つだけ持たせ、モデルの抽出を信頼する。",
+    "en": "Keep a single total field and trust the model's extraction."
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": {
+   "ja": "両方の値を抽出して比較すると、原文の矛盾や抽出ミスを検出できます。フラグを付けて審査に回せます。",
+   "en": "Extracting both values and comparing them reveals source inconsistencies or extraction errors, which can be flagged for review."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "黙って破棄するとデータ損失を気づけません。",
+    "en": "Silent discard loses data unnoticed."
+   },
+   "C": {
+    "ja": "記載値の無視は、原文の事実を無視することになります。",
+    "en": "Ignoring the stated value discards a fact from the source."
+   },
+   "D": {
+    "ja": "単一の値では不一致を検出できません。",
+    "en": "A single value cannot expose a mismatch."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s6-007",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.2",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "論文から引用情報を抽出していますが、本文中のインライン引用形式と巻末の参考文献リスト形式が混在していて、後者で必須項目が空になるケースが増えています。有効な対策はどれですか。",
+   "en": "You extract citation info from papers, but inline citations and end-of-document bibliographies are mixed, and required fields come back empty more often for bibliography-style documents. Which fix is effective?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "すべての項目を任意にして、空欄を許容する。",
+    "en": "Make every field optional and accept blanks."
+   },
+   {
+    "id": "B",
+    "ja": "参考文献形式の文書を処理対象から外す。",
+    "en": "Exclude bibliography-style documents."
+   },
+   {
+    "id": "C",
+    "ja": "インライン引用と参考文献リストなど、書式の異なる文書からの正しい抽出を示す Few-shot 例を追加する。",
+    "en": "Add few-shot examples showing correct extraction from documents of varied formats, such as inline citations and bibliographies."
+   },
+   {
+    "id": "D",
+    "ja": "モデルの温度を上げて多様な出力を促す。",
+    "en": "Raise temperature to encourage varied output."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "書式の異なる例を Few-shot で示すと、構造のバリエーションに対する扱いが改善し、必須項目の空欄が減ります。",
+   "en": "Few-shot examples covering varied document structures improve handling of structural variety and reduce empty required fields."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "全項目を任意にすると、抽出品質の問題を覆い隠します。",
+    "en": "Making everything optional masks the extraction quality problem."
+   },
+   "B": {
+    "ja": "対象を外すと問題の解決にならず、データが減ります。",
+    "en": "Excluding documents hides the problem and loses data."
+   },
+   "D": {
+    "ja": "温度は構造への対応能力を改善しません。",
+    "en": "Temperature does not improve handling of structure."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s6-008",
+  "exam": "CCAR-F",
+  "domain": 4,
+  "taskStatement": "4.5",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "夜間に 10,000 件の文書を Message Batches API で処理したところ、一部がコンテキスト長超過で失敗しました。結果の整合を保ちつつ、最も適切な対処はどれですか。",
+   "en": "You processed 10,000 documents overnight with the Message Batches API and some failed for exceeding context limits. What is the most appropriate way to handle this while keeping results aligned?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "バッチ全体を最初から再投入する。",
+    "en": "Resubmit the entire batch from scratch."
+   },
+   {
+    "id": "B",
+    "ja": "失敗した文書を無視する。",
+    "en": "Ignore the failed documents."
+   },
+   {
+    "id": "C",
+    "ja": "すべての文書を同期 API で処理し直す。",
+    "en": "Reprocess every document with the synchronous API."
+   },
+   {
+    "id": "D",
+    "ja": "失敗した文書を custom_id で特定し、チャンク分割するなど必要な修正を加えて、その分だけを再投入する。",
+    "en": "Identify failed documents by custom_id, apply fixes such as chunking, and resubmit only those."
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": {
+   "ja": "custom_id でリクエストと結果を対応づけられるため、失敗分のみを必要な修正付きで再投入できます。",
+   "en": "custom_id correlates requests and responses, so only failed items need fixing and resubmitting."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "全体の再投入は成功分の費用と時間を無駄にします。",
+    "en": "Full resubmission wastes cost and time on successes."
+   },
+   "B": {
+    "ja": "無視するとデータが欠落します。",
+    "en": "Ignoring them leaves data gaps."
+   },
+   "C": {
+    "ja": "全件の同期処理は 50% のコスト削減を失い、レイテンシ許容の用途に過剰です。",
+    "en": "Full synchronous reprocessing forfeits the 50% saving for a latency-tolerant job."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s6-009",
+  "exam": "CCAR-F",
+  "domain": 2,
+  "taskStatement": "2.3",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "受信箱には請求書・領収書・注文書など種類が不明な文書が届き、種類ごとに別の抽出スキーマ（ツール）を用意しています。モデルが抽出ツールを呼ばずにテキストで返答することがあります。どう設定しますか。",
+   "en": "Documents of unknown type (invoices, receipts, purchase orders) arrive, each with its own extraction schema defined as a tool. Sometimes the model replies in plain text without calling an extraction tool. How should you configure this?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "ツールの定義をすべて削除し、テキストで JSON を返させる。",
+    "en": "Remove all tool definitions and ask for JSON text."
+   },
+   {
+    "id": "B",
+    "ja": "tool_choice を請求書用ツールに固定する。",
+    "en": "Force tool_choice to the invoice tool."
+   },
+   {
+    "id": "C",
+    "ja": "tool_choice を \"any\" にして、どのスキーマを使うかはモデルに選ばせつつ、必ずツールを呼ばせる。",
+    "en": "Set tool_choice to \"any\" so the model must call a tool while choosing which schema fits."
+   },
+   {
+    "id": "D",
+    "ja": "tool_choice を \"auto\" にする。",
+    "en": "Set tool_choice to \"auto\"."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "\"any\" はモデルがツールを必ず呼ぶことを保証し、どのツールかは選べます。文書の種類が不明なときに適しています。",
+   "en": "\"any\" guarantees a tool call while letting the model choose which one, which suits unknown document types."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "ツールを外すと構造化出力の保証を失います。",
+    "en": "Removing tools loses structured-output guarantees."
+   },
+   "B": {
+    "ja": "特定ツールへの強制は、他の文書種別に誤ったスキーマを当てます。",
+    "en": "Forcing one tool applies the wrong schema to other document types."
+   },
+   "D": {
+    "ja": "\"auto\" ではテキストを返す可能性が残ります。",
+    "en": "\"auto\" still allows plain-text replies."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s6-010",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.5",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "抽出システムの全体精度は 97% で、レビュー担当者を減らして自動化を拡大する案が出ています。その前に確認すべき最も重要なことは何ですか。",
+   "en": "The extraction system shows 97% overall accuracy, and there is a proposal to cut human reviewers and expand automation. What is the most important thing to verify first?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "文書の種類とフィールドごとの精度を分析して、すべてのセグメントで一貫して高いことを確認する。",
+    "en": "Analyze accuracy by document type and field to confirm consistently high performance across all segments."
+   },
+   {
+    "id": "B",
+    "ja": "モデルに自己評価の合格判定をさせる。",
+    "en": "Have the model self-certify as passing."
+   },
+   {
+    "id": "C",
+    "ja": "全体精度が 95% 以上であることだけを確認する。",
+    "en": "Only verify overall accuracy remains above 95%."
+   },
+   {
+    "id": "D",
+    "ja": "ユーザーからの苦情が出るまで様子を見る。",
+    "en": "Wait until users complain."
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": {
+   "ja": "集約指標は、特定の文書種別やフィールドでの低い精度を覆い隠します。セグメント別の検証をしてから自動化を拡大します。",
+   "en": "Aggregate metrics can mask poor performance on specific document types or fields; validate by segment before automating."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "モデルの自己評価は信頼できる検証ではありません。",
+    "en": "Self-certification is not reliable validation."
+   },
+   "C": {
+    "ja": "全体値だけでは、局所的な問題を見逃します。",
+    "en": "The overall number misses localized problems."
+   },
+   "D": {
+    "ja": "苦情待ちは、誤データの流出後の対応となります。",
+    "en": "Waiting for complaints means reacting after bad data ships."
+   }
+  },
+  "difficulty": 2
+ },
+ {
+  "id": "ccar-f-s6-011",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.5",
+  "scenarioId": "S6",
+  "type": "single",
+  "select": 1,
+  "stem": {
+   "ja": "高い信頼度で自動承認された抽出結果について、時間がたっても品質が保たれているか、また新しい種類の誤りが出ていないかを継続的に把握したいです。最適な方法はどれですか。",
+   "en": "For extractions auto-approved at high confidence, you want to continuously confirm quality holds over time and catch novel error patterns. What is the best approach?"
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "高信頼度の結果は再確認しない。",
+    "en": "Never recheck high-confidence results."
+   },
+   {
+    "id": "B",
+    "ja": "最新の 10 件だけを毎日確認する。",
+    "en": "Check only the latest 10 each day."
+   },
+   {
+    "id": "C",
+    "ja": "高信頼度の抽出結果から層化ランダムサンプリングで一定数を人手で検証し、誤り率と新規の誤りパターンを測定する。",
+    "en": "Stratified-randomly sample high-confidence extractions for human verification to measure error rates and detect novel patterns."
+   },
+   {
+    "id": "D",
+    "ja": "確信度が最も低い結果だけを毎回レビューする。",
+    "en": "Only ever review the lowest-confidence results."
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": {
+   "ja": "高信頼度の結果でも層化ランダムサンプリングで定期的に検証すれば、誤り率の継続的な測定と未知のパターンの発見ができます。",
+   "en": "Periodic stratified random sampling of even high-confidence outputs measures error rates continuously and surfaces unknown patterns."
+  },
+  "optionRationale": {
+   "A": {
+    "ja": "確認しないと、劣化や新しい誤りに気づけません。",
+    "en": "Without checks, degradation and new errors go unnoticed."
+   },
+   "B": {
+    "ja": "偏った少量サンプルは代表性がありません。",
+    "en": "A small biased sample is not representative."
+   },
+   "D": {
+    "ja": "低信頼度だけでは、高信頼度の誤りを見逃します。",
+    "en": "Reviewing only low confidence misses confident errors."
+   }
+  },
+  "difficulty": 3
+ },
+ {
+  "id": "ccar-f-s6-012",
+  "exam": "CCAR-F",
+  "domain": 5,
+  "taskStatement": "5.5",
+  "scenarioId": "S6",
+  "type": "multiple",
+  "select": 2,
+  "stem": {
+   "ja": "限られたレビュー担当者の容量を有効に使うため、抽出結果の人間レビューへの振り分けを設計します。適切な方法を 2 つ選んでください（select 2）。",
+   "en": "You are designing routing of extraction results to human review so limited reviewer capacity is used well. Select the TWO appropriate practices (select 2)."
+  },
+  "options": [
+   {
+    "id": "A",
+    "ja": "モデルにフィールド単位の確信度を出力させ、ラベル付き検証セットを使って閾値を較正する。",
+    "en": "Have the model output field-level confidence and calibrate thresholds using a labeled validation set."
+   },
+   {
+    "id": "B",
+    "ja": "確信度の自己申告があれば検証セットは不要とする。",
+    "en": "Skip validation sets because self-reported confidence is enough."
+   },
+   {
+    "id": "C",
+    "ja": "確信度の閾値を勘で 0.5 に固定して運用を始める。",
+    "en": "Fix the confidence threshold at 0.5 by gut feeling and go live."
+   },
+   {
+    "id": "D",
+    "ja": "すべての抽出結果を同じ優先度で順番にレビューする。",
+    "en": "Review every extraction in order with equal priority."
+   },
+   {
+    "id": "E",
+    "ja": "低い確信度の結果や、原文が曖昧・矛盾している文書を人間レビューに回す。",
+    "en": "Route low-confidence extractions and ambiguous or contradictory source documents to human review."
+   }
+  ],
+  "answer": [
+   "A",
+   "E"
+  ],
+  "explanation": {
+   "ja": "フィールド単位の確信度をラベル付きデータで較正し、低確信度や曖昧・矛盾する文書を優先してレビューに回すと、限られた容量を効果的に使えます。",
+   "en": "Calibrating field-level confidence on labeled data and prioritizing low-confidence or ambiguous documents makes limited review capacity effective."
+  },
+  "optionRationale": {
+   "B": {
+    "ja": "確信度は較正してこそ意味を持ちます。検証セットが必要です。",
+    "en": "Confidence is only meaningful once calibrated; a validation set is required."
+   },
+   "C": {
+    "ja": "根拠のない閾値は、レビューの過不足を生みます。",
+    "en": "An unvalidated threshold causes over- or under-review."
+   },
+   "D": {
+    "ja": "優先付けなしでは、容量を無駄にします。",
+    "en": "Without prioritization, capacity is wasted."
+   }
+  },
+  "difficulty": 3
+ }
+]

@@ -1,0 +1,3359 @@
+[
+  {
+    "id": "ccao-f-d1-001",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "経営層向けに四半期の営業レポートの要約を Claude に依頼します。最も質の高い出力が期待できるプロンプトはどれですか。",
+      "en": "You want Claude to summarize a quarterly sales report for senior executives. Which prompt is most likely to produce a high-quality result?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "「このレポートを要約して」と書き、レポートを添付する。",
+        "en": "\"Summarize this report\" with the report attached."
+      },
+      {
+        "id": "B",
+        "ja": "対象読者（経営層）、目的（意思決定の材料）、希望の形式（箇条書き5点以内と主要リスク）を明記し、レポートを添付する。",
+        "en": "State the audience (executives), the purpose (input to a decision), and the desired format (up to five bullets plus key risks), then attach the report."
+      },
+      {
+        "id": "C",
+        "ja": "「とにかく完璧に要約して」と強い言葉で指示する。",
+        "en": "Tell Claude emphatically to \"make it absolutely perfect.\""
+      },
+      {
+        "id": "D",
+        "ja": "レポート本文だけを貼り付け、背景は意図的に伝えず先入観を避ける。",
+        "en": "Paste only the report text and deliberately withhold context to avoid bias."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "読者・目的・形式といった文脈を具体的に与えると、Claude は何を重視し、どの粒度で書くべきかを判断できます。",
+      "en": "Giving audience, purpose, and format lets Claude decide what to emphasize and at what level of detail."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "最小限の指示では、長さ・観点・読者が不明確で、汎用的な要約になりがちです。",
+        "en": "A bare instruction leaves length, focus, and audience undefined, so the result tends to be generic."
+      },
+      "C": {
+        "ja": "強調表現は品質基準を具体的に伝えません。基準を明示するほうが効果的です。",
+        "en": "Emphatic wording does not communicate concrete quality criteria; stating the criteria does."
+      },
+      "D": {
+        "ja": "文脈を与えないと的外れな出力になりやすく、先入観を避ける効果もありません。",
+        "en": "Withholding context tends to yield off-target output and does not remove bias."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d1-002",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "新規事業の市場参入計画を丸ごと作成するよう、1つの長いプロンプトで Claude に依頼したところ、浅い内容になりました。最も適切な改善策はどれですか。",
+      "en": "A single long prompt asking Claude to produce an entire market-entry plan returned shallow content. What is the most appropriate improvement?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "同じプロンプトを何度も再送信し、最も良い結果を採用する。",
+        "en": "Resend the same prompt repeatedly and pick the best result."
+      },
+      {
+        "id": "B",
+        "ja": "プロンプトをさらに長くして、すべての要素を1回で網羅させる。",
+        "en": "Make the prompt even longer so everything is covered in one pass."
+      },
+      {
+        "id": "C",
+        "ja": "市場調査、競合分析、顧客セグメント、施策案、リスクといったステップに分解し、各ステップの結果を次に引き継ぎながら進める。",
+        "en": "Break the work into steps such as market research, competitor analysis, customer segments, tactics, and risks, carrying each result into the next step."
+      },
+      {
+        "id": "D",
+        "ja": "計画の作成は Claude には不向きと判断し、すべて手作業で行う。",
+        "en": "Conclude Claude is unsuited to planning and do everything manually."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "複雑な依頼はタスク分解すると、各段階で内容を確認・修正でき、全体の質と一貫性が高まります。",
+      "en": "Decomposing a complex request lets you review and correct each stage, improving overall depth and consistency."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "同じ入力の再送は根本原因（依頼が大きすぎる）を解決しません。",
+        "en": "Resending does not fix the root cause: the request is too large."
+      },
+      "B": {
+        "ja": "詰め込みは焦点をぼかし、各要素がさらに浅くなる可能性があります。",
+        "en": "Cramming dilutes focus and can make each element even shallower."
+      },
+      "D": {
+        "ja": "分解と反復で十分対応できるため、全面的な放棄は不要です。",
+        "en": "Decomposition and iteration can handle this, so abandoning the tool is unnecessary."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d1-003",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude が作成した提案書の下書きは構成こそ良いものの、内容が一般論ばかりです。出力品質を上げるために最初に取るべき行動はどれですか。",
+      "en": "Claude's proposal draft is well structured but full of generic statements. What should you do first to improve it?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "具体的な顧客情報、制約、含めたい事例を追加で伝え、どこを具体化してほしいかをフィードバックして再生成を依頼する。",
+        "en": "Supply specific client details, constraints, and examples to include, give feedback on where it should be more concrete, and ask for a revision."
+      },
+      {
+        "id": "B",
+        "ja": "別の AI ツールに乗り換える。",
+        "en": "Switch to a different AI tool."
+      },
+      {
+        "id": "C",
+        "ja": "新しいチャットを開いて一字一句同じ依頼を送る。",
+        "en": "Open a new chat and send the identical request again."
+      },
+      {
+        "id": "D",
+        "ja": "出力をそのまま使い、後工程で人が直すことにする。",
+        "en": "Use the output as is and let someone fix it later."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "プロンプトの反復では、不足している文脈と具体的なフィードバックを与えることが最も効果的です。",
+      "en": "When iterating, adding the missing context and targeted feedback is the most effective lever."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "ツールの問題ではなく入力情報の不足が原因である可能性が高いです。",
+        "en": "The cause is likely insufficient input, not the tool."
+      },
+      "C": {
+        "ja": "同じ入力からは同じ傾向の出力になりやすく、改善は期待できません。",
+        "en": "The same input tends to produce the same kind of output."
+      },
+      "D": {
+        "ja": "品質の問題を先送りするだけで、効率的ではありません。",
+        "en": "This merely defers the quality problem and is inefficient."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d1-004",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "来月のキャンペーンのアイデア出しをする場面と、売上データの原因分析をする場面では、プロンプトの方針をどう変えるのが適切ですか。",
+      "en": "How should your prompting strategy differ between brainstorming campaign ideas and analyzing the causes of a sales decline?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "どちらも同じ短い指示で十分なので、方針は変えない。",
+        "en": "No change; the same short instruction works for both."
+      },
+      {
+        "id": "B",
+        "ja": "アイデア出しでは制約を厳しくして1案だけ求め、分析では自由に発想させる。",
+        "en": "For brainstorming, impose tight constraints and ask for one idea; for analysis, let Claude be free-form."
+      },
+      {
+        "id": "C",
+        "ja": "アイデア出しでは情報を与えず、分析でも前提を伏せて偏りを避ける。",
+        "en": "Withhold information in both cases to avoid bias."
+      },
+      {
+        "id": "D",
+        "ja": "アイデア出しでは多様な案を数多く求めて後で絞り込み、分析ではデータ・分析の観点・根拠の示し方を明確に指定する。",
+        "en": "For brainstorming, ask for many diverse ideas and narrow later; for analysis, specify the data, the analytical angles, and how evidence should be shown."
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "ja": "タスクの種類で求める成果物が異なります。発散が目的の作業では数と多様性、分析では根拠と観点の明確さが重要です。",
+      "en": "Different task types need different framing: divergence rewards quantity and variety, analysis rewards clear angles and evidence."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "タスクの性質を無視しており、品質が安定しません。",
+        "en": "It ignores task nature and gives inconsistent quality."
+      },
+      "B": {
+        "ja": "発散の場面で1案に絞ると意味がなく、分析の場面で条件がないと根拠が弱くなります。逆の使い分けです。",
+        "en": "Narrowing brainstorming to one idea defeats the purpose, and unconstrained analysis is poorly grounded; this is backwards."
+      },
+      "C": {
+        "ja": "情報を伏せると、どちらのタスクでも精度が下がります。",
+        "en": "Withholding information lowers quality in both tasks."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d1-005",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "お客様向けメールの返信文を Claude に作成させます。品質向上に有効な方法を2つ選んでください。",
+      "en": "You are using Claude to draft customer reply emails. Select TWO practices that will improve quality."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "好ましい文体の過去メール例を1〜2通示す。",
+        "en": "Show one or two past emails that exemplify the preferred tone."
+      },
+      {
+        "id": "B",
+        "ja": "依頼文をすべて大文字で書いて重要度を伝える。",
+        "en": "Write the request in all caps to signal importance."
+      },
+      {
+        "id": "C",
+        "ja": "相手の状況、返信の目的、文字数の目安を明記する。",
+        "en": "State the recipient's situation, the goal of the reply, and a target length."
+      },
+      {
+        "id": "D",
+        "ja": "顧客名や状況を伏せて「適当にお詫びして」とだけ伝える。",
+        "en": "Hide customer details and simply say \"apologize somehow.\""
+      },
+      {
+        "id": "E",
+        "ja": "一度の出力を最終版とし、反復は行わない。",
+        "en": "Treat the first output as final and never iterate."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "例示（few-shot）と、読者・目的・長さの明確化は、トーンと内容を狙いどおりにする基本技法です。",
+      "en": "Examples and explicit audience, goal, and length are core techniques for hitting the intended tone and content."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "大文字は品質基準を伝えず、効果が限定的です。",
+        "en": "Caps convey no quality criteria and have limited effect."
+      },
+      "D": {
+        "ja": "情報を伏せると、的外れで画一的な返信になります。",
+        "en": "Withholding details produces generic, off-target replies."
+      },
+      "E": {
+        "ja": "通常は反復して調整するほうが品質が上がります。",
+        "en": "Iterating usually improves quality."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d1-006",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "毎回出力形式がばらつくため、レポートのひな形に沿った出力を安定して得たい場合、最も効果的な方法はどれですか。",
+      "en": "Output format varies each time; you want consistent results that follow your report template. What is most effective?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "Claude の出力は毎回異なるものと受け入れる。",
+        "en": "Accept that Claude output always varies."
+      },
+      {
+        "id": "B",
+        "ja": "希望するひな形の見出し構成と、記入済みの短い例をプロンプトに含める。",
+        "en": "Include the desired heading structure and a short filled-in example in the prompt."
+      },
+      {
+        "id": "C",
+        "ja": "出力後に毎回手作業で整形する。",
+        "en": "Reformat manually every time."
+      },
+      {
+        "id": "D",
+        "ja": "「いつもの形式で」とだけ書く。",
+        "en": "Just write \"use the usual format.\""
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "ひな形と具体例を示すと、Claude は形式を正確に模倣でき、再現性が高まります。",
+      "en": "A template plus a concrete example lets Claude reproduce the format reliably."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "形式は指示で大きく制御できます。",
+        "en": "Format can be controlled substantially through instructions."
+      },
+      "C": {
+        "ja": "非効率で、プロンプトの改善で解決できる問題です。",
+        "en": "Inefficient; a better prompt solves this."
+      },
+      "D": {
+        "ja": "新しいチャットでは「いつもの形式」が何か分かりません。具体的な情報が必要です。",
+        "en": "In a new chat Claude cannot know what \"usual\" means; concrete detail is needed."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d1-007",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "複数の要件が曖昧な依頼で、Claude が前提を勝手に置いて回答しそうです。出力のずれを減らす最も適切な指示はどれですか。",
+      "en": "Your request has ambiguous requirements and Claude may assume details on its own. Which instruction best reduces misalignment?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "不明な点があれば作業を始める前に確認の質問をし、置いた前提は明示するよう指示する。",
+        "en": "Tell Claude to ask clarifying questions before starting and to state any assumptions it makes."
+      },
+      {
+        "id": "B",
+        "ja": "不明点は無視して最短で回答するよう指示する。",
+        "en": "Tell Claude to ignore unknowns and answer as fast as possible."
+      },
+      {
+        "id": "C",
+        "ja": "回答を極力短くするよう指示する。",
+        "en": "Tell Claude to keep the answer as short as possible."
+      },
+      {
+        "id": "D",
+        "ja": "確信度を数値で自己申告させ、高ければ採用する。",
+        "en": "Have Claude self-report a confidence number and accept it if high."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "確認質問と前提の明示により、ずれを早期に発見でき、レビューもしやすくなります。",
+      "en": "Clarifying questions and explicit assumptions surface misalignment early and make review easier."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "不明点の無視は誤った前提による出力につながります。",
+        "en": "Ignoring unknowns leads to outputs built on wrong assumptions."
+      },
+      "C": {
+        "ja": "短さは曖昧さを解消しません。",
+        "en": "Brevity does not resolve ambiguity."
+      },
+      "D": {
+        "ja": "自己申告の確信度は正確性の信頼できる指標ではありません。",
+        "en": "Self-reported confidence is not a reliable accuracy signal."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d1-008",
+    "exam": "CCAO-F",
+    "domain": 1,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "新しい業界について調査を始める際、Claude に出力させる内容として最も適切なものはどれですか。",
+      "en": "When starting research on an unfamiliar industry, what is the most appropriate way to frame the request to Claude?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "「この業界の将来を断言して」と結論だけを求める。",
+        "en": "Ask only for a definitive conclusion about the industry's future."
+      },
+      {
+        "id": "B",
+        "ja": "一次情報の出典は不要と伝え、できるだけ短く答えさせる。",
+        "en": "Say sources are unnecessary and ask for the shortest possible answer."
+      },
+      {
+        "id": "C",
+        "ja": "事実・推測・不明点を区別して整理させ、確認すべき主張と調べるべき出典の種類を示させる。",
+        "en": "Ask Claude to separate facts, assumptions, and unknowns, and to list claims to verify and the types of sources to check."
+      },
+      {
+        "id": "D",
+        "ja": "業界の専門家になりきって全て正しく答えるよう指示する。",
+        "en": "Tell Claude to act as an expert who is always right."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "調査では、事実と推測の区別と、検証すべき点の明示が後続の確認作業を効率化します。",
+      "en": "In research, separating facts from assumptions and flagging what to verify makes follow-up checking efficient."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "断定的な結論は根拠が弱く、検証もしにくくなります。",
+        "en": "A bare conclusion is poorly supported and hard to verify."
+      },
+      "B": {
+        "ja": "出典を軽視すると検証が困難になります。",
+        "en": "Ignoring sources makes verification hard."
+      },
+      "D": {
+        "ja": "役割設定は正確性を保証しません。",
+        "en": "Role-play does not guarantee accuracy."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-001",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude が競合分析の中で「ある調査会社の2023年の調査によれば市場の62%が〜」と具体的な数字を示しました。資料に添付すべきか判断する最も適切な行動はどれですか。",
+      "en": "In a competitor analysis, Claude states \"a 2023 survey by a research firm found 62% of the market…\". What is the most appropriate action before including it?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "具体的な数字なので正確だと判断してそのまま使う。",
+        "en": "Use it as-is, since a precise number must be accurate."
+      },
+      {
+        "id": "B",
+        "ja": "引用元の調査が実在し、その数字が掲載されているかを一次情報で確認し、確認できなければ削除する。",
+        "en": "Verify against the primary source that the survey exists and contains the figure; remove it if it cannot be confirmed."
+      },
+      {
+        "id": "C",
+        "ja": "同じ質問をもう一度し、同じ数字が出たら採用する。",
+        "en": "Ask again and accept the figure if it repeats."
+      },
+      {
+        "id": "D",
+        "ja": "「約60%」と丸めて表記する。",
+        "en": "Round it to \"about 60%\" and use it."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "具体的な数字や出典は、もっともらしくても生成の誤り（ハルシネーション）があり得ます。一次情報での確認が必須です。",
+      "en": "Specific figures and sources can be fabricated even when plausible, so primary-source verification is required."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "具体性は正確性の保証になりません。",
+        "en": "Precision is not evidence of accuracy."
+      },
+      "C": {
+        "ja": "同じ誤りが再現されることもあり、独立した検証にはなりません。",
+        "en": "The same error can repeat, so this is not independent verification."
+      },
+      "D": {
+        "ja": "丸めても根拠のない数字であることに変わりはありません。",
+        "en": "Rounding does not fix an unsupported number."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d2-002",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "アップロードした議事録の要約で、Claude は「A案で合意した」と書きましたが、議事録には「A案は保留、B案を再検討」とあります。最も適切な対応はどれですか。",
+      "en": "In a summary of uploaded meeting minutes, Claude says \"Option A was agreed,\" but the minutes say \"Option A on hold; reconsider Option B.\" What is the best response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "要約の方が読みやすいので、そのまま共有する。",
+        "en": "Share the summary since it reads better."
+      },
+      {
+        "id": "B",
+        "ja": "要約全体を破棄し、今後 Claude は使わない。",
+        "en": "Discard it and stop using Claude."
+      },
+      {
+        "id": "C",
+        "ja": "誤り箇所を指摘し、議事録の該当箇所を引用して根拠を示させたうえで修正を依頼し、残りも原文と照合する。",
+        "en": "Point out the error, have Claude quote the supporting passages, request a correction, and check the rest against the source."
+      },
+      {
+        "id": "D",
+        "ja": "この箇所だけ人が書き換え、他は確認せず共有する。",
+        "en": "Rewrite that line manually and share without checking the rest."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "原文との不整合が見つかった場合は、根拠の引用を求めて修正し、他の箇所にも誤りがないか照合します。",
+      "en": "When an inconsistency with the source appears, request quoted evidence, correct it, and cross-check the rest."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "不整合を放置すると誤情報が広がります。",
+        "en": "Leaving it uncorrected spreads misinformation."
+      },
+      "B": {
+        "ja": "過剰反応です。検証と修正で十分に活用できます。",
+        "en": "Overreaction; verification and correction make the output usable."
+      },
+      "D": {
+        "ja": "他にも誤りがある可能性が残ります。",
+        "en": "Other errors may remain."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-003",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "採用担当が、候補者の履歴書の評価コメントを Claude に作成させたところ、特定の属性の候補者に対して一貫して評価が低い傾向に気づきました。最も適切な対応はどれですか。",
+      "en": "An HR associate has Claude draft evaluation comments on resumes and notices consistently lower assessments for candidates with certain attributes. What is the most appropriate response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "傾向は偶然とみなして継続利用する。",
+        "en": "Treat it as coincidence and continue."
+      },
+      {
+        "id": "B",
+        "ja": "評価基準を明示した構造化プロンプトに改め、属性情報を除いて再評価し、最終判断は人がレビューする。",
+        "en": "Switch to a structured prompt with explicit criteria, remove attribute information, re-run, and keep human review for final decisions."
+      },
+      {
+        "id": "C",
+        "ja": "評価対象を増やして平均をとる。",
+        "en": "Evaluate more resumes and average the results."
+      },
+      {
+        "id": "D",
+        "ja": "Claude の評価に「公平に」と一言添える。",
+        "en": "Add \"be fair\" to the instruction."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "偏りの兆候は、基準の明確化・属性の除外・人による確認で対処します。重要な人事判断を AI に任せきりにしてはいけません。",
+      "en": "Bias is addressed by explicit criteria, removing attributes, and human review; important people decisions must not be left to AI alone."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "偏りの兆候を無視するのは責任ある利用に反します。",
+        "en": "Ignoring signs of bias contradicts responsible use."
+      },
+      "C": {
+        "ja": "件数を増やしても系統的な偏りは消えません。",
+        "en": "More volume does not remove systematic bias."
+      },
+      "D": {
+        "ja": "一言の指示だけでは偏りの除去は保証されません。",
+        "en": "A single phrase does not guarantee bias removal."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-004",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "次のうち、Claude の出力に対して人による追加レビューが特に必要な場面はどれですか。",
+      "en": "In which situation is additional human review of Claude's output most necessary?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "社外の顧客に送る契約条項の解釈を含む回答の作成。",
+        "en": "Drafting a reply to a client that includes interpretation of contract terms."
+      },
+      {
+        "id": "B",
+        "ja": "自分用の会議アジェンダの下書き。",
+        "en": "A draft agenda for your own meeting."
+      },
+      {
+        "id": "C",
+        "ja": "社内ブレインストーミング用のアイデアリスト。",
+        "en": "An idea list for internal brainstorming."
+      },
+      {
+        "id": "D",
+        "ja": "文章の誤字の指摘。",
+        "en": "Spotting typos in a text."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "法的・契約上の影響があり、外部に出る内容は誤りのコストが高いため、専門家を含む人の確認が必要です。",
+      "en": "Externally facing content with legal implications has a high cost of error and needs review by people, including relevant experts."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "低リスクな内部用途です。",
+        "en": "Low-risk internal use."
+      },
+      "C": {
+        "ja": "発想の材料で、後から取捨選択できます。",
+        "en": "Raw material that can be filtered later."
+      },
+      "D": {
+        "ja": "影響が小さく、確認も容易です。",
+        "en": "Low impact and easy to check."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-005",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "Claude の回答の事実関係を検証する方法として適切なものを2つ選んでください。",
+      "en": "Select TWO appropriate ways to validate the factual claims in a Claude response."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "回答中の主張について、根拠となる原文の箇所を引用させ、その原文自体を確認する。",
+        "en": "Have Claude quote the source passages supporting each claim, then check the originals yourself."
+      },
+      {
+        "id": "B",
+        "ja": "文章が流暢で自信ありげなら正確だと判断する。",
+        "en": "Judge it accurate if the prose is fluent and confident."
+      },
+      {
+        "id": "C",
+        "ja": "重要な数値や固有名詞は、公式サイトや一次資料など信頼できる情報源と突き合わせる。",
+        "en": "Cross-check key figures and names against official sites or primary sources."
+      },
+      {
+        "id": "D",
+        "ja": "同じ質問を繰り返して同じ答えなら正しいと見なす。",
+        "en": "Ask the same question repeatedly and treat a consistent answer as correct."
+      },
+      {
+        "id": "E",
+        "ja": "Claude に「あなたの回答は正しいか」と聞いて「はい」ならよしとする。",
+        "en": "Ask Claude \"is your answer correct?\" and accept a yes."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "根拠の引用の確認と、信頼できる独立した情報源との突き合わせが、実効性のある検証手法です。",
+      "en": "Checking quoted evidence and cross-referencing independent trustworthy sources are effective validation techniques."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "流暢さは正確さの指標ではありません。",
+        "en": "Fluency is not an indicator of accuracy."
+      },
+      "D": {
+        "ja": "同じ誤りが繰り返される可能性があり、独立した検証になりません。",
+        "en": "The same error can repeat; it is not independent."
+      },
+      "E": {
+        "ja": "自己評価は信頼できる検証ではありません。",
+        "en": "Self-assessment is not reliable validation."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-006",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "技術的な分析レポートを、技術背景のない取締役会向けに仕立て直します。最も適切な依頼はどれですか。",
+      "en": "You need to adapt a technical analysis report for a board with no technical background. Which request is most appropriate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "レポートの専門用語はそのままに、文字数だけ半分にする。",
+        "en": "Keep the jargon and just halve the length."
+      },
+      {
+        "id": "B",
+        "ja": "技術的な詳細はすべて削除し、結論だけを1行で示す。",
+        "en": "Remove all technical detail and give a one-line conclusion."
+      },
+      {
+        "id": "C",
+        "ja": "同じ文書を英語に翻訳する。",
+        "en": "Translate the same document into English."
+      },
+      {
+        "id": "D",
+        "ja": "読者が取締役であることを伝え、専門用語を平易に言い換え、意思決定に必要な論点・影響・推奨事項を中心に再構成させる。",
+        "en": "Say the readers are board members; ask Claude to plain-language the jargon and restructure around the issues, impact, and recommendations needed for the decision."
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "ja": "読者に合わせて用語の難度と情報の優先順位を調整することが重要です。",
+      "en": "Adapting vocabulary and prioritization to the audience is the key."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "短くしても読者にとっての難解さは残ります。",
+        "en": "Shortening leaves it just as hard to follow."
+      },
+      "B": {
+        "ja": "過度な削除は判断材料を失わせます。",
+        "en": "Over-trimming removes decision-relevant material."
+      },
+      "C": {
+        "ja": "言語の変更は読者の理解の問題を解決しません。",
+        "en": "Changing language does not address comprehension."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d2-007",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "3社のベンダーを5つの評価項目で比較した結果を、チームで並べて検討したいと考えています。出力形式として最も適切なものはどれですか。",
+      "en": "You want to compare three vendors across five criteria so the team can review them side by side. Which output format is most appropriate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "長い散文の段落で説明する。",
+        "en": "Long prose paragraphs."
+      },
+      {
+        "id": "B",
+        "ja": "ベンダーを行、評価項目を列にした表（構造化データ）にまとめる。",
+        "en": "A table with vendors as rows and criteria as columns (structured data)."
+      },
+      {
+        "id": "C",
+        "ja": "各ベンダーの印象を一文ずつ書く。",
+        "en": "One impressionistic sentence per vendor."
+      },
+      {
+        "id": "D",
+        "ja": "箇条書きで評価項目の名前だけを並べる。",
+        "en": "A bullet list of criteria names only."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "多次元の比較には表が適しており、後から表計算ソフトに移しやすい利点もあります。",
+      "en": "Tables suit multi-dimensional comparison and are easy to move into a spreadsheet later."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "項目ごとの比較が読み取りにくくなります。",
+        "en": "Per-criterion comparison becomes hard to read."
+      },
+      "C": {
+        "ja": "比較に必要な情報が不足します。",
+        "en": "It lacks the information needed for comparison."
+      },
+      "D": {
+        "ja": "比較結果が含まれません。",
+        "en": "It contains no comparison results."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-008",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "営業チームが繰り返し使える、数値を入力すると結果が更新される簡易の見積もりツールを Claude で作成したい場合、最も適した出力方法はどれですか。",
+      "en": "You want to build a simple quote calculator that the sales team can reuse and that updates when values are entered. Which output approach fits best?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "チャット内にテキストで計算式の説明だけを書く。",
+        "en": "Describe the formulas in plain chat text only."
+      },
+      {
+        "id": "B",
+        "ja": "Artifacts で動作するツールとして生成し、プレビューしながら改善を重ねる。",
+        "en": "Generate it as a working tool in Artifacts and refine it while previewing."
+      },
+      {
+        "id": "C",
+        "ja": "表を1つ出力して終了する。",
+        "en": "Output one table and stop."
+      },
+      {
+        "id": "D",
+        "ja": "PDF のスクリーンショットを貼る。",
+        "en": "Paste a screenshot of a PDF."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "Artifacts はコード、文書、インタラクティブなコンテンツなど、独立して再利用・反復できる成果物に向いています。",
+      "en": "Artifacts suit standalone, reusable, iteratively refined content such as interactive tools and documents."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "説明だけでは動くツールになりません。",
+        "en": "A description is not a working tool."
+      },
+      "C": {
+        "ja": "静的な表では入力に応じた更新ができません。",
+        "en": "A static table cannot update with inputs."
+      },
+      "D": {
+        "ja": "目的に関係がありません。",
+        "en": "Irrelevant to the goal."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d2-009",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude に市場動向の要約を依頼したところ、重要な論点の1つ（規制の影響）が抜けているように見えます。完全性を確認する最も適切な方法はどれですか。",
+      "en": "You asked Claude for a market-trends summary and one key topic (regulatory impact) seems missing. What is the best way to check completeness?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "出力が長ければ網羅されているとみなす。",
+        "en": "Assume a long output is exhaustive."
+      },
+      {
+        "id": "B",
+        "ja": "自分で必要な論点のチェックリストを作成して照合し、不足があれば追加の依頼をして補う。",
+        "en": "Build a checklist of required topics, compare, and request additions for gaps."
+      },
+      {
+        "id": "C",
+        "ja": "Claude に「抜けはない」と答えさせる。",
+        "en": "Have Claude say there are no gaps."
+      },
+      {
+        "id": "D",
+        "ja": "不足は気にせず、他の項目だけを使う。",
+        "en": "Ignore the gap and use the rest."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "事前に必要な論点を定義し照合することで、網羅性を客観的に確認できます。",
+      "en": "Defining required topics up front and comparing allows an objective completeness check."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "長さは網羅性を示しません。",
+        "en": "Length does not indicate coverage."
+      },
+      "C": {
+        "ja": "自己申告は信頼できる確認ではありません。",
+        "en": "Self-reports are not a reliable check."
+      },
+      "D": {
+        "ja": "重要な論点の欠落は判断を誤らせます。",
+        "en": "Missing a key topic can distort decisions."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d2-010",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "社内向けニュースレターの案として、Claude に異なるトーンの2案を作成させました。どちらを採用するかの判断として最も適切なものはどれですか。",
+      "en": "Claude produced two newsletter drafts in different tones. What is the best way to choose?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "先に出力された案を自動的に採用する。",
+        "en": "Pick whichever was produced first."
+      },
+      {
+        "id": "B",
+        "ja": "読者・目的・ブランドの基準を定め、それに照らして比較し、必要に応じて良い部分を組み合わせて編集する。",
+        "en": "Define criteria for audience, purpose, and brand voice, compare against them, and combine the best parts through editing."
+      },
+      {
+        "id": "C",
+        "ja": "長い方を選ぶ。",
+        "en": "Pick the longer one."
+      },
+      {
+        "id": "D",
+        "ja": "どちらも使わず、最初から手書きする。",
+        "en": "Discard both and write from scratch."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "基準に基づく比較と編集により、出力を目的と読者に合わせて仕上げられます。",
+      "en": "Criteria-based comparison and editing tailor the output to purpose and audience."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "順序は品質と無関係です。",
+        "en": "Order is unrelated to quality."
+      },
+      "C": {
+        "ja": "長さは適切さの指標ではありません。",
+        "en": "Length is not a measure of fit."
+      },
+      "D": {
+        "ja": "有用な下書きを捨てるのは非効率です。",
+        "en": "Discarding useful drafts is inefficient."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-011",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Web 検索を使う機能で Claude が回答し、出典リンクも付いています。重要な判断に使う前の最も適切な行動はどれですか。",
+      "en": "Claude answered using a web-search feature and included source links. What is the most appropriate step before relying on it for an important decision?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "リンクが付いているため、内容は検証済みと見なす。",
+        "en": "Treat it as verified because links are present."
+      },
+      {
+        "id": "B",
+        "ja": "リンク先を開き、出典が実際にその主張を裏付けているか、情報源の信頼性や日付も含めて確認する。",
+        "en": "Open the links and confirm the sources actually support the claim, including their reliability and dates."
+      },
+      {
+        "id": "C",
+        "ja": "リンクの数が多いほど正確だと判断する。",
+        "en": "Judge accuracy by the number of links."
+      },
+      {
+        "id": "D",
+        "ja": "出典を無視して要約だけを使う。",
+        "en": "Ignore sources and use only the summary."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "出典があっても、要約が出典の内容を正確に反映しているか、情報源が信頼できるかを確認する必要があります。",
+      "en": "Even with sources, you should confirm the summary reflects them accurately and that they are reliable and current."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "出典の存在は主張の正しさを保証しません。",
+        "en": "Having a citation does not guarantee correctness."
+      },
+      "C": {
+        "ja": "数は信頼性の指標になりません。",
+        "en": "Count is not a reliability indicator."
+      },
+      "D": {
+        "ja": "検証手段を自ら放棄することになります。",
+        "en": "This abandons the means of verification."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d2-012",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "multiple",
+    "select": 3,
+    "stem": {
+      "ja": "Claude の出力の誤りが特に起きやすく、追加の検証が必要となる状況として当てはまるものを3つ選んでください。",
+      "en": "Select THREE situations where errors are especially likely and extra verification is needed."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "非常に具体的な統計値、日付、法令の条文番号が含まれている。",
+        "en": "The output includes very specific statistics, dates, or statute numbers."
+      },
+      {
+        "id": "B",
+        "ja": "一般的な言い回しの文章を整えるだけの依頼である。",
+        "en": "The request merely polishes generic wording."
+      },
+      {
+        "id": "C",
+        "ja": "ニッチで公開情報が少ない分野の事実について回答している。",
+        "en": "It answers factual questions in a niche area with little public information."
+      },
+      {
+        "id": "D",
+        "ja": "最近の出来事など、最新情報が必要な内容を Web 検索なしで述べている。",
+        "en": "It describes recent events requiring current information without using web search."
+      },
+      {
+        "id": "E",
+        "ja": "既に提供済みの短い文章を箇条書きに変換するだけである。",
+        "en": "It just converts a short provided passage into bullets."
+      }
+    ],
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": {
+      "ja": "具体的な数値・条文、情報が乏しい分野、最新性が必要な内容は、誤りや古い情報が混ざりやすいため重点的に検証します。",
+      "en": "Precise figures and citations, sparse-information domains, and time-sensitive content are most prone to errors or outdated claims."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "文章の整形は事実を新たに主張しないため、リスクは低めです。",
+        "en": "Polishing wording adds no new factual claims, so risk is lower."
+      },
+      "E": {
+        "ja": "入力が与えられた形式変換は事実誤りのリスクが低めです。",
+        "en": "Format conversion of provided text carries lower factual risk."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d2-013",
+    "exam": "CCAO-F",
+    "domain": 2,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude が予算表の合計と成長率を計算して文章で報告しました。数値が意思決定に使われる場合、最も適切な対応はどれですか。",
+      "en": "Claude reports totals and growth rates from a budget table in prose. If the numbers will drive a decision, what is the most appropriate action?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "文章が論理的なので計算も正しいと見なす。",
+        "en": "Assume the math is right because the reasoning reads logically."
+      },
+      {
+        "id": "B",
+        "ja": "元の表計算ソフトの数式や電卓、または Claude のコード実行機能で結果を再計算し、数値を突き合わせる。",
+        "en": "Recalculate in the original spreadsheet or calculator, or via Claude's code execution, and compare the numbers."
+      },
+      {
+        "id": "C",
+        "ja": "小数点以下を切り捨てて誤差をなくす。",
+        "en": "Drop decimals to eliminate error."
+      },
+      {
+        "id": "D",
+        "ja": "計算結果はすべて Claude に再確認させ、「はい」と返ればよしとする。",
+        "en": "Ask Claude to reconfirm and accept a \"yes.\""
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "数値計算は誤りが混ざる可能性があるため、確実な計算手段で検証します。",
+      "en": "Numerical results can contain mistakes, so verify with reliable calculation tools."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "筋の通った説明は計算の正しさを保証しません。",
+        "en": "A coherent explanation does not guarantee correct arithmetic."
+      },
+      "C": {
+        "ja": "切り捨ては誤りの検出にならず、精度も落とします。",
+        "en": "Truncation neither detects errors nor preserves precision."
+      },
+      "D": {
+        "ja": "自己確認は独立した検証ではありません。",
+        "en": "Self-confirmation is not independent verification."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d3-001",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "大量の問い合わせ分類のように、単純で量が多く、速度とコストが重視される作業に最も適した選択はどれですか。",
+      "en": "For a simple, high-volume task like categorizing many inquiries, where speed and cost matter, which choice fits best?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "常に最上位モデルを使う。",
+        "en": "Always use the top-tier model."
+      },
+      {
+        "id": "B",
+        "ja": "Haiku のような軽量・高速なモデルを選ぶ。",
+        "en": "Choose a lightweight, fast model such as Haiku."
+      },
+      {
+        "id": "C",
+        "ja": "作業を実施せず保留する。",
+        "en": "Postpone the work."
+      },
+      {
+        "id": "D",
+        "ja": "すべて Opus で処理し、その後に人が分類し直す。",
+        "en": "Process all with Opus, then have people reclassify."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "単純で大量のタスクには、速度とコストに優れたモデルが適しています。",
+      "en": "Simple, high-volume tasks suit models that are fast and cost-efficient."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "過剰な性能はコストと待ち時間の無駄になります。",
+        "en": "Excess capability wastes cost and latency."
+      },
+      "C": {
+        "ja": "要件を満たす選択肢があるため保留は不要です。",
+        "en": "A suitable option exists, so postponing is unnecessary."
+      },
+      "D": {
+        "ja": "二重作業で、効率が悪くなります。",
+        "en": "Duplicated effort is inefficient."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d3-002",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "複数の制約が絡む事業戦略の選択肢を比較し、深い推論と高い品質が求められる分析を行います。モデル選択として最も適切なものはどれですか。",
+      "en": "You need a deeply reasoned, high-quality comparison of business strategy options with many interacting constraints. Which model choice is most appropriate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "最も軽量なモデルを選び、速度を優先する。",
+        "en": "Choose the lightest model to prioritize speed."
+      },
+      {
+        "id": "B",
+        "ja": "モデルは出力品質に影響しないため、どれでもよい。",
+        "en": "Any model; model choice does not affect quality."
+      },
+      {
+        "id": "C",
+        "ja": "最も高性能な Opus 系のモデルを検討し、必要なら Sonnet と比較する。",
+        "en": "Consider the most capable model tier (Opus) and compare with Sonnet if needed."
+      },
+      {
+        "id": "D",
+        "ja": "Haiku を使い、足りない部分は繰り返し質問して補う。",
+        "en": "Use Haiku and make up gaps with repeated questions."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "複雑な推論が必要で品質が重要な作業には、より高性能なモデルが適しています。コストとの兼ね合いで Sonnet との比較も有効です。",
+      "en": "Complex reasoning where quality matters suits more capable models; comparing with Sonnet helps balance cost."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "難しい分析では品質が不足するおそれがあります。",
+        "en": "Quality may fall short on hard analysis."
+      },
+      "B": {
+        "ja": "モデルごとに能力・速度・コストが異なります。",
+        "en": "Models differ in capability, speed, and cost."
+      },
+      "D": {
+        "ja": "能力不足を反復で補うのは非効率で、品質も不安定です。",
+        "en": "Compensating for capability by repetition is inefficient and unreliable."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d3-003",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "複数の情報源にまたがる市場調査で、出典付きの網羅的なレポートを短時間で作りたい場合、最も適切な機能はどれですか。",
+      "en": "You need a comprehensive, cited market report drawing on many sources in a short time. Which feature is most appropriate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "通常のチャットで1回だけ質問する。",
+        "en": "Ask a single question in a normal chat."
+      },
+      {
+        "id": "B",
+        "ja": "Artifacts でゲームを作る。",
+        "en": "Build a game in Artifacts."
+      },
+      {
+        "id": "C",
+        "ja": "Claude の research（リサーチ）モードで、調査の範囲と観点を指定して実行する。",
+        "en": "Use Claude's research mode, specifying scope and angles."
+      },
+      {
+        "id": "D",
+        "ja": "記憶に頼って回答させる。",
+        "en": "Rely on Claude's memory of training."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "research モードは、複数の情報源を横断して調べ、出典付きでまとめる用途に向いています。結果は引き続き検証が必要です。",
+      "en": "Research mode searches across multiple sources and compiles cited reports; results still need verification."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "単発の質問では網羅的な調査になりにくいです。",
+        "en": "A single question rarely yields comprehensive research."
+      },
+      "B": {
+        "ja": "目的に合いません。",
+        "en": "Does not match the goal."
+      },
+      "D": {
+        "ja": "最新情報や出典が必要な調査には不適切です。",
+        "en": "Inadequate where current information and sources are needed."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d3-004",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "毎月の顧客レポート作成に、同じ業務ルールの文書とテンプレートを毎回貼り付けています。最も適切な改善はどれですか。",
+      "en": "Every month you paste the same business-rules document and template into a chat for customer reports. What is the best improvement?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "毎回新しいチャットに貼り付け続ける。",
+        "en": "Keep pasting into new chats each time."
+      },
+      {
+        "id": "B",
+        "ja": "Projects を作成し、ルール文書とテンプレートを知識として追加して、その中で作業する。",
+        "en": "Create a Project, add the rules document and template as knowledge, and work inside it."
+      },
+      {
+        "id": "C",
+        "ja": "文書を印刷して見ながら入力する。",
+        "en": "Print the documents and type from them."
+      },
+      {
+        "id": "D",
+        "ja": "ルールを記憶してもらうため、チャットをずっと開いたままにする。",
+        "en": "Keep one chat open forever so Claude remembers."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "Projects は、繰り返し使う資料や指示を保持し、継続的な業務に一貫性をもたらします。",
+      "en": "Projects retain recurring materials and instructions, giving consistency to ongoing work."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "非効率で、ミスの原因になります。",
+        "en": "Inefficient and error-prone."
+      },
+      "C": {
+        "ja": "手作業が増え、Claude を活用できていません。",
+        "en": "Adds manual work and underuses Claude."
+      },
+      "D": {
+        "ja": "会話が長くなるとコンテキストの制約で品質が落ちる可能性があります。",
+        "en": "Very long chats hit context limits and quality can degrade."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d3-005",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "長時間続いたチャットで、Claude が序盤に決めた方針を忘れたような回答をし始めました。最も適切な対応はどれですか。",
+      "en": "In a very long chat, Claude begins to answer as if it forgot decisions made earlier. What is the most appropriate response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "同じ指示を大文字で何度も繰り返す。",
+        "en": "Repeat the same instruction in capitals."
+      },
+      {
+        "id": "B",
+        "ja": "チャットを続け、さらに情報を追加していく。",
+        "en": "Keep going and add even more information."
+      },
+      {
+        "id": "C",
+        "ja": "別のサービスへ乗り換える。",
+        "en": "Switch services."
+      },
+      {
+        "id": "D",
+        "ja": "決定事項や要点を Claude に要約させ、それを新しいチャット（または Project）の冒頭に引き継いで再開する。",
+        "en": "Have Claude summarize decisions and key points, then carry the summary into a new chat (or Project) and continue."
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": {
+      "ja": "会話が長くなるとコンテキストの制約で精度が下がることがあります。要約して新しい会話に引き継ぐのが有効です。",
+      "en": "Long conversations can strain context limits; summarizing and restarting with that summary is effective."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "繰り返しは根本原因を解決しません。",
+        "en": "Repetition does not fix the root cause."
+      },
+      "B": {
+        "ja": "情報を足すと問題が悪化することがあります。",
+        "en": "Adding more can worsen the problem."
+      },
+      "C": {
+        "ja": "乗り換えても同様の制約は残ります。",
+        "en": "Similar limits persist elsewhere."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d3-006",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "長い会話を新しいチャットで再開するにあたり、継続性を保つ有効な方法を2つ選んでください。",
+      "en": "Select TWO effective ways to maintain continuity when restarting a long conversation in a new chat."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "過去のやり取りの全文を一字一句コピーして貼る。",
+        "en": "Copy and paste the entire prior transcript verbatim."
+      },
+      {
+        "id": "B",
+        "ja": "現時点の決定事項・未解決事項・次のステップを要約させ、新しい会話の最初に貼る。",
+        "en": "Have Claude summarize decisions, open issues, and next steps, and paste that at the start of the new chat."
+      },
+      {
+        "id": "C",
+        "ja": "何も引き継がず、背景は推測に任せる。",
+        "en": "Carry nothing over and let Claude guess the background."
+      },
+      {
+        "id": "D",
+        "ja": "継続的に必要な資料や指示は Project の知識・指示に保存して再利用する。",
+        "en": "Store reusable materials and instructions in a Project's knowledge and instructions."
+      },
+      {
+        "id": "E",
+        "ja": "古いチャットを開いたままにして並行利用する。",
+        "en": "Keep the old chat open and use both in parallel."
+      }
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": {
+      "ja": "要約の引き継ぎと、Project への恒常的な情報の保存は、コンテキストを節約しながら継続性を保てます。",
+      "en": "Summaries and Project storage preserve continuity while conserving context."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "全文の貼り付けはコンテキストを大量に消費し、本来の問題を再現します。",
+        "en": "Pasting everything consumes context and recreates the problem."
+      },
+      "C": {
+        "ja": "背景がないと精度が下がります。",
+        "en": "Without background, accuracy drops."
+      },
+      "E": {
+        "ja": "並行利用では情報が分散し、整合性が取れなくなります。",
+        "en": "Parallel use scatters information and breeds inconsistency."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d3-007",
+    "exam": "CCAO-F",
+    "domain": 3,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "営業担当が簡単な質問に素早く答えたいだけの場合、チャットの通常の回答と Artifacts の使い分けとして最も適切なものはどれですか。",
+      "en": "When a sales rep just needs a quick answer to a simple question, how should chat replies and Artifacts be used?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "すべての回答を Artifacts として生成する。",
+        "en": "Generate every answer as an Artifact."
+      },
+      {
+        "id": "B",
+        "ja": "簡単な質問はチャット内で回答させ、独立した文書やツールなど再利用する成果物の作成には Artifacts を使う。",
+        "en": "Answer simple questions inline in chat and use Artifacts for standalone, reusable deliverables like documents or tools."
+      },
+      {
+        "id": "C",
+        "ja": "Artifacts は使わず、成果物はメモ帳に手入力する。",
+        "en": "Never use Artifacts; retype deliverables in a notepad."
+      },
+      {
+        "id": "D",
+        "ja": "簡単な質問ほど research モードを使う。",
+        "en": "Use research mode for the simplest questions."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "成果物の性質に応じた機能選択が、効率と使いやすさにつながります。",
+      "en": "Choosing features by deliverable type improves efficiency and usability."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "簡単な質問には過剰で、かえって手間が増えます。",
+        "en": "Excessive for simple questions and adds friction."
+      },
+      "C": {
+        "ja": "手作業が増え、機能を活用していません。",
+        "en": "More manual work; ignores available features."
+      },
+      "D": {
+        "ja": "簡単な質問には不要で、時間もかかります。",
+        "en": "Unnecessary and slow for simple questions."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d4-001",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "プロジェクトの関係者へのインタビューメモが散在しています。要件を整理するために Claude をどう活用するのが最も適切ですか。",
+      "en": "Stakeholder interview notes are scattered. How can Claude best help consolidate requirements?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "メモを Claude に渡し、要件の一覧、矛盾や曖昧な点、追加で確認すべき質問を抽出させ、結果を関係者と確認する。",
+        "en": "Give Claude the notes to extract a requirements list, contradictions, ambiguities, and follow-up questions, then validate with stakeholders."
+      },
+      {
+        "id": "B",
+        "ja": "Claude の出力した要件を確認なしで正式な要件とする。",
+        "en": "Adopt Claude's requirements as final without review."
+      },
+      {
+        "id": "C",
+        "ja": "要件は人だけが整理できるため Claude は使わない。",
+        "en": "Never use Claude; only humans can structure requirements."
+      },
+      {
+        "id": "D",
+        "ja": "メモを読み込ませず、一般的な要件を新たに作らせる。",
+        "en": "Skip the notes and have Claude invent generic requirements."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "Claude は情報の整理や曖昧さの検出に有用ですが、最終的な要件は関係者との確認で確定させます。",
+      "en": "Claude is useful for organizing information and surfacing ambiguity; stakeholders confirm the final requirements."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "確認なしでは誤解や抜けが残ります。",
+        "en": "Without review, misunderstandings and gaps remain."
+      },
+      "C": {
+        "ja": "整理作業の効率化という価値を逃します。",
+        "en": "Forgoes the efficiency benefit."
+      },
+      "D": {
+        "ja": "実際のニーズに基づきません。",
+        "en": "Not grounded in actual needs."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-002",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "新しい社内イベントの計画を立てます。Claude を計画に活用する最も適切な方法はどれですか。",
+      "en": "You are planning a new internal event. What is the best way to use Claude in planning?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "Claude が出した計画をそのまま確定する。",
+        "en": "Finalize Claude's plan as is."
+      },
+      {
+        "id": "B",
+        "ja": "目的・予算・日程などの制約を伝えて計画案とリスク、チェックリストを作らせ、人が実現性と費用を確認して調整する。",
+        "en": "Provide goals, budget, and timing constraints; have Claude draft a plan, risks, and checklist; then people validate feasibility and cost and adjust."
+      },
+      {
+        "id": "C",
+        "ja": "制約は伝えず自由に提案させる。",
+        "en": "Give no constraints and let it propose freely."
+      },
+      {
+        "id": "D",
+        "ja": "計画は人間のみの仕事のため、Claude に相談しない。",
+        "en": "Do not consult Claude; planning is human-only."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "制約を与えて案を作らせ、人が実現性を検証する分担が、効率と責任を両立させます。",
+      "en": "Having Claude draft within constraints while people validate feasibility balances efficiency and accountability."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "実現性やコストの検証が欠け、リスクが高まります。",
+        "en": "Lacks feasibility and cost validation."
+      },
+      "C": {
+        "ja": "制約なしでは実行不能な案になりがちです。",
+        "en": "Without constraints, plans tend to be unworkable."
+      },
+      "D": {
+        "ja": "有用な支援を使わず、時間がかかります。",
+        "en": "Forgoes useful help and takes longer."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-003",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "新しい申請フォームのアイデアを短期間で形にしたい担当者が、Claude をどのように使うのが最も効果的ですか。",
+      "en": "An associate wants to quickly shape a new request-form idea. What is the most effective use of Claude?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "完成版を一度で出させ、修正は行わない。",
+        "en": "Request a finished version once and make no changes."
+      },
+      {
+        "id": "B",
+        "ja": "最初から開発チームに引き渡す。",
+        "en": "Hand it to a development team from the start."
+      },
+      {
+        "id": "C",
+        "ja": "Artifacts などで試作を作らせ、利用者の意見を取り入れながら反復して改善する。",
+        "en": "Have Claude build a prototype (for example in Artifacts) and iterate with user feedback."
+      },
+      {
+        "id": "D",
+        "ja": "仕様を書かずに口頭で説明するだけにする。",
+        "en": "Explain it verbally without writing any spec."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "試作と反復により、早期にフィードバックを得ながら設計を磨けます。",
+      "en": "Prototyping and iteration gather early feedback and refine the design."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "フィードバックなしでは品質が上がりません。",
+        "en": "Without feedback quality will not improve."
+      },
+      "B": {
+        "ja": "簡易な試作の段階で価値を検証でき、過剰な負担になります。",
+        "en": "A simple prototype can validate value first; handing off is premature."
+      },
+      "D": {
+        "ja": "記録がなく、再現性や共有に問題が出ます。",
+        "en": "Undocumented ideas are hard to reproduce and share."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-004",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "チームの資料作成プロセスに Claude を導入する最初のステップとして、最も適切なものはどれですか。",
+      "en": "What is the most appropriate first step for introducing Claude into a team's document-production process?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "全工程を一度に Claude に置き換える。",
+        "en": "Replace the whole process with Claude at once."
+      },
+      {
+        "id": "B",
+        "ja": "既存プロセスを可視化し、反復的で文章中心かつリスクの低い工程から小さく試行して効果を測定し、レビュー工程を維持して拡大する。",
+        "en": "Map the current process, pilot on repetitive, text-heavy, low-risk steps, measure results, keep review steps, then expand."
+      },
+      {
+        "id": "C",
+        "ja": "社内への説明は行わず、各自が自由に使うのに任せる。",
+        "en": "Give no guidance and let everyone improvise."
+      },
+      {
+        "id": "D",
+        "ja": "効果の測定は不要として導入を完了とする。",
+        "en": "Skip measurement and declare it done."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "小さな試行と効果測定、人のレビューの維持が、安全で持続的な統合につながります。",
+      "en": "Small pilots, measurement, and retained human review make for safe, sustainable integration."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "リスクが高く、品質や責任の所在が不明確になります。",
+        "en": "High risk; quality and accountability become unclear."
+      },
+      "C": {
+        "ja": "品質や情報管理のばらつきが生じます。",
+        "en": "Leads to inconsistent quality and data handling."
+      },
+      "D": {
+        "ja": "改善効果や課題が分からないままになります。",
+        "en": "You would not know the effect or problems."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d4-005",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "経営層に Claude の導入効果を説明する際、最も適切なコミュニケーションはどれですか。",
+      "en": "How should you present the value of adopting Claude to executives?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "Claude は常に正確で、人の確認は不要だと伝える。",
+        "en": "State that Claude is always accurate and needs no review."
+      },
+      {
+        "id": "B",
+        "ja": "限界を伏せ、成功例のみを強調する。",
+        "en": "Hide limitations and highlight only successes."
+      },
+      {
+        "id": "C",
+        "ja": "測定した時間削減や品質の改善、人のレビューが必要な領域、ハルシネーションやデータ管理などのリスクと対策をあわせて伝える。",
+        "en": "Share measured time savings and quality gains alongside where review is needed and the risks (hallucination, data handling) with mitigations."
+      },
+      {
+        "id": "D",
+        "ja": "技術的に難しいため、説明は IT 部門に任せる。",
+        "en": "Leave all communication to IT as it is too technical."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "価値と限界の両方を根拠とともに伝えることで、現実的な期待と信頼が得られます。",
+      "en": "Communicating both value and limits with evidence builds realistic expectations and trust."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "過大な期待を招き、問題発生時の信頼を損ないます。",
+        "en": "Creates inflated expectations and erodes trust."
+      },
+      "B": {
+        "ja": "リスクの見落としにつながります。",
+        "en": "Leads to overlooked risks."
+      },
+      "D": {
+        "ja": "業務上の価値は担当者が最もよく説明できます。",
+        "en": "The practitioner is best placed to explain business value."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-006",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "Claude を活用する候補業務として適している工程を2つ選んでください。",
+      "en": "Select TWO workflow steps that are good candidates for Claude assistance."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "毎週繰り返される会議メモからのアクション項目の抽出と要約。",
+        "en": "Extracting and summarizing action items from weekly meeting notes."
+      },
+      {
+        "id": "B",
+        "ja": "最終的な法的判断の確定。",
+        "en": "Making final legal determinations."
+      },
+      {
+        "id": "C",
+        "ja": "顧客向けお知らせ文の初稿作成（公開前に担当者が確認）。",
+        "en": "Drafting first versions of customer announcements, reviewed by a staff member before release."
+      },
+      {
+        "id": "D",
+        "ja": "人事の昇給可否の自動決定。",
+        "en": "Automatically deciding pay raises."
+      },
+      {
+        "id": "E",
+        "ja": "機密性の高い個人情報を含むデータの未承認ツールへの入力。",
+        "en": "Entering sensitive personal data into an unapproved tool."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "反復的で文章中心、かつ人によるレビューが組み込める工程は適しています。",
+      "en": "Repetitive, text-centered steps with built-in human review fit well."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "重大な判断は人と専門家が責任を持つべきです。",
+        "en": "High-stakes judgments belong to accountable people and experts."
+      },
+      "D": {
+        "ja": "人の処遇に関わる判断を自動化するのは不適切です。",
+        "en": "Automating decisions affecting people is inappropriate."
+      },
+      "E": {
+        "ja": "データ保護方針に反するおそれがあります。",
+        "en": "Likely violates data-protection policy."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-007",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "社内の基幹システムと Claude を自動で連携させ、リアルタイムで注文データを処理したいという要望が出ました。担当者として最も適切な対応はどれですか。",
+      "en": "A request arrives to connect Claude automatically to the core internal system and process orders in real time. What is the most appropriate action for an associate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "自分で設計し、本番環境に導入する。",
+        "en": "Design it yourself and deploy it to production."
+      },
+      {
+        "id": "B",
+        "ja": "要望の目的や要件を整理し、システム連携や自動化は Claude Architect や Developer などの技術担当にエスカレーションする。",
+        "en": "Clarify the goals and requirements, then escalate the system integration and automation to technical Claude Architect/Developer roles."
+      },
+      {
+        "id": "C",
+        "ja": "要望を断り、検討もしない。",
+        "en": "Decline and do not investigate."
+      },
+      {
+        "id": "D",
+        "ja": "チャットに注文データを手動で貼り付ける運用で代替し、機密性は考慮しない。",
+        "en": "Substitute pasting order data into chat manually, ignoring sensitivity."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "アソシエイトの範囲を超える複雑な技術実装は、要件を整理した上で専門担当に引き継ぎます。",
+      "en": "Technical implementations beyond an associate's scope are escalated with well-defined requirements."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "権限・知識の範囲を超え、セキュリティや品質のリスクがあります。",
+        "en": "Beyond your scope; security and quality risks."
+      },
+      "C": {
+        "ja": "業務改善の機会を逃します。",
+        "en": "Loses an improvement opportunity."
+      },
+      "D": {
+        "ja": "データ保護の観点で不適切です。",
+        "en": "Problematic from a data-protection standpoint."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d4-008",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "Claude 導入のパイロットを経営会議で報告します。報告に含めるべき内容として適切なものを2つ選んでください。",
+      "en": "You will report a Claude pilot to a management meeting. Select TWO items that should be included."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "成功した事例のみで、失敗や課題は載せない。",
+        "en": "Only successes; omit failures and issues."
+      },
+      {
+        "id": "B",
+        "ja": "作業時間や品質など、導入前後を比較した測定結果。",
+        "en": "Measured before-and-after results such as time and quality."
+      },
+      {
+        "id": "C",
+        "ja": "誤りが見つかった事例と、それに対する確認手順や改善策。",
+        "en": "Cases where errors were found and the verification steps and improvements applied."
+      },
+      {
+        "id": "D",
+        "ja": "Claude 自身の「うまくいった」という自己評価のみ。",
+        "en": "Only Claude's own claim that it went well."
+      },
+      {
+        "id": "E",
+        "ja": "個人名入りの顧客データをそのまま添付する。",
+        "en": "Attach customer data with personal names as is."
+      }
+    ],
+    "answer": [
+      "B",
+      "C"
+    ],
+    "explanation": {
+      "ja": "定量的な効果と、課題・対策を併せて示すことが、拡大判断に有用です。",
+      "en": "Quantified results alongside issues and mitigations support scaling decisions."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "偏った報告は意思決定を誤らせます。",
+        "en": "One-sided reporting misleads decisions."
+      },
+      "D": {
+        "ja": "自己評価は客観的な証拠ではありません。",
+        "en": "Self-assessment is not objective evidence."
+      },
+      "E": {
+        "ja": "個人情報の不必要な共有は避けるべきです。",
+        "en": "Avoid unnecessary sharing of personal data."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-009",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "既存の週次報告業務を Claude で改善する際、プロセスの再設計として最も適切なものはどれですか。",
+      "en": "When redesigning an existing weekly reporting workflow with Claude, which is most appropriate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "担当者を外し、Claude の出力をそのまま配信する。",
+        "en": "Remove the owner and distribute Claude's output directly."
+      },
+      {
+        "id": "B",
+        "ja": "データ収集は人が行い、Claude に下書きを作らせ、担当者がレビューして承認するステップを明確に定義する。",
+        "en": "Keep data collection with people, have Claude draft, and define a clear review-and-approve step by the owner."
+      },
+      {
+        "id": "C",
+        "ja": "出力の形式や基準を定めず、毎回自由に作る。",
+        "en": "Define no format or standards; improvise each week."
+      },
+      {
+        "id": "D",
+        "ja": "引き継ぎ手順を作らず、1人の個人アカウントで運用する。",
+        "en": "Run it on one person's personal account with no handoff procedure."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "役割分担とレビュー工程が明確なワークフローは、品質と再現性を保てます。",
+      "en": "A workflow with clear roles and review keeps quality and repeatability."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "検証なしの配信はリスクが高いです。",
+        "en": "Unreviewed distribution is risky."
+      },
+      "C": {
+        "ja": "品質が安定せず、再現できません。",
+        "en": "Inconsistent and not repeatable."
+      },
+      "D": {
+        "ja": "属人化とガバナンス上の問題を生みます。",
+        "en": "Creates single-person dependency and governance issues."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d4-010",
+    "exam": "CCAO-F",
+    "domain": 4,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "ある業務が Claude による改善に適しているかを判断する基準として、最も適切なものはどれですか。",
+      "en": "Which criterion best indicates a process is a good candidate for improvement with Claude?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "担当者が好んでいる作業であるか。",
+        "en": "Whether the owner enjoys the task."
+      },
+      {
+        "id": "B",
+        "ja": "作業量が多く、パターンがあり、誤りの影響が管理可能で、人が確認できる業務であるか。",
+        "en": "Whether it is high-volume, patterned, has manageable error impact, and can be reviewed by people."
+      },
+      {
+        "id": "C",
+        "ja": "社内で最も重要性が高く、失敗が許されない業務であるか。",
+        "en": "Whether it is the most critical process where failure is unacceptable."
+      },
+      {
+        "id": "D",
+        "ja": "導入にかかるコストを検討しなくてよい業務であるか。",
+        "en": "Whether cost need not be considered."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "繰り返しが多く、リスクを管理できる業務から着手すると、効果を出しやすくなります。",
+      "en": "Starting with repeatable, risk-manageable work yields value more easily."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "好みは適合性の基準になりません。",
+        "en": "Preference is not a suitability criterion."
+      },
+      "C": {
+        "ja": "失敗が許されない業務は、初期の試行には不向きです。",
+        "en": "Zero-failure-tolerance processes are poor first pilots."
+      },
+      "D": {
+        "ja": "費用対効果の検討は必要です。",
+        "en": "Cost-benefit should be considered."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d5-001",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "チーム全員が、同じ文体・ルールで報告書の下書きを作れるよう Project を設定します。最も適切な方法はどれですか。",
+      "en": "You are configuring a Project so everyone on the team drafts reports with the same tone and rules. What is the best approach?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "各自が毎回、好みの指示をチャットに入力する。",
+        "en": "Everyone types their own preferences into each chat."
+      },
+      {
+        "id": "B",
+        "ja": "Project のカスタム指示に、役割・文体・禁止事項・出力形式を記述する。",
+        "en": "Write the role, tone, prohibitions, and output format in the Project's custom instructions."
+      },
+      {
+        "id": "C",
+        "ja": "指示は書かず、Claude の判断に任せる。",
+        "en": "Write no instructions and leave it to Claude."
+      },
+      {
+        "id": "D",
+        "ja": "指示を1つの長い文章にして、優先順位や構成を付けない。",
+        "en": "Write one long unstructured block with no priorities."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "Project の指示は、その中のすべての会話に適用されるため、一貫性を確保しやすいです。",
+      "en": "Project instructions apply to all conversations within it, ensuring consistency."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "ばらつきや手間が生じます。",
+        "en": "Causes inconsistency and extra effort."
+      },
+      "C": {
+        "ja": "出力の一貫性が保証されません。",
+        "en": "No guarantee of consistency."
+      },
+      "D": {
+        "ja": "構造のない指示は解釈のぶれを生みます。",
+        "en": "Unstructured instructions invite inconsistent interpretation."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d5-002",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Project に知識として追加する資料の選び方として、最も適切なものはどれですか。",
+      "en": "How should you choose materials to add as knowledge in a Project?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "社内にある全ての資料を無差別にアップロードする。",
+        "en": "Upload every document you have, indiscriminately."
+      },
+      {
+        "id": "B",
+        "ja": "タスクに関連する最新で正確な資料を厳選し、機密情報の取り扱いルールを満たすものだけを追加する。",
+        "en": "Curate relevant, current, accurate materials that satisfy sensitive-data rules."
+      },
+      {
+        "id": "C",
+        "ja": "古い版と新しい版を区別せず両方追加する。",
+        "en": "Add old and new versions together without distinction."
+      },
+      {
+        "id": "D",
+        "ja": "出典が不明でも、量が多いほどよいので追加する。",
+        "en": "Add anything, even without provenance, since more is better."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "関連性が高く最新の資料に絞ることで、回答の質が上がり、コンテキストの無駄も減ります。",
+      "en": "Focused, current materials improve answer quality and conserve context."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "無関係な情報が回答の質を下げ、情報管理上も問題です。",
+        "en": "Irrelevant content degrades answers and raises data-handling issues."
+      },
+      "C": {
+        "ja": "矛盾する情報が混在し、誤答の原因になります。",
+        "en": "Conflicting content causes wrong answers."
+      },
+      "D": {
+        "ja": "信頼性の低い情報は誤りの原因になります。",
+        "en": "Unreliable content leads to errors."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d5-003",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Google Drive などのコネクタを使って Claude に社内文書を参照させたい場合、最も適切な対応はどれですか。",
+      "en": "You want Claude to reference internal documents via a connector such as Google Drive. What is the most appropriate approach?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "組織で承認された方法とアカウントを用い、アクセスを許可する範囲と必要な権限を確認して、必要な情報に限って連携する。",
+        "en": "Use organization-approved methods and accounts, confirm what access you grant and the permissions needed, and connect only what the task requires."
+      },
+      {
+        "id": "B",
+        "ja": "業務と無関係な個人のアカウントも含め、すべて連携する。",
+        "en": "Connect everything, including unrelated personal accounts."
+      },
+      {
+        "id": "C",
+        "ja": "権限の確認はせず、手早く連携する。",
+        "en": "Connect quickly without checking permissions."
+      },
+      {
+        "id": "D",
+        "ja": "コネクタは使わず、毎回すべてのファイルを手動で貼り付ける。",
+        "en": "Avoid connectors and paste every file manually."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "連携は必要最小限に絞り、組織のポリシーと権限を確認することが重要です。",
+      "en": "Keep connections minimal and verify policy and permissions."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "不要な情報へのアクセスはリスクを高めます。",
+        "en": "Unneeded access increases risk."
+      },
+      "C": {
+        "ja": "過剰な共有や権限の誤りを招きます。",
+        "en": "Invites over-sharing and permission mistakes."
+      },
+      "D": {
+        "ja": "手間が大きく、必ずしも安全でもありません。",
+        "en": "Laborious and not necessarily safer."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d5-004",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "社内の経費規程が改訂されましたが、Project の知識には旧版が残っており、Claude が旧規程に基づいた回答をしています。最も適切な対応はどれですか。",
+      "en": "The expense policy was revised, but the Project still holds the old version and Claude answers using it. What is the best response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "旧版を残し、新版を追加するだけにする。",
+        "en": "Leave the old version and just add the new one."
+      },
+      {
+        "id": "B",
+        "ja": "回答の都度、手作業で訂正する。",
+        "en": "Correct each answer by hand."
+      },
+      {
+        "id": "C",
+        "ja": "旧版を削除または置き換えて新版をアップロードし、必要に応じて指示も更新して、回答を確認する。",
+        "en": "Remove or replace the old file with the new one, update instructions if needed, and test the answers."
+      },
+      {
+        "id": "D",
+        "ja": "Claude に旧規程を無視するよう、新規のチャットで伝える。",
+        "en": "Tell Claude in a new chat to ignore the old policy."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "知識源は変更に応じて維持・更新します。矛盾する資料が残ると誤答の原因になります。",
+      "en": "Knowledge sources must be maintained as things change; conflicting documents cause wrong answers."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "旧新が混在し、矛盾した回答の原因になります。",
+        "en": "Mixing versions creates contradictory answers."
+      },
+      "B": {
+        "ja": "再発し、根本対応になりません。",
+        "en": "Recurs; not a root fix."
+      },
+      "D": {
+        "ja": "Project の設定は変わらず、他のメンバーには影響が残ります。",
+        "en": "The Project is unchanged and others remain affected."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d5-005",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "システムレベルの指示（カスタム指示）を効果的に書くために、最も適切なものはどれですか。",
+      "en": "Which approach is most effective when writing system-level (custom) instructions?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "「いい感じにして」のように、簡潔で抽象的に書く。",
+        "en": "Keep it brief and abstract, like \"make it nice.\""
+      },
+      {
+        "id": "B",
+        "ja": "役割、対象読者、守るべきルール、出力形式、不明点があれば確認することを構造化して書き、必要なら例を添える。",
+        "en": "Structure it: role, audience, rules, output format, asking when unclear, with an example if helpful."
+      },
+      {
+        "id": "C",
+        "ja": "矛盾する指示も含め、思いついた順にすべて書く。",
+        "en": "Write everything as it comes to mind, including conflicting rules."
+      },
+      {
+        "id": "D",
+        "ja": "機密情報や個人情報を指示にそのまま書き込む。",
+        "en": "Embed confidential or personal data directly."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "明確で構造化され、矛盾のない指示が、一貫した挙動につながります。",
+      "en": "Clear, structured, non-conflicting instructions lead to consistent behavior."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "曖昧な指示は解釈のばらつきを生みます。",
+        "en": "Vague instructions produce varied interpretations."
+      },
+      "C": {
+        "ja": "矛盾した指示は挙動を不安定にします。",
+        "en": "Conflicting rules destabilize behavior."
+      },
+      "D": {
+        "ja": "指示は共有されうるため、機密情報の記載は避けるべきです。",
+        "en": "Instructions may be shared, so avoid sensitive data."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d5-006",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "チームで使っている Project の保守として適切なものを2つ選んでください。",
+      "en": "Select TWO appropriate maintenance practices for a team Project."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "業務ルールが変わったら、指示と知識を更新する。",
+        "en": "Update instructions and knowledge when business rules change."
+      },
+      {
+        "id": "B",
+        "ja": "資料は増える一方なので、削除はしない。",
+        "en": "Never remove anything; just keep adding."
+      },
+      {
+        "id": "C",
+        "ja": "定期的に見直し、古い資料や重複を整理し、変更点を共有する。",
+        "en": "Review periodically, prune outdated or duplicate materials, and communicate changes."
+      },
+      {
+        "id": "D",
+        "ja": "変更は担当者が個人の判断で、周知せずに行う。",
+        "en": "Make changes at an individual's discretion without notice."
+      },
+      {
+        "id": "E",
+        "ja": "問題が起きるまで一切見直さない。",
+        "en": "Never review until something breaks."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "設定と知識を定期的に見直し、更新を共有することで、回答の質と信頼性を維持できます。",
+      "en": "Regular review and sharing of updates maintains answer quality and trust."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "不要・古い情報の蓄積は誤答とコンテキストの浪費を招きます。",
+        "en": "Accumulated stale content causes errors and wastes context."
+      },
+      "D": {
+        "ja": "周知しない変更は混乱を生みます。",
+        "en": "Unannounced changes cause confusion."
+      },
+      "E": {
+        "ja": "事後対応では品質問題を事前に防げません。",
+        "en": "Reactive-only maintenance misses preventable issues."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d5-007",
+    "exam": "CCAO-F",
+    "domain": 5,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude が Project に追加した資料の内容を回答に反映していません。最初に確認すべき事項はどれですか。",
+      "en": "Claude is not reflecting a document you added to the Project in its answers. What should you check first?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "モデルを必ず変更する。",
+        "en": "Always change the model."
+      },
+      {
+        "id": "B",
+        "ja": "資料が正しいプロジェクトに追加されているか、読み取れる形式・内容か、質問がその資料を参照するよう具体的に指示しているかを確認する。",
+        "en": "Whether the file is in the right Project, is in a readable format with usable content, and whether your question clearly directs Claude to reference it."
+      },
+      {
+        "id": "C",
+        "ja": "同じ資料を10回追加する。",
+        "en": "Upload the same file ten times."
+      },
+      {
+        "id": "D",
+        "ja": "Project を削除して作り直す。",
+        "en": "Delete and recreate the Project."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "原因の切り分けは、設定・資料の状態・プロンプトの順に基本から確認します。",
+      "en": "Diagnose basics first: configuration, document state, and prompt."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "原因が特定されないまま変更しても改善するとは限りません。",
+        "en": "Changing without a diagnosis may not help."
+      },
+      "C": {
+        "ja": "重複は混乱を招き、解決になりません。",
+        "en": "Duplicates add confusion without solving anything."
+      },
+      "D": {
+        "ja": "過剰な対応で、設定内容も失います。",
+        "en": "Excessive and loses configuration."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d6-001",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "次のうち、Claude の利用に最も適した用途はどれですか。",
+      "en": "Which of the following is the most appropriate use of Claude?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "患者の最終的な診断を決定する。",
+        "en": "Determining a patient's final diagnosis."
+      },
+      {
+        "id": "B",
+        "ja": "社内向け説明資料の初稿を作成し、担当者が確認して仕上げる。",
+        "en": "Drafting a first version of internal explanatory material that an owner reviews and finalizes."
+      },
+      {
+        "id": "C",
+        "ja": "社員の解雇可否を自動で判断する。",
+        "en": "Automatically deciding whether to dismiss an employee."
+      },
+      {
+        "id": "D",
+        "ja": "出典を確認せずに規制対応の最終文書を提出する。",
+        "en": "Submitting final regulatory documents without checking sources."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "人のレビューを前提にした下書き支援は適切な用途です。重大な判断を AI に任せきりにするのは不適切です。",
+      "en": "Draft support with human review is appropriate; delegating high-stakes decisions entirely to AI is not."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "医療上の判断は専門家が責任を持つべきです。",
+        "en": "Medical judgment requires accountable professionals."
+      },
+      "C": {
+        "ja": "人の処遇に関わる重大な判断の自動化は不適切です。",
+        "en": "Automating consequential decisions about people is inappropriate."
+      },
+      "D": {
+        "ja": "検証なしの提出は重大なリスクを伴います。",
+        "en": "Unverified submission carries serious risk."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d6-002",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "顧客の氏名と口座番号を含むスプレッドシートの傾向分析を Claude にさせたいが、組織の規程では規制対象の個人データの外部サービス入力が制限されています。最も適切な対応はどれですか。",
+      "en": "You want Claude to analyze trends in a spreadsheet containing customer names and account numbers, but policy restricts entering regulated personal data into external services. What is most appropriate?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "社内利用なので、そのままアップロードする。",
+        "en": "Upload as is since it is internal use."
+      },
+      {
+        "id": "B",
+        "ja": "分析に不要な個人識別子を除去または匿名化し、ポリシーに沿った形でアップロードする。",
+        "en": "Remove or anonymize unneeded personal identifiers and upload in line with policy."
+      },
+      {
+        "id": "C",
+        "ja": "「保存しないで」と指示してアップロードする。",
+        "en": "Upload but instruct Claude not to retain."
+      },
+      {
+        "id": "D",
+        "ja": "分析自体を断念する。",
+        "en": "Abandon the analysis."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "データの最小化と匿名化により、規程を守りながら分析の価値を得られます。",
+      "en": "Minimization and anonymization deliver the value while respecting policy."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "社内であっても規程違反になります。",
+        "en": "Still a policy violation."
+      },
+      "C": {
+        "ja": "指示によって規程上の統制を満たすことにはなりません。",
+        "en": "An instruction does not satisfy the policy control."
+      },
+      "D": {
+        "ja": "匿名化で対応できるため、断念は不要です。",
+        "en": "Anonymization makes abandoning unnecessary."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d6-003",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "組織の AI ポリシーに明記されていない新しい用途（社外パートナーへの契約書草案の共有）で Claude を使いたい場合、最も適切な対応はどれですか。",
+      "en": "You want to use Claude for a use case your AI policy does not address (drafting contracts to share with external partners). What is the most appropriate step?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "ポリシーに禁止がないので、自己判断で進める。",
+        "en": "Proceed on your own judgment because nothing prohibits it."
+      },
+      {
+        "id": "B",
+        "ja": "誰にも知らせず、個人アカウントで試す。",
+        "en": "Quietly try it on a personal account."
+      },
+      {
+        "id": "C",
+        "ja": "法務・情報セキュリティ・AI ガバナンス担当に確認し、承認された範囲で進める。",
+        "en": "Consult legal, security, and AI governance owners and proceed within approved bounds."
+      },
+      {
+        "id": "D",
+        "ja": "ポリシー改訂まで、あらゆる Claude 利用を止める。",
+        "en": "Stop all Claude use until the policy changes."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": {
+      "ja": "ポリシーが想定していない用途では、関係部門に確認して承認を得ることが責任ある対応です。",
+      "en": "For uses outside policy, confirming with the right functions is responsible practice."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "未確認のリスクを負うことになります。",
+        "en": "Takes on unvetted risk."
+      },
+      "B": {
+        "ja": "承認外の利用で、統制を逸脱します。",
+        "en": "Unsanctioned use bypasses controls."
+      },
+      "D": {
+        "ja": "過剰な反応で、確認で解決できます。",
+        "en": "Overreaction; consultation resolves it."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d6-004",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "AI の責任ある利用の観点から、避けるべき使い方を2つ選んでください。",
+      "en": "Select TWO uses that should be avoided from a responsible-AI standpoint."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "ローンの審査結果を、人の確認なしに Claude の判断だけで申請者に通知する。",
+        "en": "Notifying loan applicants of decisions based solely on Claude's judgment with no human review."
+      },
+      {
+        "id": "B",
+        "ja": "社内資料の誤字脱字を確認させる。",
+        "en": "Having Claude proofread internal documents."
+      },
+      {
+        "id": "C",
+        "ja": "承認されていない個人アカウントに顧客の個人情報を貼り付けて要約させる。",
+        "en": "Pasting customer personal data into an unapproved personal account for summarization."
+      },
+      {
+        "id": "D",
+        "ja": "会議の議事録の構成案を作らせる。",
+        "en": "Having Claude outline meeting minutes."
+      },
+      {
+        "id": "E",
+        "ja": "公開情報をもとにした調査の下書きを作り、出典を確認する。",
+        "en": "Drafting research from public information and checking sources."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "人の処遇に関わる自動判断と、承認外環境での個人情報の取り扱いは、倫理・プライバシー・ガバナンス上問題があります。",
+      "en": "Fully automated consequential decisions and handling personal data in unapproved environments raise ethical, privacy, and governance concerns."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "低リスクな用途です。",
+        "en": "Low-risk use."
+      },
+      "D": {
+        "ja": "低リスクな用途です。",
+        "en": "Low-risk use."
+      },
+      "E": {
+        "ja": "出典確認を前提とした適切な用途です。",
+        "en": "Appropriate, with source checking."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d6-005",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "外部のクライアントに納品する資料の一部を Claude で作成しました。契約や組織の方針で AI 利用の開示が求められている場合、最も適切な対応はどれですか。",
+      "en": "Part of a client deliverable was drafted with Claude, and contract or company policy requires disclosure of AI use. What should you do?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "方針に沿って AI の利用を開示し、内容の正確性は人が確認した上で納品する。",
+        "en": "Disclose AI use as required and deliver after a person has verified accuracy."
+      },
+      {
+        "id": "B",
+        "ja": "発覚しなければ問題ないので、開示しない。",
+        "en": "Do not disclose; it is fine if nobody notices."
+      },
+      {
+        "id": "C",
+        "ja": "文章を少し書き換え、AI の痕跡を消す。",
+        "en": "Lightly reword to hide traces of AI."
+      },
+      {
+        "id": "D",
+        "ja": "AI が作成したので、内容の責任は Claude にあると伝える。",
+        "en": "Say Claude is responsible for the content."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "透明性とポリシー遵守が重要で、成果物の最終責任は人にあります。",
+      "en": "Transparency and policy compliance matter, and humans remain accountable for deliverables."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "契約・ポリシー違反であり、信頼を損ないます。",
+        "en": "Breaches contract/policy and erodes trust."
+      },
+      "C": {
+        "ja": "不誠実な対応です。",
+        "en": "Dishonest."
+      },
+      "D": {
+        "ja": "AI に責任を転嫁することはできません。",
+        "en": "Responsibility cannot be shifted to the AI."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d6-006",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "EU の顧客の個人データを扱う業務で Claude を使いたい場合、最も適切な行動はどれですか。",
+      "en": "You want to use Claude for work involving personal data of EU customers. What is the most appropriate action?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "データ保護法令や社内規程、承認されたツール・契約条件を確認し、必要最小限のデータだけを承認された環境で扱う。",
+        "en": "Check applicable data-protection law, internal policy, and approved tools and terms, and handle only the minimum data in an approved environment."
+      },
+      {
+        "id": "B",
+        "ja": "国が違うので法令は無関係と判断する。",
+        "en": "Assume the law is irrelevant."
+      },
+      {
+        "id": "C",
+        "ja": "顧客データを全件貼り付け、後で考える。",
+        "en": "Paste all customer data and sort it out later."
+      },
+      {
+        "id": "D",
+        "ja": "無料の個人アカウントを使えば問題ない。",
+        "en": "A free personal account is fine."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": {
+      "ja": "個人データの取り扱いは、法令・規程・承認されたツールの範囲内で最小限に行います。",
+      "en": "Personal data should be handled minimally within legal, policy, and approved-tool boundaries."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "法令は顧客の所在地などに基づき適用されます。",
+        "en": "Laws can apply based on where customers are."
+      },
+      "C": {
+        "ja": "法令・規程違反のリスクがあります。",
+        "en": "Risks legal and policy violations."
+      },
+      "D": {
+        "ja": "承認されていない環境は業務データに不適切です。",
+        "en": "Unapproved environments are inappropriate for business data."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d6-007",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude が採用候補者の絞り込み基準を提案しました。倫理的な観点から最も適切な扱いはどれですか。",
+      "en": "Claude proposes screening criteria for job candidates. What is the most ethically appropriate handling?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "提案された基準を自動的に適用する。",
+        "en": "Apply the criteria automatically."
+      },
+      {
+        "id": "B",
+        "ja": "職務に関連する基準かを人が確認し、差別や偏りの懸念がないかをレビューして、最終判断は人が行う。",
+        "en": "Have people confirm criteria are job-relevant, review for discrimination or bias concerns, and keep final decisions with people."
+      },
+      {
+        "id": "C",
+        "ja": "基準は非公開にして、候補者に説明しない。",
+        "en": "Keep criteria secret and unexplained."
+      },
+      {
+        "id": "D",
+        "ja": "応募者数が多いほど AI の判断が公平になるため、人は関与しない。",
+        "en": "More applicants make AI fairer, so exclude humans."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "人に影響する判断では、公平性の確認と人による監督が必要です。",
+      "en": "Decisions affecting people require fairness checks and human oversight."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "偏りや不当な基準が残る可能性があります。",
+        "en": "Biased or improper criteria may remain."
+      },
+      "C": {
+        "ja": "透明性や説明責任に欠けます。",
+        "en": "Lacks transparency and accountability."
+      },
+      "D": {
+        "ja": "量が多いほど公平になるわけではありません。",
+        "en": "Volume does not guarantee fairness."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d6-008",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "個人用のチャットアカウントに会社の機密資料を貼って作業している同僚を見かけました。最も適切な対応はどれですか。",
+      "en": "You notice a colleague pasting confidential company documents into a personal chat account. What is the most appropriate response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "黙認する。",
+        "en": "Let it go."
+      },
+      {
+        "id": "B",
+        "ja": "同僚に承認された環境の利用を促し、ポリシーに従って情報セキュリティ担当などへ共有する。",
+        "en": "Encourage the colleague to use the approved environment and report per policy to security or the responsible team."
+      },
+      {
+        "id": "C",
+        "ja": "自分も同じ方法で作業する。",
+        "en": "Do the same yourself."
+      },
+      {
+        "id": "D",
+        "ja": "公開の場でその同僚を非難する。",
+        "en": "Publicly criticize the colleague."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "リスクを放置せず、建設的に是正し、定められた経路で報告します。",
+      "en": "Address risk constructively and report via defined channels."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "情報漏えいのリスクが続きます。",
+        "en": "Leaves the leakage risk in place."
+      },
+      "C": {
+        "ja": "リスクを拡大させます。",
+        "en": "Spreads the risk."
+      },
+      "D": {
+        "ja": "建設的でなく、組織の安全文化にも逆効果です。",
+        "en": "Not constructive and harms safety culture."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d6-009",
+    "exam": "CCAO-F",
+    "domain": 6,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "顧客アンケートの自由記述を Claude で分析します。データ保護の観点で適切な対応を2つ選んでください。",
+      "en": "You will analyze free-text customer survey responses with Claude. Select TWO appropriate data-protection practices."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "氏名・連絡先など分析に不要な識別情報を事前に取り除く。",
+        "en": "Remove names, contact details, and other identifiers not needed for the analysis beforehand."
+      },
+      {
+        "id": "B",
+        "ja": "全回答を、そのまま個人のメールアドレスとともに投入する。",
+        "en": "Input all responses as is, including personal email addresses."
+      },
+      {
+        "id": "C",
+        "ja": "ポリシーで承認されたアカウントとツールを使い、データの取り扱いルールを確認する。",
+        "en": "Use accounts and tools approved by policy and confirm the data-handling rules."
+      },
+      {
+        "id": "D",
+        "ja": "データの機密性は分析結果の質に関係ないので考慮しない。",
+        "en": "Ignore sensitivity because it does not affect analysis quality."
+      },
+      {
+        "id": "E",
+        "ja": "結果の共有範囲は、後で考える。",
+        "en": "Decide who can see the results later."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "データの最小化と承認された環境の利用は、プライバシー保護の基本です。",
+      "en": "Data minimization and using approved environments are core privacy practices."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "不要な個人情報の投入は避けるべきです。",
+        "en": "Avoid inputting unnecessary personal data."
+      },
+      "D": {
+        "ja": "機密性は利用判断に直接関係します。",
+        "en": "Sensitivity directly affects whether and how data may be used."
+      },
+      "E": {
+        "ja": "共有範囲は事前に管理すべきです。",
+        "en": "Sharing scope should be controlled up front."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d7-001",
+    "exam": "CCAO-F",
+    "domain": 7,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude の回答がいつも長すぎて、要点を探すのに時間がかかります。最も効果的な改善はどれですか。",
+      "en": "Claude's answers are always too long and it takes time to find the key points. What is the most effective fix?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "出力を見ずに破棄する。",
+        "en": "Discard outputs unread."
+      },
+      {
+        "id": "B",
+        "ja": "長さ、構成（結論を先に、箇条書き5点まで等）、不要な前置きを省くことを指示に明記する。",
+        "en": "State length, structure (conclusion first, up to five bullets, etc.), and no preamble in the prompt."
+      },
+      {
+        "id": "C",
+        "ja": "質問を極端に短くする。",
+        "en": "Make your question extremely short."
+      },
+      {
+        "id": "D",
+        "ja": "別のモデルに必ず切り替える。",
+        "en": "Always switch models."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "期待する長さや形式を具体的に指定すると、出力を調整できます。",
+      "en": "Specifying desired length and form tunes the output."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "読まずに捨てても問題は解決しません。",
+        "en": "Doesn't solve the problem."
+      },
+      "C": {
+        "ja": "質問の情報が減り、かえって曖昧になります。",
+        "en": "Less information makes answers vaguer."
+      },
+      "D": {
+        "ja": "プロンプトの改善で解決できる可能性が高く、まず指示を見直すべきです。",
+        "en": "Prompt refinement likely solves it; revise instructions first."
+      }
+    },
+    "difficulty": 1
+  },
+  {
+    "id": "ccao-f-d7-002",
+    "exam": "CCAO-F",
+    "domain": 7,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "10個の要件を含む長い指示のうち、Claude が3つを満たしていません。最も適切な対応はどれですか。",
+      "en": "Of ten requirements in a long instruction, Claude missed three. What is the most appropriate response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "全く同じ指示を再送する。",
+        "en": "Resend the exact same instruction."
+      },
+      {
+        "id": "B",
+        "ja": "要件を番号付きで整理して優先順位を示し、満たされなかった項目を指摘して修正を依頼する。必要ならタスクを分割する。",
+        "en": "Reorganize requirements as a numbered list with priorities, point out missed items for correction, and split the task if needed."
+      },
+      {
+        "id": "C",
+        "ja": "満たされなかった項目は諦める。",
+        "en": "Give up on the missed items."
+      },
+      {
+        "id": "D",
+        "ja": "要件をさらに増やして補う。",
+        "en": "Add even more requirements."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "指示の構造化、具体的なフィードバック、タスクの分割が、取りこぼしの改善に有効です。",
+      "en": "Structuring, specific feedback, and splitting tasks help fix omissions."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "同じ入力では同じ結果になりがちです。",
+        "en": "The same input tends to yield the same result."
+      },
+      "C": {
+        "ja": "改善可能な問題を放置することになります。",
+        "en": "Leaves a fixable issue."
+      },
+      "D": {
+        "ja": "複雑さが増し、取りこぼしが悪化する可能性があります。",
+        "en": "More complexity can worsen omissions."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d7-003",
+    "exam": "CCAO-F",
+    "domain": 7,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "会話が進むにつれて、議論の方向が元の目的から外れてきました。最も適切な対応はどれですか。",
+      "en": "As a conversation progresses, the discussion drifts from the original goal. What is the best response?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "そのまま続ける。",
+        "en": "Carry on regardless."
+      },
+      {
+        "id": "B",
+        "ja": "元の目的と現在までの合意事項を要約して明示し、軌道修正する。必要なら新しいチャットでその要約から再開する。",
+        "en": "Restate the original goal and agreed points in a summary and redirect; if needed, restart a new chat from that summary."
+      },
+      {
+        "id": "C",
+        "ja": "ずれは Claude の故障とみなして使用を中止する。",
+        "en": "Treat the drift as a malfunction and stop using it."
+      },
+      {
+        "id": "D",
+        "ja": "関係のない質問を増やす。",
+        "en": "Add more unrelated questions."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "目的の再確認と要約により、方向性とコンテキストを整えられます。",
+      "en": "Restating goals and summarizing realigns direction and context."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "ずれが拡大し、時間を浪費します。",
+        "en": "Drift grows and wastes time."
+      },
+      "C": {
+        "ja": "プロンプトや会話管理で対処できる問題です。",
+        "en": "Manageable through prompting and conversation management."
+      },
+      "D": {
+        "ja": "さらに混乱します。",
+        "en": "Adds confusion."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d7-004",
+    "exam": "CCAO-F",
+    "domain": 7,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "同じ種類のフィードバック（「もっと簡潔に」「敬語の水準を揃えて」）を、毎回チャットで Claude に伝えています。効率化のための最も適切な方法はどれですか。",
+      "en": "You keep giving the same feedback (\"be more concise,\" \"unify politeness level\") in every chat. What is the most appropriate way to make this efficient?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "今後も毎回手作業で伝える。",
+        "en": "Keep repeating it manually."
+      },
+      {
+        "id": "B",
+        "ja": "共通の好みやルールを Project の指示（またはスタイル設定）に取り込み、結果を見ながら更新していく。",
+        "en": "Fold the recurring preferences into Project instructions (or style settings) and update them as you see results."
+      },
+      {
+        "id": "C",
+        "ja": "フィードバックは行わず、出力を受け入れる。",
+        "en": "Stop giving feedback and accept output."
+      },
+      {
+        "id": "D",
+        "ja": "より高価なモデルに変えれば解決する。",
+        "en": "A more expensive model will solve it."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "繰り返しのフィードバックは、指示に反映して仕組み化することで効率が上がります。",
+      "en": "Recurring feedback should be codified into instructions for efficiency."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "非効率で、ばらつきも生じます。",
+        "en": "Inefficient and inconsistent."
+      },
+      "C": {
+        "ja": "品質改善の機会を失います。",
+        "en": "Forfeits quality improvement."
+      },
+      "D": {
+        "ja": "モデルの変更は、好みを反映する代わりにはなりません。",
+        "en": "A different model is no substitute for encoding preferences."
+      }
+    },
+    "difficulty": 3
+  },
+  {
+    "id": "ccao-f-d7-005",
+    "exam": "CCAO-F",
+    "domain": 7,
+    "type": "multiple",
+    "select": 2,
+    "stem": {
+      "ja": "毎週同じ手順のプロンプトを一から書いて資料を作っています。ワークフローを効率化する方法として適切なものを2つ選んでください。",
+      "en": "You write the same multi-step prompt from scratch every week to produce a document. Select TWO ways to make this workflow more efficient."
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "プロンプトを保存した再利用可能なテンプレートにして、入力部分だけを差し替える。",
+        "en": "Save it as a reusable template and swap only the inputs."
+      },
+      {
+        "id": "B",
+        "ja": "毎週異なる表現で書き直して、新鮮さを保つ。",
+        "en": "Rewrite it differently each week for freshness."
+      },
+      {
+        "id": "C",
+        "ja": "手順や資料が決まっているなら、Project や再利用可能な仕組み（Skills など）にまとめる。",
+        "en": "If steps and materials are fixed, package them in a Project or reusable mechanism such as Skills."
+      },
+      {
+        "id": "D",
+        "ja": "出力の確認を省いて時間を節約する。",
+        "en": "Skip checking outputs to save time."
+      },
+      {
+        "id": "E",
+        "ja": "メモに頼らず、毎回記憶を頼りに書く。",
+        "en": "Rely on memory every time."
+      }
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": {
+      "ja": "テンプレート化や Project・Skills による再利用で、反復作業の手間とばらつきが減ります。",
+      "en": "Templates and reusable constructs reduce effort and variability in repetitive work."
+    },
+    "optionRationale": {
+      "B": {
+        "ja": "不要なばらつきを生みます。",
+        "en": "Adds needless variation."
+      },
+      "D": {
+        "ja": "品質の低下を招きます。",
+        "en": "Degrades quality."
+      },
+      "E": {
+        "ja": "再現性がなく非効率です。",
+        "en": "Not repeatable and inefficient."
+      }
+    },
+    "difficulty": 2
+  },
+  {
+    "id": "ccao-f-d7-006",
+    "exam": "CCAO-F",
+    "domain": 7,
+    "type": "single",
+    "select": 1,
+    "stem": {
+      "ja": "Claude の出力が期待外れでした。原因の切り分けとして最も適切な最初のアプローチはどれですか。",
+      "en": "Claude's output was disappointing. What is the most appropriate first approach to diagnosing the cause?"
+    },
+    "options": [
+      {
+        "id": "A",
+        "ja": "モデルが壊れていると判断し、利用を止める。",
+        "en": "Conclude the model is broken and stop."
+      },
+      {
+        "id": "B",
+        "ja": "プロンプトに目的・文脈・制約・形式が十分に含まれていたか、必要な資料が提供されていたかを見直し、1点ずつ調整して再試行する。",
+        "en": "Review whether the prompt had enough purpose, context, constraints, and format and whether needed materials were provided; adjust one factor at a time and retry."
+      },
+      {
+        "id": "C",
+        "ja": "一度にすべてを変更して、効果の要因を特定しにくくする。",
+        "en": "Change everything at once, obscuring what helped."
+      },
+      {
+        "id": "D",
+        "ja": "出力をそのまま使い、問題の原因は調べない。",
+        "en": "Use the output and skip diagnosing."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": {
+      "ja": "入力の不足や曖昧さを順に点検し、変更を1つずつ検証すると、改善の効果を把握できます。",
+      "en": "Checking input gaps and adjusting one factor at a time reveals what works."
+    },
+    "optionRationale": {
+      "A": {
+        "ja": "多くの場合、入力側の改善で解決できます。",
+        "en": "Usually solvable by improving inputs."
+      },
+      "C": {
+        "ja": "要因の特定が困難になります。",
+        "en": "Makes root-cause isolation difficult."
+      },
+      "D": {
+        "ja": "同じ問題が繰り返されます。",
+        "en": "The same problem will recur."
+      }
+    },
+    "difficulty": 3
+  }
+]

@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+body { @apply bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100; }
+.btn { @apply rounded-lg px-4 py-2 text-sm font-medium border border-stone-300 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 disabled:opacity-40 cursor-pointer; }
+.btn-primary { @apply rounded-lg px-4 py-2 text-sm font-medium bg-orange-600 text-white hover:bg-orange-700 disabled:opacity-40 cursor-pointer; }
+.card { @apply rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-4; }
