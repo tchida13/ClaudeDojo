@@ -8,12 +8,15 @@ import { ExamMenu } from './screens/ExamMenu';
 import { Quiz } from './screens/Quiz';
 import { Result } from './screens/Result';
 import { HistoryView } from './screens/HistoryView';
+import { QuickPlay } from './screens/QuickPlay';
+import { DopaPlay } from './screens/DopaPlay';
 
 type View =
   | { name: 'home' }
   | { name: 'history' }
   | { name: 'exam'; code: ExamCode }
   | { name: 'run'; code: ExamCode; mode: AttemptMode; qs: Question[] }
+  | { name: 'special'; kind: 'quick' | 'dopa'; code: ExamCode; qs: Question[] }
   | { name: 'result'; attempt: Attempt; qs: Question[] };
 
 export default function App() {
@@ -45,7 +48,8 @@ export default function App() {
       {view.name === 'home' && <Home onSelect={(code) => setView({ name: 'exam', code })} />}
       {view.name === 'history' && <HistoryView onBack={home} />}
       {view.name === 'exam' && (
-        <ExamMenu code={view.code} onBack={home} onStart={(mode, qs) => qs.length && setView({ name: 'run', code: view.code, mode, qs })} />
+        <ExamMenu code={view.code} onBack={home} onStart={(mode, qs) => qs.length && setView({ name: 'run', code: view.code, mode, qs })}
+          onSpecial={(kind, qs) => qs.length && setView({ name: 'special', kind, code: view.code, qs })} />
       )}
       {view.name === 'run' && (
         <Quiz
@@ -58,6 +62,9 @@ export default function App() {
           }}
         />
       )}
+      {view.name === 'special' && (view.kind === 'quick'
+        ? <QuickPlay key="quick" code={view.code} pool={view.qs} onExit={() => setView({ name: 'exam', code: view.code })} />
+        : <DopaPlay key="dopa" code={view.code} pool={view.qs} onExit={() => setView({ name: 'exam', code: view.code })} />)}
       {view.name === 'result' && <Result attempt={view.attempt} questions={view.qs} onHome={home} />}
     </AppCtx.Provider>
   );

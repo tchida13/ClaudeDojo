@@ -36,7 +36,7 @@ export type Exam = {
 
 export type AnswerRecord = { questionId: string; selected: string[]; correct: boolean };
 
-export type AttemptMode = 'mock' | 'practice';
+export type AttemptMode = 'mock' | 'practice' | 'quick' | 'dopa';
 
 export type Attempt = {
   id: string;
@@ -48,6 +48,7 @@ export type Attempt = {
   answers: AnswerRecord[];
   flagged: string[];
   scaledScore: number | null; // mock only
+  points?: number; // dopa mode only
   passed: boolean | null;
 };
 

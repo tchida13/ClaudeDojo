@@ -7,7 +7,7 @@ import { buildMockExam, domainStats, pickPractice } from '../lib/engine';
 import { DomainBars } from './Result';
 import type { AttemptMode, ExamCode, Question } from '../types';
 
-export function ExamMenu({ code, onStart, onBack }: { code: ExamCode; onStart: (mode: AttemptMode, qs: Question[]) => void; onBack: () => void }) {
+export function ExamMenu({ code, onStart, onSpecial, onBack }: { code: ExamCode; onStart: (mode: AttemptMode, qs: Question[]) => void; onSpecial: (kind: 'quick' | 'dopa', qs: Question[]) => void; onBack: () => void }) {
   const { lang, history } = useApp();
   const exam = EXAM_BY_CODE[code];
   const bank = BANK.filter((q) => q.exam === code);
@@ -19,6 +19,8 @@ export function ExamMenu({ code, onStart, onBack }: { code: ExamCode; onStart: (
   for (const a of history.attempts.filter((x) => x.exam === code)) for (const r of a.answers) last.set(r.questionId, r.correct);
   const reviewIds = new Set([...history.bookmarks, ...[...last].filter(([, ok]) => !ok).map(([id]) => id)]);
   const reviewQs = bank.filter((q) => reviewIds.has(q.id));
+
+  const bestDopa = Math.max(0, ...history.attempts.filter((a) => a.exam === code && a.mode === 'dopa').map((a) => a.points ?? 0));
 
   // weakness across all attempts
   const allAnswers = history.attempts.filter((a) => a.exam === code).flatMap((a) => a.answers);
@@ -36,6 +38,25 @@ export function ExamMenu({ code, onStart, onBack }: { code: ExamCode; onStart: (
         <h3 className="font-semibold">{t(lang, 'mockExam')}</h3>
         <p className="text-sm text-stone-500">{exam.items}{t(lang, 'items')} / {exam.minutes}{t(lang, 'minutes')}</p>
         <button className="btn-primary" disabled={!bank.length} onClick={() => onStart('mock', buildMockExam(exam, BANK))}>{t(lang, 'start')}</button>
+      </div>
+
+      <div className="card space-y-2">
+        <h3 className="font-semibold">{t(lang, 'quick')}</h3>
+        <p className="text-sm text-stone-500">{t(lang, 'quickDesc')}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <select className="btn" value={domain} onChange={(e) => setDomain(Number(e.target.value))}>
+            <option value={0}>{t(lang, 'allDomains')}</option>
+            {exam.domains.map((d) => <option key={d.id} value={d.id}>D{d.id} {d.name[lang]}</option>)}
+          </select>
+          <button className="btn-primary" disabled={!bank.length} onClick={() => onSpecial('quick', bank.filter((q) => !domain || q.domain === domain))}>{t(lang, 'start')}</button>
+        </div>
+      </div>
+
+      <div className="card space-y-2 border-orange-400">
+        <h3 className="font-semibold fx-rainbow-text">⚡ {t(lang, 'dopa')}</h3>
+        <p className="text-sm text-stone-500">{t(lang, 'dopaDesc')}</p>
+        {bestDopa > 0 && <p className="text-sm">{t(lang, 'bestScore')}: <b>{bestDopa.toLocaleString()}</b> pt</p>}
+        <button className="btn-primary" disabled={!bank.length} onClick={() => onSpecial('dopa', bank)}>{t(lang, 'start')}</button>
       </div>
 
       <div className="card space-y-2">

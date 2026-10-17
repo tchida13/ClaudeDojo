@@ -57,8 +57,8 @@ export function HistoryView({ onBack }: { onBack: () => void }) {
                 <tr key={a.id} className="border-t border-stone-200 dark:border-stone-800">
                   <td>{new Date(a.startedAt).toLocaleString()}</td>
                   <td>{a.exam}</td>
-                  <td>{a.mode === 'mock' ? t(lang, 'mockModeShort') : t(lang, 'practiceModeShort')}</td>
-                  <td>{a.answers.filter((x) => x.correct).length}/{a.answers.length}{a.scaledScore != null && ` (${a.scaledScore})`}</td>
+                  <td>{{ mock: t(lang, 'mockModeShort'), practice: t(lang, 'practiceModeShort'), quick: t(lang, 'quickModeShort'), dopa: t(lang, 'dopaModeShort') }[a.mode]}</td>
+                  <td>{a.answers.filter((x) => x.correct).length}/{a.answers.length}{a.scaledScore != null && ` (${a.scaledScore})`}{a.points != null && ` ${a.points.toLocaleString()}pt`}</td>
                 </tr>
               ))}
             </tbody>
