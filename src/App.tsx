@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AppCtx } from './ctx';
-import { shuffleOptions } from './lib/engine';
+import { pickPractice, shuffleOptions } from './lib/engine';
+import { BANK } from './data/bank';
+import { GuideView } from './screens/GuideView';
 import { t } from './i18n';
 import { loadHistory, loadLang, saveHistory, saveLang } from './lib/storage';
 import type { Attempt, AttemptMode, ExamCode, History, Lang, Question } from './types';
@@ -16,6 +18,7 @@ type View =
   | { name: 'home' }
   | { name: 'history' }
   | { name: 'exam'; code: ExamCode }
+  | { name: 'guide'; code: ExamCode }
   | { name: 'run'; code: ExamCode; mode: AttemptMode; qs: Question[] }
   | { name: 'special'; kind: 'quick' | 'dopa'; code: ExamCode; qs: Question[] }
   | { name: 'result'; attempt: Attempt; qs: Question[] };
@@ -46,10 +49,17 @@ export default function App() {
           <button className="btn" aria-label={t(lang, 'dark')} onClick={() => setDark(!dark)}>{dark ? '☀️' : '🌙'}</button>
         </div>
       </header>
-      {view.name === 'home' && <Home onSelect={(code) => setView({ name: 'exam', code })} />}
+      {view.name === 'home' && <Home onSelect={(code) => setView({ name: 'exam', code })} onGuide={(code) => setView({ name: 'guide', code })} />}
+      {view.name === 'guide' && (
+        <GuideView code={view.code} onBack={home} onMenu={() => setView({ name: 'exam', code: view.code })}
+          onPractice={(domain) => {
+            const qs = pickPractice(BANK, { exam: view.code, domain, count: 10 }).map((q) => shuffleOptions(q));
+            if (qs.length) setView({ name: 'run', code: view.code, mode: 'practice', qs });
+          }} />
+      )}
       {view.name === 'history' && <HistoryView onBack={home} />}
       {view.name === 'exam' && (
-        <ExamMenu code={view.code} onBack={home} onStart={(mode, qs) => qs.length && setView({ name: 'run', code: view.code, mode, qs: qs.map((q) => shuffleOptions(q)) })}
+        <ExamMenu code={view.code} onBack={home} onGuide={() => setView({ name: 'guide', code: view.code })} onStart={(mode, qs) => qs.length && setView({ name: 'run', code: view.code, mode, qs: qs.map((q) => shuffleOptions(q)) })}
           onSpecial={(kind, qs) => qs.length && setView({ name: 'special', kind, code: view.code, qs: qs.map((q) => shuffleOptions(q)) })} />
       )}
       {view.name === 'run' && (

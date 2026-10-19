@@ -14,6 +14,7 @@ const dict = {
   passScore: { ja: '合格', en: 'Pass' },
   mockExam: { ja: '模擬試験', en: 'Mock exam' },
   practice: { ja: 'ドメイン別練習', en: 'Practice by domain' },
+  guide: { ja: '概要・攻略法', en: 'Overview & strategy' },
   quick: { ja: '一問一答', en: 'Quick Q&A' },
   quickDesc: { ja: '1問ずつ即判定。正解は自動で次へ。終了するまで続けて出題', en: 'One question at a time with instant feedback. Correct answers advance automatically.' },
   finishQuick: { ja: '終了', en: 'Finish' },

@@ -4,7 +4,7 @@ import { EXAMS } from '../data/exams';
 import { BANK } from '../data/bank';
 import type { ExamCode } from '../types';
 
-export function Home({ onSelect }: { onSelect: (c: ExamCode) => void }) {
+export function Home({ onSelect, onGuide }: { onSelect: (c: ExamCode) => void; onGuide: (c: ExamCode) => void }) {
   const { lang, history } = useApp();
   return (
     <div className="mx-auto max-w-3xl p-4 space-y-4">
@@ -15,7 +15,8 @@ export function Home({ onSelect }: { onSelect: (c: ExamCode) => void }) {
           const mocks = history.attempts.filter((a) => a.exam === e.code && a.mode === 'mock');
           const best = mocks.reduce<number | null>((m, a) => (a.scaledScore != null && (m == null || a.scaledScore > m) ? a.scaledScore : m), null);
           return (
-            <button key={e.code} onClick={() => onSelect(e.code)} className="card text-left hover:border-orange-500 cursor-pointer">
+            <div key={e.code} className="card hover:border-orange-500">
+              <button onClick={() => onSelect(e.code)} className="block w-full cursor-pointer text-left">
               <div className="text-xs font-mono text-orange-600">{e.code}</div>
               <div className="font-semibold">{e.name[lang]}</div>
               <div className="mt-2 text-xs text-stone-500">
@@ -25,7 +26,9 @@ export function Home({ onSelect }: { onSelect: (c: ExamCode) => void }) {
                 {t(lang, 'bank')}: {n} · {t(lang, 'attempts')}: {mocks.length}
                 {best != null && <> · {t(lang, 'bestScore')}: {best}</>}
               </div>
-            </button>
+              </button>
+              <button className="btn mt-3 w-full" onClick={() => onGuide(e.code)}>📖 {t(lang, 'guide')}</button>
+            </div>
           );
         })}
       </div>

@@ -7,7 +7,7 @@ import { buildMockExam, domainStats, pickPractice } from '../lib/engine';
 import { DomainBars } from './Result';
 import type { AttemptMode, ExamCode, Question } from '../types';
 
-export function ExamMenu({ code, onStart, onSpecial, onBack }: { code: ExamCode; onStart: (mode: AttemptMode, qs: Question[]) => void; onSpecial: (kind: 'quick' | 'dopa', qs: Question[]) => void; onBack: () => void }) {
+export function ExamMenu({ code, onStart, onSpecial, onBack, onGuide }: { code: ExamCode; onStart: (mode: AttemptMode, qs: Question[]) => void; onSpecial: (kind: 'quick' | 'dopa', qs: Question[]) => void; onBack: () => void; onGuide: () => void }) {
   const { lang, history } = useApp();
   const exam = EXAM_BY_CODE[code];
   const bank = BANK.filter((q) => q.exam === code);
@@ -29,7 +29,10 @@ export function ExamMenu({ code, onStart, onSpecial, onBack }: { code: ExamCode;
 
   return (
     <div className="mx-auto max-w-3xl p-4 space-y-4">
-      <button className="btn" onClick={onBack}>{t(lang, 'back')}</button>
+      <div className="flex gap-2">
+        <button className="btn" onClick={onBack}>{t(lang, 'back')}</button>
+        <button className="btn-primary" onClick={onGuide}>📖 {t(lang, 'guide')}</button>
+      </div>
       <h2 className="text-xl font-bold">{exam.code} — {exam.name[lang]}</h2>
       <p className="text-sm text-stone-500">{t(lang, 'bank')}: {bank.length}</p>
       {bank.length === 0 && <p>{t(lang, 'noQuestions')}</p>}
