@@ -11,6 +11,25 @@ export function shuffle<T>(arr: readonly T[], rng: Rng = Math.random): T[] {
   return a;
 }
 
+const LETTERS = 'ABCDEFGH';
+
+/**
+ * 選択肢の順序をランダムにして A, B, C… を振り直す(正解位置の偏りを学習で覚えないため)。
+ * answer と optionRationale のキーも新しい記号に付け替える。解説文は選択肢の記号を参照しない前提。
+ */
+export function shuffleOptions(q: Question, rng: Rng = Math.random): Question {
+  const order = shuffle(q.options, rng);
+  const map = new Map(order.map((o, i) => [o.id, LETTERS[i]]));
+  return {
+    ...q,
+    options: order.map((o, i) => ({ ...o, id: LETTERS[i] })),
+    answer: q.answer.map((a) => map.get(a)!).sort(),
+    optionRationale: q.optionRationale
+      ? Object.fromEntries(Object.entries(q.optionRationale).map(([k, v]) => [map.get(k)!, v]))
+      : undefined,
+  };
+}
+
 export function isCorrect(q: Question, selected: readonly string[]): boolean {
   if (selected.length !== q.answer.length) return false;
   const s = new Set(selected);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AppCtx } from './ctx';
+import { shuffleOptions } from './lib/engine';
 import { t } from './i18n';
 import { loadHistory, loadLang, saveHistory, saveLang } from './lib/storage';
 import type { Attempt, AttemptMode, ExamCode, History, Lang, Question } from './types';
@@ -48,8 +49,8 @@ export default function App() {
       {view.name === 'home' && <Home onSelect={(code) => setView({ name: 'exam', code })} />}
       {view.name === 'history' && <HistoryView onBack={home} />}
       {view.name === 'exam' && (
-        <ExamMenu code={view.code} onBack={home} onStart={(mode, qs) => qs.length && setView({ name: 'run', code: view.code, mode, qs })}
-          onSpecial={(kind, qs) => qs.length && setView({ name: 'special', kind, code: view.code, qs })} />
+        <ExamMenu code={view.code} onBack={home} onStart={(mode, qs) => qs.length && setView({ name: 'run', code: view.code, mode, qs: qs.map((q) => shuffleOptions(q)) })}
+          onSpecial={(kind, qs) => qs.length && setView({ name: 'special', kind, code: view.code, qs: qs.map((q) => shuffleOptions(q)) })} />
       )}
       {view.name === 'run' && (
         <Quiz

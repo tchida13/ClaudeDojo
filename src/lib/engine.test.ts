@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { allocateByWeight, buildMockExam, domainStats, isCorrect, scaledScore } from './engine';
+import { allocateByWeight, buildMockExam, domainStats, isCorrect, scaledScore, shuffleOptions } from './engine';
 import { EXAM_BY_CODE } from '../data/exams';
 import type { Question } from '../types';
 
@@ -62,5 +62,24 @@ describe('scaledScore', () => {
     const qs = [mk('a', 1, ['A']), mk('b', 1, ['A']), mk('c', 2, ['A'])];
     const s = domainStats(qs, [{ questionId: 'a', selected: ['A'], correct: true }]);
     expect(s).toEqual([{ domain: 1, total: 2, correct: 1 }, { domain: 2, total: 1, correct: 0 }]);
+  });
+});
+
+describe('shuffleOptions', () => {
+  it('keeps the correct answer text and remaps rationale keys', () => {
+    const q = mk('1', 1, ['B', 'D'], {
+      options: ['A', 'B', 'C', 'D'].map((o) => ({ id: o, ja: `ja${o}`, en: `en${o}` })),
+      optionRationale: { A: { ja: 'ra', en: 'ra' }, C: { ja: 'rc', en: 'rc' } },
+    });
+    for (let i = 0; i < 50; i++) {
+      const s = shuffleOptions(q);
+      expect(s.options.map((o) => o.id)).toEqual(['A', 'B', 'C', 'D']);
+      const correctTexts = s.answer.map((a) => s.options.find((o) => o.id === a)!.en).sort();
+      expect(correctTexts).toEqual(['enB', 'enD']);
+      for (const [k, v] of Object.entries(s.optionRationale!)) {
+        const text = s.options.find((o) => o.id === k)!.en;
+        expect(text).toBe(v.en === 'ra' ? 'enA' : 'enC');
+      }
+    }
   });
 });

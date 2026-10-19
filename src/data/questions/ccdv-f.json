@@ -1715,8 +1715,8 @@
    "D"
   ],
   "explanation": {
-   "ja": "temperature 0 でも完全な再現性は保証されません。厳密な一致を前提にせず、スキーマ検証・評価・許容範囲で品質を担保します。",
-   "en": "Temperature 0 does not guarantee exact reproducibility. Rely on schema validation, evals and tolerances rather than exact match."
+   "ja": "temperature 0 でも完全な再現性は保証されません。厳密な一致を前提にせず、スキーマ検証・評価・許容範囲で品質を担保します。 補足: 最近の一部のモデルでは temperature などのサンプリングパラメータ自体を受け付けず(デフォルト以外の値は拒否)、再現性のために調整する前提にはできません。",
+   "en": "Temperature 0 does not guarantee exact reproducibility. Rely on schema validation, evals and tolerances rather than exact match. Note: some recent models no longer accept sampling parameters such as temperature at all (non-default values are rejected), so do not rely on tuning them for reproducibility."
   },
   "optionRationale": {
    "A": {

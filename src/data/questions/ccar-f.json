@@ -1606,8 +1606,8 @@
    "A"
   ],
   "explanation": {
-   "ja": "サブエージェントは Task ツールで生成されるため、コーディネーターの allowedTools に \"Task\" が必要です。含まれていないと呼び出せません。",
-   "en": "Subagents are spawned via the Task tool, so the coordinator's allowedTools must include \"Task\"; otherwise it cannot invoke them."
+   "ja": "サブエージェントは Task ツールで生成されるため、コーディネーターの allowedTools に \"Task\" が必要です。含まれていないと呼び出せません。 補足: 試験ガイドではサブエージェントを起動するツールを \"Task\" と呼びますが、最近の Claude Code では \"Agent\" という名前で表示される場合があります。",
+   "en": "Subagents are spawned via the Task tool, so the coordinator's allowedTools must include \"Task\"; otherwise it cannot invoke them. Note: the exam guide calls the subagent-spawning tool \"Task\"; in recent Claude Code versions it may appear as \"Agent\"."
   },
   "optionRationale": {
    "B": {
@@ -3982,8 +3982,8 @@
    "C"
   ],
   "explanation": {
-   "ja": "\"any\" はモデルがツールを必ず呼ぶことを保証し、どのツールかは選べます。文書の種類が不明なときに適しています。",
-   "en": "\"any\" guarantees a tool call while letting the model choose which one, which suits unknown document types."
+   "ja": "\"any\" はモデルがツールを必ず呼ぶことを保証し、どのツールかは選べます。文書の種類が不明なときに適しています。 補足: 試験ガイドは tool_choice の選択肢(auto / any / 強制指定)を出題範囲としていますが、最新モデル(例: Claude Opus 5.5、Sonnet 5.5、Fable 5.1)では強制のツール利用(\"any\" や名前指定)は 400 で拒否されます。その場合は \"auto\" に明示的な指示を添える、strict なツールスキーマ、または構造化出力を使います。",
+   "en": "\"any\" guarantees a tool call while letting the model choose which one, which suits unknown document types. Note: the exam guide lists tool_choice options (auto / any / forced selection) as in scope, but on the newest models (for example Claude Opus 5.5, Sonnet 5.5, Fable 5.1) forced tool use (\"any\" or a named tool) is rejected with a 400; there, use \"auto\" with an explicit instruction, strict tool schemas, or structured outputs."
   },
   "optionRationale": {
    "A": {
