@@ -12,23 +12,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "LLM に全ツールを渡し、自律エージェントとして手順を自由に計画させる",
-        "en": "Give the LLM all tools and let an autonomous agent plan the steps freely"
+        "ja": "LLM にすべてのツールを与え、請求ごとに受付の手順を自律的なエージェントに自由に計画させる。",
+        "en": "Give the LLM all of the tools and let an autonomous agent plan the intake steps freely for each claim."
       },
       {
         "id": "B",
-        "ja": "固定順序の prompt chaining ワークフローとし、各段階に検証ゲートを置く",
-        "en": "A fixed-order prompt-chaining workflow with a validation gate between stages"
+        "ja": "各段階の間に検証のゲートを置いた、順序固定のプロンプトチェーンのワークフロー。",
+        "en": "A fixed-order prompt-chaining workflow with a validation gate between the stages."
       },
       {
         "id": "C",
-        "ja": "複数のエージェントを並列に起動し、多数決で最終出力を決める",
-        "en": "Launch several agents in parallel and take a majority vote on the final output"
+        "ja": "請求ごとに複数のエージェントを並列に動かし、最終出力を多数決で決める。",
+        "en": "Launch several agents in parallel on each claim and take a majority vote on the final output."
       },
       {
         "id": "D",
-        "ja": "単一の巨大プロンプトに全規則を書き、1 回の呼び出しで完結させる",
-        "en": "Put every rule into a single giant prompt and complete the task in one call"
+        "ja": "すべての補償ルールを1つの巨大なプロンプトに入れ、受付全体を1回の呼び出しで終える。",
+        "en": "Put every coverage rule into a single giant prompt and complete the whole intake in one call."
       }
     ],
     "answer": [
@@ -40,16 +40,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "手順が既知なのに自由度を与えると、コスト・変動・失敗モードが増えるだけで利点がない。",
-        "en": "Autonomy adds cost, variance and failure modes with no benefit when the path is already known."
+        "ja": "すべての手順が分かっている場合、自律性はコスト・遅延・ばらつきを増やします。",
+        "en": "Autonomy adds cost, latency and variance when every step is already known."
       },
       "C": {
-        "ja": "多数決は手順の分解ではなく出力のばらつき対策であり、この課題の構造に合わない。",
-        "en": "Voting addresses output variance, not decomposition of a known sequence; it multiplies cost without fitting the structure."
+        "ja": "多数決はコストを増やすだけで、固定された手順なら可能な段階ごとの検証を加えません。",
+        "en": "Voting multiplies cost without adding the stage-wise validation that fixed steps allow."
       },
       "D": {
-        "ja": "単一巨大プロンプトは中間検証ができず、失敗箇所の特定や段階ごとの最適化が難しい。",
-        "en": "A monolithic prompt prevents intermediate validation and makes failures hard to localize or optimize per stage."
+        "ja": "巨大な1回の呼び出しでは段階ごとの検証ができず、デバッグも難しくなります。",
+        "en": "One giant call cannot be validated per stage and is harder to debug."
       }
     },
     "difficulty": 2
@@ -67,23 +67,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "アラート種別ごとに固定のチェーンを数百個作り、条件分岐で選択する",
-        "en": "Build hundreds of fixed chains, one per alert type, and select via branching"
+        "ja": "アラートの種類ごとに数百の固定チェーンを作り、分岐のロジックで使い分ける。",
+        "en": "Build hundreds of fixed chains, one for each alert type, and select between them with branching logic."
       },
       {
         "id": "B",
-        "ja": "過去障害の事後分析をすべて fine-tuning して回答させる",
-        "en": "Fine-tune on all past postmortems and have the model answer directly"
+        "ja": "過去のポストモーテムをすべて使ってモデルをファインチューニングし、障害の質問に直接答えさせる、自社の障害で学習したモデルなら繰り返し現れるパターンをすべて見抜けると考える。",
+        "en": "Fine-tune the model on all of the past postmortems and let it answer incident questions directly, because a model trained on the company's own incidents will recognize every recurring pattern."
       },
       {
         "id": "C",
-        "ja": "ツールを持たない単発の質問応答 LLM とし、人間がログを貼り付ける",
-        "en": "A toolless one-shot Q&A LLM where humans paste logs into the prompt"
+        "ja": "ツールのない単発の Q&A モデルを使い、関連するログを毎回人がプロンプトに貼り付ける。",
+        "en": "Use a toolless one-shot Q&A model, and have humans paste the relevant logs into the prompt each time."
       },
       {
         "id": "D",
-        "ja": "読み取り専用ツールを持つエージェントに、最大ステップ数・停止条件・調査経過の記録を設け、結論は人間が承認する",
-        "en": "An agent with read-only tools, a step budget, stop conditions and a recorded investigation trail, with conclusions approved by a human"
+        "ja": "読み取り専用のツール、ステップの予算、停止条件、調査の記録を備えたエージェントを使い、結論は人が承認する。",
+        "en": "An agent with read-only tools, a step budget, stop conditions and a recorded investigation trail, with the conclusions approved by a human."
       }
     ],
     "answer": [
@@ -95,16 +95,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "経路が爆発的に増えるため保守不能で、未知の障害パターンに対応できない。",
-        "en": "The number of paths explodes, is unmaintainable, and cannot handle novel failure patterns."
+        "ja": "固定のチェーンでは、原因が未知で多様な障害をカバーできません。",
+        "en": "Fixed chains cannot cover the open-ended variety of unknown causes."
       },
       "B": {
-        "ja": "過去事例の知識は得られても、現在のログや状態を調べる能力は得られず、情報も古くなる。",
-        "en": "It captures past knowledge but gives no ability to inspect live state, and the knowledge goes stale."
+        "ja": "ファインチューニングでは、稼働中のログやメトリクスは参照できません。",
+        "en": "Fine-tuning does not give access to live logs and metrics."
       },
       "C": {
-        "ja": "人手のコピー＆ペーストが調査のボトルネックとなり、自動化の価値が失われる。",
-        "en": "Manual pasting becomes the bottleneck and removes the automation value."
+        "ja": "手作業の貼り付けでは適応的な調査ができず、調査も遅くなります。",
+        "en": "Manual pasting cannot explore adaptively and slows the investigation."
       }
     },
     "difficulty": 3
@@ -122,23 +122,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "オーケストレーターが競合ごとにサブエージェントを並列起動し、各サブエージェントは要約済みの結果だけを返す",
-        "en": "An orchestrator spawns one subagent per competitor in parallel, and each returns only a condensed result"
+        "ja": "オーケストレーターが競合ごとにサブエージェントを並列に起動し、各サブエージェントは要約した結果だけを返す。",
+        "en": "An orchestrator spawns one subagent per competitor in parallel, and each returns only a condensed result."
       },
       {
         "id": "B",
-        "ja": "1 つのエージェントが 30 社を順番に調べ、すべての生データを同一コンテキストに保持する",
-        "en": "A single agent researches all 30 sequentially, keeping all raw data in one context"
+        "ja": "1つのエージェントが30社を順番に調べ、すべての生データを1つの文脈に保持する。",
+        "en": "A single agent researches all 30 competitors one after another, keeping all of the raw data in one context."
       },
       {
         "id": "C",
-        "ja": "30 のエージェントが共有メモリに自由に書き込み、互いの出力を随時読み合う",
-        "en": "Thirty agents freely read and write a shared memory and consume each other's output"
+        "ja": "30のエージェントが共有メモリを自由に読み書きし、互いの出力を踏まえて進める。",
+        "en": "Thirty agents freely read and write a shared memory and build on each other's output as they go."
       },
       {
         "id": "D",
-        "ja": "最も大きなモデルを 1 つだけ使い、全社分を 1 回のプロンプトに詰め込む",
-        "en": "Use only the largest model and stuff all 30 companies into one prompt"
+        "ja": "最大のモデルだけを使い、30社の情報を1つのプロンプトに入れる。",
+        "en": "Use only the largest model and place the information on all 30 companies into one prompt."
       }
     ],
     "answer": [
@@ -150,16 +150,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "逐次処理は遅く、生データの蓄積でコンテキストが溢れ品質も劣化する。",
-        "en": "Sequential work is slow, and accumulating raw data overflows context and degrades quality."
+        "ja": "1つの文脈での逐次作業は遅く、生データで文脈が膨らみます。",
+        "en": "Sequential work in one context is slow and the context bloats with raw data."
       },
       "C": {
-        "ja": "自由な共有書き込みは競合・ノイズ・追跡困難を招く。独立タスクには不要な結合である。",
-        "en": "Unstructured shared writes create contention, noise and untraceable behavior; the tasks are independent so the coupling is needless."
+        "ja": "自由な共有書き込みは干渉を起こし、システムの挙動を把握しにくくします。",
+        "en": "Free shared writes cause interference and make the system hard to reason about."
       },
       "D": {
-        "ja": "モデルが大きくてもコンテキストの混雑問題は解消せず、コストも非効率になる。",
-        "en": "A larger model does not remove context crowding and is cost-inefficient."
+        "ja": "巨大な1つのプロンプトは有効な注意の範囲を超え、隔離も並列化も得られません。",
+        "en": "One enormous prompt exceeds useful attention and gives no isolation or parallelism."
       }
     },
     "difficulty": 2
@@ -177,23 +177,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "出力トークン上限を大きくして 1 回で処理させる",
-        "en": "Raise the output token limit and keep a single call"
+        "ja": "契約書全体を一度に分析できるよう、出力トークンの上限を上げて1回の呼び出しのままにする、見落としはモデルが所見を書く余地を使い切ることで起きていると考える。",
+        "en": "Raise the output token limit and keep a single call, so that the full contract can be analyzed at once, on the assumption that the misses are caused by the model running out of room to write its findings."
       },
       {
         "id": "B",
-        "ja": "先頭 50 ページだけを処理して残りは重要度が低いとみなす",
-        "en": "Process only the first 50 pages and assume the rest is less important"
+        "ja": "最初の50ページだけを処理し、残りは重要度が低いものと考える。",
+        "en": "Process only the first 50 pages and assume that the remainder of the contract is less important."
       },
       {
         "id": "C",
-        "ja": "契約書を構造（章・条項）に沿って分割して並列に分析し、結果を統合する段階で条項間の矛盾や参照関係を検証する",
-        "en": "Split the contract along its structure (sections/clauses), analyze in parallel, then run an integration step that checks cross-clause conflicts and references"
+        "ja": "契約書を構造(節や条項)に沿って分割して並列に分析し、条項間の矛盾と参照を確認する統合の工程を実行する。",
+        "en": "Split the contract along its structure (sections or clauses), analyze the parts in parallel, then run an integration step that checks cross-clause conflicts and references."
       },
       {
         "id": "D",
-        "ja": "分割単位を固定の 1,000 トークンにして文の途中でも切る",
-        "en": "Split into fixed 1,000-token pieces regardless of sentence or clause boundaries"
+        "ja": "文や条項の区切りに関係なく、テキストを1,000トークンの固定長に分割する。",
+        "en": "Split the text into fixed 1,000-token pieces regardless of sentence or clause boundaries."
       }
     ],
     "answer": [
@@ -205,16 +205,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "出力上限は入力の見落としの原因ではなく、問題を解決しない。",
-        "en": "Output limits are not the cause of input-side misses and will not fix them."
+        "ja": "見落としの原因は出力の上限ではなく、入力の長さと注意の配分です。",
+        "en": "The misses come from input length and attention, not the output limit."
       },
       "B": {
-        "ja": "残りを無視するのは要件（全条項のリスク）を満たさない。",
-        "en": "Ignoring most of the document violates the requirement to cover all clauses."
+        "ja": "後半の条項に最も重要なリスクが含まれることもあり、無視するのは危険です。",
+        "en": "Later clauses can carry the most important risks; ignoring them is unsafe."
       },
       "D": {
-        "ja": "意味境界を無視した固定分割は条項を断ち切り、分析品質を下げる。",
-        "en": "Boundary-blind splits cut clauses apart and hurt analysis quality."
+        "ja": "恣意的な分割は条項を途中で切り、その文脈も断ち切ります。",
+        "en": "Arbitrary cuts break clauses in the middle and sever their context."
       }
     },
     "difficulty": 3
@@ -232,23 +232,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "全問い合わせを最上位モデルで処理し、SLA 違反はスケールアウトで吸収する",
-        "en": "Handle everything with the top-tier model and absorb SLA misses by scaling out"
+        "ja": "すべての問い合わせに最上位のモデルを使い、SLA の未達はスケールアウトで吸収する、余裕を確実に確保できるなら、大きなモデルのコストに見合うと考える。",
+        "en": "Handle every inquiry with the top-tier model and absorb any SLA misses by scaling the service out, on the view that guaranteed headroom is worth more than the cost of the larger model."
       },
       {
         "id": "B",
-        "ja": "問い合わせを分類して、定型は小型・高速モデル、複雑案件は上位モデルへルーティングし、エスカレーション率を監視する",
-        "en": "Classify inquiries; route routine ones to a small fast model and complex ones to a stronger model, while monitoring escalation rate"
+        "ja": "問い合わせを分類し、定型のものは小型で高速なモデルへ、複雑なものはより強力なモデルへ振り分け、エスカレーション率を監視する。",
+        "en": "Classify the inquiries, route routine ones to a small fast model and complex ones to a stronger model, and monitor the escalation rate."
       },
       {
         "id": "C",
-        "ja": "全問い合わせを最小モデルで処理し、品質低下は許容する",
-        "en": "Handle everything with the smallest model and accept quality loss"
+        "ja": "すべての問い合わせを最小のモデルで処理し、複雑なものの品質低下は受け入れる。",
+        "en": "Handle every inquiry with the smallest model and accept the loss of quality on the complex ones."
       },
       {
         "id": "D",
-        "ja": "SLA を緩和するようステークホルダーに要請してから設計する",
-        "en": "Ask stakeholders to relax the SLA before designing anything"
+        "ja": "設計を何も決める前に、まず利害関係者に SLA を緩めてもらうよう頼む。",
+        "en": "Ask the stakeholders to relax the SLA first, before anything about the design is decided."
       }
     ],
     "answer": [
@@ -260,16 +260,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "コストとレイテンシが共に悪化し、スケールアウトでは単一リクエストの応答時間は改善しない。",
-        "en": "Cost and latency both worsen, and scaling out does not reduce single-request latency."
+        "ja": "全トラフィックに最上位モデルを使うと、コスト上限と遅延目標の両方に無理が出ます。",
+        "en": "Top-tier for all traffic strains both the cost cap and the latency target."
       },
       "C": {
-        "ja": "複雑案件の品質が下がり、顧客影響とリスクを無視した設計になる。",
-        "en": "Complex-case quality drops and customer risk is ignored."
+        "ja": "難しい3割で品質が落ちることは、銀行では許容できません。",
+        "en": "Quality loss on the hard 30% of cases is not acceptable for a bank."
       },
       "D": {
-        "ja": "選択肢を検討せず要件を動かすのは設計の放棄であり、最初の手段ではない。",
-        "en": "Moving requirements before exploring design options is abdication, not a first step."
+        "ja": "SLA の緩和は、設計の選択肢を検討し尽くした後の最終手段です。",
+        "en": "Relaxing the SLA should be a last resort after design options have been explored."
       }
     },
     "difficulty": 2
@@ -287,23 +287,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "より大きなコンテキストウィンドウ",
-        "en": "A larger context window"
+        "ja": "アシスタントが各会話をより多く見渡せるようにするための、大きなコンテキストウィンドウ。",
+        "en": "A larger context window, so that the assistant can hold more of each conversation in view."
       },
       {
         "id": "B",
-        "ja": "より低い temperature 設定",
-        "en": "A lower temperature setting"
+        "ja": "質問ごとの回答がより安定するようにするための、低めの temperature 設定。",
+        "en": "A lower temperature setting, so that the assistant's answers are more stable from one question to the next."
       },
       {
         "id": "C",
-        "ja": "フィードバックを評価データセットとプロンプト／検索の改善に結びつけるフィードバックループ",
-        "en": "A feedback loop that turns reports into eval datasets and prompt/retrieval improvements"
+        "ja": "報告を評価データセットとプロンプトや検索の改善につなげるフィードバックの仕組み。",
+        "en": "A feedback loop that turns the reports into eval datasets and prompt or retrieval improvements."
       },
       {
         "id": "D",
-        "ja": "出力の文体を統一するための後処理",
-        "en": "A post-processing step to normalize writing style"
+        "ja": "回答を表示する前に、すべての回答の文体を整える後処理の工程。",
+        "en": "A post-processing step that normalizes the writing style of every answer before it is shown."
       }
     ],
     "answer": [
@@ -315,16 +315,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "利用されないフィードバックの問題と無関係で、誤りの原因に対処しない。",
-        "en": "Unrelated to the unused feedback; does not address causes of errors."
+        "ja": "ウィンドウの大きさは、利用者の報告を改善に結びつけません。",
+        "en": "Window size does not turn user reports into improvements."
       },
       "B": {
-        "ja": "決定性を高めても誤りの原因は特定・修正されない。",
-        "en": "Lower temperature does not locate or fix the root causes."
+        "ja": "temperature が変えるのは出力のばらつきであり、フィードバックの活用ではありません。",
+        "en": "Temperature changes variation, not the use of feedback."
       },
       "D": {
-        "ja": "文体の統一は正確性やフィードバック活用の欠如を解決しない。",
-        "en": "Style normalization addresses neither accuracy nor the feedback gap."
+        "ja": "文体の統一は、誤った回答への対処にはなりません。",
+        "en": "Style normalization does not address wrong answers."
       }
     },
     "difficulty": 2
@@ -342,28 +342,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "サブタスク間の依存が強く、全員が同一の文脈を共有する必要がある",
-        "en": "Subtasks are tightly interdependent and all parties need the same shared context"
+        "ja": "サブタスクが密接に依存し合い、関係者全員が同じ共有の文脈を必要とする。",
+        "en": "The subtasks are tightly interdependent and every party needs the same shared context."
       },
       {
         "id": "B",
-        "ja": "サブタスクが完全に独立しており、並列化でスループットを稼げる",
-        "en": "Subtasks are fully independent and parallelism would raise throughput"
+        "ja": "サブタスクが完全に独立していて、並列に動かせばスループットが上がる。",
+        "en": "The subtasks are fully independent, and running them in parallel would raise throughput."
       },
       {
         "id": "C",
-        "ja": "各サブタスクが大量の生データを消費し、コンテキストの隔離が必要である",
-        "en": "Each subtask consumes large raw data and needs context isolation"
+        "ja": "各サブタスクが大量の生データを消費し、それぞれ独立した文脈を持つと都合がよい。",
+        "en": "Each subtask consumes a large amount of raw data and would benefit from its own isolated context."
       },
       {
         "id": "D",
-        "ja": "総トークンコストとレイテンシの増加を避けたく、問題が 1 つのコンテキストに収まる",
-        "en": "Total token cost and latency overhead should be avoided and the problem fits in one context"
+        "ja": "トークンの総コストと遅延のオーバーヘッドを避けたく、問題が1つの文脈に収まる。",
+        "en": "The total token cost and the latency overhead should be avoided, and the problem fits within one context."
       },
       {
         "id": "E",
-        "ja": "異なる専門ツール群を厳密に分離して権限を絞りたい",
-        "en": "Different specialized tool sets must be strictly separated for least privilege"
+        "ja": "最小権限のため、専門ごとのツールセットを厳密に分離する必要がある。",
+        "en": "Different specialized tool sets must be strictly separated from one another for least privilege."
       }
     ],
     "answer": [
@@ -376,16 +376,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "独立性と並列化はマルチエージェントを選ぶ代表的な理由である。",
-        "en": "Independence and parallelism are classic reasons to go multi-agent."
+        "ja": "独立していて並列化できることは、マルチエージェントを選ぶ理由です。",
+        "en": "Independence plus parallelism is a reason for multi-agent."
       },
       "C": {
-        "ja": "コンテキスト隔離はサブエージェントの主要な利点である。",
-        "en": "Context isolation is a core subagent benefit."
+        "ja": "大量の生データで隔離が必要なことは、マルチエージェントを選ぶ理由です。",
+        "en": "Large raw data needing isolation is a reason for multi-agent."
       },
       "E": {
-        "ja": "ツール・権限の分離は専門エージェントの設計理由として妥当である。",
-        "en": "Tool and permission separation is a legitimate reason for specialized agents."
+        "ja": "権限の分離は、マルチエージェントを選ぶ理由です。",
+        "en": "Permission separation is a reason for multi-agent."
       }
     },
     "difficulty": 3
@@ -403,23 +403,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "最終段のプロンプトに「入力が正しいか確認せよ」と追記する",
-        "en": "Add \"verify the input is correct\" to the final stage prompt"
+        "ja": "パイプラインの最終段階のプロンプトに「入力が正しいか確認すること」を加える、最終段階がパイプライン上で誤りを捕まえられる最後の地点だと考える。",
+        "en": "Add \"verify that the input is correct\" to the prompt of the final stage of the pipeline, since the final stage is the last point at which the pipeline could still catch the mistake."
       },
       {
         "id": "B",
-        "ja": "すべてのエージェントを同じ大型モデルに統一する",
-        "en": "Standardize every agent on the same large model"
+        "ja": "挙動をそろえるため、パイプラインのすべてのエージェントを同じ大きなモデルに統一する。",
+        "en": "Standardize every agent in the pipeline on the same large model, for consistent behavior."
       },
       {
         "id": "C",
-        "ja": "通知エージェントの temperature を 0 にする",
-        "en": "Set the notification agent temperature to 0"
+        "ja": "どんな入力でも予測しやすい挙動になるよう、通知エージェントの temperature を 0 にする。",
+        "en": "Set the notification agent's temperature to 0 so that it behaves predictably on any input."
       },
       {
         "id": "D",
-        "ja": "段階間にスキーマ検証とビジネスルール検証を置き、失敗時はリトライ・人間へのエスカレーションで通知を止める",
-        "en": "Add schema and business-rule validation between stages, with retry and human escalation that blocks the notification on failure"
+        "ja": "各段階の間にスキーマと業務ルールの検証を入れ、失敗時は再試行と人へのエスカレーションを行い、通知をブロックする。",
+        "en": "Add schema and business-rule validation between the stages, with retry and human escalation that blocks the notification on failure."
       }
     ],
     "answer": [
@@ -431,16 +431,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "プロンプトの依頼は確率的で、構造的な保証にならない。",
-        "en": "A prompt request is probabilistic and offers no structural guarantee."
+        "ja": "プロンプト上の確認は確率的で、壊れた入力を見逃すことがあります。",
+        "en": "A prompt-level check is probabilistic and may miss malformed input."
       },
       "B": {
-        "ja": "モデルを統一しても上流の誤出力は防げず、誤りの原因を解決しない。",
-        "en": "Uniform models do not prevent upstream malformed output."
+        "ja": "共通のモデルを使っても、段階間の壊れた受け渡しは防げません。",
+        "en": "A common model does not prevent malformed handoffs between stages."
       },
       "C": {
-        "ja": "temperature 0 でも誤った入力に基づく誤動作は防げない。",
-        "en": "Temperature 0 does not stop acting on bad input."
+        "ja": "temperature は入力を検証せず、誤った通知を止められません。",
+        "en": "Temperature does not validate input and cannot stop a wrong notification."
       }
     },
     "difficulty": 3
@@ -458,23 +458,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "複数エージェントによる議論と投票",
-        "en": "Multi-agent debate with voting"
+        "ja": "回答の前に複数のモデルが合意するよう、投票つきのマルチエージェントの討論を使う。",
+        "en": "A multi-agent debate with voting, so that several models agree on each answer before it is given."
       },
       {
         "id": "B",
-        "ja": "検索（retrieval）で補強した LLM（augmented LLM）による単一呼び出しの回答",
-        "en": "A single call to an LLM augmented with retrieval"
+        "ja": "方針文書を検索で補強した、LLM への単一の呼び出し。",
+        "en": "A single call to an LLM that is augmented with retrieval over the policy documents."
       },
       {
         "id": "C",
-        "ja": "自律エージェントに社内システムの書き込み権限を付与",
-        "en": "An autonomous agent with write access to internal systems"
+        "ja": "古い方針を見つけたら更新できるよう、社内システムへの書き込み権限を持つ自律エージェント。",
+        "en": "An autonomous agent with write access to internal systems, so that it can update policies it finds outdated."
       },
       {
         "id": "D",
-        "ja": "全規程をファインチューニングで重みに埋め込む",
-        "en": "Bake all policies into the weights via fine-tuning"
+        "ja": "検索の工程をなくすため、すべての方針をファインチューニングでモデルの重みに焼き込む。",
+        "en": "Bake all of the policies into the model's weights through fine-tuning, so that no retrieval step is needed."
       }
     ],
     "answer": [
@@ -486,16 +486,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "不要な複雑さとコストを招く。",
-        "en": "Needless complexity and cost."
+        "ja": "討論と投票は、根拠つきの単純な Q&A にはコストと遅延を増やします。",
+        "en": "Debate and voting add cost and latency for a simple grounded Q&A."
       },
       "C": {
-        "ja": "要件にない書き込み権限は最小権限の原則に反し、リスクだけが増える。",
-        "en": "Unneeded write access violates least privilege and adds risk only."
+        "ja": "操作が不要なのに書き込み権限を与えるのは、余計なリスクです。",
+        "en": "Write access is unnecessary risk when no actions are required."
       },
       "D": {
-        "ja": "更新が頻繁な規程には保守性が低く、出典の提示も難しい。",
-        "en": "Poor for frequently changing policies and cannot cite sources easily."
+        "ja": "ファインチューニングは、索引を更新するより方針の更新が遅く高コストです。",
+        "en": "Fine-tuning makes policy updates slow and costly compared with refreshing an index."
       }
     },
     "difficulty": 1
@@ -513,28 +513,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "最新・最大のモデルを選定してからユースケースを探す",
-        "en": "Pick the newest, largest model first, then look for use cases"
+        "ja": "最新で最大のモデルをまず選び、それに合う用途を探す。",
+        "en": "Pick the newest and largest model first, and then look for use cases that fit it."
       },
       {
         "id": "B",
-        "ja": "現状の工数・誤り率・所要時間のベースラインと、成功指標・許容コストを定義する",
-        "en": "Baseline current effort, error rate and cycle time, and define success metrics and acceptable cost"
+        "ja": "現在の作業量・誤り率・サイクルタイムを基準として把握し、成功の指標と許容できるコストを定める。",
+        "en": "Baseline the current effort, error rate and cycle time, and define the success metrics and the acceptable cost."
       },
       {
         "id": "C",
-        "ja": "すべての検査工程を一度に自動化する大規模計画を立てる",
-        "en": "Plan a big-bang automation of all inspection stages at once"
+        "ja": "検査のすべての段階を同時に自動化する、一斉の導入を計画する。",
+        "en": "Plan a big-bang automation of all of the inspection stages at the same time."
       },
       {
         "id": "D",
-        "ja": "技術的な詳細は伏せ、ステークホルダーには「精度が高い」とだけ伝える",
-        "en": "Keep technical detail back and tell stakeholders only that accuracy is high"
+        "ja": "技術的な詳細は伏せ、精度が高いということだけを利害関係者に伝える。",
+        "en": "Keep the technical detail back and tell the stakeholders only that the accuracy is high."
       },
       {
         "id": "E",
-        "ja": "最も効果が見込める狭い範囲（例: 1 種類のレポート）で PoC を行い、評価結果に基づき拡張する",
-        "en": "Prototype on the narrowest high-value slice (e.g. one report type) and expand based on evaluation results"
+        "ja": "1種類のレポートのような、最も範囲が狭く価値の高い部分で試作し、評価結果にもとづいて広げる。",
+        "en": "Prototype on the narrowest high-value slice, such as one report type, and expand based on the evaluation results."
       }
     ],
     "answer": [
@@ -547,16 +547,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "手段先行で、課題と指標が未定義のままになる。",
-        "en": "Solution-first with no defined problem or metrics."
+        "ja": "問題でなくモデルから始めると、価値との整合が損なわれます。",
+        "en": "Starting from the model rather than the problem undermines value alignment."
       },
       "C": {
-        "ja": "リスクが高く、学習機会と早期の価値検証を失う。",
-        "en": "High risk; forfeits early learning and value validation."
+        "ja": "一斉の導入はリスクを集中させ、学びを遅らせます。",
+        "en": "A big-bang rollout concentrates risk and delays learning."
       },
       "D": {
-        "ja": "期待値の不整合を招き、後の信頼を損なう。",
-        "en": "Creates expectation misalignment and erodes trust later."
+        "ja": "不透明な伝え方では、利害関係者が価値とリスクを判断できません。",
+        "en": "Opaque messaging prevents stakeholders from judging value and risk."
       }
     },
     "difficulty": 3
@@ -574,23 +574,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "ルーティング: 入力をトーン別の別プロンプトへ振り分ける",
-        "en": "Routing: dispatch inputs to different tone-specific prompts"
+        "ja": "ルーティング: 入力の種類に応じて、トーン別のプロンプトのいずれかに振り分ける、ブランドのトーンは説明する商品の種類や読み手によって決まると考える。",
+        "en": "Routing: dispatch each input to a different tone-specific prompt chosen from the input type, since brand tone depends on the type of product being described and the audience."
       },
       {
         "id": "B",
-        "ja": "並列化: 同じ生成を 10 回行い最長の出力を選ぶ",
-        "en": "Parallelization: generate ten times and pick the longest output"
+        "ja": "並列化: 10件の下書きを同時に生成し、最も長いものを最良の結果として選ぶ。",
+        "en": "Parallelization: generate ten drafts at once and pick the longest one as the best result."
       },
       {
         "id": "C",
-        "ja": "プロンプト連鎖: 生成後に毎回別の言語へ翻訳して戻す",
-        "en": "Prompt chaining: round-trip translate every output to another language"
+        "ja": "プロンプトチェーン: トーンをならすため、出力を別の言語に往復翻訳する。",
+        "en": "Prompt chaining: round-trip translate every output through another language to smooth out the tone."
       },
       {
         "id": "D",
-        "ja": "evaluator-optimizer: 生成結果を明確な基準で評価し、フィードバックに基づいて再生成する反復ループ（回数上限付き）",
-        "en": "Evaluator-optimizer: evaluate drafts against explicit criteria and regenerate with the feedback in a bounded iterative loop"
+        "ja": "エバリュエーター・オプティマイザー: 明示した基準で下書きを評価し、フィードバックを添えて回数を限った反復のループで再生成する。",
+        "en": "Evaluator-optimizer: evaluate the drafts against explicit criteria and regenerate them with the feedback in a bounded iterative loop."
       }
     ],
     "answer": [
@@ -602,16 +602,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "ルーティングは入力の種類が異なる場合の手法で、出力のトーン違反を直接是正しない。",
-        "en": "Routing handles different input types; it does not correct tone violations in outputs."
+        "ja": "ルーティングはプロンプトを選ぶだけで、各下書きを基準で確認・改善しません。",
+        "en": "Routing selects among prompts; it does not check or improve each draft against criteria."
       },
       "B": {
-        "ja": "長さは品質基準ではなく、評価も改善も行われない。",
-        "en": "Length is not a quality criterion and nothing is evaluated or improved."
+        "ja": "長さは、ブランドの指針への適合とは関係ありません。",
+        "en": "Length is not brand compliance."
       },
       "C": {
-        "ja": "翻訳往復は意味の劣化を招き、トーン基準への適合とは無関係。",
-        "en": "Round-trip translation degrades meaning and is unrelated to tone compliance."
+        "ja": "往復翻訳は表現を変えるだけで、指針は確認しません。",
+        "en": "Round-trip translation alters wording without checking the guidelines."
       }
     },
     "difficulty": 2
@@ -629,23 +629,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "常に最上位モデルを使う。分類は誤りが許されないため",
-        "en": "Always use the top-tier model because classification errors are unacceptable"
+        "ja": "この規模では分類の誤りが許されないので、常に最上位のモデルを使う、これだけの規模で毎日運用する小売業者では、数件の誤分類でも高くつく可能性があると考える。",
+        "en": "Always use the top-tier model, because classification errors are unacceptable at this scale, on the grounds that even a handful of misclassified reviews could be costly for a retailer operating at this scale every day."
       },
       {
         "id": "B",
-        "ja": "モデルのパラメータ数が少ないほど精度が高いので最小モデルに決める",
-        "en": "Pick the smallest model because fewer parameters mean higher accuracy"
+        "ja": "パラメータが少ないほど単純なラベルでは精度が高いと考え、最小のモデルを選ぶ。",
+        "en": "Pick the smallest model, on the view that fewer parameters mean higher accuracy on simple labels."
       },
       {
         "id": "C",
-        "ja": "検証データで複数サイズのモデルを比較し、要求精度を満たす最小・最安のモデルを選ぶ。非同期処理なら batch 処理も検討する",
-        "en": "Benchmark several model sizes on the validation set, choose the cheapest that meets the accuracy bar, and consider batch processing since latency is not critical"
+        "ja": "複数のサイズのモデルを検証セットで比較し、精度の基準を満たす最も安いものを選び、遅延が重要でないのでバッチ処理も検討する。",
+        "en": "Benchmark several model sizes on the validation set, choose the cheapest that meets the accuracy bar, and consider batch processing because latency is not critical."
       },
       {
         "id": "D",
-        "ja": "ベンダーのリーダーボード順位だけで選定する",
-        "en": "Choose purely from public leaderboard rankings"
+        "ja": "一般的な能力を反映しているので、公開リーダーボードの順位だけで選ぶ。",
+        "en": "Choose purely from the rankings on public leaderboards, since they reflect general capability."
       }
     ],
     "answer": [
@@ -657,16 +657,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "要件を超える性能に対する過剰な費用で、測定なしの判断である。",
-        "en": "Overpays for unneeded capability and skips measurement."
+        "ja": "数百万件の単純なレビューに最上位のコストをかけるのは、おそらく不要です。",
+        "en": "Top-tier cost on millions of simple reviews is likely unnecessary."
       },
       "B": {
-        "ja": "パラメータ数が少ないことは精度が高いことを意味しない。逆の傾向が多い。",
-        "en": "Smaller does not imply more accurate; the tendency is usually the opposite."
+        "ja": "小さければ正確というわけではなく、測定して確かめる必要があります。",
+        "en": "Smaller does not mean more accurate; it must be measured."
       },
       "D": {
-        "ja": "一般ベンチマークは自社データ・ラベル体系での性能を保証しない。",
-        "en": "Generic benchmarks do not guarantee performance on your data and label scheme."
+        "ja": "リーダーボードは、自社のデータ、ラベル、コスト制約を反映しません。",
+        "en": "Leaderboards do not reflect your data, labels or cost constraints."
       }
     },
     "difficulty": 2
@@ -684,23 +684,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "システムプロンプトの指示に加え、出力に対する独立した分類器／ルールによる検証層を置き、違反時は定型の応答に差し替える",
-        "en": "Keep the system prompt rule and add an independent classifier/rule-based validation layer on outputs that substitutes a safe canned response on violation"
+        "ja": "システムプロンプトの規則は残し、出力を独立した分類器またはルールで検証する層を加えて、違反時は安全な定型文に差し替える。",
+        "en": "Keep the system prompt rule and add an independent classifier or rule-based validation layer on outputs that substitutes a safe canned response on a violation."
       },
       {
         "id": "B",
-        "ja": "禁止表現を大文字で繰り返し、プロンプトをさらに長くする",
-        "en": "Repeat the prohibition in capitals and make the prompt longer"
+        "ja": "規則が目立つよう、禁止事項を大文字で繰り返し、プロンプトを長くする、強調を強めれば、利用者もモデルもその規則を真剣に受け止めると考える。",
+        "en": "Repeat the prohibition in capital letters and make the prompt longer so that the rule stands out, on the view that stronger emphasis will make users and the model both take the rule seriously."
       },
       {
         "id": "C",
-        "ja": "ユーザーに「推奨を求めないでください」と画面で注意書きする",
-        "en": "Show users an on-screen note asking them not to request recommendations"
+        "ja": "個別の売買の推奨を求めないよう、画面上で利用者に注意書きを表示する。",
+        "en": "Show users an on-screen note that asks them not to request individual buy or sell recommendations."
       },
       {
         "id": "D",
-        "ja": "temperature を最大にして出力を予測不能にする",
-        "en": "Set temperature to maximum to make outputs unpredictable"
+        "ja": "規則を破ろうとする人に出力が読めなくなるよう、temperature を最大にする。",
+        "en": "Set temperature to the maximum so that the outputs become unpredictable to anyone trying to break the rule."
       }
     ],
     "answer": [
@@ -712,16 +712,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "強調や冗長化は破られる確率を下げるだけで保証にはならず、コンテキストも消費する。",
-        "en": "Emphasis only lowers the odds of breach, offers no guarantee, and uses context."
+        "ja": "長くしても強調しても、プロンプトは確率的で、回避されえます。",
+        "en": "Longer or louder prompts are still probabilistic and can be circumvented."
       },
       "C": {
-        "ja": "UI の注意書きは敵対的入力や誤用を防げない。",
-        "en": "A UI notice does not stop adversarial or accidental misuse."
+        "ja": "注意書きは利用者の協力頼みで、何も防ぎません。",
+        "en": "A notice relies on users' cooperation and prevents nothing."
       },
       "D": {
-        "ja": "ランダム性を上げると制約遵守は悪化する。",
-        "en": "Higher randomness worsens constraint adherence."
+        "ja": "ランダム性は違反を減らさず、むしろ起きやすくします。",
+        "en": "Randomness makes violations more likely, not less."
       }
     },
     "difficulty": 3
@@ -739,23 +739,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "「正確にやってください」とだけ追記する",
-        "en": "Just append \"be accurate\""
+        "ja": "フィールド名や日付に注意するよう、指示の末尾に「正確に」と付け加えるだけにする、すべてのフィールドに同じ注意を払ってくれると期待する。",
+        "en": "Just append \"be accurate\" to the instruction so that the model takes care with field names and dates, and trust it to apply the same care to every field."
       },
       {
         "id": "B",
-        "ja": "形式を示した代表的な few-shot 例（エッジケースを含む）を追加し、スキーマも明示する",
-        "en": "Add representative few-shot examples (including edge cases) that demonstrate the format, and state the schema explicitly"
+        "ja": "エッジケースを含む代表的な few-shot 例で形式を示し、スキーマを明示する。",
+        "en": "Add representative few-shot examples, including edge cases, that demonstrate the format, and state the schema explicitly."
       },
       {
         "id": "C",
-        "ja": "出力を自由文にして後から人が整形する",
-        "en": "Switch to free text and have humans normalize it later"
+        "ja": "自由なテキストの出力に切り替え、フィールドは後から人が手作業で整える。",
+        "en": "Switch to free-text output and have people normalize the fields manually afterwards."
       },
       {
         "id": "D",
-        "ja": "モデルを毎回切り替えて最も良い出力を採用する",
-        "en": "Switch models per request and keep whichever output looks best"
+        "ja": "リクエストごとにモデルを切り替え、確認者から見て最も良さそうな出力を採用する。",
+        "en": "Switch between models for each request and keep whichever output looks best to the reviewer."
       }
     ],
     "answer": [
@@ -767,16 +767,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "曖昧な指示は形式の揺れを解消しない。",
-        "en": "A vague instruction does not fix format drift."
+        "ja": "漠然とした一言では、形式は定義されません。",
+        "en": "A generic plea does not define the format."
       },
       "C": {
-        "ja": "後処理の人手が増え、自動化の目的に反する。",
-        "en": "Adds manual work and defeats the point of automation."
+        "ja": "手作業での整形は自動化の利点をなくし、規模の拡大にも向きません。",
+        "en": "Manual normalization removes the automation benefit and scales poorly."
       },
       "D": {
-        "ja": "非効率で、再現性と評価可能性を失う。",
-        "en": "Inefficient, and loses reproducibility and evaluability."
+        "ja": "形式の仕様を明確にしないままモデルを替えても、出力は安定しません。",
+        "en": "Model-hopping without a clear format spec does not yield consistent output."
       }
     },
     "difficulty": 2
@@ -794,23 +794,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "推論を禁止して結論だけを即座に出力させる",
-        "en": "Forbid reasoning and output only the conclusion immediately"
+        "ja": "遅延を最小にするため、推論を禁じ、結論だけをすぐに出力させる、推論は処理を遅くし、結論を後付けで正当化させるだけだと考える。",
+        "en": "Forbid reasoning and output only the conclusion at once, to keep the latency as low as possible, on the view that reasoning slows the system down and invites the model to rationalize its conclusion."
       },
       {
         "id": "B",
-        "ja": "出力トークン上限を極端に小さくして簡潔さを強制する",
-        "en": "Set a very small output token cap to force brevity"
+        "ja": "評価の書き方を簡潔にさせるため、出力トークンの上限をごく小さくする。",
+        "en": "Set a very small output token cap to force brevity in how the assessments are expressed."
       },
       {
         "id": "C",
-        "ja": "推論過程を人手で書き起こしてモデルの重みを更新する",
-        "en": "Hand-write reasoning traces and update the model weights"
+        "ja": "事例ごとに推論の過程を手書きし、それでモデルの重みを更新する。",
+        "en": "Hand-write reasoning traces for each case and update the model's weights with them."
       },
       {
         "id": "D",
-        "ja": "chain-of-thought や extended thinking のように段階的な推論を促し、最終回答と根拠を構造化して分離して出力させる",
-        "en": "Encourage step-by-step reasoning via chain-of-thought or extended thinking, with the final answer and rationale emitted in separate structured fields"
+        "ja": "思考の連鎖または extended thinking で段階的な推論を促し、最終回答と根拠を別々の構造化フィールドで出力する。",
+        "en": "Encourage step-by-step reasoning through chain-of-thought or extended thinking, and emit the final answer and the rationale in separate structured fields."
       }
     ],
     "answer": [
@@ -822,16 +822,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "即答は複雑な推論の精度を下げ、監査可能性も失う。",
-        "en": "Immediate answers reduce accuracy on complex reasoning and lose auditability."
+        "ja": "推論を省くと、複数条件の判断が悪化し、監査の手がかりもなくなります。",
+        "en": "Skipping reasoning worsens multi-condition judgments and removes the audit trail."
       },
       "B": {
-        "ja": "極端な上限は推論を途中で切り、品質を悪化させる。",
-        "en": "A tiny cap truncates reasoning and degrades quality."
+        "ja": "上限を小さくすると、精度と監査に必要な推論が途切れます。",
+        "en": "A tiny cap truncates the reasoning that accuracy and auditability depend on."
       },
       "C": {
-        "ja": "プロンプトで解決できる課題に対して過剰で、通常の手段ではない。",
-        "en": "Excessive for a problem addressable via prompting and not a standard first step."
+        "ja": "手書きの推論でモデルの重みを更新するのは、この目的では現実的ではありません。",
+        "en": "Updating weights by hand-written traces is impractical for this need."
       }
     },
     "difficulty": 3
@@ -849,23 +849,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "すべての履歴を常に全文で送り続ける",
-        "en": "Keep sending the entire history verbatim every turn"
+        "ja": "何も忘れないよう、毎ターン会話の全履歴をそのまま送り続ける、モデルのコンテキストウィンドウは、そうした会話全体を収められる大きさだと考える。",
+        "en": "Keep sending the entire history verbatim on every turn, so that nothing is ever forgotten, on the assumption that the model's context window is large enough to hold the whole of such conversations."
       },
       {
         "id": "B",
-        "ja": "最新の 2 ターンだけを残し、それ以前を破棄する",
-        "en": "Keep only the latest two turns and discard everything older"
+        "ja": "コストを一定に保つため、直近の2ターンだけを残し、それ以前をすべて捨てる。",
+        "en": "Keep only the latest two turns and discard everything older to keep the cost flat."
       },
       {
         "id": "C",
-        "ja": "古いターンを要約・圧縮し、重要な決定事項・制約は構造化メモとして固定領域に保持して、直近ターンは原文で残す",
-        "en": "Summarize or compact older turns, keep key decisions and constraints in a pinned structured note, and retain recent turns verbatim"
+        "ja": "古いターンは要約または圧縮し、重要な決定と制約は固定した構造化メモに残し、直近のターンはそのまま保持する。",
+        "en": "Summarize or compact the older turns, keep key decisions and constraints in a pinned structured note, and retain the recent turns verbatim."
       },
       {
         "id": "D",
-        "ja": "ユーザーに新しい会話を開始してもらう運用にする",
-        "en": "Require users to start a new conversation every time"
+        "ja": "新しい要件を出すたびに、利用者に新しい会話を始めてもらう。",
+        "en": "Require users to start a new conversation each time they raise a new requirement."
       }
     ],
     "answer": [
@@ -877,16 +877,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "コスト増と、長大コンテキストでの注意低下を放置する。",
-        "en": "Leaves cost growth and degraded attention over long contexts."
+        "ja": "全履歴の送信はコストが際限なく増え、注意も薄めます。",
+        "en": "Full history grows cost without bound and dilutes attention."
       },
       "B": {
-        "ja": "初期要件を失い、まさに今の問題を悪化させる。",
-        "en": "Loses the early requirements, worsening the exact problem."
+        "ja": "2ターンだけでは、忘れかけている初期の要件が失われます。",
+        "en": "Two turns lose the early requirements the assistant is forgetting."
       },
       "D": {
-        "ja": "体験を著しく損ない、設計上の課題を利用者に転嫁している。",
-        "en": "Harms experience and pushes a design problem onto users."
+        "ja": "会話を作り直させると、利用者が覚えていてほしい文脈が失われます。",
+        "en": "Forcing restarts loses the very context users expect to be remembered."
       }
     },
     "difficulty": 3
@@ -904,23 +904,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "プレフィックスが毎回変わるようになり、キャッシュ可能な共通部分が一致しなくなった",
-        "en": "The prefix now changes on every call, so the shared cacheable portion no longer matches"
+        "ja": "先頭部分が毎回変わるため、共通でキャッシュできる部分が一致しなくなった。",
+        "en": "The prefix now changes on every call, so the shared cacheable portion no longer matches."
       },
       {
         "id": "B",
-        "ja": "キャッシュは固定ガイドライン以外にタイムスタンプを許可しない法的規則がある",
-        "en": "A legal rule forbids timestamps outside cached guidelines"
+        "ja": "法的な規則で、キャッシュされた指針の外にタイムスタンプを置くことが禁じられている。",
+        "en": "A legal rule forbids timestamps from appearing anywhere outside the cached guidelines."
       },
       {
         "id": "C",
-        "ja": "ユーザー ID が長すぎてモデルが入力を拒否している",
-        "en": "The user ID is too long and the model rejects the input"
+        "ja": "ユーザーIDが長すぎてモデルが入力を拒否し、キャッシュを経由しなくなった。",
+        "en": "The user ID is too long, so the model rejects the input and bypasses the cache."
       },
       {
         "id": "D",
-        "ja": "prompt caching はユーザー質問が短いと自動で無効になる",
-        "en": "Prompt caching is automatically disabled when the user question is short"
+        "ja": "後に続くユーザーの質問が短いと、プロンプトキャッシュが自動的に無効になる。",
+        "en": "Prompt caching is automatically disabled whenever the user question that follows is short."
       }
     ],
     "answer": [
@@ -932,16 +932,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "そのような規則は存在せず、技術的原因を説明していない。",
-        "en": "No such rule exists and it does not explain a technical cause."
+        "ja": "そのような法的規則はなく、問題は先頭部分が一定でないことです。",
+        "en": "No such legal rule exists; the issue is prefix stability."
       },
       "C": {
-        "ja": "短い ID が拒否される理由はなく、ヒット率低下の説明にならない。",
-        "en": "A short ID is not rejected and does not explain lower hit rate."
+        "ja": "IDが長くても拒否はされず、先頭部分が変わるだけです。",
+        "en": "A longer ID would not cause rejection; it changes the prefix."
       },
       "D": {
-        "ja": "質問長でキャッシュが無効になる仕様ではない。",
-        "en": "Caching is not disabled by question length."
+        "ja": "キャッシュを左右するのは先頭部分で、質問の長さではありません。",
+        "en": "Caching depends on the prefix, not on the question length."
       }
     },
     "difficulty": 2
@@ -959,23 +959,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "全チームの手順を毎回すべて送信し、モデルに関連部分を選ばせる",
-        "en": "Send all procedures every time and let the model pick the relevant part"
+        "ja": "すべての手順を毎回のリクエストで送り、関連する部分はモデルに選ばせる、プロンプトの大きさより正確さが重要なので、トークンの消費は許容する。",
+        "en": "Send all of the procedures with every request and let the model pick out the relevant part, at the cost of tokens, because correctness matters more than the size of the prompt."
       },
       {
         "id": "B",
-        "ja": "各チームが独自に手順をコピーして自分のアプリに埋め込む",
-        "en": "Each team copies the procedures into its own app"
+        "ja": "各チームが必要な手順を、それぞれ自分のアプリケーションにコピーする。",
+        "en": "Have each team copy the procedures that it needs into its own application separately."
       },
       {
         "id": "C",
-        "ja": "手順をすべて削除して、モデルの一般知識に任せる",
-        "en": "Delete the procedures and rely on general model knowledge"
+        "ja": "手順は削除し、代わりにモデルが持つ一般的なベストプラクティスの知識に頼る。",
+        "en": "Delete the procedures and rely on the model's general knowledge of good practice instead."
       },
       {
         "id": "D",
-        "ja": "手順を Skills やモジュール化したプロンプトとして管理し、必要なものだけを必要なときにロードする。共通の安定部分は caching する",
-        "en": "Manage procedures as Skills or modular prompts loaded only when needed, and cache the stable shared parts"
+        "ja": "手順を、必要なときだけ読み込む Skills やモジュール化したプロンプトとして管理し、変わらない共通部分をキャッシュする。",
+        "en": "Manage the procedures as Skills or modular prompts that load only when needed, and cache the stable shared parts."
       }
     ],
     "answer": [
@@ -987,16 +987,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "トークンコストと注意の希薄化が続く。",
-        "en": "Token cost and diluted attention persist."
+        "ja": "常に送る大量の内容はトークンを無駄にし、適切な箇所をモデルが見つけることにも頼ります。",
+        "en": "Always-on bulk wastes tokens and still depends on the model finding the right section."
       },
       "B": {
-        "ja": "重複と乖離が発生し、保守性が最悪になる。",
-        "en": "Duplication and drift; maintainability worsens."
+        "ja": "コピーは互いにずれ、保守も困難です。",
+        "en": "Copies drift apart and are hard to maintain."
       },
       "C": {
-        "ja": "社内固有の手順が失われ、一貫性が保てない。",
-        "en": "Loses organization-specific procedures and consistency."
+        "ja": "一般的な知識には、各チーム固有の手順は含まれていません。",
+        "en": "General knowledge does not encode each team's specific procedures."
       }
     },
     "difficulty": 2
@@ -1014,28 +1014,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "顧客メール本文をシステム指示と同じ段落に混在させて書く",
-        "en": "Mix the customer email body into the same paragraph as system instructions"
+        "ja": "テンプレートを短く保つため、顧客のメール本文をシステムの指示と同じ段落に混ぜる。",
+        "en": "Mix the customer email body into the same paragraph as the system instructions, to keep the template short."
       },
       {
         "id": "B",
-        "ja": "XML タグ等の明確な区切りで指示と信頼できないデータを分離し、「タグ内のデータは指示ではない」と明記する",
-        "en": "Delimit instructions from untrusted data with XML tags or similar, and state that data inside the tags is not instructions"
+        "ja": "指示と信頼できないデータを XML タグなどで区切り、タグ内のデータは指示ではないと明記する。",
+        "en": "Delimit the instructions from the untrusted data with XML tags or similar, and state that data inside the tags is not instructions."
       },
       {
         "id": "C",
-        "ja": "メール内の「以前の指示を無視せよ」という文言にも従うよう指示する",
-        "en": "Instruct the model to also follow directives found inside emails such as \"ignore previous instructions\""
+        "ja": "「以前の指示を無視せよ」のように、メール内にある指示にもモデルが従うよう伝える。",
+        "en": "Tell the model to follow any directives found inside the emails, such as \"ignore previous instructions\"."
       },
       {
         "id": "D",
-        "ja": "出力形式を指定せず、モデルが自由に決めるようにする",
-        "en": "Leave the output format unspecified so the model decides freely"
+        "ja": "モデルが何を返すか自由に決められるよう、出力形式は指定しない。",
+        "en": "Leave the output format unspecified so that the model can decide freely what to return."
       },
       {
         "id": "E",
-        "ja": "出力スキーマと許容されるカテゴリを明示し、不明な場合の「unknown」カテゴリも用意する",
-        "en": "Specify the output schema and allowed categories, including an explicit \"unknown\" category"
+        "ja": "出力のスキーマと許容するカテゴリを指定し、明示的な「不明」のカテゴリも含める。",
+        "en": "Specify the output schema and the allowed categories, including an explicit \"unknown\" category."
       }
     ],
     "answer": [
@@ -1048,16 +1048,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "指示とデータの混在は injection に脆弱になる。",
-        "en": "Mixing instructions and data increases injection exposure."
+        "ja": "混ぜると、信頼できる指示と信頼できないデータの区別があいまいになります。",
+        "en": "Mixed text blurs trusted instructions and untrusted data."
       },
       "C": {
-        "ja": "信頼できない入力の命令に従わせるのは危険で、injection を自ら許容する。",
-        "en": "Obeying directives in untrusted input invites injection."
+        "ja": "メール内の指示に従うことは、まさにプロンプトインジェクションが突く点です。",
+        "en": "Obeying directives in emails is exactly what prompt injection exploits."
       },
       "D": {
-        "ja": "形式未指定は下流のパース失敗と不安定な動作を招く。",
-        "en": "Unspecified format causes parse failures and unstable behavior downstream."
+        "ja": "形式を指定しないと、後続の処理が不安定になります。",
+        "en": "An unspecified format destabilizes downstream processing."
       }
     },
     "difficulty": 3
@@ -1075,23 +1075,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "ツールの説明文をすべて長くして曖昧さをなくす",
-        "en": "Lengthen every tool description to remove ambiguity"
+        "ja": "ツール間に残るあいまいさをなくすため、すべてのツールの説明を長くする、混乱は言い回しだけが原因かもしれないと考える。",
+        "en": "Lengthen every tool description so that the remaining ambiguity between the tools is removed, in case the confusion is only about wording."
       },
       {
         "id": "B",
-        "ja": "タスクごとに必要なツールだけを公開するようスコープを絞る（専門サブエージェントへの分割や、ツールの動的な検索・ロード）",
-        "en": "Scope tools to what each task needs, via specialized subagents or dynamic tool search/loading"
+        "ja": "専用のサブエージェントや動的なツール検索・読み込みを使い、ツールを各タスクに必要なものに絞る。",
+        "en": "Scope the tools to what each task needs, using specialized subagents or dynamic tool search and loading."
       },
       {
         "id": "C",
-        "ja": "より大きなコンテキストウィンドウのモデルに替えて全ツールを維持する",
-        "en": "Move to a model with a larger context window and keep all tools"
+        "ja": "コンテキストウィンドウの大きいモデルに移り、ツールはすべて接続したままにする。",
+        "en": "Move to a model with a larger context window and keep all of the tools connected as they are."
       },
       {
         "id": "D",
-        "ja": "ツール選択ミスは許容し、ユーザーに再試行を促す",
-        "en": "Accept wrong selections and ask users to retry"
+        "ja": "誤選択は構成上のコストとして受け入れ、起きるたびに利用者に再試行を頼む。",
+        "en": "Accept the wrong selections as a cost of the setup and ask users to retry whenever it happens."
       }
     ],
     "answer": [
@@ -1103,16 +1103,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "説明が長くなるほどトークンが増え、類似ツールの混同は残る。",
-        "en": "Longer descriptions add tokens and similar-tool confusion remains."
+        "ja": "約90個のツールの説明を長くしても、選択肢の複雑さは減らず、文脈の負荷だけが増えます。",
+        "en": "Longer descriptions across ~90 tools add more context load without reducing choice complexity."
       },
       "C": {
-        "ja": "窓が大きくても選択精度の問題とコストは解決しない。",
-        "en": "A bigger window does not fix selection accuracy or cost."
+        "ja": "ウィンドウが大きくなっても、選択肢が多すぎることによる混乱は減りません。",
+        "en": "A larger window does not reduce the confusion of too many options."
       },
       "D": {
-        "ja": "設計上の問題を放置し、体験とコストを悪化させる。",
-        "en": "Leaves a design problem unaddressed, hurting experience and cost."
+        "ja": "利用者に再試行を押しつけると、設計上の問題が隠れ、コストも増えます。",
+        "en": "Pushing retries to users hides a design problem and raises cost."
       }
     },
     "difficulty": 2
@@ -1130,23 +1130,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "システムプロンプトに「他人の給与は答えない」と追記する",
-        "en": "Add \"do not reveal others' salaries\" to the system prompt"
+        "ja": "HR エージェントのシステムプロンプトに「他の従業員の給与を明かさない」と加える、よく指示されたモデルはどの会話でもその規則を守ると考える。",
+        "en": "Add \"do not reveal other employees' salaries\" to the system prompt of the HR agent, as a rule that a well-instructed model will respect in every conversation."
       },
       {
         "id": "B",
-        "ja": "共有アカウントの API キーを定期的にローテーションする",
-        "en": "Rotate the shared account's API key regularly"
+        "ja": "漏えいが続く期間を限るため、共有サービスアカウントの API キーを定期的に更新する。",
+        "en": "Rotate the shared service account's API key regularly to limit how long a leak could last."
       },
       {
         "id": "C",
-        "ja": "エージェントがエンドユーザーの権限で動作するように、ユーザーの ID を委任（delegation）して下流 API が権限を強制する",
-        "en": "Propagate the end user's identity (delegated authorization) so the downstream API enforces that user's permissions"
+        "ja": "エンドユーザーの識別情報を引き継ぎ(委任された認可)、下流の API がその利用者の権限を強制するようにする。",
+        "en": "Propagate the end user's identity (delegated authorization) so that the downstream API enforces that user's permissions."
       },
       {
         "id": "D",
-        "ja": "給与関連の質問を検出するキーワードフィルターを入力に追加する",
-        "en": "Add a keyword filter on input to detect salary questions"
+        "ja": "給与に関する質問を検出してブロックする、キーワードフィルターを入力に加える。",
+        "en": "Add a keyword filter on user input that detects questions about salary and blocks them."
       }
     ],
     "answer": [
@@ -1158,16 +1158,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "プロンプトは認可制御ではなく、回避され得る。",
-        "en": "A prompt is not an authorization control and can be bypassed."
+        "ja": "プロンプトの規則は確率的で、アクセス制御を強制しません。",
+        "en": "A prompt rule is probabilistic and does not enforce access control."
       },
       "B": {
-        "ja": "ローテーションは漏えい対策であり、権限過大の問題を解決しない。",
-        "en": "Rotation mitigates key leakage, not over-privilege."
+        "ja": "更新しても、共有アカウントの過大な権限は変わりません。",
+        "en": "Rotation does not change the shared account's excessive privilege."
       },
       "D": {
-        "ja": "言い換えで容易に回避される上、認可の代替にならない。",
-        "en": "Easily evaded by rephrasing and not a substitute for authorization."
+        "ja": "キーワードフィルターは回避しやすく、根本原因には対処しません。",
+        "en": "Keyword filters are easy to evade and do not address the root cause."
       }
     },
     "difficulty": 3
@@ -1185,23 +1185,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "streaming 応答と prompt caching を有効にし、複雑さに応じてモデルを使い分ける。品質は評価セットで検証する",
-        "en": "Enable streaming and prompt caching, choose the model by query complexity, and verify quality on an evaluation set"
+        "ja": "ストリーミングとプロンプトキャッシュを有効にし、問い合わせの複雑さでモデルを選び、評価セットで品質を確認する。",
+        "en": "Enable streaming and prompt caching, choose the model by query complexity, and verify quality on an evaluation set."
       },
       {
         "id": "B",
-        "ja": "常に最大モデルで extended thinking を最大予算にして回答する",
-        "en": "Always use the largest model with the maximum extended-thinking budget"
+        "ja": "回答の質を守るため、常に最大のモデルと最大の extended thinking の予算を使う、質問の長さにかかわらず。",
+        "en": "Always use the largest model with the maximum extended-thinking budget to protect answer quality, whatever the length of the question."
       },
       {
         "id": "C",
-        "ja": "応答をすべて生成し終えてから一括表示し、見た目の整合性を優先する",
-        "en": "Wait until the full response is generated and display it at once for consistency"
+        "ja": "一貫性のため、応答がすべて生成されるのを待ってから、一度にまとめて表示する。",
+        "en": "Wait until the full response has been generated and display it all at once, for consistency."
       },
       {
         "id": "D",
-        "ja": "品質評価を省略して最小モデルのみで運用する",
-        "en": "Skip quality evaluation and run only the smallest model"
+        "ja": "遅延を最小にするため、品質評価は行わず、最小のモデルだけを動かす。",
+        "en": "Skip the quality evaluation and run only the smallest model, to keep the latency as low as possible."
       }
     ],
     "answer": [
@@ -1213,16 +1213,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "最大の遅延とコストを無条件に受け入れ、初回トークンの要件に反する。",
-        "en": "Accepts maximum latency and cost unconditionally, contradicting the first-token requirement."
+        "ja": "どこでも最大にすると、最初のトークンまでの時間とコストが悪化します。",
+        "en": "Maximum thinking everywhere hurts time to first token and cost."
       },
       "C": {
-        "ja": "体感遅延を悪化させ、streaming の利点を捨てている。",
-        "en": "Worsens perceived latency and forgoes streaming."
+        "ja": "全体を待つと、体感の遅延が悪化します。",
+        "en": "Waiting for the full response worsens perceived latency."
       },
       "D": {
-        "ja": "評価なしの意思決定は品質リスクを可視化できない。",
-        "en": "Decisions without evaluation leave quality risk invisible."
+        "ja": "評価をしなければ、品質が許容範囲か分かりません。",
+        "en": "Without evaluation you cannot know whether quality is acceptable."
       }
     },
     "difficulty": 2
@@ -1240,23 +1240,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "すべてのリクエストの生プロンプトと出力をそのまま永続保存し、誰でも検索できるようにする",
-        "en": "Persist raw prompts and outputs for every request unredacted and make them searchable by anyone"
+        "ja": "すべてのリクエストの生のプロンプトと出力を伏せずに保存し、誰でも検索できるようにする、完全でフィルターのない記録だけが、後から妙な結果を再現する確実な方法だと考える。",
+        "en": "Persist the raw prompts and outputs of every request unredacted and make them searchable by anyone, on the grounds that a complete, unfiltered record is the only reliable way to reproduce an odd result later."
       },
       {
         "id": "B",
-        "ja": "エラー発生時のみスタックトレースをログに出す",
-        "en": "Log only stack traces when errors occur"
+        "ja": "失敗が見えるのはそこだけなので、エラーが起きたときのスタックトレースだけを記録する。",
+        "en": "Log only the stack traces when errors occur, because that is where the failures can be seen."
       },
       {
         "id": "C",
-        "ja": "ユーザーアンケートの満足度だけを指標として追う",
-        "en": "Track only user survey satisfaction scores"
+        "ja": "品質の最良の指標として、利用者がアンケートで付ける満足度のスコアだけを追う。",
+        "en": "Track only the satisfaction scores that users give in surveys, as the best signal of quality."
       },
       {
         "id": "D",
-        "ja": "相関 ID による分散トレース（モデル・ツール呼び出し・検索・レイテンシ・トークン）と、PII をマスクしたアクセス制御付きログを採用し、品質指標はサンプリング評価で監視する",
-        "en": "Use correlation-ID distributed tracing (model calls, tool calls, retrieval, latency, tokens) with PII-masked, access-controlled logs, and monitor quality via sampled evaluation"
+        "ja": "モデル呼び出し、ツール呼び出し、検索、遅延、トークンを相関IDで分散トレースし、PII をマスクしアクセスを制限したログと、サンプリングした品質評価を組み合わせる。",
+        "en": "Use correlation-ID distributed tracing of model calls, tool calls, retrieval, latency and tokens, with PII-masked, access-controlled logs and sampled quality evaluation."
       }
     ],
     "answer": [
@@ -1268,16 +1268,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "PII の過剰な蓄積と閲覧は、プライバシー・コンプライアンス上のリスクとなる。",
-        "en": "Unredacted, broadly accessible logs create privacy and compliance risk."
+        "ja": "伏せずに誰でも検索できるログは、プライバシーとコンプライアンス上のリスクになります。",
+        "en": "Unredacted, widely searchable logs create a privacy and compliance exposure."
       },
       "B": {
-        "ja": "「おかしいが例外は出ない」品質劣化は検知できない。",
-        "en": "Cannot detect quality degradation that raises no exception."
+        "ja": "エラーだけでは、気づかれない品質の不具合は捉えられません。",
+        "en": "Errors alone do not capture silent quality failures."
       },
       "C": {
-        "ja": "満足度は遅行指標で粗く、原因の特定や監査証跡には使えない。",
-        "en": "Lagging, coarse signal that cannot localize causes or serve as an audit trail."
+        "ja": "アンケートは遅く、件数も少なく、個々の実行を再現できません。",
+        "en": "Surveys are slow, sparse and cannot reproduce individual runs."
       }
     },
     "difficulty": 3
@@ -1295,23 +1295,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "全文を固定 200 文字で機械的に分割する",
-        "en": "Mechanically split everything into fixed 200-character pieces"
+        "ja": "チャンクの大きさをそろえるため、すべての文書を機械的に200文字ごとに分割する、チャンクの大きさが一定なら、埋め込み・索引づけ・検索の時間が単純で予測しやすく速くなると考える。",
+        "en": "Mechanically split every document into fixed 200-character pieces for uniform chunk size, for the sake of a uniform chunk size that keeps embeddings, indexing and retrieval times simple, predictable and fast."
       },
       {
         "id": "B",
-        "ja": "条・項などの構造境界で分割し、章・条番号・版・施行日をメタデータとして付与する。必要に応じて親子（小さく検索、大きく提示）の階層を持たせる",
-        "en": "Split along structural boundaries (article/paragraph), attach chapter, article number, version and effective date as metadata, and optionally use parent-child chunks (retrieve small, present larger)"
+        "ja": "条や項といった構造の境界で分割し、章・条番号・版・施行日をメタデータとして付け、必要に応じて親子チャンクを使う。",
+        "en": "Split along the structural boundaries (articles and paragraphs), attach chapter, article number, version and effective date as metadata, and optionally use parent-child chunks."
       },
       {
         "id": "C",
-        "ja": "文書ごとに 1 チャンクとし、チャンクの大きさを最大化する",
-        "en": "Make each document a single chunk to maximize chunk size"
+        "ja": "相互参照が分断されないよう、各文書を1つのチャンクにして最大の大きさにする。",
+        "en": "Make each document a single chunk to maximize chunk size, so that no cross-reference is ever split."
       },
       {
         "id": "D",
-        "ja": "メタデータを持たせず、埋め込みの類似度だけで検索する",
-        "en": "Use no metadata and rely purely on embedding similarity"
+        "ja": "メタデータは使わず、適切な条の検索は埋め込みの類似度だけに頼る。",
+        "en": "Use no metadata and rely purely on embedding similarity to find the right article."
       }
     ],
     "answer": [
@@ -1323,16 +1323,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "意味単位を破壊し、条文番号との対応も失われる。",
-        "en": "Destroys semantic units and the link to article numbers."
+        "ja": "固定長の分割は条文を断ち切り、引用に必要な構造を失います。",
+        "en": "Fixed-length cuts sever articles and lose the structure needed for citations."
       },
       "C": {
-        "ja": "検索精度が下がり、無関係な内容でコンテキストを浪費する。",
-        "en": "Retrieval precision falls and context is wasted on irrelevant content."
+        "ja": "文書全体を1チャンクにすると検索の精度が薄まり、特定の条を示せません。",
+        "en": "Whole-document chunks dilute retrieval and cannot pinpoint an article."
       },
       "D": {
-        "ja": "版や施行日による絞り込みができず、古い条文が混入する。",
-        "en": "Cannot filter by version or effective date, letting outdated provisions leak in."
+        "ja": "メタデータがなければ、条番号の引用も版による絞り込みもできません。",
+        "en": "Without metadata you cannot cite article numbers or filter by version."
       }
     },
     "difficulty": 3
@@ -1350,23 +1350,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "埋め込みモデルを大型化して型番も意味として学習させる",
-        "en": "Use a larger embedding model so identifiers are learned semantically"
+        "ja": "SKU のような識別子を意味として学習させるため、より大きな埋め込みモデルを使う。",
+        "en": "Use a larger embedding model so that identifiers such as SKUs are learned semantically."
       },
       {
         "id": "B",
-        "ja": "型番を含むクエリはすべて拒否する",
-        "en": "Reject all queries containing identifiers"
+        "ja": "識別子を含むクエリはすべて拒否し、代わりに部品を言葉で説明してもらう。",
+        "en": "Reject all queries that contain identifiers and ask users to describe the part in words instead."
       },
       {
         "id": "C",
-        "ja": "語彙検索（BM25 等）とベクトル検索を組み合わせたハイブリッド検索を用い、必要なら再ランキングを追加する",
-        "en": "Combine lexical search (e.g. BM25) with vector search in a hybrid approach, adding reranking if needed"
+        "ja": "BM25 などの語彙検索とベクトル検索を組み合わせたハイブリッド方式にし、必要なら再ランキングを加える。",
+        "en": "Combine lexical search such as BM25 with vector search in a hybrid approach, adding reranking if needed."
       },
       {
         "id": "D",
-        "ja": "チャンクを小さくして top-k を 1 にする",
-        "en": "Shrink chunks and set top-k to 1"
+        "ja": "最も近い一致だけがモデルに渡るよう、チャンクを小さくして top-k を 1 にする、速く単純に保つため。",
+        "en": "Shrink the chunks and set top-k to 1, so that only the closest match is passed to the model, to keep it fast and simple."
       }
     ],
     "answer": [
@@ -1378,16 +1378,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "識別子の完全一致は大型化では保証されず、コストが増すだけ。",
-        "en": "Larger embeddings do not guarantee exact-match recall and raise cost."
+        "ja": "埋め込みは、モデルを大きくしても厳密な文字列の一致が苦手です。",
+        "en": "Embeddings are weak at exact strings regardless of model size."
       },
       "B": {
-        "ja": "主要なユースケースを切り捨てている。",
-        "en": "Drops a primary use case."
+        "ja": "識別子のクエリを拒否すると、中心的な用途が失われます。",
+        "en": "Rejecting identifier queries removes a core use case."
       },
       "D": {
-        "ja": "top-k=1 は取りこぼしを増やし、再現率を悪化させる。",
-        "en": "top-k of 1 increases misses and hurts recall."
+        "ja": "小さなチャンクで top-1 にすると、再現率は上がらず下がります。",
+        "en": "Top-1 with small chunks makes recall worse, not better."
       }
     },
     "difficulty": 2
@@ -1405,23 +1405,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "システム側を MCP サーバーとして一度公開し、各クライアントが標準プロトコルで接続する",
-        "en": "Expose each system once as an MCP server and let every client connect via the standard protocol"
+        "ja": "各システムを MCP サーバーとして一度公開し、すべてのクライアントが標準のプロトコルで接続する。",
+        "en": "Expose each system once as an MCP server and let every client connect through the standard protocol."
       },
       {
         "id": "B",
-        "ja": "各チームがクライアントごとに独自のツール定義と API ラッパーを作成する",
-        "en": "Each team builds its own tool definitions and API wrappers per client"
+        "ja": "各チームが、クライアントごとに独自のツール定義と API のラッパーを個別に作る、それぞれを完全に制御する。",
+        "en": "Have each team build its own tool definitions and API wrappers separately for every client, and keep full control of each."
       },
       {
         "id": "C",
-        "ja": "ユーザーが手作業で情報をコピーしてチャットに貼り付ける",
-        "en": "Users manually copy information and paste it into chat"
+        "ja": "利用者が必要に応じてシステムから情報を手でコピーし、チャットに貼り付ける。",
+        "en": "Let users copy information manually from the systems and paste it into the chat as needed."
       },
       {
         "id": "D",
-        "ja": "すべてのデータを定期的に各クライアントのプロンプトへ埋め込む",
-        "en": "Periodically embed all data into every client's prompts"
+        "ja": "いつでも使えるよう、データをすべて定期的に各クライアントのプロンプトに埋め込む。",
+        "en": "Periodically embed all of the data into every client's prompts so that it is always available."
       }
     ],
     "answer": [
@@ -1433,16 +1433,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "重複実装と乖離を生み、保守コストが増大する。",
-        "en": "Duplicate implementations drift and raise maintenance cost."
+        "ja": "重複したラッパーは、保守と認証の作業を増やします。",
+        "en": "Duplicate wrappers multiply the maintenance and authentication work."
       },
       "C": {
-        "ja": "自動化の価値と情報の鮮度を損なう。",
-        "en": "Defeats automation and freshness."
+        "ja": "手作業のコピーは遅く、誤りやすく、最新のデータにもアクセスできません。",
+        "en": "Manual copying is slow, error-prone and gives no live access."
       },
       "D": {
-        "ja": "情報が古くなり、コンテキストを浪費し、アクセス制御も困難になる。",
-        "en": "Stale data, wasted context and impossible access control."
+        "ja": "すべてを埋め込むとプロンプトが膨らみ、内容も古くなります。",
+        "en": "Embedding everything bloats prompts and goes stale."
       }
     },
     "difficulty": 2
@@ -1460,23 +1460,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "相手企業のエージェントに自社の内部ツールの資格情報を共有する",
-        "en": "Share internal tool credentials with the partners' agents"
+        "ja": "相手のエージェントが直接操作できるよう、社内ツールの認証情報を共有する。",
+        "en": "Share the internal tool credentials with the partners' agents so that they can act directly."
       },
       {
         "id": "B",
-        "ja": "全社のエージェントを単一テナントの 1 つのプロセスに統合する",
-        "en": "Merge all agents into one process in a single tenant"
+        "ja": "交渉を単純にするため、各社のエージェントを1つのテナントの1つのプロセスにまとめる。",
+        "en": "Merge all of the companies' agents into one process in a single tenant to simplify the negotiation."
       },
       {
         "id": "C",
-        "ja": "人間が毎回メールで見積りを転送する運用に戻す",
-        "en": "Revert to humans forwarding quotes by email each time"
+        "ja": "情報の露出を避けるため、見積もりはそのつど人がメールで転送する形に戻す。",
+        "en": "Revert to humans forwarding the quotes by email each time, to avoid any exposure."
       },
       {
         "id": "D",
-        "ja": "agent-to-agent の仕様に基づく明確なインターフェース（能力の宣言、タスクの委譲、認証）で連携し、内部ツールは各社の境界内に秘匿する",
-        "en": "Interoperate through well-defined agent-to-agent interfaces (capability advertisement, task delegation, authentication) while keeping each company's internal tools behind its own boundary"
+        "ja": "明確に定めたエージェント間のインターフェース(機能の公開、タスクの委任、認証)で連携し、各社は社内ツールを自社の境界の内側に置いたままにする。",
+        "en": "Interoperate through well-defined agent-to-agent interfaces (capability advertisement, task delegation, authentication) while each company keeps its internal tools behind its own boundary."
       }
     ],
     "answer": [
@@ -1488,16 +1488,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "最小権限・信頼境界に反し、重大な漏えいリスクとなる。",
-        "en": "Violates least privilege and trust boundaries."
+        "ja": "認証情報を共有すると、各社が守りたい境界が崩れます。",
+        "en": "Sharing credentials breaks the boundary the companies want to keep."
       },
       "B": {
-        "ja": "組織の独立性とデータ主権を損ない、現実的でない。",
-        "en": "Breaks organizational independence and data sovereignty; impractical."
+        "ja": "会社をまたいで統合するのは非現実的で、各社の管理権限も失われます。",
+        "en": "Merging is impractical across companies and removes each one's control."
       },
       "C": {
-        "ja": "自動化の要件を満たさない。",
-        "en": "Fails the automation requirement."
+        "ja": "手作業の転送に戻すと、目指している自動化を諦めることになります。",
+        "en": "Going back to manual forwarding gives up the intended automation."
       }
     },
     "difficulty": 3
@@ -1515,23 +1515,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "ランブックの目次・要約だけを常時持たせ、必要な本文を検索／ファイル読み取りで必要時に取得する progressive discovery を採用する",
-        "en": "Provide only an index/summaries up front and fetch needed bodies on demand via search or file reads (progressive discovery)"
+        "ja": "索引や要約だけを最初に渡し、必要な本文は検索やファイル読み込みでその都度取得する(段階的な探索)。",
+        "en": "Provide only an index or summaries up front and fetch the needed bodies on demand through search or file reads (progressive discovery)."
       },
       {
         "id": "B",
-        "ja": "全ランブックを毎回プロンプトに詰め込む monolithic context にする",
-        "en": "Stuff all runbooks into every prompt as monolithic context"
+        "ja": "漏れがないよう、600件のランブックすべてを一体の文脈として毎回のプロンプトに詰め込む、すべての手順が見えるので、適切なものをモデルが自分で選べると考える。",
+        "en": "Stuff all 600 runbooks into every prompt as monolithic context, so that nothing is missing, on the view that the model can then see every procedure and choose the right one for itself."
       },
       {
         "id": "C",
-        "ja": "ランブックをすべて 1 ファイルに連結して同じく毎回送る",
-        "en": "Concatenate them into a single file and send it every time"
+        "ja": "ランブックを1つのファイルに連結し、そのファイルをリクエストのたびに送る。",
+        "en": "Concatenate the runbooks into a single file and send that file with every request."
       },
       {
         "id": "D",
-        "ja": "ランブックの利用をやめ、エージェントの一般知識のみで対応する",
-        "en": "Stop using runbooks and rely on the agent's general knowledge"
+        "ja": "ランブックの利用をやめ、エージェントの一般的な障害対応の知識に頼る。",
+        "en": "Stop using the runbooks and rely on the agent's general knowledge of incident response."
       }
     ],
     "answer": [
@@ -1543,16 +1543,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "コンテキスト上限、コスト、注意の希薄化を招く。",
-        "en": "Context limits, cost and diluted attention."
+        "ja": "プロンプトごとに数百万トークンを使うと、コストがかかり注意も劣化します。",
+        "en": "Millions of tokens per prompt are costly and degrade attention."
       },
       "C": {
-        "ja": "形式を変えても総量は同じで、同じ問題が残る。",
-        "en": "Same volume, same problems."
+        "ja": "連結しても、毎回送る分量は変わりません。",
+        "en": "Concatenation changes nothing about the size sent each time."
       },
       "D": {
-        "ja": "組織固有の手順に従う価値を失う。",
-        "en": "Loses the value of following organization-specific procedures."
+        "ja": "一般的な知識では、組織固有の手順の代わりになりません。",
+        "en": "General knowledge cannot replace the organization's own procedures."
       }
     },
     "difficulty": 3
@@ -1570,28 +1570,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "サーバー側で認可せず、クライアントが自己申告したスコープを信頼する",
-        "en": "Skip server-side authorization and trust scopes self-declared by the client"
+        "ja": "サーバー側の認可は省き、クライアントが自己申告したスコープを信頼する。",
+        "en": "Skip server-side authorization and trust the scopes that the client declares for itself."
       },
       {
         "id": "B",
-        "ja": "トークンの audience/issuer を検証し、受け取ったトークンを下流 API にそのまま転送（passthrough）しない",
-        "en": "Validate token audience and issuer, and never pass received tokens straight through to downstream APIs"
+        "ja": "トークンの audience と issuer を検証し、受け取ったトークンをそのまま下流の API に渡さない。",
+        "en": "Validate the token's audience and issuer, and never pass a received token straight through to downstream APIs."
       },
       {
         "id": "C",
-        "ja": "全ユーザーに同一の長期有効な API キーを配布する",
-        "en": "Distribute one long-lived API key to every user"
+        "ja": "運用を簡単にするため、長期間有効な API キーを1つ、全利用者に配布する。",
+        "en": "Distribute one long-lived API key to every user for simplicity of operation."
       },
       {
         "id": "D",
-        "ja": "ツールごと・ユーザーごとに最小スコープを定義し、サーバー側で呼び出しごとに認可を強制する",
-        "en": "Define minimal per-tool and per-user scopes and enforce authorization server-side on each call"
+        "ja": "ツールごと・利用者ごとの最小限のスコープを定め、呼び出しのたびにサーバー側で認可を強制する。",
+        "en": "Define minimal per-tool and per-user scopes and enforce authorization on the server on every call."
       },
       {
         "id": "E",
-        "ja": "ツールの説明文に「許可された人のみ使用してください」と記載する",
-        "en": "State in tool descriptions that only authorized people should use them"
+        "ja": "許可された人だけがツールを使うべきだと、ツールの説明に書く。",
+        "en": "State in the tool descriptions that only authorized people should use the tools."
       }
     ],
     "answer": [
@@ -1604,16 +1604,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "クライアントは信頼境界の外にあり、自己申告は検証にならない。",
-        "en": "Clients sit outside the trust boundary; self-declaration is not verification."
+        "ja": "クライアントが宣言したスコープは偽造できるため、判断はサーバーが行う必要があります。",
+        "en": "Client-declared scopes can be forged; the server must decide."
       },
       "C": {
-        "ja": "共有の長期鍵は漏えい時の影響が大きく、個人の特定や取り消しもできない。",
-        "en": "Shared long-lived keys have a wide blast radius with no attribution or revocation."
+        "ja": "共有の長期キーは、利用者ごとに範囲を絞ることも取り消すこともできません。",
+        "en": "One shared long-lived key cannot be scoped or revoked per user."
       },
       "E": {
-        "ja": "説明文はモデルへの情報であり、アクセス制御ではない。",
-        "en": "Descriptions inform the model; they are not access control."
+        "ja": "説明文には、何の強制力もありません。",
+        "en": "A description enforces nothing."
       }
     },
     "difficulty": 3
@@ -1631,28 +1631,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "半年に 1 回、全件を手作業で再インデックスする",
-        "en": "Manually re-index everything once every six months"
+        "ja": "手間の少ない定例作業として、半年に1回、手作業で全体を再インデックスする。",
+        "en": "Manually re-index everything once every six months, as a low-maintenance routine."
       },
       {
         "id": "B",
-        "ja": "更新のたびに、新旧の埋め込みモデルのベクトルを同じインデックスに混在させる",
-        "en": "Mix vectors from old and new embedding models in the same index on each update"
+        "ja": "更新が入るたびに、新旧の埋め込みモデルのベクトルを同じ索引に混在させる。",
+        "en": "Mix the vectors from the old and new embedding models in the same index as updates arrive."
       },
       {
         "id": "C",
-        "ja": "ドキュメントのハッシュ／更新日時で差分を検出し、変更分のみを再チャンク・再埋め込みして、古いチャンクを確実に削除する",
-        "en": "Detect changes via document hash or modification time, re-chunk and re-embed only the changed docs, and reliably delete stale chunks"
+        "ja": "文書のハッシュや更新時刻で変更を検出し、変更した文書だけを再チャンク・再埋め込みして、古いチャンクを確実に削除する。",
+        "en": "Detect changes by document hash or modification time, re-chunk and re-embed only the changed documents, and reliably delete the stale chunks."
       },
       {
         "id": "D",
-        "ja": "古い回答に備えて、回答にはキャッシュされた旧回答を優先して返す",
-        "en": "Prefer returning cached older answers to hedge against stale content"
+        "ja": "内容が古い場合に備えて、キャッシュした以前の回答を優先して返す。",
+        "en": "Prefer returning cached older answers, as a hedge against the content being stale."
       },
       {
         "id": "E",
-        "ja": "埋め込みモデルのバージョンをメタデータで記録し、モデル変更時は新インデックスを並行構築して切り替える（blue/green）",
-        "en": "Record the embedding-model version as metadata, and when the model changes build a new index in parallel and cut over (blue/green)"
+        "ja": "埋め込みモデルの版をメタデータとして記録し、モデルを変えるときは新しい索引を並行して作って切り替える(ブルー/グリーン)。",
+        "en": "Record the embedding-model version as metadata, and when the model changes build a new index in parallel and cut over (blue/green)."
       }
     ],
     "answer": [
@@ -1665,16 +1665,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "鮮度要件を満たせず、手作業は属人的で誤りやすい。",
-        "en": "Fails the freshness need; manual work is error-prone."
+        "ja": "半年おきでは、毎週の変更が長期間反映されません。",
+        "en": "Six months leaves weekly changes stale for long periods."
       },
       "B": {
-        "ja": "異なる空間のベクトルが混在すると類似度が無意味になる。",
-        "en": "Mixing vector spaces makes similarity scores meaningless."
+        "ja": "異なるモデルのベクトルは、同じ埋め込み空間を共有していません。",
+        "en": "Vectors from different models do not share an embedding space."
       },
       "D": {
-        "ja": "古い回答を優先すると、まさに鮮度の問題を悪化させる。",
-        "en": "Preferring old answers worsens staleness."
+        "ja": "古いキャッシュ回答は、古い内容を直すどころか固定化します。",
+        "en": "Cached old answers entrench stale content rather than fixing it."
       }
     },
     "difficulty": 3
@@ -1692,23 +1692,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "新規に専用の MCP サーバーを構築し、全 CLI 操作をラップする",
-        "en": "Build a new dedicated MCP server wrapping every CLI operation"
+        "ja": "チームが必要とするすべての CLI 操作を包む、専用の MCP サーバーを新たに作る、チーム全員の便宜のために。",
+        "en": "Build a new dedicated MCP server that wraps every CLI operation that the team needs, for the convenience of the whole team."
       },
       {
         "id": "B",
-        "ja": "既存の CLI をシェル経由で使わせ、許可する操作を権限設定で制限する",
-        "en": "Let Claude use the existing CLIs through the shell, restricting allowed operations via permission settings"
+        "ja": "既存の CLI を、シェルを通じて Claude に使わせ、許可する操作は権限設定で制限する。",
+        "en": "Let Claude use the existing CLIs through the shell, restricting allowed operations via permission settings."
       },
       {
         "id": "C",
-        "ja": "agent-to-agent プロトコルで外部のエージェントに委譲する",
-        "en": "Delegate to an external agent via an agent-to-agent protocol"
+        "ja": "リポジトリの作業を、エージェント間プロトコルで外部のエージェントに任せる。",
+        "en": "Delegate the repository work to an external agent through an agent-to-agent protocol."
       },
       {
         "id": "D",
-        "ja": "CLI の使い方をすべてシステムプロンプトに書き込み、実行は人間が行う",
-        "en": "Write all CLI usage into the system prompt and have humans run the commands"
+        "ja": "CLI の使い方をすべてシステムプロンプトに書き、コマンドは人が自分で実行する。",
+        "en": "Write all of the CLI usage into the system prompt and have humans run the commands themselves."
       }
     ],
     "answer": [
@@ -1720,16 +1720,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "利点が小さく、保守対象が増えるだけである。",
-        "en": "Little benefit and more to maintain."
+        "ja": "新しい MCP サーバーは、ローカルで利用者が開発者だけの環境では、インフラが増えるだけで利点がありません。",
+        "en": "A new MCP server adds infrastructure for no gain in a local single-user setup."
       },
       "C": {
-        "ja": "委譲先の自律エージェントを必要とする問題ではない。",
-        "en": "No autonomous peer agent is needed here."
+        "ja": "エージェント間の委任は組織をまたぐ協働のためのもので、ローカルの CLI 利用向けではありません。",
+        "en": "Agent-to-agent delegation is for cross-organization collaboration, not local CLI use."
       },
       "D": {
-        "ja": "自動化の価値を失い、人手がボトルネックになる。",
-        "en": "Loses automation value and creates a human bottleneck."
+        "ja": "人がコマンドを実行するのでは、自動化の意味がなくなります。",
+        "en": "Having humans run the commands removes the automation."
       }
     },
     "difficulty": 2
@@ -1747,23 +1747,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "要約の長さと文章の流暢さのみ",
-        "en": "Summary length and fluency only"
+        "ja": "医師が最もよく使うのは読みやすい要約なので、要約の長さと流暢さ。",
+        "en": "Summary length and fluency, since a readable summary is what physicians will use most."
       },
       {
         "id": "B",
-        "ja": "1 リクエストあたりのトークン数のみ",
-        "en": "Tokens per request only"
+        "ja": "病院での運用の効率が分かるので、リクエストあたりのトークン数。",
+        "en": "Tokens per request, since that shows how efficiently the system runs in the hospital."
       },
       {
         "id": "C",
-        "ja": "ユーザーの「いいね」数のみ",
-        "en": "Number of user thumbs-up only"
+        "ja": "医師が読んだ要約に付ける「いいね」の数。",
+        "en": "The number of thumbs-up that physicians give to the summaries they read."
       },
       {
         "id": "D",
-        "ja": "事実への忠実性（捏造・欠落の率）、重要情報（投薬・アレルギー等）の網羅率、安全性に関わる誤りの重大度、加えてレイテンシとコスト",
-        "en": "Factual faithfulness (hallucination/omission rates), coverage of critical items such as medications and allergies, severity of safety-relevant errors, plus latency and cost"
+        "ja": "事実への忠実さ(幻覚と欠落の率)、薬剤やアレルギーなど重要項目の網羅、安全に関わる誤りの重大度、それに遅延とコスト。",
+        "en": "Factual faithfulness (hallucination and omission rates), coverage of critical items such as medications and allergies, the severity of safety-relevant errors, plus latency and cost."
       }
     ],
     "answer": [
@@ -1775,16 +1775,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "流暢でも誤った要約は危険で、品質の指標にならない。",
-        "en": "Fluent but wrong summaries are dangerous; these do not measure quality."
+        "ja": "流暢な文章でも、誤りがあったり重要な事実が欠けたりします。",
+        "en": "Fluent text can still be wrong or omit critical facts."
       },
       "B": {
-        "ja": "効率の指標でしかなく、正しさを測らない。",
-        "en": "An efficiency measure that says nothing about correctness."
+        "ja": "トークン数は、臨床上の正しさについて何も語りません。",
+        "en": "Token counts say nothing about clinical correctness."
       },
       "C": {
-        "ja": "人気は正確性と相関せず、誤りを見逃しやすい。",
-        "en": "Popularity does not track accuracy and misses errors."
+        "ja": "「いいね」は、医師が気づかなかった重大な誤りを隠すことがあります。",
+        "en": "Likes can mask serious errors that a physician did not notice."
       }
     },
     "difficulty": 2
@@ -1802,23 +1802,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "本番ログから層化抽出した実例（言語・案件種別・長さ別）と、専門家作成のゴールデンケース、敵対的・エッジケースを含め、定期的に更新する",
-        "en": "Stratified samples from production logs (by language, case type, length), expert-written golden cases, and adversarial/edge cases, refreshed regularly"
+        "ja": "本番ログから言語・事案の種類・長さで層化した標本、専門家が作った正解事例、敵対的なケースやエッジケースを組み合わせ、定期的に更新する。",
+        "en": "Stratified samples from production logs (by language, case type and length), expert-written golden cases, and adversarial or edge cases, refreshed regularly."
       },
       {
         "id": "B",
-        "ja": "開発者が思いついた 10 件の典型例",
-        "en": "Ten typical examples dreamed up by the developer"
+        "ja": "準備が早く確認しやすい、開発者が考えた典型的な10件の例、開発者が考えたものは定義上その製品に関連していると考える。",
+        "en": "Ten typical examples that the developer thought up, which are quick to prepare and easy to review, on the grounds that anything the developer thought up is by definition relevant to the product."
       },
       {
         "id": "C",
-        "ja": "プロンプト調整に使った事例だけを再利用して評価する",
-        "en": "Evaluate only on the same cases used to tune the prompt"
+        "ja": "開発者が最もよく知っているので、プロンプトの調整に使ったケースだけ。",
+        "en": "Only the cases that were used to tune the prompt, since the developer knows them best."
       },
       {
         "id": "D",
-        "ja": "モデルに生成させた合成データのみを、人手確認なしで使う",
-        "en": "Use only model-generated synthetic data with no human review"
+        "ja": "データセットをすばやく増やすため、人のレビューなしの、モデルが生成した合成データだけ。",
+        "en": "Model-generated synthetic data only, with no human review, to scale the dataset up quickly."
       }
     ],
     "answer": [
@@ -1830,16 +1830,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "少数の典型例では分布と境界事例を網羅できない。",
-        "en": "A handful of typical examples cannot cover the distribution or edge cases."
+        "ja": "開発者が選んだごく小さな集合は、代表性がなく偏っています。",
+        "en": "A tiny, developer-chosen set is unrepresentative and biased."
       },
       "C": {
-        "ja": "調整データでの評価は性能を過大評価する（データ漏えい）。",
-        "en": "Evaluating on tuning data overstates performance (leakage)."
+        "ja": "調整に使ったデータで評価すると、品質が過大に見えます(過学習)。",
+        "en": "Evaluating on tuning data overstates quality (overfitting)."
       },
       "D": {
-        "ja": "生成モデルの偏りが評価に循環し、真の誤りを見逃す。",
-        "en": "Generator bias circulates into the evaluation and hides true errors."
+        "ja": "レビューのない合成データは、モデル自身の盲点を共有することがあります。",
+        "en": "Unreviewed synthetic data can share the model's own blind spots."
       }
     },
     "difficulty": 3
@@ -1857,23 +1857,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "80% は十分に高いので、そのまま新案を採用する",
-        "en": "80% is high enough; adopt the new variant as is"
+        "ja": "勝率80%は説得力として十分に高いので、新しい案をそのまま採用する、これほど高い勝率が偏りだけで説明できるとは考えにくい。",
+        "en": "Adopt the new variant as it is, since an 80% win rate is high enough to be convincing, since a win rate that high is unlikely to be explained by bias alone."
       },
       {
         "id": "B",
-        "ja": "ジャッジの偏りは無視できる。LLM は人間より常に公平である",
-        "en": "Ignore judge bias; LLMs are always fairer than humans"
+        "ja": "LLM の審査は人間より常に公平だと考え、審査側の偏りは無視する。",
+        "en": "Ignore the judge's biases, on the view that LLM judges are always fairer than human reviewers."
       },
       {
         "id": "C",
-        "ja": "提示順を入れ替えて両方向で評価し、長さの影響を制御し、人間ラベルのサブセットと一致度を確認（キャリブレーション）してから判断する",
-        "en": "Evaluate both presentation orders, control for length, and calibrate agreement against a human-labeled subset before deciding"
+        "ja": "両方の提示順で評価し、長さを揃えて、人手でラベル付けした部分集合との一致度を較正してから判断する。",
+        "en": "Evaluate both presentation orders, control for length, and calibrate agreement against a human-labeled subset before deciding."
       },
       {
         "id": "D",
-        "ja": "ジャッジを同じモデルの別プロンプトに変えて勝率を平均する",
-        "en": "Swap in the same model with another prompt and average the win rates"
+        "ja": "同じモデルで別のプロンプトの審査役に替え、2つの勝率を平均する。",
+        "en": "Swap in the same model with another prompt as the judge and average the two win rates."
       }
     ],
     "answer": [
@@ -1885,16 +1885,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "偏りで水増しされた勝率に基づく意思決定は危うい。",
-        "en": "Decisions based on bias-inflated win rates are risky."
+        "ja": "位置や長さの偏りで膨らんだ勝率は、誤解を招きます。",
+        "en": "A win rate inflated by position and length bias can be misleading."
       },
       "B": {
-        "ja": "LLM の公平性は保証されず、既知の偏りが文書化されている。",
-        "en": "LLM fairness is not guaranteed; biases are well documented."
+        "ja": "LLM の審査には、位置・冗長さ・自己選好の偏りがあることが知られています。",
+        "en": "LLM judges have documented position, verbosity and self-preference biases."
       },
       "D": {
-        "ja": "同じモデルの偏りが残り、検証にならない。",
-        "en": "The same model's biases remain; this is not validation."
+        "ja": "同じモデルでプロンプトを変えても、同じ偏りが残ります。",
+        "en": "The same model with another prompt keeps the same biases."
       }
     },
     "difficulty": 3
@@ -1912,23 +1912,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "月曜日は旧案、火曜日は新案とし、日ごとの結果を比較する",
-        "en": "Run the old prompt on Mondays and the new on Tuesdays and compare daily results"
+        "ja": "旧プロンプトを月曜、新プロンプトを火曜に動かし、日ごとの結果を比べる、ある日の流入は翌日と十分に似ていて、比較は公平だと考える。",
+        "en": "Run the old prompt on Mondays and the new prompt on Tuesdays, and compare the daily results, on the assumption that one day of traffic is similar enough to the next to make the comparison fair."
       },
       {
         "id": "B",
-        "ja": "ユーザー単位でランダムに割り当て、主指標（解決率）と、ガードレール指標（エスカレーション率、安全違反、コスト、レイテンシ）を事前に定義し、十分なサンプルで評価する",
-        "en": "Randomize at user level, pre-define a primary metric (resolution rate) and guardrail metrics (escalation, safety violations, cost, latency), and run to adequate sample size"
+        "ja": "利用者単位でランダムに割り当て、主指標(解決率)とガードレール指標を事前に定め、十分な標本数まで実行する。",
+        "en": "Randomize at the user level, define a primary metric (resolution rate) and guardrail metrics beforehand, and run to an adequate sample size."
       },
       {
         "id": "C",
-        "ja": "結果を毎時確認し、新案が上回った時点で即座に打ち切る",
-        "en": "Check hourly and stop as soon as the new variant is ahead"
+        "ja": "結果を1時間ごとに確認し、新しい案がリードした時点でテストを止める。",
+        "en": "Check the results hourly and stop the test as soon as the new variant is ahead."
       },
       {
         "id": "D",
-        "ja": "新案に社内の最も優秀な担当者のみを割り当てる",
-        "en": "Assign only the most skilled agents to the new variant"
+        "ja": "新しい案に最も有利な条件を与えるため、最も熟練した担当者だけを割り当てる。",
+        "en": "Assign only the most skilled support agents to the new variant, to give it the best chance."
       }
     ],
     "answer": [
@@ -1940,16 +1940,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "曜日効果が交絡し、因果を主張できない。",
+        "ja": "曜日の影響が、比較の結果に混ざります。",
         "en": "Day-of-week effects confound the comparison."
       },
       "C": {
-        "ja": "途中での打ち切りは偽陽性を招く（peeking 問題）。",
-        "en": "Early stopping on peeks inflates false positives."
+        "ja": "途中で確認して早期に止めると、誤検出が増えます。",
+        "en": "Peeking and early stopping inflate false positives."
       },
       "D": {
-        "ja": "選択バイアスで公平な比較にならない。",
-        "en": "Selection bias invalidates the comparison."
+        "ja": "熟練の担当者に偏らせると、比較が新しい案に有利に傾きます。",
+        "en": "Skilled agents bias the comparison in favor of the new variant."
       }
     },
     "difficulty": 3
@@ -1967,23 +1967,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "埋め込みモデルを直ちに別のものへ置き換える",
-        "en": "Immediately replace the embedding model"
+        "ja": "検索の質を上げるため、すぐに埋め込みモデルを新しいものに替える。",
+        "en": "Immediately replace the embedding model with a newer one, to improve the retrieval quality."
       },
       {
         "id": "B",
-        "ja": "チャンクサイズを倍にして再インデックスする",
-        "en": "Double the chunk size and re-index"
+        "ja": "より多くの文脈がモデルに届くよう、チャンクのサイズを2倍にして全体を再インデックスする。",
+        "en": "Double the chunk size and re-index everything, so that more context reaches the model."
       },
       {
         "id": "C",
-        "ja": "生成段階を切り出して調べる。プロンプトが「提供された文書のみに基づき、根拠がなければ答えない」を求めているか、引用要件・検証の有無、コンテキストの順序や量を確認し、忠実性の評価を回す",
-        "en": "Isolate the generation stage: check whether the prompt demands answering only from provided documents (and abstaining otherwise), citation requirements, verification, context ordering and size, then run a faithfulness eval"
+        "ja": "生成の段階を切り分け、根拠づけと回答控えの指示、引用の要件、検証、文脈の順序と大きさを確認し、忠実性の評価を行う。",
+        "en": "Isolate the generation stage: check the grounding and abstention instructions, citation requirements, verification, and context ordering and size, then run a faithfulness eval."
       },
       {
         "id": "D",
-        "ja": "ユーザーが質問を言い換えるよう周知する",
-        "en": "Tell users to rephrase their questions"
+        "ja": "システムが適切な文書を見つけられるよう、利用者に質問の言い換えを頼む。",
+        "en": "Tell users to rephrase their questions so that the system can find the right documents."
       }
     ],
     "answer": [
@@ -1995,16 +1995,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "検索は正しく機能しており、根拠のない変更である。",
-        "en": "Retrieval works; the change is unjustified."
+        "ja": "検索はすでに正しいチャンクを出しており、埋め込みモデルの交換は的外れな段階を対象にしています。",
+        "en": "Retrieval already surfaces the correct chunk, so replacing the embedder targets the wrong stage."
       },
       "B": {
-        "ja": "検索の問題でないため、仮説が誤っている。",
-        "en": "The problem is not retrieval, so the hypothesis is wrong."
+        "ja": "チャンクの再設計は検索側の変更で、根拠のない生成には対処しません。",
+        "en": "Re-chunking is a retrieval change and does not address ungrounded generation."
       },
       "D": {
-        "ja": "利用者に負担を移すだけで、原因を特定しない。",
-        "en": "Shifts burden to users without finding the cause."
+        "ja": "原因は利用者の言い回しではなく、正しいチャンクはすでに検索されています。",
+        "en": "The fault is not in the users' phrasing; the correct chunk is already retrieved."
       }
     },
     "difficulty": 3
@@ -2022,23 +2022,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "非同期の batch 処理を使い、共通の指示部分は caching し、出力は必要最小限の構造化形式に絞る",
-        "en": "Use asynchronous batch processing, cache the shared instruction prefix, and constrain outputs to a minimal structured format"
+        "ja": "非同期のバッチ処理を使い、共通の指示の先頭部分をキャッシュし、出力を最小限の構造化形式に絞る。",
+        "en": "Use asynchronous batch processing, cache the shared instruction prefix, and constrain the outputs to a minimal structured format."
       },
       {
         "id": "B",
-        "ja": "同期 API で並列度を上げて深夜に集中実行する",
-        "en": "Increase parallelism on the synchronous API and burst at night"
+        "ja": "同期 API の並列度を上げ、夜間に全体を一気に処理する、クラスターが負荷を吸収でき、朝までに処理が終わると考える。",
+        "en": "Increase the parallelism on the synchronous API and burst the whole workload through at night, since the cluster can absorb the load and the work would then finish before morning."
       },
       {
         "id": "C",
-        "ja": "出力に詳細な説明文を必ず付けさせる",
-        "en": "Require a detailed explanation on every output"
+        "ja": "後で結果を監査できるよう、すべての出力に詳しい説明を付けさせる。",
+        "en": "Require a detailed explanation with every output, so that the results can be audited later."
       },
       {
         "id": "D",
-        "ja": "品質確認なしで最小モデルへ切り替える",
-        "en": "Switch to the smallest model without quality checks"
+        "ja": "単価を極力下げるため、品質の確認なしに最小のモデルへ切り替える。",
+        "en": "Switch to the smallest model without any quality check, to cut the unit cost as far as possible."
       }
     ],
     "answer": [
@@ -2050,16 +2050,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "遅延要件のない処理に同期を使う利点がなく、コスト削減にならない。",
-        "en": "No benefit of synchronous calls without a latency need; no cost reduction."
+        "ja": "同期での一斉処理はバッチの割引を失い、レート制限にも触れやすくなります。",
+        "en": "Synchronous bursts give up the batch discount and risk rate limits."
       },
       "C": {
-        "ja": "不要な出力トークンはコストと時間を増やす。",
-        "en": "Extra output tokens increase cost and time."
+        "ja": "長い説明は出力トークンとコストを増やします。",
+        "en": "Long explanations add output tokens and cost."
       },
       "D": {
-        "ja": "評価なしの縮小は品質低下のリスクがある。",
-        "en": "Unevaluated downsizing risks quality loss."
+        "ja": "評価なしの小型化は、許容できない精度低下を招くおそれがあります。",
+        "en": "Downsizing without evaluation risks unacceptable accuracy."
       }
     },
     "difficulty": 2
@@ -2077,23 +2077,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "平均精度だけを引き続き監視する",
-        "en": "Keep monitoring only average accuracy"
+        "ja": "品質を示す標準的な指標なので、引き続き平均の精度だけを監視する。",
+        "en": "Keep monitoring only the average accuracy, since it is the standard headline measure of quality."
       },
       {
         "id": "B",
-        "ja": "精度の監視をやめ、レイテンシだけを監視する",
-        "en": "Stop monitoring accuracy and watch only latency"
+        "ja": "精度は実際にはゆっくりとしか変わらないので、精度の監視はやめて遅延だけを見る。",
+        "en": "Stop monitoring accuracy and watch only the latency, since accuracy changes slowly in practice."
       },
       {
         "id": "C",
-        "ja": "週に 1 度、全ログを手作業で読む",
-        "en": "Manually read all logs weekly"
+        "ja": "毎週すべてのログを手作業で読み、気になる点を書き留める、注意深く読めば、失敗のパターンは早い時点で見つかると考える。",
+        "en": "Read all of the logs manually every week and note down anything that looks unusual, on the view that a careful reader will spot any pattern of failures in good time."
       },
       {
         "id": "D",
-        "ja": "カテゴリ・言語・顧客区分などのスライス別にオンライン評価（サンプリング＋ジャッジ／人手確認）を行い、分布の変化に対するドリフト検知とアラートを設定する",
-        "en": "Evaluate by slice (category, language, customer segment) with sampled online evaluation (judge/human review), and add drift detection and alerts for distribution shifts"
+        "ja": "カテゴリ・言語・顧客セグメントごとの区分で、サンプリングしたオンライン評価を行い、分布の変化に対するドリフトの検出とアラートを加える。",
+        "en": "Evaluate by slice (category, language, customer segment) with sampled online evaluation, and add drift detection and alerts for distribution shifts."
       }
     ],
     "answer": [
@@ -2105,16 +2105,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "まさに今回見逃した種類の劣化を再び見逃す。",
-        "en": "Would miss exactly the kind of regression that just happened."
+        "ja": "平均は、今回のような局所的な低下を隠します。",
+        "en": "Averages hide localized regressions like this one."
       },
       "B": {
-        "ja": "品質の劣化を検知できなくなる。",
-        "en": "Quality regressions become invisible."
+        "ja": "遅延を見ても、精度の低下は分かりません。",
+        "en": "Latency does not reveal a drop in accuracy."
       },
       "C": {
-        "ja": "規模に対応できず、体系的でなく、検知が遅れる。",
-        "en": "Does not scale, is unsystematic and detects late."
+        "ja": "週次の手作業での読み込みは規模に耐えられず、ドリフトを早期に捉えるには遅すぎます。",
+        "en": "Manual weekly reading does not scale and is too slow to catch drift early."
       }
     },
     "difficulty": 3
@@ -2132,23 +2132,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "バージョンを固定した評価スイートを新旧モデルで実行し、全体とスライス別の差分、コスト、レイテンシを比較して、段階的（カナリア）にロールアウトする",
-        "en": "Run a version-pinned evaluation suite on old and new models, compare overall and per-slice differences, cost and latency, and roll out gradually (canary)"
+        "ja": "バージョンを固定した評価スイートを新旧のモデルで実行し、全体と区分ごとの差、コスト、遅延を比較して、段階的に展開(カナリア)する。",
+        "en": "Run a version-pinned evaluation suite on the old and new models, compare overall and per-slice differences, cost and latency, and roll out gradually (canary)."
       },
       {
         "id": "B",
-        "ja": "新モデルは常に優れているので、全トラフィックを即座に切り替える",
-        "en": "Newer is always better, so switch all traffic immediately"
+        "ja": "新しいモデルは常に旧モデル以上のはずなので、すべてのトラフィックをすぐに切り替える。",
+        "en": "Switch all of the traffic immediately, since a newer model is always at least as good as the old one."
       },
       {
         "id": "C",
-        "ja": "ベンチマークの公開スコアだけで移行可否を判断する",
-        "en": "Decide solely from public benchmark scores"
+        "ja": "提供元が公表する新モデルの公開ベンチマークのスコアだけで判断する、ベンチマークのスコアは、自社に似たタスクでの性能をすでに要約していると考える。",
+        "en": "Decide solely from the public benchmark scores that the provider publishes for the new model, since the benchmark scores already summarize how the model performs on tasks like ours."
       },
       {
         "id": "D",
-        "ja": "プロンプトを変更せず、数件を目視して問題なければ移行する",
-        "en": "Spot-check a few outputs and migrate with no prompt changes"
+        "ja": "出力を数件だけ手で確認し、プロンプトは何も変えずに移行する。",
+        "en": "Spot-check a few outputs by hand and migrate without making any change to the prompts."
       }
     ],
     "answer": [
@@ -2160,16 +2160,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "特定のタスクでの退行を見逃し、障害の影響が全体に及ぶ。",
-        "en": "Misses task-specific regressions and exposes all traffic."
+        "ja": "新しいモデルは自社のタスクでの挙動が変わることがあり、性能低下もありえます。",
+        "en": "Newer models can change behavior on your tasks; regressions are possible."
       },
       "C": {
-        "ja": "公開ベンチマークは自社タスクを代表しない。",
-        "en": "Public benchmarks do not represent your tasks."
+        "ja": "公開ベンチマークは、自社のデータやプロンプトを反映しません。",
+        "en": "Public benchmarks do not reflect your data or prompts."
       },
       "D": {
-        "ja": "少数の目視は統計的に不十分で、スライス単位の退行を見逃す。",
-        "en": "A few spot checks are statistically inadequate and miss slice-level regressions."
+        "ja": "数件の確認では、広範な低下や特定の区分での低下を検出できません。",
+        "en": "A few spot checks cannot detect broad or slice-specific regressions."
       }
     },
     "difficulty": 3
@@ -2187,28 +2187,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "十分に明確な指示と例を与えても、同じ種類の多段推論で一貫して誤る",
-        "en": "Even with clear instructions and examples, it consistently fails on the same kind of multi-step reasoning"
+        "ja": "明確な指示と例を与えても、同じ種類の多段階の推論で一貫して失敗する。",
+        "en": "Even with clear instructions and examples, it consistently fails on the same kind of multi-step reasoning."
       },
       {
         "id": "B",
-        "ja": "失敗は出力形式の揺れに限られ、スキーマ指定を追加すると消える",
-        "en": "Failures are limited to format drift and disappear when a schema is specified"
+        "ja": "失敗は書式のずれに限られ、スキーマを指定すると解消する。",
+        "en": "The failures are limited to format drift, and they disappear when a schema is specified."
       },
       {
         "id": "C",
-        "ja": "失敗はツール説明が曖昧な箇所に集中しており、説明を修正すると解消する",
-        "en": "Failures cluster at ambiguous tool descriptions and vanish when they are rewritten"
+        "ja": "失敗はあいまいなツールの説明に集中し、書き直すと解消する。",
+        "en": "The failures cluster around ambiguous tool descriptions, and they vanish when those are rewritten."
       },
       {
         "id": "D",
-        "ja": "同じ評価セットでより高性能なモデルに替えるだけで、プロンプトを変えずに失敗率が大きく下がる",
-        "en": "Simply switching to a more capable model on the same eval set, with no prompt change, markedly lowers the failure rate"
+        "ja": "同じ評価セットで、プロンプトを変えずにより高性能なモデルへ替えるだけで、失敗率が大きく下がる。",
+        "en": "Simply switching to a more capable model on the same eval set, with no prompt change, markedly lowers the failure rate."
       },
       {
         "id": "E",
-        "ja": "失敗は特定の曖昧な要件に集中し、要件を明確化したら解消する",
-        "en": "Failures cluster on a specific ambiguous requirement and vanish once it is clarified"
+        "ja": "失敗は特定のあいまいな要件に集中し、それを明確にすると解消する。",
+        "en": "The failures cluster on one specific ambiguous requirement, and they vanish once it is clarified."
       }
     ],
     "answer": [
@@ -2221,16 +2221,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "スキーマ指定で解消するならプロンプトの問題である。",
-        "en": "If a schema fixes it, it was a prompt problem."
+        "ja": "スキーマで直る失敗は書式の問題であり、能力の限界ではありません。",
+        "en": "Failures fixed by a schema are a format issue, not a capability limit."
       },
       "C": {
-        "ja": "説明の修正で解消するなら設計の問題である。",
-        "en": "If rewriting descriptions fixes it, it was a design problem."
+        "ja": "ツールの説明を明確にして直る失敗は、設計上の問題です。",
+        "en": "Failures fixed by clearer tool descriptions are a design issue."
       },
       "E": {
-        "ja": "要件の明確化で解消するなら仕様の問題である。",
-        "en": "If clarifying the requirement fixes it, it was a specification problem."
+        "ja": "要件を明確にして直る失敗は、プロンプトの問題です。",
+        "en": "Failures fixed by clarifying a requirement are a prompt issue."
       }
     },
     "difficulty": 3
@@ -2248,28 +2248,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "改善のたびに、評価セットの失敗例を見て、その例をプロンプトに直接書き込む",
-        "en": "After each iteration, copy failing eval examples directly into the prompt"
+        "ja": "各反復の後、失敗した評価の例を、そのままプロンプトの例としてコピーする。",
+        "en": "After each iteration, copy the failing eval examples directly into the prompt as examples."
       },
       {
         "id": "B",
-        "ja": "チューニング用の開発セットと、最終判断用のホールドアウトセットを分離し、ホールドアウトは頻繁に参照しない",
-        "en": "Separate a development set for tuning from a held-out set for final decisions, and consult the held-out set sparingly"
+        "ja": "調整用の開発セットと最終判断用の保留セットを分け、保留セットは必要最小限しか参照しない。",
+        "en": "Separate a development set for tuning from a held-out set for final decisions, and consult the held-out set sparingly."
       },
       {
         "id": "C",
-        "ja": "合格・不合格の基準を結果を見てから決める",
-        "en": "Define pass/fail thresholds after seeing results"
+        "ja": "達成可能な水準を反映できるよう、結果を見てから合格・不合格のしきい値を決める。",
+        "en": "Define the pass and fail thresholds after seeing the results, so that they reflect what is achievable."
       },
       {
         "id": "D",
-        "ja": "評価は 1 回の実行のみで判断し、再実行はしない",
-        "en": "Judge from a single run and never re-run"
+        "ja": "時間とコストを節約するため、各変更は1回の実行だけで判断し、再実行はしない。",
+        "en": "Judge each change from a single run and never re-run it, to save time and cost."
       },
       {
         "id": "E",
-        "ja": "プロンプトやデータ、モデルのバージョンを評価結果と紐づけて記録し、実行間の変動も把握しておく",
-        "en": "Record prompt, data and model versions with each result and understand run-to-run variance"
+        "ja": "結果ごとに、プロンプト・データ・モデルの版を記録し、実行ごとのばらつきを把握する。",
+        "en": "Record the prompt, data and model versions with each result, and understand the run-to-run variance."
       }
     ],
     "answer": [
@@ -2282,16 +2282,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "評価セットへの過学習で、汎化性能を示さなくなる。",
-        "en": "Overfits to the eval set so it no longer indicates generalization."
+        "ja": "評価の事例をプロンプトに貼ると、テストの内容が漏れてスコアが水増しされます。",
+        "en": "Pasting eval cases into the prompt leaks the test and inflates scores."
       },
       "C": {
-        "ja": "結果に合わせた基準は恣意的で、意思決定の根拠にならない。",
-        "en": "Result-driven thresholds are arbitrary and undermine the decision."
+        "ja": "後から決めるしきい値は結果に合わせて調整でき、テストの意味をなくします。",
+        "en": "Post-hoc thresholds can be tuned to the result and invalidate the test."
       },
       "D": {
-        "ja": "確率的な出力では 1 回の結果は偶然に左右される。",
-        "en": "With stochastic outputs a single run can be luck."
+        "ja": "1回の実行では、本当の改善とノイズを区別できません。",
+        "en": "A single run cannot separate a real improvement from noise."
       }
     },
     "difficulty": 3
@@ -2309,23 +2309,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "システムプロンプトの禁止事項のみ",
-        "en": "System-prompt prohibitions only"
+        "ja": "アシスタントの挙動すべてをカバーできるので、システムプロンプトに書いた禁止事項だけに頼る、プロンプト内の明確で完全な規則は、技術的な追加対策の十分な代わりになると考える。",
+        "en": "Rely on prohibitions written in the system prompt alone, since they cover all of the assistant's behavior, on the view that clear and complete rules in the prompt are a sufficient substitute for any additional technical control."
       },
       {
         "id": "B",
-        "ja": "入力（injection／PII 検出）、出力（ポリシー・事実性の検証、機微情報の遮断）、ツール権限の制限、ログと監視を組み合わせた多層防御",
-        "en": "Defense in depth combining input checks (injection/PII), output validation (policy, grounding, sensitive-data blocking), restricted tool permissions, and logging/monitoring"
+        "ja": "入力の確認(インジェクションと PII)、出力の検証(方針・根拠・機微データの遮断)、ツール権限の制限、ログと監視を組み合わせた多層防御。",
+        "en": "Defense in depth combining input checks (injection and PII), output validation (policy, grounding, sensitive-data blocking), restricted tool permissions, and logging and monitoring."
       },
       {
         "id": "C",
-        "ja": "ユーザーが利用規約に同意すれば追加の対策は不要とする",
-        "en": "No additional controls are needed once users accept the terms of service"
+        "ja": "利用者がアシスタントの利用規約に同意した後は、追加の対策は設けない。",
+        "en": "Add no further controls once the users have accepted the terms of service for the assistant."
       },
       {
         "id": "D",
-        "ja": "出力フィルターのみを設け、入力とツール権限は制限しない",
-        "en": "An output filter only, with no input checks or tool restrictions"
+        "ja": "入力の確認もツールの制限もなく、出力フィルターだけを設ける。",
+        "en": "An output filter alone, with no input checks and no restrictions on the tools the assistant can use."
       }
     ],
     "answer": [
@@ -2337,16 +2337,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "プロンプトは確率的で、単独では不十分。",
-        "en": "Prompts are probabilistic and insufficient alone."
+        "ja": "プロンプトの規則は確率的で、回避されえます。",
+        "en": "Prompt rules are probabilistic and can be bypassed."
       },
       "C": {
-        "ja": "規約は法的な免責に過ぎず、技術的リスクを減らさない。",
-        "en": "Terms provide legal cover, not technical risk reduction."
+        "ja": "規約への同意で、有害な挙動や悪用は止まりません。",
+        "en": "Accepting terms does not stop harmful behavior or misuse."
       },
       "D": {
-        "ja": "入力側とツール側の経路が無防備のままになる。",
-        "en": "Leaves input and tool paths unprotected."
+        "ja": "1つの層だけでは、インジェクションやツールの悪用に対処できません。",
+        "en": "A single layer leaves injection and tool misuse unaddressed."
       }
     },
     "difficulty": 2
@@ -2364,23 +2364,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "システムプロンプトに「悪意のある指示は無視せよ」と書く",
-        "en": "Add \"ignore malicious instructions\" to the system prompt"
+        "ja": "隠されたテキストを無視するよう、システムプロンプトに「悪意ある指示は無視する」と加える。",
+        "en": "Add \"ignore malicious instructions\" to the system prompt so that the agent disregards hidden text."
       },
       {
         "id": "B",
-        "ja": "検索結果の長さを短くする",
-        "en": "Shorten the retrieved results"
+        "ja": "隠しテキストが入る余地を減らすため、取得した結果を短くする。",
+        "en": "Shorten the retrieved results so that there is less room for hidden text to appear."
       },
       {
         "id": "C",
-        "ja": "wiki の編集者を信頼できる人だけに限定したので、追加対策は不要とする",
-        "en": "Declare no further action needed because only trusted staff edit the wiki"
+        "ja": "wiki を編集できるのは信頼できる職員だけなので、対応は不要と判断する。",
+        "en": "Declare that no action is needed, because only trusted staff are able to edit the wiki."
       },
       {
         "id": "D",
-        "ja": "取得コンテンツを信頼できない入力として扱い、メール送信などの副作用ツールは最小権限・宛先制限とし、外部影響のある操作は人間の承認を必須にする",
-        "en": "Treat retrieved content as untrusted input, give side-effecting tools least privilege and recipient restrictions, and require human approval for externally impactful actions"
+        "ja": "取得した内容を信頼できない入力として扱い、副作用のあるツールには最小権限と宛先の制限を与え、外部に影響する操作には人の承認を必須にする。",
+        "en": "Treat retrieved content as untrusted input, give the side-effecting tools least privilege and recipient restrictions, and require human approval for externally impactful actions."
       }
     ],
     "answer": [
@@ -2392,16 +2392,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "プロンプトの指示は注入を確実には防げない。",
-        "en": "A prompt instruction cannot reliably stop injection."
+        "ja": "プロンプトの一行だけでは、間接的なインジェクションを確実には止められません。",
+        "en": "A prompt line alone cannot reliably stop indirect injection."
       },
       "B": {
-        "ja": "短縮しても悪意ある文は含まれ得る。",
-        "en": "Shorter results can still contain the malicious text."
+        "ja": "結果を短くしても、隠された指示のリスクはなくなりません。",
+        "en": "Shorter results do not remove the hidden instruction risk."
       },
       "C": {
-        "ja": "編集権限の侵害や内部の悪意を想定しておらず、多層防御の考えに反する。",
-        "en": "Ignores compromised accounts and insider threats; contradicts defense in depth."
+        "ja": "信頼できる職員でも、侵害されたり信頼できない内容を貼り付けたりすることがあります。",
+        "en": "Trusted staff can still be compromised or paste untrusted content."
       }
     },
     "difficulty": 3
@@ -2419,23 +2419,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "すべての案件を例外なく人間が最初から手作業で審査する",
-        "en": "Humans review every case manually from scratch with no exceptions"
+        "ja": "できるだけ安全にするため、例外なくすべての案件を人が最初から手作業で審査する。",
+        "en": "Have humans review every case manually from scratch, with no exceptions, to be as safe as possible."
       },
       {
         "id": "B",
-        "ja": "AI の推奨を人間の確認なしに自動で確定する",
-        "en": "Automatically finalize AI recommendations without human review"
+        "ja": "効率を最大にするため、AI の推奨を人の確認なしに自動で確定する。",
+        "en": "Finalize the AI's recommendations automatically without human review, to maximize efficiency."
       },
       {
         "id": "C",
-        "ja": "リスクや信頼度に応じて階層化し、低リスクは自動処理、高リスク・低信頼・否決案件は根拠付きで人間がレビューする。レビュー結果は評価にフィードバックし、レビューアの形骸化を監視する",
-        "en": "Tier by risk and confidence: auto-process low-risk cases, route high-risk, low-confidence and denial cases to human review with supporting evidence, feed outcomes back into evaluation, and monitor for rubber-stamping"
+        "ja": "リスクと確信度で層に分け、低リスクは自動処理し、高リスク・低確信・否認の案件は根拠を添えて人の審査に回し、結果を評価に戻し、形だけの承認になっていないかを監視する。",
+        "en": "Tier by risk and confidence: auto-process low-risk cases, route high-risk, low-confidence and denial cases to human review with supporting evidence, feed outcomes back into evaluation, and monitor for rubber-stamping."
       },
       {
         "id": "D",
-        "ja": "人間のレビューは法務部門が必要と言った場合のみ追加する",
-        "en": "Add human review only if legal explicitly requests it"
+        "ja": "法務部門が製品について明示的に求めた場合にだけ、人の審査を加える。",
+        "en": "Add human review only if the legal department explicitly requests it for the product."
       }
     ],
     "answer": [
@@ -2447,16 +2447,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "自動化の価値が失われ、規模に耐えない。",
-        "en": "Loses automation value and does not scale."
+        "ja": "すべてを最初から審査すると、効率化の利点が失われます。",
+        "en": "Reviewing everything from scratch removes the efficiency benefit."
       },
       "B": {
-        "ja": "影響が大きい判断に監督がなく、規制・信用リスクが高い。",
-        "en": "No oversight on high-impact decisions; high regulatory and trust risk."
+        "ja": "影響の大きい判断には、人による監督と異議申し立ての余地が必要です。",
+        "en": "High-consequence decisions need human oversight and contestability."
       },
       "D": {
-        "ja": "リスク評価を法務の要望待ちにするのは受動的で、設計責任の放棄である。",
-        "en": "Waiting for legal to ask abdicates design responsibility for risk."
+        "ja": "求められるのを待つ設計では、リスクが管理されないままになります。",
+        "en": "Waiting for a request leaves risk unmanaged by design."
       }
     },
     "difficulty": 2
@@ -2474,23 +2474,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "ソース文書に加えて、そこから派生したチャンク、埋め込み、キャッシュ、ログ、バックアップの保持期間ポリシーまで、データ系譜（lineage）に基づいて削除・無効化する",
-        "en": "Delete or invalidate the source plus all derived chunks, embeddings, caches, logs, and handle backups per retention policy, driven by data lineage"
+        "ja": "原本と、派生したチャンク・埋め込み・キャッシュ・ログをすべて削除または無効化し、バックアップは保持方針に従って扱う。これをデータの系譜にもとづいて行う。",
+        "en": "Delete or invalidate the source and all of the derived chunks, embeddings, caches and logs, and handle the backups per the retention policy, driven by data lineage."
       },
       {
         "id": "B",
-        "ja": "元のデータベースの行だけを削除し、ベクトルストアはそのままにする",
-        "en": "Delete only the source database row and leave the vector store untouched"
+        "ja": "ベクトルストアには数値しかないので、元のデータベースの行だけを削除し、ベクトルストアには手を付けない、顧客の名前がテーブルから消えれば、要請への対応は完了したと考える。",
+        "en": "Delete only the source database row and leave the vector store untouched, since it holds only numbers, and consider the request fully handled once the table no longer contains the customer's name."
       },
       {
         "id": "C",
-        "ja": "埋め込みは数値の羅列で個人データではないので対象外と判断する",
-        "en": "Treat embeddings as numbers, not personal data, and exclude them"
+        "ja": "埋め込みは個人データではなく単なる数値と扱い、削除の対象から外す。",
+        "en": "Treat the embeddings as numbers rather than personal data and exclude them from the erasure."
       },
       {
         "id": "D",
-        "ja": "請求を断り、モデルの学習に使われた可能性があるから削除不可と回答する",
-        "en": "Reject the request because data might have been used for model training"
+        "ja": "顧客のデータがモデルの学習に使われた可能性があるので、要請を拒否する。",
+        "en": "Reject the request, because the customer's data might have been used for model training."
       }
     ],
     "answer": [
@@ -2502,16 +2502,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "派生データから個人データが検索され得る状態で残る。",
-        "en": "Personal data remains retrievable via derived data."
+        "ja": "派生データにも、個人データが含まれていたり、そこから推測できたりします。",
+        "en": "Derived data may still contain or reveal personal data."
       },
       "C": {
-        "ja": "埋め込みから元の内容が復元・推定され得るため、安易に対象外とできない。",
-        "en": "Embeddings can leak or approximate source content, so exclusion cannot be assumed."
+        "ja": "埋め込みは個人情報を符号化しうるもので、その情報から派生しています。",
+        "en": "Embeddings can encode personal information and are derived from it."
       },
       "D": {
-        "ja": "この RAG は推論時の検索であり、前提が事実とも異なり、請求への正当な拒否理由にならない。",
-        "en": "RAG retrieves at inference time; the premise is unfounded and not a valid refusal basis."
+        "ja": "学習に使われた可能性は、削除の要請を無視する正当な理由になりません。",
+        "en": "A possible training use is not a valid reason to ignore the erasure request."
       }
     },
     "difficulty": 3
@@ -2529,23 +2529,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "一般向けの無料チャットサービスで試してから、ルールを考える",
-        "en": "Try on a free consumer chat service first and figure out the rules later"
+        "ja": "まず無料の一般向けチャットサービスで下書きを試し、HIPAA の規則は後から整理する。",
+        "en": "Try the drafting on a free consumer chat service first and figure out the HIPAA rules afterwards."
       },
       {
         "id": "B",
-        "ja": "PHI を扱うサービス提供者との業務提携契約（BAA）などの契約・適格な構成を確認し、最小限必要な情報のみ送り、ログや保存の PHI を暗号化・アクセス制御・保持期間管理する",
-        "en": "Confirm a business associate agreement (BAA) and eligible configuration with the provider, send only the minimum necessary PHI, and encrypt, access-control and retention-manage any stored PHI and logs"
+        "ja": "提供元と事業提携契約(BAA)および対象となる構成を確認し、必要最小限の PHI だけを送り、保存する PHI とログは暗号化・アクセス制御・保持期間の管理を行う。",
+        "en": "Confirm a business associate agreement (BAA) and an eligible configuration with the provider, send only the minimum necessary PHI, and encrypt, access-control and retention-manage any stored PHI and logs."
       },
       {
         "id": "C",
-        "ja": "PHI は匿名化せずにプロンプトの例として共有してよい",
-        "en": "PHI may be shared in prompts as examples without de-identification"
+        "ja": "返信の質を上げるのが目的なので、PHI を匿名化せずに例としてプロンプトに入れる。",
+        "en": "Share PHI in the prompts as examples without de-identification, since the aim is to improve the replies."
       },
       {
         "id": "D",
-        "ja": "モデルが賢いので、HIPAA の要求は自動的に満たされる",
-        "en": "The model is smart enough that HIPAA requirements are automatically met"
+        "ja": "モデルが十分賢いので、HIPAA の要件は自動的に満たされると考える。",
+        "en": "Assume that the model is smart enough that HIPAA requirements are met automatically."
       }
     ],
     "answer": [
@@ -2557,16 +2557,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "PHI が契約・保護措置のない環境へ渡る恐れがある。",
-        "en": "PHI may reach environments lacking agreements and safeguards."
+        "ja": "BAA のない一般向けサービスは、PHI を扱う場所として適切ではありません。",
+        "en": "A consumer service without a BAA is not an appropriate place for PHI."
       },
       "C": {
-        "ja": "不要な PHI の共有は最小限必要の原則に反する。",
-        "en": "Unnecessary PHI sharing violates minimum necessary."
+        "ja": "プロンプト内の個人を特定できる PHI は、最小限にして保護する必要があります。",
+        "en": "Identifiable PHI in prompts must be minimized and protected."
       },
       "D": {
-        "ja": "モデルの能力は法的・管理的要求を満たさない。",
-        "en": "Model capability does not satisfy legal or administrative requirements."
+        "ja": "コンプライアンスは契約と保護措置から得られるもので、モデルの能力によるものではありません。",
+        "en": "Compliance comes from contracts and safeguards, not model capability."
       }
     },
     "difficulty": 3
@@ -2584,23 +2584,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "機能が最も豊富な環境を選び、認可の確認は稼働後に行う",
-        "en": "Pick the most feature-rich environment and check authorization after go-live"
+        "ja": "機能が最も豊富な環境をまず選び、FedRAMP の認可は稼働後に確認する。",
+        "en": "Pick the most feature-rich environment first and check the FedRAMP authorization after go-live."
       },
       {
         "id": "B",
-        "ja": "モデル提供者が高性能なら、認可の有無は関係ない",
-        "en": "If the provider is high-performing, authorization status is irrelevant"
+        "ja": "提供元の性能が高いと知られているなら、認可の状況は関係ないものとして扱う。",
+        "en": "Treat authorization status as irrelevant when the provider is known to be high-performing."
       },
       {
         "id": "C",
-        "ja": "要求される認可レベルとデータ分類を先に確定し、その認可範囲にあるサービス提供経路（リージョン、提供形態、サブプロセッサ）を選んで、データ境界と責任分界を文書化する",
-        "en": "Establish the required authorization level and data classification first, choose a service path within that authorization boundary (region, offering, subprocessors), and document data boundaries and shared responsibilities"
+        "ja": "必要な認可水準とデータ分類を最初に定め、その認可の境界内にあるサービス経路を選び、データの境界と責任共有を文書化する。",
+        "en": "Establish the required authorization level and data classification first, choose a service path inside that authorization boundary, and document the data boundaries and shared responsibilities."
       },
       {
         "id": "D",
-        "ja": "認可のないエンドポイントに、データを匿名化した上で送ればよい",
-        "en": "Send de-identified data to unauthorized endpoints"
+        "ja": "データはもう個人を特定しないので、匿名化したデータを認可されていないエンドポイントに送る。",
+        "en": "Send de-identified data to endpoints that are not authorized, since the data no longer identifies anyone."
       }
     ],
     "answer": [
@@ -2612,16 +2612,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "規制要件に反した構築で、後から取り返しがつかない可能性がある。",
-        "en": "Building first risks non-compliance that may be irreversible."
+        "ja": "確認が遅いと、高コストな手戻りや要件を満たさないシステムになるおそれがあります。",
+        "en": "Late checking risks costly rework or a non-compliant system."
       },
       "B": {
-        "ja": "性能は認可要件を代替しない。",
+        "ja": "性能は、認可の代わりになりません。",
         "en": "Performance does not substitute for authorization."
       },
       "D": {
-        "ja": "匿名化は認可環境の要件を満たすことの代替にならず、分類によっては不可能である。",
-        "en": "De-identification does not replace the requirement to use authorized environments."
+        "ja": "匿名化しても、認可されていない経路が許容されるわけではありません。",
+        "en": "De-identification does not make an unauthorized path acceptable."
       }
     },
     "difficulty": 3
@@ -2639,23 +2639,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "属性（性別・年齢等）を入力から除くだけでなく、グループ別の選考通過率や誤り率の差異を継続的に測定し、プロキシ変数を点検して、人間による最終判断と異議申立ての経路を確保する",
-        "en": "Beyond removing protected attributes from input, continuously measure outcome and error-rate disparities across groups, audit for proxy variables, and keep a human final decision and an appeal path"
+        "ja": "入力から保護属性を除くだけでなく、グループ間の結果と誤り率の差を継続的に測り、代理変数を監査し、最終判断は人が行い、異議申し立ての手段を残す。",
+        "en": "Beyond removing protected attributes from the input, continuously measure outcome and error-rate disparities across groups, audit for proxy variables, and keep a human final decision and an appeal path."
       },
       {
         "id": "B",
-        "ja": "保護属性を入力から削除すれば、バイアスは存在しなくなる",
-        "en": "Removing protected attributes eliminates bias"
+        "ja": "入力から保護属性を除けば、採点から偏りはなくなる。",
+        "en": "Remove the protected attributes from the input, which is enough to eliminate bias from the scoring."
       },
       {
         "id": "C",
-        "ja": "過去の採用実績をそのまま正解ラベルとして学習・評価する",
-        "en": "Use historical hiring outcomes as ground truth for training and evaluation without scrutiny"
+        "ja": "過去の採用結果を、精査せずに学習と評価の正解データとして使う。",
+        "en": "Use the historical hiring outcomes as the ground truth for training and evaluation without scrutiny."
       },
       {
         "id": "D",
-        "ja": "全体の平均精度が高ければ、公平性の評価は不要とする",
-        "en": "High overall accuracy makes fairness evaluation unnecessary"
+        "ja": "全体の精度が高ければ、別に公平性を評価する必要はないと考える。",
+        "en": "Treat high overall accuracy as making a separate fairness evaluation unnecessary."
       }
     ],
     "answer": [
@@ -2667,16 +2667,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "プロキシ変数による間接的な差別を見逃す。",
-        "en": "Overlooks indirect discrimination via proxies."
+        "ja": "学校や居住地などの代理変数が、同じ偏りを再現することがあります。",
+        "en": "Proxies such as school or location can reproduce the same bias."
       },
       "C": {
-        "ja": "過去の偏りを再生産・固定化する。",
-        "en": "Reproduces and entrenches historical bias."
+        "ja": "過去の採用結果には、過去の偏りが含まれています。",
+        "en": "Historical outcomes embed past bias."
       },
       "D": {
-        "ja": "平均精度は部分集団間の格差を隠す。",
-        "en": "Average accuracy hides subgroup disparities."
+        "ja": "全体の精度が高くても、特定のグループが不利に扱われていることがあります。",
+        "en": "Accuracy can be high overall while certain groups are disadvantaged."
       }
     },
     "difficulty": 3
@@ -2694,28 +2694,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "「判例は正確に引用すること」とだけシステムプロンプトに加える",
-        "en": "Merely add \"cite cases accurately\" to the system prompt"
+        "ja": "「判例を正確に引用すること」をシステムプロンプトに加え、問題は対処済みとする。",
+        "en": "Add \"cite cases accurately\" to the system prompt and treat the problem as addressed."
       },
       {
         "id": "B",
-        "ja": "引用を信頼できる判例データベースに照合して存在を検証し、未検証の引用は表示しないかフラグする",
-        "en": "Verify each citation against an authoritative case database and suppress or flag unverified ones"
+        "ja": "各引用を信頼できる判例データベースと照合し、確認できないものは表示を抑えるかフラグを付ける。",
+        "en": "Verify each citation against an authoritative case database, and suppress or flag the unverified ones."
       },
       {
         "id": "C",
-        "ja": "モデルの自信度の文言を「確信している」とユーザーに表示する",
-        "en": "Display model statements of confidence such as \"I am certain\" to users"
+        "ja": "「確かです」のようなモデルの確信の表明を、各引用とともに利用者に表示する。",
+        "en": "Display the model's statements of confidence, such as \"I am certain\", to users alongside each citation."
       },
       {
         "id": "D",
-        "ja": "検索で取得した原文のみに基づき回答させ、原文引用と出典リンクを必須にし、弁護士によるレビューを前提とした運用にする",
-        "en": "Ground answers only in retrieved source text, require quoted passages and source links, and operate on the premise that a lawyer reviews the output"
+        "ja": "回答は取得した原典のテキストだけにもとづかせ、引用箇所と出典リンクを必須にし、弁護士が出力を確認することを前提に運用する。",
+        "en": "Ground the answers only in retrieved source text, require quoted passages and source links, and operate on the premise that a lawyer reviews the output."
       },
       {
         "id": "E",
-        "ja": "ユーザーに免責事項を一度だけ同意させ、以降は検証しない",
-        "en": "Have users accept a disclaimer once and perform no verification thereafter"
+        "ja": "利用者に免責事項へ一度同意してもらい、その後は引用の確認は行わない。",
+        "en": "Have users accept a disclaimer once and perform no verification of citations after that."
       }
     ],
     "answer": [
@@ -2728,16 +2728,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "指示だけでは捏造を防げない。",
-        "en": "An instruction alone cannot prevent fabrication."
+        "ja": "プロンプトでの依頼では、でっち上げの引用を防げません。",
+        "en": "A prompt request does not prevent fabricated citations."
       },
       "C": {
-        "ja": "モデルの自己申告の確信は正確さの指標として信頼できない。",
-        "en": "Model-stated confidence is not a reliable accuracy indicator."
+        "ja": "自己申告の確信度は、信頼できる指標ではありません。",
+        "en": "Self-reported confidence is not a reliable signal."
       },
       "E": {
-        "ja": "一度の同意は誤引用を減らさない。",
-        "en": "A one-off consent reduces no fabricated citations."
+        "ja": "免責事項は、何も検出せず、何も防ぎません。",
+        "en": "A disclaimer detects and prevents nothing."
       }
     },
     "difficulty": 3
@@ -2755,28 +2755,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "利用者が AI と対話していることを明示し、必要に応じて人間の担当者へ切り替える手段を提供する",
-        "en": "Disclose to users that they are interacting with an AI and provide a way to reach a human when appropriate"
+        "ja": "利用者に AI と対話していることを明示し、適切な場合には人につながる手段を用意する。",
+        "en": "Disclose to users that they are interacting with an AI, and provide a way to reach a human when appropriate."
       },
       {
         "id": "B",
-        "ja": "モデルの出力をそのまま人間の回答であるかのように見せる",
-        "en": "Present model output as if written by a human agent"
+        "ja": "体験を途切れさせないよう、モデルの出力を人間の担当者が書いたかのように見せる。",
+        "en": "Present the model's output as if it had been written by a human agent, to keep the experience seamless."
       },
       {
         "id": "C",
-        "ja": "回答の根拠となった出典・制約・不確実性を示し、重要な判断については理由を説明できるようにする",
-        "en": "Show sources, limitations and uncertainty behind answers and be able to explain the reasons for significant decisions"
+        "ja": "回答の根拠となる出典、限界、不確実さを示し、重要な判断の理由を説明できるようにする。",
+        "en": "Show the sources, the limitations and the uncertainty behind the answers, and be able to explain the reasons for significant decisions."
       },
       {
         "id": "D",
-        "ja": "内部の評価結果や既知の制約は、問題が起きるまで社内でも共有しない",
-        "en": "Keep evaluation results and known limitations confidential, even internally, until problems arise"
+        "ja": "問題が起きるまでは、評価結果と既知の限界を社内でも非公開にしておく。",
+        "en": "Keep the evaluation results and the known limitations confidential, even internally, until problems arise."
       },
       {
         "id": "E",
-        "ja": "モデルや重要なプロンプトの変更履歴、監査ログを保持し、事後に説明責任を果たせるようにする",
-        "en": "Retain change history for models and key prompts plus audit logs so accountability can be shown after the fact"
+        "ja": "モデルと主要なプロンプトの変更履歴を監査ログとともに保管し、後から説明責任を示せるようにする。",
+        "en": "Retain the change history of models and key prompts together with audit logs, so that accountability can be shown afterwards."
       }
     ],
     "answer": [
@@ -2790,12 +2790,12 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "利用者を欺く行為で、倫理的にも規制上も問題がある。",
-        "en": "Deceives users; ethically and regulatorily problematic."
+        "ja": "人間のふりをするのは欺瞞的で、信頼を損ないます。",
+        "en": "Posing as a human is deceptive and undermines trust."
       },
       "D": {
-        "ja": "制約の秘匿は適切なリスク管理と説明責任を妨げる。",
-        "en": "Hiding limitations impedes risk management and accountability."
+        "ja": "限界を隠すと、十分な情報にもとづく監督の根拠がなくなります。",
+        "en": "Hiding limitations removes the basis for informed oversight."
       }
     },
     "difficulty": 3
@@ -2813,23 +2813,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "対象業務、現状のコストドライバー、成功指標、制約（データ・規制・システム）、意思決定者と利害関係者を構造的に聞き出し、優先順位付けと次のステップに合意する",
-        "en": "Structurally elicit target processes, current cost drivers, success metrics, constraints (data, regulation, systems), decision-makers and stakeholders, then agree on prioritization and next steps"
+        "ja": "対象のプロセス、現在のコスト要因、成功の指標、制約、意思決定者と利害関係者を構造的に聞き出し、優先順位と次の手順を合意する。",
+        "en": "Structurally elicit the target processes, current cost drivers, success metrics, constraints, decision-makers and stakeholders, then agree on prioritization and next steps."
       },
       {
         "id": "B",
-        "ja": "すぐに最新モデルのデモを見せて関心を引く",
-        "en": "Show a demo of the newest model right away to build excitement"
+        "ja": "経営層の期待を高めるため、最新モデルのデモをすぐに見せる。",
+        "en": "Show a demo of the newest model right away to build excitement among the executives."
       },
       {
         "id": "C",
-        "ja": "要望が曖昧なため、チームで推測して全社向けのプラットフォームを設計する",
-        "en": "Guess at the needs and design a company-wide platform internally"
+        "ja": "次の打ち合わせまでに、ニーズを推測して全社向けのプラットフォームを社内で設計する、社内で設計するプラットフォームなら、顧客自身の意見を待つ遅れを避けられると考える。",
+        "en": "Guess at the needs and design a company-wide platform internally before the next meeting, on the grounds that an internally designed platform will avoid the delay of waiting for the client's own input."
       },
       {
         "id": "D",
-        "ja": "技術的に面白いユースケースを提案し、顧客が選ぶのを待つ",
-        "en": "Propose technically interesting use cases and wait for the client to pick"
+        "ja": "技術的に面白い用途をいくつか提案し、顧客が気に入ったものを選ぶのを待つ。",
+        "en": "Propose technically interesting use cases and wait for the client to pick the ones they like."
       }
     ],
     "answer": [
@@ -2841,16 +2841,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "課題が未定義のままのデモは期待値を乱し、方向性を誤らせる。",
-        "en": "A demo before the problem is defined distorts expectations and direction."
+        "ja": "課題も指標も定めないデモでは、ソリューションの範囲は定まりません。",
+        "en": "A demo without defined problems or metrics does not scope a solution."
       },
       "C": {
-        "ja": "顧客の関与なしの推測は的外れとなるリスクが高い。",
-        "en": "Guessing without the client risks missing the target."
+        "ja": "推測で設計すると、的外れな課題を解くおそれがあります。",
+        "en": "Designing from guesses risks solving the wrong problem."
       },
       "D": {
-        "ja": "技術起点の提案は業務価値と結びつかない。",
-        "en": "Technology-led proposals are not tied to business value."
+        "ja": "技術起点の提案は、実際の事業上のニーズの把握を飛ばします。",
+        "en": "Technology-led proposals skip the discovery of real business needs."
       }
     },
     "difficulty": 2
@@ -2868,23 +2868,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "技術的な内部構造と全モデルの比較表を詳細に説明する",
-        "en": "Walk through the internal architecture and a full model comparison table"
+        "ja": "内部のアーキテクチャと、モデルの詳細な比較表を順に説明する。",
+        "en": "Walk through the internal architecture and a full model comparison table in detail."
       },
       {
         "id": "B",
-        "ja": "自分の推奨案だけを提示し、代替案は示さない",
-        "en": "Present only your recommended option and hide alternatives"
+        "ja": "推奨する案だけを示し、代替案は議論に出さない。",
+        "en": "Present only the recommended option and keep the alternatives out of the discussion."
       },
       {
         "id": "C",
-        "ja": "ビジネス成果（収益・コスト・SLA・リスク）の言葉で両案の影響を定量化して並べ、推奨案とその前提、意思決定に必要な情報、未解決のリスクを明確にする",
-        "en": "Quantify both options in business terms (revenue, cost, SLA, risk), side by side, with a clear recommendation, its assumptions, the decision needed, and open risks"
+        "ja": "両案を事業の言葉(収益・コスト・SLA・リスク)で数値化して並べ、明確な推奨、その前提、必要な意思決定、残るリスクを示す。",
+        "en": "Quantify both options in business terms (revenue, cost, SLA, risk), side by side, with a clear recommendation, its assumptions, the decision needed, and the open risks."
       },
       {
         "id": "D",
-        "ja": "精度が最も高いことを最大の強調点として X を勧める",
-        "en": "Emphasize that X has the highest accuracy and recommend it"
+        "ja": "X の精度が最も高いことを強調し、その点だけを根拠に推奨する。",
+        "en": "Emphasize that X has the highest accuracy and recommend it on that basis alone."
       }
     ],
     "answer": [
@@ -2896,16 +2896,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "意思決定に必要な情報が埋もれる。",
-        "en": "Buries the information needed for the decision."
+        "ja": "技術的な詳細は、委員会が下すべき判断を埋もれさせます。",
+        "en": "Technical depth buries the decision the committee needs to make."
       },
       "B": {
-        "ja": "トレードオフが隠され、信頼と意思決定の質を損なう。",
-        "en": "Hides trade-offs and harms trust and decision quality."
+        "ja": "代替案を隠すと、情報にもとづいた判断ができません。",
+        "en": "Hiding alternatives prevents an informed decision."
       },
       "D": {
-        "ja": "精度だけを強調するのは、コスト・遅延・リスクを無視している。",
-        "en": "Over-emphasizing accuracy ignores cost, latency and risk."
+        "ja": "精度だけを見ると、コスト・遅延・リスクが無視されます。",
+        "en": "Accuracy alone ignores cost, latency and risk."
       }
     },
     "difficulty": 3
@@ -2923,23 +2923,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "営業上の理由からそのまま受け入れる",
-        "en": "Accept it as is for commercial reasons"
+        "ja": "契約を取るという商業上の理由から、要求されたままの SLA を受け入れる。",
+        "en": "Accept the SLA as it is written, for the commercial reasons of winning the contract."
       },
       {
         "id": "B",
-        "ja": "可用性・レイテンシ（p50/p95 等）・品質（評価セットでの目標水準、エスカレーション率）を測定可能な SLO として定義し、根拠となる評価結果、例外時の人手への切り替え、改善プロセスを合意する",
-        "en": "Define measurable SLOs for availability, latency (p50/p95) and quality (targets on an eval set, escalation rate), backed by evaluation results, with human fallback and an agreed improvement process"
+        "ja": "可用性・遅延(p50/p95)・品質(評価セットでの目標、エスカレーション率)の測定可能な SLO を、評価結果の裏づけ、人への切り替え、合意した改善の手順とともに定める。",
+        "en": "Define measurable SLOs for availability, latency (p50/p95) and quality (targets on an eval set, escalation rate), backed by evaluation results, with human fallback and an agreed improvement process."
       },
       {
         "id": "C",
-        "ja": "LLM は確率的なので SLA は一切約束できないと断る",
-        "en": "Refuse any SLA because LLMs are probabilistic"
+        "ja": "LLM は確率的で保証できないので、いかなる SLA にも合意しない。",
+        "en": "Refuse to agree to any SLA at all, because LLMs are probabilistic and cannot be guaranteed."
       },
       {
         "id": "D",
-        "ja": "SLA は法務部に任せ、技術側は関与しない",
-        "en": "Leave the SLA to legal and stay uninvolved technically"
+        "ja": "SLA は法務に任せきりにして、技術面では関与しない。",
+        "en": "Leave the SLA entirely to the legal team and stay uninvolved on the technical side."
       }
     ],
     "answer": [
@@ -2951,16 +2951,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "達成不能な約束は信頼とコストを損なう。",
-        "en": "Unachievable promises damage trust and cost."
+        "ja": "100%の正答を約束しても守れず、責任問題を生みます。",
+        "en": "A promise of 100% correctness cannot be met and creates liability."
       },
       "C": {
-        "ja": "顧客のニーズに応えず、測定と管理で実現可能な範囲を示していない。",
-        "en": "Ignores the client's need and does not show what measurement and management can deliver."
+        "ja": "一律に断ると、顧客が頼れる測定可能なものが何も残りません。",
+        "en": "A blanket refusal gives the client nothing measurable to rely on."
       },
       "D": {
-        "ja": "技術的実現性の根拠なしに約束が行われるリスクがある。",
-        "en": "Risks commitments made without technical feasibility evidence."
+        "ja": "実現できる SLA には、設計者が技術的な裏づけを示す必要があります。",
+        "en": "The architect must supply the technical evidence for any workable SLA."
       }
     },
     "difficulty": 3
@@ -2978,23 +2978,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "不満が出たら都度、個別にプロンプトを修正して口頭で伝える",
-        "en": "Fix prompts ad hoc as complaints arrive and tell people verbally"
+        "ja": "苦情が来るたびにその場でプロンプトを直し、変更は口頭で伝える、素早く略式に応じれば、苦情に対応していることが利用者に伝わると考える。",
+        "en": "Fix the prompts ad hoc as the complaints arrive and tell people about the changes verbally, on the view that quick, informal responses show users that their complaints are being acted on."
       },
       {
         "id": "B",
-        "ja": "不満の声を受け付けず、パイロット終了後にまとめて対応する",
-        "en": "Decline feedback and handle everything after the pilot ends"
+        "ja": "パイロット中はフィードバックを受け付けず、すべてパイロットの終了後に対応する。",
+        "en": "Decline to take feedback during the pilot and handle everything after the pilot ends."
       },
       {
         "id": "C",
-        "ja": "利用者を増やして、不満を分散させる",
-        "en": "Add more users to dilute the complaints"
+        "ja": "好意的な体験で苦情が薄まるよう、パイロットの利用者を増やす。",
+        "en": "Add more users to the pilot so that the complaints are diluted by positive experiences."
       },
       {
         "id": "D",
-        "ja": "フィードバックの収集チャネル、定期的な振り返り、既知の制約、改善内容と評価結果（変更履歴）を共有し、フィードバックを評価セットへ反映する",
-        "en": "Provide a feedback channel, regular reviews, known limitations, and shared change notes with evaluation results, with feedback feeding the eval set"
+        "ja": "フィードバックの窓口、定期的なレビュー、既知の限界、評価結果つきの変更履歴の共有を用意し、フィードバックは評価セットに反映する。",
+        "en": "Provide a feedback channel, regular reviews, the known limitations, and shared change notes with evaluation results, with the feedback feeding the eval set."
       }
     ],
     "answer": [
@@ -3006,16 +3006,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "変更が追跡できず、改善の再現・説明ができない。",
-        "en": "Changes are untraceable and improvements cannot be reproduced or explained."
+        "ja": "その場の口頭での変更は記録されず、改善が見えなくなります。",
+        "en": "Ad hoc, verbal changes are untracked and make improvements invisible."
       },
       "B": {
-        "ja": "初期の学習機会を失い、信頼が損なわれる。",
-        "en": "Loses early learning and erodes trust."
+        "ja": "パイロット中にフィードバックを断ると、その主な目的が無駄になります。",
+        "en": "Refusing feedback during a pilot wastes its main purpose."
       },
       "C": {
-        "ja": "問題の解決にならず、影響を拡大する。",
-        "en": "Does not solve the problem and widens its impact."
+        "ja": "薄めても問題は解決せず、隠れるだけです。",
+        "en": "Dilution hides problems instead of resolving them."
       }
     },
     "difficulty": 2
@@ -3033,23 +3033,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "コードのコメントのみ",
-        "en": "Code comments only"
+        "ja": "コード自体がシステムを最も正確に表しているので、コメントだけにする。",
+        "en": "Code comments only, since the code itself is the most accurate description of the system."
       },
       {
         "id": "B",
-        "ja": "最終的な構成図のみで、理由や制約は記載しない",
-        "en": "Final diagrams only, without rationale or constraints"
+        "ja": "最終的な図だけにし、決定の理由や制約は含めない。",
+        "en": "The final diagrams only, without the rationale or the constraints behind the decisions."
       },
       {
         "id": "C",
-        "ja": "システム構成図とデータフロー、主要な設計判断の記録（ADR：選択肢・理由・トレードオフ）、プロンプトとモデルのバージョン管理方針、評価・運用の Runbook、既知の制約",
-        "en": "System and data-flow diagrams, architecture decision records (options, rationale, trade-offs), prompt/model versioning policy, evaluation and operations runbooks, and known limitations"
+        "ja": "システム図とデータフロー図、アーキテクチャの意思決定記録(選択肢・理由・トレードオフ)、プロンプトとモデルの版管理の方針、評価と運用のランブック、既知の限界。",
+        "en": "System and data-flow diagrams, architecture decision records (options, rationale, trade-offs), a prompt and model versioning policy, evaluation and operations runbooks, and the known limitations."
       },
       {
         "id": "D",
-        "ja": "営業向けの製品資料を技術文書として流用する",
-        "en": "Reuse sales collateral as technical documentation"
+        "ja": "すでにソリューションを説明しているので、営業資料を技術文書として使い回す。",
+        "en": "Reuse the sales collateral as the technical documentation, since it already describes the solution."
       }
     ],
     "answer": [
@@ -3061,16 +3061,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "全体像と運用手順が欠ける。",
-        "en": "Lacks overview and operating procedures."
+        "ja": "コメントには、設計の意図、運用、評価の文脈が含まれません。",
+        "en": "Comments omit the design intent, operations and the evaluation context."
       },
       "B": {
-        "ja": "判断の理由が失われ、変更時に誤った再設計を招く。",
-        "en": "Loses rationale, leading to misguided redesign."
+        "ja": "図だけでは、後の開発者に必要な判断の経緯が失われます。",
+        "en": "Diagrams alone lose the decision context that later engineers need."
       },
       "D": {
-        "ja": "技術的な詳細と運用情報が欠落している。",
-        "en": "Missing technical depth and operational info."
+        "ja": "営業資料には、必要な技術面・運用面の詳細がありません。",
+        "en": "Sales material lacks the technical and operational detail required."
       }
     },
     "difficulty": 2
@@ -3088,23 +3088,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "稼働環境・構成、評価スイートと基準値、監視ダッシュボードとアラートしきい値、インシデント対応 Runbook、変更管理手順、責任分担（RACI）、ベンダーのモデル更新・廃止への対応方針",
-        "en": "Environments and configuration, evaluation suite with baselines, monitoring dashboards and alert thresholds, incident runbooks, change-management process, ownership (RACI), and a policy for provider model updates and deprecations"
+        "ja": "環境と構成、基準値つきの評価スイート、監視ダッシュボードとアラートのしきい値、障害対応のランブック、変更管理の手順、担当(RACI)、提供元のモデル更新と廃止への方針。",
+        "en": "Environments and configuration, an evaluation suite with baselines, monitoring dashboards and alert thresholds, incident runbooks, a change-management process, ownership (RACI), and a policy for provider model updates and deprecations."
       },
       {
         "id": "B",
-        "ja": "ソースコードのリポジトリ URL のみ",
-        "en": "Only the repository URL"
+        "ja": "運用チームがコードを読めば残りは分かるので、リポジトリの URL だけを渡す。",
+        "en": "The repository URL only, since the operations team can read the code and work out the rest."
       },
       {
         "id": "C",
-        "ja": "開発者の個人的な知識に依存し、口頭で必要なときに質問してもらう",
-        "en": "Rely on developers' tacit knowledge and let ops ask when needed"
+        "ja": "開発者の暗黙知に頼り、運用チームは必要なときにそのつど開発者に尋ねる。",
+        "en": "Rely on the developers' tacit knowledge, and let operations ask them whenever something is needed."
       },
       {
         "id": "D",
-        "ja": "プロンプトの最新版を 1 ファイルでメール送付する",
-        "en": "Email the latest prompt as a single file"
+        "ja": "プロンプトがソリューションの核心なので、最新のプロンプトを1つのファイルとしてメールで送る。",
+        "en": "Email the latest prompt as a single file, since the prompt is the heart of the solution."
       }
     ],
     "answer": [
@@ -3116,16 +3116,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "構成・評価・運用手順が欠け、運用できない。",
-        "en": "Missing configuration, evaluation and operating procedures."
+        "ja": "URL だけでは、運用・評価・担当に関する情報が得られません。",
+        "en": "A URL alone gives no operational, evaluation or ownership information."
       },
       "C": {
-        "ja": "属人化で、継続性・監査性が損なわれる。",
-        "en": "Creates key-person dependency and poor auditability."
+        "ja": "暗黙知は永続的でなく、規模の拡大にも耐えられません。",
+        "en": "Tacit knowledge is not durable and does not scale."
       },
       "D": {
-        "ja": "評価、監視、変更管理が欠落する。",
-        "en": "Omits evaluation, monitoring and change management."
+        "ja": "プロンプトのファイル1つでは、運用や改良に必要なものがほぼすべて抜けています。",
+        "en": "A single prompt file omits everything needed to run and evolve the system."
       }
     },
     "difficulty": 3
@@ -3143,23 +3143,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "廃止日の直前まで何もせず、直前に新モデルへ置き換える",
-        "en": "Do nothing until just before retirement, then swap in the new model"
+        "ja": "廃止の直前まで何もせず、直前に新しいモデルへ入れ替える、提供元が旧モデルを稼働させ続け、その間は何も壊れないと考える。",
+        "en": "Do nothing until shortly before the retirement date, then swap in the new model, on the assumption that the provider will keep the old model running and nothing will break in the meantime."
       },
       {
         "id": "B",
-        "ja": "廃止通知を無視し、サービスが止まった時点で対応する",
-        "en": "Ignore the notice and react when the service breaks"
+        "ja": "通知は無視し、廃止日にサービスが止まってから対応する。",
+        "en": "Ignore the notice and react only when the service breaks on the retirement date."
       },
       {
         "id": "C",
-        "ja": "新モデルの出力を目視で数件確認するだけで切り替える",
-        "en": "Spot-check a few outputs from the new model and switch"
+        "ja": "新しいモデルの出力を数件確認し、問題なさそうなら切り替える。",
+        "en": "Spot-check a few outputs from the new model and switch over once they look acceptable."
       },
       {
         "id": "D",
-        "ja": "移行計画を立て、評価スイートで新モデルとプロンプトを検証し、カナリアで段階移行し、ステークホルダーへ日程と影響を事前に共有する",
-        "en": "Plan the migration, validate the new model and prompts on the eval suite, canary the rollout, and communicate schedule and impact to stakeholders in advance"
+        "ja": "移行を計画し、新しいモデルとプロンプトを評価スイートで検証し、カナリアで展開し、日程と影響を事前に利害関係者へ伝える。",
+        "en": "Plan the migration, validate the new model and prompts on the eval suite, canary the rollout, and communicate the schedule and impact to stakeholders in advance."
       }
     ],
     "answer": [
@@ -3171,16 +3171,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "時間的余裕を失い、評価と調整の機会が不足する。",
-        "en": "Loses time for evaluation and tuning."
+        "ja": "待つと、性能低下を見つけて直す時間が残りません。",
+        "en": "Waiting leaves no time to find and fix regressions."
       },
       "B": {
-        "ja": "計画外の停止という重大な障害を招く。",
-        "en": "Invites an unplanned outage."
+        "ja": "止まってから対応すると、本番の障害になります。",
+        "en": "Reacting after a breakage means a production outage."
       },
       "C": {
-        "ja": "検証が不十分で、退行を見逃す。",
-        "en": "Insufficient verification; regressions slip through."
+        "ja": "数件の確認では、同等であることを示せません。",
+        "en": "A few spot checks cannot establish equivalence."
       }
     },
     "difficulty": 3
@@ -3198,23 +3198,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "「幻覚は問題ない」と説得して導入を進める",
-        "en": "Persuade them hallucinations are not a problem and proceed"
+        "ja": "幻覚は実際の問題ではないと法務を説得し、展開を進める。",
+        "en": "Persuade Legal that hallucinations are not a real problem, and proceed with the deployment."
       },
       {
         "id": "B",
-        "ja": "ゼロにはできないことを認めた上で、リスクの大きさに応じた制御（grounding と引用、検証、人間のレビュー、利用範囲の限定、監視・インシデント対応）と残余リスクを提示し、許容水準を共同で定義する",
-        "en": "Acknowledge zero is unattainable, then present risk-proportionate controls (grounding and citations, verification, human review, scoped use, monitoring and incident response), the residual risk, and jointly define an acceptable level"
+        "ja": "ゼロにはできないと認めたうえで、リスクに見合った対策(根拠づけと引用、検証、人のレビュー、用途の限定、監視と事故対応)と残るリスクを示し、許容できる水準を共同で定める。",
+        "en": "Acknowledge that zero is unattainable, then present risk-proportionate controls (grounding and citations, verification, human review, scoped use, monitoring and incident response), the residual risk, and jointly define an acceptable level."
       },
       {
         "id": "C",
-        "ja": "導入を断念し、プロジェクトを中止する",
-        "en": "Abandon the project"
+        "ja": "LLM を使うシステムでは法務の要件を満たせないので、プロジェクトを断念する。",
+        "en": "Abandon the project, since the legal requirement cannot be met by any LLM-based system."
       },
       {
         "id": "D",
-        "ja": "リスクについては言及せず、デモだけを見せる",
-        "en": "Avoid discussing risk and show only a demo"
+        "ja": "議論を前向きに保つため、リスクは話さずデモだけを見せる。",
+        "en": "Avoid discussing the risk and show only a demo, so that the discussion stays positive."
       }
     ],
     "answer": [
@@ -3226,16 +3226,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "懸念の否定は信頼を損ない、事故時の責任問題となる。",
-        "en": "Dismissing the concern damages trust and creates liability when incidents occur."
+        "ja": "正当な懸念を退けると信頼を損ない、承認も得られなくなります。",
+        "en": "Dismissing a legitimate concern damages trust and invites a block."
       },
       "C": {
-        "ja": "リスク管理で解決できる可能性を検討せず、価値を逃す。",
-        "en": "Forgoes value without exploring risk-managed options."
+        "ja": "断念は早計で、対策によってリスクは許容できる水準にできます。",
+        "en": "Abandoning is premature; controls can bring risk to an acceptable level."
       },
       "D": {
-        "ja": "透明性を欠き、後で重大な問題となる。",
-        "en": "Lacks transparency and invites serious problems later."
+        "ja": "リスクの話を避けると、反対意見は解消されないままです。",
+        "en": "Avoiding the risk conversation leaves the objection unresolved."
       }
     },
     "difficulty": 3
@@ -3253,28 +3253,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "デモで 3 件うまくいったこと",
-        "en": "It worked on three demo cases"
+        "ja": "チームが事前に用意した3つのデモの事例で動いた。",
+        "en": "The solution worked on three demo cases that the team prepared in advance."
       },
       {
         "id": "B",
-        "ja": "最新のモデルを使っていること",
-        "en": "It uses the newest model"
+        "ja": "提供元が出した最新のモデルを使っている。",
+        "en": "The solution uses the newest model that the provider has released."
       },
       {
         "id": "C",
-        "ja": "代表的なデータでの評価結果が合意した品質・安全の基準を満たし、監視とアラート、インシデント対応体制が整っていること",
-        "en": "Evaluation on representative data meets agreed quality and safety thresholds, and monitoring, alerting and incident response are in place"
+        "ja": "代表的なデータでの評価が合意した品質と安全のしきい値を満たし、監視・アラート・事故対応が整っている。",
+        "en": "Evaluation on representative data meets the agreed quality and safety thresholds, and monitoring, alerting and incident response are in place."
       },
       {
         "id": "D",
-        "ja": "セキュリティ・プライバシー・コンプライアンスのレビューが完了し、権限、データ取り扱い、フォールバック（人手への切替）が定義されていること",
-        "en": "Security, privacy and compliance reviews are complete, with permissions, data handling and fallback (human handover) defined"
+        "ja": "セキュリティ・プライバシー・コンプライアンスの審査が完了し、権限、データの扱い、フォールバック(人への引き継ぎ)が定義されている。",
+        "en": "Security, privacy and compliance reviews are complete, with permissions, data handling and fallback (human handover) defined."
       },
       {
         "id": "E",
-        "ja": "経営層が興味を持っていること",
-        "en": "Executives are enthusiastic"
+        "ja": "デモを見た経営層がこのソリューションに熱意を示している。",
+        "en": "The executives are enthusiastic about the solution after seeing the demonstration."
       }
     ],
     "answer": [
@@ -3287,16 +3287,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "少数のデモは分布や失敗モードを代表しない。",
-        "en": "Three demos do not represent the distribution or failure modes."
+        "ja": "3つのデモでは、本番水準の品質や安全性は示せません。",
+        "en": "Three demos cannot show production-level quality or safety."
       },
       "B": {
-        "ja": "モデルの新しさは準備状況を示さない。",
-        "en": "Recency says nothing about readiness."
+        "ja": "モデルが新しいことは、本番への準備ができていることを意味しません。",
+        "en": "Model recency says nothing about readiness."
       },
       "E": {
-        "ja": "関心は準備状況の基準ではない。",
-        "en": "Interest is not a readiness criterion."
+        "ja": "熱意は、準備が整ったかどうかの基準ではありません。",
+        "en": "Enthusiasm is not a readiness criterion."
       }
     },
     "difficulty": 3
@@ -3314,23 +3314,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "各開発者が個人の設定ファイルを好きに作成する",
-        "en": "Each developer creates personal settings however they like"
+        "ja": "生産性を保てるよう、各開発者が好きなように個人設定を作る。",
+        "en": "Let each developer create personal settings however they like, so that they stay productive."
       },
       {
         "id": "B",
-        "ja": "リポジトリにチェックインした CLAUDE.md（規約・コマンド・構成）と共有のプロジェクト設定（許可・拒否する権限）を配布し、個人の好みは個別設定で上書きする",
-        "en": "Distribute a checked-in CLAUDE.md (conventions, commands, structure) and shared project settings (allow/deny permissions), with personal preferences in individual settings"
+        "ja": "リポジトリにコミットした CLAUDE.md(規約・コマンド・構成)と共有のプロジェクト設定(許可・拒否の権限)を配布し、個人の好みは個別の設定に分ける。",
+        "en": "Distribute a checked-in CLAUDE.md (conventions, commands, structure) and shared project settings (allow and deny permissions), with personal preferences kept in individual settings."
       },
       {
         "id": "C",
-        "ja": "Slack で規約を周知するのみとする",
-        "en": "Announce conventions on Slack only"
+        "ja": "規約は Slack で告知するだけにして、各自が従うことに任せる。",
+        "en": "Announce the conventions on Slack only and rely on people to follow them."
       },
       {
         "id": "D",
-        "ja": "すべての権限確認を無効にして生産性を最大化する",
-        "en": "Disable all permission prompts to maximize productivity"
+        "ja": "チーム全体の生産性を最大にするため、権限の確認をすべて無効にする。",
+        "en": "Disable all of the permission prompts to maximize productivity for the whole team."
       }
     ],
     "answer": [
@@ -3342,16 +3342,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "一貫性がなく、安全性のばらつきが大きい。",
-        "en": "Inconsistent, with widely varying safety."
+        "ja": "個別の設定では、規約が不統一になり、共通の安全方針もありません。",
+        "en": "Individual settings give inconsistent conventions and no shared safety policy."
       },
       "C": {
-        "ja": "エージェントのコンテキストに反映されず、強制力もない。",
-        "en": "Does not reach the agent's context and has no enforcement."
+        "ja": "告知はバージョン管理も強制もされず、忘れられやすいです。",
+        "en": "Announcements are not versioned or enforced and are easily forgotten."
       },
       "D": {
-        "ja": "誤操作や破壊的操作のリスクが高まる。",
-        "en": "Increases risk of destructive operations."
+        "ja": "確認をなくすと、禁止された操作に対する歯止めもなくなります。",
+        "en": "Removing prompts also removes the guardrail on prohibited operations."
       }
     },
     "difficulty": 2
@@ -3369,23 +3369,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "hooks（例：編集後やコミット前のイベントで自動実行されるコマンド）で、フォーマッタ／リンターを必ず実行し、失敗時は処理をブロックする",
-        "en": "Use hooks (commands that run automatically on events such as after edits or before commit) to always run the formatter/linter and block on failure"
+        "ja": "編集後やコミット前などのイベントで自動実行されるフックを使い、フォーマッターとリンターを必ず実行し、失敗したらブロックする。",
+        "en": "Use hooks (commands that run automatically on events such as after edits or before commit) to always run the formatter and linter, and block on failure."
       },
       {
         "id": "B",
-        "ja": "CLAUDE.md の該当箇所を太字にして繰り返す",
-        "en": "Bold and repeat the rule in CLAUDE.md"
+        "ja": "Claude が最優先で扱うよう、CLAUDE.md のルールを太字にして繰り返し書く、文脈内で強調された規則は常に守られるので、十分に信頼できると考える。",
+        "en": "Bold and repeat the rule in CLAUDE.md so that Claude gives it the highest priority, on the view that emphasized rules in the context are always honored and therefore reliable enough."
       },
       {
         "id": "C",
-        "ja": "開発者がレビューで毎回口頭で指摘する",
-        "en": "Reviewers remind developers verbally each time"
+        "ja": "変更を提出するたびに、レビュアーが開発者に口頭で念を押す。",
+        "en": "Have the reviewers remind the developers verbally each time that a change is submitted."
       },
       {
         "id": "D",
-        "ja": "より大きなモデルに切り替える",
-        "en": "Switch to a larger model"
+        "ja": "CLAUDE.md の指示により確実に従ってくれる、より大きなモデルに切り替える。",
+        "en": "Switch to a larger model, which will follow the instruction in CLAUDE.md more reliably."
       }
     ],
     "answer": [
@@ -3397,16 +3397,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "強調しても確率的な遵守で、保証にならない。",
-        "en": "Emphasis stays probabilistic."
+        "ja": "文脈内の強調も、確率的に従われるだけです。",
+        "en": "Emphasis in context is still followed probabilistically."
       },
       "C": {
-        "ja": "人手に依存し、再現性と効率に欠ける。",
-        "en": "Manual, unreliable and inefficient."
+        "ja": "口頭での念押しは人に依存し、確実なものではありません。",
+        "en": "Verbal reminders depend on people and are not deterministic."
       },
       "D": {
-        "ja": "モデルを大きくしても指示遵守の保証にはならない。",
-        "en": "A larger model does not guarantee compliance."
+        "ja": "大きなモデルでも、手順の飛ばしは減るだけでなくなりません。",
+        "en": "A larger model reduces but does not eliminate skipped steps."
       }
     },
     "difficulty": 3
@@ -3424,23 +3424,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "エラーメッセージの一文だけを渡して、修正パッチを直接書かせる",
-        "en": "Give a single error line and ask for a fix patch right away"
+        "ja": "エラーの1行だけを Claude に渡し、すぐ修正パッチを求める。",
+        "en": "Give Claude a single error line and ask it for a fix patch right away."
       },
       {
         "id": "B",
-        "ja": "本番の認証情報を渡し、直接本番環境でコマンドを自由に実行させる",
-        "en": "Hand over production credentials and allow free command execution in production"
+        "ja": "本番の認証情報を渡し、本番で Claude が自由にコマンドを実行できるようにする。",
+        "en": "Hand over the production credentials and allow Claude to run any command freely in production."
       },
       {
         "id": "C",
-        "ja": "「直して」とだけ指示する",
-        "en": "Just say \"fix it\""
+        "ja": "「直して」とだけ伝え、システムの探索と原因の特定は Claude に任せる。",
+        "en": "Just tell Claude to \"fix it\" and let it explore the system and find the cause on its own."
       },
       {
         "id": "D",
-        "ja": "関連ログ、スタックトレース、再現手順、最近の変更などの文脈を渡し、まず調査・仮説・再現テストの作成（読み取り中心）を行わせ、原因を確認してから、権限を絞った環境で修正とテストを実施する",
-        "en": "Provide logs, stack traces, repro steps and recent changes; have it investigate, hypothesize and write a reproducing test (read-mostly) first, then fix and test in a permission-scoped environment after the cause is confirmed"
+        "ja": "ログ、スタックトレース、再現手順、最近の変更を渡し、調査・仮説づくり・再現テストの作成を先に行わせ、原因を確認してから、権限を絞った環境で修正とテストを行う。",
+        "en": "Provide logs, stack traces, repro steps and recent changes; have it investigate, hypothesize and write a reproducing test first, then fix and test in a permission-scoped environment once the cause is confirmed."
       }
     ],
     "answer": [
@@ -3452,16 +3452,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "情報不足で原因を誤診し、症状だけを隠す修正になりやすい。",
-        "en": "Insufficient context leads to misdiagnosis and symptom-hiding patches."
+        "ja": "エラー1行では文脈が少なすぎ、推測にもとづくパッチを招きます。",
+        "en": "One error line is too little context and invites a guessed patch."
       },
       "B": {
-        "ja": "過剰な権限は重大な事故につながる。",
-        "en": "Excess privileges risk serious incidents."
+        "ja": "本番への自由なアクセスは最小権限の原則に反し、被害のおそれがあります。",
+        "en": "Free production access violates least privilege and risks damage."
       },
       "C": {
-        "ja": "文脈がなく、効果的な調査ができない。",
-        "en": "No context for an effective investigation."
+        "ja": "根拠のないあいまいな依頼では、調査が行き当たりばったりになります。",
+        "en": "A vague request without evidence makes the investigation aimless."
       }
     },
     "difficulty": 2
@@ -3479,28 +3479,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "各自のホームディレクトリに手作業で設定をコピーする手順書のみ配布する",
-        "en": "Distribute only a manual procedure to copy settings into each home directory"
+        "ja": "各開発者のホームディレクトリに設定をコピーするための、手作業の手順書だけを配布する。",
+        "en": "Distribute only a manual procedure for copying the settings into each developer's home directory."
       },
       {
         "id": "B",
-        "ja": "すべての開発者に本番データベースへの書き込み認証情報を .mcp.json に記載して配布する",
-        "en": "Distribute production database write credentials in .mcp.json to all developers"
+        "ja": "利便性のため、本番データベースの書き込み用認証情報を .mcp.json に入れて全開発者に配布する。",
+        "en": "Distribute production database write credentials in .mcp.json to all of the developers for convenience."
       },
       {
         "id": "C",
-        "ja": "チームで共有するサブエージェント・スキル・スラッシュコマンド等をリポジトリで管理し、プロジェクトスコープの MCP 設定で社内ツールに接続する（認証情報は環境変数や安全な保管庫で管理）",
-        "en": "Keep team-shared subagents, skills and slash commands in the repository, and connect internal tools through project-scoped MCP configuration with credentials managed via environment variables or a secure vault"
+        "ja": "チームで共有するサブエージェント・スキル・スラッシュコマンドをリポジトリに置き、社内ツールはプロジェクト単位の MCP 設定で接続し、認証情報は環境変数や安全な保管庫で管理する。",
+        "en": "Keep the team-shared subagents, skills and slash commands in the repository, and connect internal tools through project-scoped MCP configuration, with credentials managed via environment variables or a secure vault."
       },
       {
         "id": "D",
-        "ja": "新メンバーには権限確認を無効にする設定を最初に有効にさせる",
-        "en": "Have new members enable the setting that disables permission prompts at the start"
+        "ja": "新メンバーが最初に、権限の確認を無効にする設定を有効にする。",
+        "en": "Have the new members enable the setting that disables permission prompts when they start."
       },
       {
         "id": "E",
-        "ja": "CLAUDE.md にアーキテクチャの概要、主要コマンド、規約、テスト方法を簡潔に記載し、定期的に見直す",
-        "en": "Keep CLAUDE.md concise with architecture overview, key commands, conventions and test methods, and review it regularly"
+        "ja": "CLAUDE.md は、アーキテクチャの概要、主要なコマンド、規約、テスト方法を簡潔にまとめ、定期的に見直す。",
+        "en": "Keep CLAUDE.md concise, with an architecture overview, key commands, conventions and test methods, and review it regularly."
       }
     ],
     "answer": [
@@ -3513,16 +3513,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "手作業は漏れと乖離を生み、再現性が低い。",
-        "en": "Manual copying causes omissions and drift."
+        "ja": "手作業のコピーは誤りやすく、人によってずれていきます。",
+        "en": "A manual copy procedure is error-prone and drifts between people."
       },
       "B": {
-        "ja": "認証情報の配布は最小権限とシークレット管理に反する。",
-        "en": "Distributing credentials violates least privilege and secrets management."
+        "ja": "本番の書き込み用の認証情報を配るのは、最小権限の原則に反し、漏えいのおそれがあります。",
+        "en": "Distributing production write credentials violates least privilege and risks leaks."
       },
       "D": {
-        "ja": "新メンバーに安全対策の無効化を勧めるのは不適切である。",
-        "en": "Encouraging newcomers to disable safeguards is inappropriate."
+        "ja": "権限の確認を無効にすると、重要な安全装置が外れます。",
+        "en": "Disabling permission prompts removes an important safety control."
       }
     },
     "difficulty": 3
