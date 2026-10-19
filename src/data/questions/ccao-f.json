@@ -12,23 +12,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "「このレポートを要約して」と書き、レポートを添付する。",
-        "en": "\"Summarize this report\" with the report attached."
+        "ja": "「このレポートを要約して」と一文だけ書き、四半期の数値資料を添付する、読み手や形式はレポートの内容から Claude が推測してくれると期待する。",
+        "en": "Write a one-line request, \"Summarize this report,\" and attach the quarterly figures, expecting Claude to infer the audience and format from the report itself."
       },
       {
         "id": "B",
-        "ja": "対象読者（経営層）、目的（意思決定の材料）、希望の形式（箇条書き5点以内と主要リスク）を明記し、レポートを添付する。",
-        "en": "State the audience (executives), the purpose (input to a decision), and the desired format (up to five bullets plus key risks), then attach the report."
+        "ja": "経営層が予算判断に使う要約であることを伝え、箇条書き5点と主要リスクを求めてレポートを添付する。",
+        "en": "Say the summary is for executives making a budget decision, ask for five bullets plus key risks, and attach the report."
       },
       {
         "id": "C",
-        "ja": "「とにかく完璧に要約して」と強い言葉で指示する。",
-        "en": "Tell Claude emphatically to \"make it absolutely perfect.\""
+        "ja": "「完璧で抜けがなく網羅的な」要約を求める強い言葉を添えて、レポートを添付する。",
+        "en": "Ask for a summary that is \"perfect, flawless, and fully comprehensive,\" and attach the report."
       },
       {
         "id": "D",
-        "ja": "レポート本文だけを貼り付け、背景は意図的に伝えず先入観を避ける。",
-        "en": "Paste only the report text and deliberately withhold context to avoid bias."
+        "ja": "自分の先入観が入らないよう、背景説明はつけずにレポート本文だけを貼り付ける。",
+        "en": "Attach only the report text with no background, so Claude is not influenced by your assumptions."
       }
     ],
     "answer": [
@@ -67,23 +67,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "同じプロンプトを何度も再送信し、最も良い結果を採用する。",
-        "en": "Resend the same prompt repeatedly and pick the best result."
+        "ja": "同じ長いプロンプトを何度か実行し、いちばん詳しく見える出力を選ぶ。",
+        "en": "Run the same long prompt several more times and pick whichever output looks the most detailed."
       },
       {
         "id": "B",
-        "ja": "プロンプトをさらに長くして、すべての要素を1回で網羅させる。",
-        "en": "Make the prompt even longer so everything is covered in one pass."
+        "ja": "背景や要件をさらに書き足し、1回の依頼ですべてを網羅できるようにする、途中で分割したり確認したりする手間をなくす。",
+        "en": "Expand the prompt with more background and requirements so everything is covered in a single pass, so that nothing has to be split up or reviewed along the way."
       },
       {
         "id": "C",
-        "ja": "市場調査、競合分析、顧客セグメント、施策案、リスクといったステップに分解し、各ステップの結果を次に引き継ぎながら進める。",
-        "en": "Break the work into steps such as market research, competitor analysis, customer segments, tactics, and risks, carrying each result into the next step."
+        "ja": "作業を段階(市場調査、競合分析、顧客セグメント、施策、リスク)に分け、各結果を次の段階に引き継ぐ。",
+        "en": "Split the work into stages (market research, competitors, segments, tactics, risks) and feed each result into the next."
       },
       {
         "id": "D",
-        "ja": "計画の作成は Claude には不向きと判断し、すべて手作業で行う。",
-        "en": "Conclude Claude is unsuited to planning and do everything manually."
+        "ja": "内容が浅いのは Claude が計画づくりに向かない証拠とみなし、計画は手作業で作る。",
+        "en": "Treat the shallow result as proof that Claude cannot plan and write the plan by hand instead."
       }
     ],
     "answer": [
@@ -95,16 +95,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "同じ入力の再送は根本原因（依頼が大きすぎる）を解決しません。",
-        "en": "Resending does not fix the root cause: the request is too large."
+        "ja": "過負荷の同じ依頼を繰り返しても似た浅い結果になります。問題は運ではなく依頼の構造です。",
+        "en": "Repeating the same overloaded request gives similar shallow results; the problem is the structure, not luck."
       },
       "B": {
-        "ja": "詰め込みは焦点をぼかし、各要素がさらに浅くなる可能性があります。",
-        "en": "Cramming dilutes focus and can make each element even shallower."
+        "ja": "1回の依頼を長くすると注意が分散し、各部分の確認も難しくなります。",
+        "en": "A longer single request spreads attention thinner and makes it harder to review any one part."
       },
       "D": {
-        "ja": "分解と反復で十分対応できるため、全面的な放棄は不要です。",
-        "en": "Decomposition and iteration can handle this, so abandoning the tool is unnecessary."
+        "ja": "過負荷のプロンプトの浅い出力1回から能力を判断することはできません。段階分けで改善できる場合が多いです。",
+        "en": "One shallow output from an overloaded prompt says little about capability; staged work usually fixes it."
       }
     },
     "difficulty": 2
@@ -122,23 +122,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "具体的な顧客情報、制約、含めたい事例を追加で伝え、どこを具体化してほしいかをフィードバックして再生成を依頼する。",
-        "en": "Supply specific client details, constraints, and examples to include, give feedback on where it should be more concrete, and ask for a revision."
+        "ja": "顧客の具体的な事情・制約・盛り込みたい事例を追加し、どこが一般的すぎるかを伝えて修正を依頼する。",
+        "en": "Add the client's specifics, constraints, and examples to include, say which parts feel generic, and ask for a revision."
       },
       {
         "id": "B",
-        "ja": "別の AI ツールに乗り換える。",
-        "en": "Switch to a different AI tool."
+        "ja": "別の AI ツールに下書きを貼り、より具体的な文面が出ることを期待する、標準の文面なら最初のツールより一般的でなくなると期待する。",
+        "en": "Paste the draft into a different AI tool in the hope that it produces more concrete wording, expecting its default wording to be less generic than the first tool's."
       },
       {
         "id": "C",
-        "ja": "新しいチャットを開いて一字一句同じ依頼を送る。",
-        "en": "Open a new chat and send the identical request again."
+        "ja": "新しいチャットを開いて同じ依頼をそのまま送り、別の下書きを得る。",
+        "en": "Open a fresh chat and send exactly the same request again to get a different draft."
       },
       {
         "id": "D",
-        "ja": "出力をそのまま使い、後工程で人が直すことにする。",
-        "en": "Use the output as is and let someone fix it later."
+        "ja": "構成の整った下書きはそのまま使い、具体的な内容はレビュー段階で同僚に足してもらう。",
+        "en": "Keep the structured draft as it is and have a colleague add concrete details at the review stage."
       }
     ],
     "answer": [
@@ -150,16 +150,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "ツールの問題ではなく入力情報の不足が原因である可能性が高いです。",
-        "en": "The cause is likely insufficient input, not the tool."
+        "ja": "ツールを替えても足りない顧客情報は補われず、新しい下書きも同じく一般的になります。",
+        "en": "Switching tools does not supply the missing client details, so the new draft would be just as generic."
       },
       "C": {
-        "ja": "同じ入力からは同じ傾向の出力になりやすく、改善は期待できません。",
-        "en": "The same input tends to produce the same kind of output."
+        "ja": "同じ入力では似た下書きになります。変えるべきは不足している文脈です。",
+        "en": "The same input yields a similar draft; the missing context is what needs to change."
       },
       "D": {
-        "ja": "品質の問題を先送りするだけで、効率的ではありません。",
-        "en": "This merely defers the quality problem and is inefficient."
+        "ja": "修正を後回しにすると避けられた手戻りが後工程に回ります。今、的確なフィードバックを返すほうが安上がりです。",
+        "en": "Deferring the fix pushes avoidable rework downstream, when targeted feedback now is cheaper."
       }
     },
     "difficulty": 2
@@ -177,23 +177,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "どちらも同じ短い指示で十分なので、方針は変えない。",
-        "en": "No change; the same short instruction works for both."
+        "ja": "明確な依頼なら目的を問わず同じなので、どちらにも同じ短い指示を使う。",
+        "en": "Use the same short instruction for both tasks, since a clear request works the same way for any purpose."
       },
       {
         "id": "B",
-        "ja": "アイデア出しでは制約を厳しくして1案だけ求め、分析では自由に発想させる。",
-        "en": "For brainstorming, impose tight constraints and ask for one idea; for analysis, let Claude be free-form."
+        "ja": "ブレストでは厳しい制約をつけて案を1つだけ求め、分析は自由形式で任せる、自由度の高い分析には決まった構成は役に立たないと考える。",
+        "en": "For brainstorming, set tight constraints and ask for a single idea; for analysis, leave Claude free-form, because open-ended analysis does not benefit from a defined structure."
       },
       {
         "id": "C",
-        "ja": "アイデア出しでは情報を与えず、分析でも前提を伏せて偏りを避ける。",
-        "en": "Withhold information in both cases to avoid bias."
+        "ja": "どちらも、回答が偏らないようにデータや背景情報は渡さずに依頼する。",
+        "en": "Hold back data and background in both cases so that Claude's answers are not biased by them."
       },
       {
         "id": "D",
-        "ja": "アイデア出しでは多様な案を数多く求めて後で絞り込み、分析ではデータ・分析の観点・根拠の示し方を明確に指定する。",
-        "en": "For brainstorming, ask for many diverse ideas and narrow later; for analysis, specify the data, the analytical angles, and how evidence should be shown."
+        "ja": "ブレストでは多様な案を多く出させてから絞り込み、分析ではデータ・切り口・根拠の示し方を指定する。",
+        "en": "For brainstorming, ask for many varied ideas and narrow later; for analysis, specify the data, angles, and how to show evidence."
       }
     ],
     "answer": [
@@ -205,16 +205,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "タスクの性質を無視しており、品質が安定しません。",
-        "en": "It ignores task nature and gives inconsistent quality."
+        "ja": "2つの作業が重視するもの(発想の幅と根拠)は違うため、1つの汎用指示ではどちらも十分に満たせません。",
+        "en": "The two tasks reward different things (breadth vs. evidence), so one generic instruction underserves both."
       },
       "B": {
-        "ja": "発散の場面で1案に絞ると意味がなく、分析の場面で条件がないと根拠が弱くなります。逆の使い分けです。",
-        "en": "Narrowing brainstorming to one idea defeats the purpose, and unconstrained analysis is poorly grounded; this is backwards."
+        "ja": "逆になっています。ブレストには量と多様性が、分析には明確な切り口とデータが必要です。",
+        "en": "This is reversed: brainstorming benefits from volume and variety, while analysis needs defined angles and data."
       },
       "C": {
-        "ja": "情報を伏せると、どちらのタスクでも精度が下がります。",
-        "en": "Withholding information lowers quality in both tasks."
+        "ja": "情報を伏せるとどちらの作業も質が下がります。出力が中立になるわけではありません。",
+        "en": "Withholding information weakens both tasks; it does not make the output more neutral."
       }
     },
     "difficulty": 2
@@ -232,28 +232,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "好ましい文体の過去メール例を1〜2通示す。",
-        "en": "Show one or two past emails that exemplify the preferred tone."
+        "ja": "望ましいトーンの過去メールを1〜2通示し、その文体に合わせるよう依頼する。",
+        "en": "Show one or two past emails that match the tone you want, and ask Claude to follow that style."
       },
       {
         "id": "B",
-        "ja": "依頼文をすべて大文字で書いて重要度を伝える。",
-        "en": "Write the request in all caps to signal importance."
+        "ja": "重要度が伝わるよう、依頼文全体を大文字で書く。",
+        "en": "Write the whole request in capital letters so that Claude treats it as high priority."
       },
       {
         "id": "C",
-        "ja": "相手の状況、返信の目的、文字数の目安を明記する。",
-        "en": "State the recipient's situation, the goal of the reply, and a target length."
+        "ja": "相手の状況、返信で達成したいこと、目安の長さを説明する。",
+        "en": "Describe the recipient's situation, what the reply should achieve, and the target length."
       },
       {
         "id": "D",
-        "ja": "顧客名や状況を伏せて「適当にお詫びして」とだけ伝える。",
-        "en": "Hide customer details and simply say \"apologize somehow.\""
+        "ja": "簡潔にするため、顧客の詳細は書かず「とにかく謝罪して」とだけ依頼する。",
+        "en": "Leave out the customer's details and just ask Claude to \"apologize somehow\" to keep it simple."
       },
       {
         "id": "E",
-        "ja": "一度の出力を最終版とし、反復は行わない。",
-        "en": "Treat the first output as final and never iterate."
+        "ja": "時間短縮のため、最初の出力をそのまま最終版として使い、フィードバックは返さない。",
+        "en": "Use the first draft as the final version to save time, without sending any feedback."
       }
     ],
     "answer": [
@@ -266,16 +266,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "大文字は品質基準を伝えず、効果が限定的です。",
-        "en": "Caps convey no quality criteria and have limited effect."
+        "ja": "大文字は緊急性を示しても、トーン・内容・長さについての情報は増えません。",
+        "en": "Capitals signal urgency but add no information about tone, content, or length."
       },
       "D": {
-        "ja": "情報を伏せると、的外れで画一的な返信になります。",
-        "en": "Withholding details produces generic, off-target replies."
+        "ja": "顧客の状況がなければ謝罪は一般的になり、実際の問題を外す恐れがあります。",
+        "en": "Without the customer's situation, the apology will be generic and may miss the actual issue."
       },
       "E": {
-        "ja": "通常は反復して調整するほうが品質が上がります。",
-        "en": "Iterating usually improves quality."
+        "ja": "下書きを反復して直すのが、トーンや抜けを直す最も手軽な方法です。",
+        "en": "Iterating on a draft is usually the cheapest way to fix tone and gaps."
       }
     },
     "difficulty": 2
@@ -293,23 +293,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "Claude の出力は毎回異なるものと受け入れる。",
-        "en": "Accept that Claude output always varies."
+        "ja": "実行ごとに構成が変わるのは仕方ないと受け止め、出力後にそのつど整える。",
+        "en": "Accept that the structure will vary between runs and tidy each report afterwards."
       },
       {
         "id": "B",
-        "ja": "希望するひな形の見出し構成と、記入済みの短い例をプロンプトに含める。",
-        "en": "Include the desired heading structure and a short filled-in example in the prompt."
+        "ja": "見出し構成と、テンプレートに記入した短い例をプロンプトに含める。",
+        "en": "Put the heading structure and a short filled-in example of the template into the prompt."
       },
       {
         "id": "C",
-        "ja": "出力後に毎回手作業で整形する。",
-        "en": "Reformat manually every time."
+        "ja": "共有する前に、レポートを出すたびに表計算ソフトでレイアウトを整える。",
+        "en": "Fix the layout in a spreadsheet each time the report is produced, before sharing it."
       },
       {
         "id": "D",
-        "ja": "「いつもの形式で」とだけ書く。",
-        "en": "Just write \"use the usual format.\""
+        "ja": "「いつもの形式で」と依頼し、それが何を指すかを Claude が思い出すことに頼る。",
+        "en": "Ask Claude to \"use the usual format\" and rely on it to recall what that means."
       }
     ],
     "answer": [
@@ -321,16 +321,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "形式は指示で大きく制御できます。",
-        "en": "Format can be controlled substantially through instructions."
+        "ja": "出力は誘導できます。テンプレートと例を示せば形式はかなり安定します。",
+        "en": "Output can be steered; a template and example make the format far more consistent."
       },
       "C": {
-        "ja": "非効率で、プロンプトの改善で解決できる問題です。",
-        "en": "Inefficient; a better prompt solves this."
+        "ja": "手作業の整形は毎回症状に対処するだけで、プロンプトを一度直す方法に劣ります。",
+        "en": "Manual reformatting treats the symptom each time instead of fixing the prompt once."
       },
       "D": {
-        "ja": "新しいチャットでは「いつもの形式」が何か分かりません。具体的な情報が必要です。",
-        "en": "In a new chat Claude cannot know what \"usual\" means; concrete detail is needed."
+        "ja": "会話内に形式がなければ、「いつもの形式」は Claude にとって定義されていません。",
+        "en": "Without the format in the conversation, \"the usual format\" is undefined for Claude."
       }
     },
     "difficulty": 1
@@ -348,23 +348,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "不明な点があれば作業を始める前に確認の質問をし、置いた前提は明示するよう指示する。",
-        "en": "Tell Claude to ask clarifying questions before starting and to state any assumptions it makes."
+        "ja": "作成の前に確認の質問を出し、置いた前提があればそれも列挙するよう依頼する。",
+        "en": "Ask Claude to put clarifying questions first and to list any assumptions it makes before drafting."
       },
       {
         "id": "B",
-        "ja": "不明点は無視して最短で回答するよう指示する。",
-        "en": "Tell Claude to ignore unknowns and answer as fast as possible."
+        "ja": "不明な点は飛ばし、推測できる範囲ですばやく回答するよう指示する。",
+        "en": "Tell Claude to skip anything unclear and respond quickly with whatever it can infer."
       },
       {
         "id": "C",
-        "ja": "回答を極力短くするよう指示する。",
-        "en": "Tell Claude to keep the answer as short as possible."
+        "ja": "前提が入り込みにくいよう、回答をできるだけ短くするよう指示する。",
+        "en": "Tell Claude to keep the answer as short as possible so that fewer assumptions can creep in."
       },
       {
         "id": "D",
-        "ja": "確信度を数値で自己申告させ、高ければ採用する。",
-        "en": "Have Claude self-report a confidence number and accept it if high."
+        "ja": "自信度を10段階で自己評価させ、数値が高ければそのまま進める。",
+        "en": "Ask Claude to rate its own confidence from 1 to 10 and proceed if the number is high."
       }
     ],
     "answer": [
@@ -376,16 +376,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "不明点の無視は誤った前提による出力につながります。",
-        "en": "Ignoring unknowns leads to outputs built on wrong assumptions."
+        "ja": "黙って推測すると抜けが隠れ、あとでずれに気づきにくくなります。",
+        "en": "Guessing quietly hides the gaps and makes misalignment harder to detect later."
       },
       "C": {
-        "ja": "短さは曖昧さを解消しません。",
-        "en": "Brevity does not resolve ambiguity."
+        "ja": "短くしても前提は残ります。見えなくなるだけです。",
+        "en": "A shorter answer still contains assumptions; they just become invisible."
       },
       "D": {
-        "ja": "自己申告の確信度は正確性の信頼できる指標ではありません。",
-        "en": "Self-reported confidence is not a reliable accuracy signal."
+        "ja": "自己申告の自信度は、要件を理解できたかどうかの信頼できる指標ではありません。",
+        "en": "Self-reported confidence is not a reliable signal of whether requirements were understood."
       }
     },
     "difficulty": 3
@@ -403,23 +403,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "「この業界の将来を断言して」と結論だけを求める。",
-        "en": "Ask only for a definitive conclusion about the industry's future."
+        "ja": "業界の今後について、留保なしの断定的な結論を1つだけ求める。",
+        "en": "Ask for a single definitive conclusion about where the industry is heading, with no caveats."
       },
       {
         "id": "B",
-        "ja": "一次情報の出典は不要と伝え、できるだけ短く答えさせる。",
-        "en": "Say sources are unnecessary and ask for the shortest possible answer."
+        "ja": "読む時間を節約するため、出典は不要と伝えて最短の概要を求める。",
+        "en": "Say sources are not needed and ask for the shortest possible overview to save reading time."
       },
       {
         "id": "C",
-        "ja": "事実・推測・不明点を区別して整理させ、確認すべき主張と調べるべき出典の種類を示させる。",
-        "en": "Ask Claude to separate facts, assumptions, and unknowns, and to list claims to verify and the types of sources to check."
+        "ja": "事実・仮定・不明点を分けて整理し、確認すべき主張と調べるべき情報源の種類を挙げるよう依頼する。",
+        "en": "Ask Claude to separate facts, assumptions, and unknowns, and to list claims to verify and what sources to check."
       },
       {
         "id": "D",
-        "ja": "業界の専門家になりきって全て正しく答えるよう指示する。",
-        "en": "Tell Claude to act as an expert who is always right."
+        "ja": "そのまま使えるよう、常に正しい業界の専門家として回答するよう依頼する。",
+        "en": "Ask Claude to answer as an industry expert who is always right, so the answers can be used directly."
       }
     ],
     "answer": [
@@ -431,16 +431,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "断定的な結論は根拠が弱く、検証もしにくくなります。",
-        "en": "A bare conclusion is poorly supported and hard to verify."
+        "ja": "不慣れな分野で断定的な予測を求めると、過信した主張や作り話を招きます。",
+        "en": "A forced definitive forecast on an unfamiliar topic invites overconfident or invented claims."
       },
       "B": {
-        "ja": "出典を軽視すると検証が困難になります。",
-        "en": "Ignoring sources makes verification hard."
+        "ja": "出典も留保もなければ、何を再確認すべきかが分かりません。",
+        "en": "Without sources or caveats you cannot tell what to double-check."
       },
       "D": {
-        "ja": "役割設定は正確性を保証しません。",
-        "en": "Role-play does not guarantee accuracy."
+        "ja": "ペルソナを与えても主張が正しくなるわけではなく、口調が変わるだけです。",
+        "en": "A persona does not make claims true; it only changes the tone of presentation."
       }
     },
     "difficulty": 2
@@ -458,23 +458,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "具体的な数字なので正確だと判断してそのまま使う。",
-        "en": "Use it as-is, since a precise number must be accurate."
+        "ja": "ここまで具体的な数字なら作り話の可能性は低いと考え、そのまま使う。",
+        "en": "Include it as written, because a figure that specific is unlikely to have been invented."
       },
       {
         "id": "B",
-        "ja": "引用元の調査が実在し、その数字が掲載されているかを一次情報で確認し、確認できなければ削除する。",
-        "en": "Verify against the primary source that the survey exists and contains the figure; remove it if it cannot be confirmed."
+        "ja": "調査と数値を一次情報で確認し、確認できなければその主張を削除する。",
+        "en": "Check the survey and the figure in the primary source, and remove the claim if you cannot confirm it."
       },
       {
         "id": "C",
-        "ja": "同じ質問をもう一度し、同じ数字が出たら採用する。",
-        "en": "Ask again and accept the figure if it repeats."
+        "ja": "同じ質問をもう一度して、同じ数字が返ってきたらその数字を採用する。",
+        "en": "Ask Claude the same question again and keep the figure if the answer comes back the same."
       },
       {
         "id": "D",
-        "ja": "「約60%」と丸めて表記する。",
-        "en": "Round it to \"about 60%\" and use it."
+        "ja": "多少の誤差が目立たないよう、「約60%」に丸めて使う。",
+        "en": "Round the figure to \"about 60%\" so that a small error would not matter much."
       }
     ],
     "answer": [
@@ -486,16 +486,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "具体性は正確性の保証になりません。",
-        "en": "Precision is not evidence of accuracy."
+        "ja": "正確そうな数字や出典名こそ、モデルが説得力をもって作り出しうるものです。",
+        "en": "Precise-looking numbers and named sources are exactly what models can fabricate convincingly."
       },
       "C": {
-        "ja": "同じ誤りが再現されることもあり、独立した検証にはなりません。",
-        "en": "The same error can repeat, so this is not independent verification."
+        "ja": "同じ答えが返るのは一貫性の証拠であって、正しさの証拠ではありません。同じ作り話が繰り返されることもあります。",
+        "en": "A repeated answer shows consistency, not truth; the same fabrication can recur."
       },
       "D": {
-        "ja": "丸めても根拠のない数字であることに変わりはありません。",
-        "en": "Rounding does not fix an unsupported number."
+        "ja": "作り話かもしれない数字を丸めても、確認済みにはなりません。",
+        "en": "Rounding a possibly fabricated number does not make it verified."
       }
     },
     "difficulty": 1
@@ -513,23 +513,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "要約の方が読みやすいので、そのまま共有する。",
-        "en": "Share the summary since it reads better."
+        "ja": "文章が自然で決定事項の表現ももっともらしいので、そのまま共有する、小さな誤りは次回の会議で訂正すればよいと考える。",
+        "en": "Share the summary as it is, since it reads smoothly and the decision wording sounds plausible, and any small error can be corrected at the next meeting."
       },
       {
         "id": "B",
-        "ja": "要約全体を破棄し、今後 Claude は使わない。",
-        "en": "Discard it and stop using Claude."
+        "ja": "議事録の扱いは任せられないと判断し、議事録に Claude を使うのをやめる。",
+        "en": "Stop using Claude for minutes altogether, since it clearly cannot be trusted with meeting records."
       },
       {
         "id": "C",
-        "ja": "誤り箇所を指摘し、議事録の該当箇所を引用して根拠を示させたうえで修正を依頼し、残りも原文と照合する。",
-        "en": "Point out the error, have Claude quote the supporting passages, request a correction, and check the rest against the source."
+        "ja": "誤りを指摘し、根拠となる箇所を引用させて修正を依頼し、残りも議事録と照合する。",
+        "en": "Point out the error, ask Claude to quote the supporting passages, request a correction, and check the rest against the minutes."
       },
       {
         "id": "D",
-        "ja": "この箇所だけ人が書き換え、他は確認せず共有する。",
-        "en": "Rewrite that line manually and share without checking the rest."
+        "ja": "その1行だけ手で直して共有し、ほかの行は問題ないものとして扱う。",
+        "en": "Fix that one line by hand and share the summary, trusting the remaining lines."
       }
     ],
     "answer": [
@@ -541,16 +541,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "不整合を放置すると誤情報が広がります。",
-        "en": "Leaving it uncorrected spreads misinformation."
+        "ja": "流暢な要約でも決定事項を取り違えることがあり、共有すると誤りが広がります。",
+        "en": "A fluent summary can misstate a decision; sharing it spreads the error."
       },
       "B": {
-        "ja": "過剰反応です。検証と修正で十分に活用できます。",
-        "en": "Overreaction; verification and correction make the output usable."
+        "ja": "誤りが1つあったなら必要なのは検証と修正であり、有用なツールを捨てることではありません。",
+        "en": "One error calls for verification and correction, not abandoning a useful tool."
       },
       "D": {
-        "ja": "他にも誤りがある可能性が残ります。",
-        "en": "Other errors may remain."
+        "ja": "1行に誤りがあれば他にもある可能性があり、残りも確認が必要です。",
+        "en": "An error in one line suggests others may exist; the rest needs checking too."
       }
     },
     "difficulty": 2
@@ -568,23 +568,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "傾向は偶然とみなして継続利用する。",
-        "en": "Treat it as coincidence and continue."
+        "ja": "少ないサンプルによる偶然とみなし、今のプロンプトをそのまま使い続ける。",
+        "en": "Treat the pattern as coincidence from a small sample and keep using the current prompt."
       },
       {
         "id": "B",
-        "ja": "評価基準を明示した構造化プロンプトに改め、属性情報を除いて再評価し、最終判断は人がレビューする。",
-        "en": "Switch to a structured prompt with explicit criteria, remove attribute information, re-run, and keep human review for final decisions."
+        "ja": "評価基準を明示した構造化プロンプトに切り替え、属性情報を除いて再実行し、最終判断は人が行う。",
+        "en": "Use a structured prompt with explicit criteria, remove the attribute information, re-run, and keep a person making the final call."
       },
       {
         "id": "C",
-        "ja": "評価対象を増やして平均をとる。",
-        "en": "Evaluate more resumes and average the results."
+        "ja": "同じプロンプトでさらに多くの履歴書を評価し、平均を取って偏りをならす、個々の偏りは件数が増えれば互いに打ち消し合うと考える。",
+        "en": "Run many more resumes through the same prompt and average the results to smooth out the pattern, on the assumption that bias in individual cases will cancel out across the larger sample."
       },
       {
         "id": "D",
-        "ja": "Claude の評価に「公平に」と一言添える。",
-        "en": "Add \"be fair\" to the instruction."
+        "ja": "既存の指示に「公平で偏りなく」と一文を足し、そのまま続ける。",
+        "en": "Add a line such as \"be fair and unbiased\" to the existing instruction and continue as before."
       }
     ],
     "answer": [
@@ -596,16 +596,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "偏りの兆候を無視するのは責任ある利用に反します。",
-        "en": "Ignoring signs of bias contradicts responsible use."
+        "ja": "一貫したパターンは調査すべき兆候であり、無視してよいものではありません。",
+        "en": "A consistent pattern is a signal to investigate, not to dismiss."
       },
       "C": {
-        "ja": "件数を増やしても系統的な偏りは消えません。",
-        "en": "More volume does not remove systematic bias."
+        "ja": "偏りのある同じ過程のデータを増やしても、同じ偏りが再現されるだけです。",
+        "en": "More data from the same biased process only reproduces the same bias."
       },
       "D": {
-        "ja": "一言の指示だけでは偏りの除去は保証されません。",
-        "en": "A single phrase does not guarantee bias removal."
+        "ja": "漠然とした公平性の一文では、基準も定まらず、影響する属性も除かれません。",
+        "en": "A generic fairness line does not define criteria or remove the influencing attributes."
       }
     },
     "difficulty": 2
@@ -623,23 +623,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "社外の顧客に送る契約条項の解釈を含む回答の作成。",
-        "en": "Drafting a reply to a client that includes interpretation of contract terms."
+        "ja": "契約条項の解釈を含み、約束事になりうる顧客への返信文。",
+        "en": "A reply to a client that interprets contract terms and may create a commitment."
       },
       {
         "id": "B",
-        "ja": "自分用の会議アジェンダの下書き。",
-        "en": "A draft agenda for your own meeting."
+        "ja": "来週あなたが開く社内の小規模ミーティングの議題案。",
+        "en": "A draft agenda for a small internal team meeting you are running next week."
       },
       {
         "id": "C",
-        "ja": "社内ブレインストーミング用のアイデアリスト。",
-        "en": "An idea list for internal brainstorming."
+        "ja": "後で取捨選択する、社内ブレストのための大まかなアイデア一覧。",
+        "en": "A list of rough ideas for an internal brainstorming session that will be filtered later."
       },
       {
         "id": "D",
-        "ja": "文章の誤字の指摘。",
-        "en": "Spotting typos in a text."
+        "ja": "社内掲示板に載せる前の、短い文章の誤字チェック。",
+        "en": "A check of a short text for typos before it is posted on the internal bulletin board."
       }
     ],
     "answer": [
@@ -651,16 +651,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "低リスクな内部用途です。",
-        "en": "Low-risk internal use."
+        "ja": "影響が小さく修正も容易なので、本人の軽い確認で足ります。",
+        "en": "Low stakes and easily corrected, so light personal review is enough."
       },
       "C": {
-        "ja": "発想の材料で、後から取捨選択できます。",
-        "en": "Raw material that can be filtered later."
+        "ja": "アイデアはどのみち後で人が選別するため、正確さに拘束力はありません。",
+        "en": "Ideas are filtered by people afterwards anyway; accuracy is not binding."
       },
       "D": {
-        "ja": "影響が小さく、確認も容易です。",
-        "en": "Low impact and easy to check."
+        "ja": "低リスクの確認作業で、誤りも見つけやすい作業です。",
+        "en": "The task is a low-risk check and errors are easy to see."
       }
     },
     "difficulty": 2
@@ -678,28 +678,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "回答中の主張について、根拠となる原文の箇所を引用させ、その原文自体を確認する。",
-        "en": "Have Claude quote the source passages supporting each claim, then check the originals yourself."
+        "ja": "各主張を裏づける箇所を Claude に引用させ、その箇所を原本で自分で確認する。",
+        "en": "Ask Claude to quote the passage that supports each claim, and then check those passages in the originals yourself."
       },
       {
         "id": "B",
-        "ja": "文章が流暢で自信ありげなら正確だと判断する。",
-        "en": "Judge it accurate if the prose is fluent and confident."
+        "ja": "文章が流暢で自信に満ち、よく整理されていれば、正確だと判断する。",
+        "en": "Treat the answer as accurate when the prose is fluent, confident, and well organized."
       },
       {
         "id": "C",
-        "ja": "重要な数値や固有名詞は、公式サイトや一次資料など信頼できる情報源と突き合わせる。",
-        "en": "Cross-check key figures and names against official sites or primary sources."
+        "ja": "主要な数値や固有名詞を、公式サイトなどの一次情報と照合する。",
+        "en": "Cross-check key figures and names against official sites or other primary sources."
       },
       {
         "id": "D",
-        "ja": "同じ質問を繰り返して同じ答えなら正しいと見なす。",
-        "en": "Ask the same question repeatedly and treat a consistent answer as correct."
+        "ja": "同じ質問を何度か繰り返し、繰り返し出る答えを正しいものとして扱う。",
+        "en": "Ask the same question several times and treat an answer that keeps repeating as correct."
       },
       {
         "id": "E",
-        "ja": "Claude に「あなたの回答は正しいか」と聞いて「はい」ならよしとする。",
-        "en": "Ask Claude \"is your answer correct?\" and accept a yes."
+        "ja": "「この回答は正しいですか?」と Claude に尋ね、「はい」なら受け入れる。",
+        "en": "Ask Claude \"Is your answer correct?\" and accept the answer if it says yes."
       }
     ],
     "answer": [
@@ -712,16 +712,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "流暢さは正確さの指標ではありません。",
-        "en": "Fluency is not an indicator of accuracy."
+        "ja": "流暢さや自信ありげな口調は、正確さの根拠になりません。",
+        "en": "Fluency and confidence are not evidence of accuracy."
       },
       "D": {
-        "ja": "同じ誤りが繰り返される可能性があり、独立した検証になりません。",
-        "en": "The same error can repeat; it is not independent."
+        "ja": "繰り返しは一貫性を示すだけで正しさは示しません。誤った答えも繰り返されえます。",
+        "en": "Repetition shows consistency, not correctness; a mistaken answer can repeat."
       },
       "E": {
-        "ja": "自己評価は信頼できる検証ではありません。",
-        "en": "Self-assessment is not reliable validation."
+        "ja": "モデルの自己評価は、独立した検証ではありません。",
+        "en": "A model's self-assessment is not independent verification."
       }
     },
     "difficulty": 2
@@ -739,23 +739,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "レポートの専門用語はそのままに、文字数だけ半分にする。",
-        "en": "Keep the jargon and just halve the length."
+        "ja": "専門用語はそのままに、レポートの長さを半分に縮めるよう依頼する、取締役会が原文の用語をそのまま見て、細部を自分で判断できるようにする。",
+        "en": "Keep the technical wording as it is and ask Claude to cut the report to half its length, so that the board can see the original terminology and judge the details for themselves."
       },
       {
         "id": "B",
-        "ja": "技術的な詳細はすべて削除し、結論だけを1行で示す。",
-        "en": "Remove all technical detail and give a one-line conclusion."
+        "ja": "技術的な詳細をすべて除き、取締役会向けに結論を1文だけ示すよう依頼する。",
+        "en": "Ask Claude to remove every technical detail and give a single-sentence conclusion for the board."
       },
       {
         "id": "C",
-        "ja": "同じ文書を英語に翻訳する。",
-        "en": "Translate the same document into English."
+        "ja": "より多くの読み手が理解できるよう、レポートを英語に翻訳するよう依頼する。",
+        "en": "Ask Claude to translate the report into English so that more readers can follow it."
       },
       {
         "id": "D",
-        "ja": "読者が取締役であることを伝え、専門用語を平易に言い換え、意思決定に必要な論点・影響・推奨事項を中心に再構成させる。",
-        "en": "Say the readers are board members; ask Claude to plain-language the jargon and restructure around the issues, impact, and recommendations needed for the decision."
+        "ja": "読み手が取締役会であることを伝え、平易な言葉で、判断に必要な課題・影響・提言を軸に再構成するよう依頼する。",
+        "en": "Say the readers are board members and ask for plain language, organized around the issue, impact, and recommendation needed to decide."
       }
     ],
     "answer": [
@@ -767,16 +767,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "短くしても読者にとっての難解さは残ります。",
-        "en": "Shortening leaves it just as hard to follow."
+        "ja": "短くしても専門用語が残るため、非技術系の読み手には依然として伝わりません。",
+        "en": "Shortening keeps the jargon, so non-technical readers still cannot follow it."
       },
       "B": {
-        "ja": "過度な削除は判断材料を失わせます。",
-        "en": "Over-trimming removes decision-relevant material."
+        "ja": "1行の結論では、取締役会が判断に必要とする影響や根拠が失われます。",
+        "en": "A one-line conclusion drops the impact and reasoning the board needs to decide."
       },
       "C": {
-        "ja": "言語の変更は読者の理解の問題を解決しません。",
-        "en": "Changing language does not address comprehension."
+        "ja": "翻訳で変わるのは言語であり、前提とされる技術知識の水準は変わりません。",
+        "en": "Translation changes the language, not the level of technical background required."
       }
     },
     "difficulty": 1
@@ -794,23 +794,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "長い散文の段落で説明する。",
-        "en": "Long prose paragraphs."
+        "ja": "ベンダーごとに5つの基準をすべて含む長い文章を、3段落で書く。",
+        "en": "Write three long prose paragraphs, one for each vendor, covering all five criteria."
       },
       {
         "id": "B",
-        "ja": "ベンダーを行、評価項目を列にした表（構造化データ）にまとめる。",
-        "en": "A table with vendors as rows and criteria as columns (structured data)."
+        "ja": "ベンダーを行、5つの基準を列にした表を作る。",
+        "en": "Make a table with the vendors as rows and the five criteria as columns."
       },
       {
         "id": "C",
-        "ja": "各ベンダーの印象を一文ずつ書く。",
-        "en": "One impressionistic sentence per vendor."
+        "ja": "ベンダーごとに、総合的な適合度の印象を述べる1文を書く。",
+        "en": "Write one impression-based sentence per vendor summarizing how well it fits overall."
       },
       {
         "id": "D",
-        "ja": "箇条書きで評価項目の名前だけを並べる。",
-        "en": "A bullet list of criteria names only."
+        "ja": "5つの基準の名前を挙げ、それぞれに短いコメントを付けた箇条書きを作る。",
+        "en": "Make a bulleted list that names the five criteria and a short comment on each."
       }
     ],
     "answer": [
@@ -822,16 +822,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "項目ごとの比較が読み取りにくくなります。",
-        "en": "Per-criterion comparison becomes hard to read."
+        "ja": "文章では並べて比較するのに時間がかかり、見落としも起きやすくなります。",
+        "en": "Prose makes side-by-side comparison slow and error-prone."
       },
       "C": {
-        "ja": "比較に必要な情報が不足します。",
-        "en": "It lacks the information needed for comparison."
+        "ja": "印象を述べる1文では、チームが必要とする基準ごとの詳細が失われます。",
+        "en": "A one-line impression drops the criterion-by-criterion detail the team needs."
       },
       "D": {
-        "ja": "比較結果が含まれません。",
-        "en": "It contains no comparison results."
+        "ja": "基準だけの一覧では、各ベンダーが各基準でどうかが分かりません。",
+        "en": "A criteria-only list does not show how each vendor performs on each criterion."
       }
     },
     "difficulty": 2
@@ -849,23 +849,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "チャット内にテキストで計算式の説明だけを書く。",
-        "en": "Describe the formulas in plain chat text only."
+        "ja": "数式をチャット上の文章で説明し、営業チームが各自のシートに入力し直す。",
+        "en": "Describe the formulas in plain chat text and let the sales team re-enter them in their own sheets."
       },
       {
         "id": "B",
-        "ja": "Artifacts で動作するツールとして生成し、プレビューしながら改善を重ねる。",
-        "en": "Generate it as a working tool in Artifacts and refine it while previewing."
+        "ja": "Artifacts で動作する計算ツールとして作成し、プレビューしながら改善する。",
+        "en": "Have Claude build it as a working calculator in Artifacts and refine it while previewing it."
       },
       {
         "id": "C",
-        "ja": "表を1つ出力して終了する。",
-        "en": "Output one table and stop."
+        "ja": "見積例を1つの表にまとめてもらい、それを計算ツールの代わりとして共有する。",
+        "en": "Ask for a single table of example quotes and share it as the calculator."
       },
       {
         "id": "D",
-        "ja": "PDF のスクリーンショットを貼る。",
-        "en": "Paste a screenshot of a PDF."
+        "ja": "価格表PDFのスクリーンショットをチャットに貼り、そのつど合計を出してもらう。",
+        "en": "Paste a screenshot of a PDF price list into the chat and ask Claude to total it each time."
       }
     ],
     "answer": [
@@ -877,16 +877,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "説明だけでは動くツールになりません。",
-        "en": "A description is not a working tool."
+        "ja": "文章の数式は対話的なツールにならず、利用者ごとに作り直す必要があります。",
+        "en": "Text formulas are not an interactive tool and must be rebuilt by each user."
       },
       "C": {
-        "ja": "静的な表では入力に応じた更新ができません。",
-        "en": "A static table cannot update with inputs."
+        "ja": "静的な表は、値を入れ替えても再計算されません。",
+        "en": "A static table does not recalculate when the values change."
       },
       "D": {
-        "ja": "目的に関係がありません。",
-        "en": "Irrelevant to the goal."
+        "ja": "毎回手作業を繰り返すことになり、再利用できるツールが残りません。",
+        "en": "This repeats manual work each time and creates no reusable tool."
       }
     },
     "difficulty": 1
@@ -904,23 +904,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "出力が長ければ網羅されているとみなす。",
-        "en": "Assume a long output is exhaustive."
+        "ja": "長い出力なら重要な論点はすべて含まれているとみなし、そのまま最終版にする。",
+        "en": "Assume a long output covers every important topic and use it as the final summary."
       },
       {
         "id": "B",
-        "ja": "自分で必要な論点のチェックリストを作成して照合し、不足があれば追加の依頼をして補う。",
-        "en": "Build a checklist of required topics, compare, and request additions for gaps."
+        "ja": "要約に必要な論点を先に列挙して出力と突き合わせ、不足分を補うよう依頼する。",
+        "en": "List the topics the summary must cover, compare them with the output, and ask Claude to fill the gaps."
       },
       {
         "id": "C",
-        "ja": "Claude に「抜けはない」と答えさせる。",
-        "en": "Have Claude say there are no gaps."
+        "ja": "抜けがないか Claude に尋ね、「ない」という答えを信頼する、要約を書いたばかりなので、その答えを信頼する。",
+        "en": "Ask Claude whether anything is missing and rely on its answer that there are no gaps, since it has just written the whole summary."
       },
       {
         "id": "D",
-        "ja": "不足は気にせず、他の項目だけを使う。",
-        "en": "Ignore the gap and use the rest."
+        "ja": "ほぼ網羅されているように見えるので、欠けた論点は扱わず残りだけ使う。",
+        "en": "Leave the missing topic out and use the rest, since the summary looks mostly complete."
       }
     ],
     "answer": [
@@ -932,16 +932,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "長さは網羅性を示しません。",
-        "en": "Length does not indicate coverage."
+        "ja": "長さは網羅性を意味しません。長い出力でも重要な論点が抜けることがあります。",
+        "en": "Length is not coverage; a long output can still omit a key topic."
       },
       "C": {
-        "ja": "自己申告は信頼できる確認ではありません。",
-        "en": "Self-reports are not a reliable check."
+        "ja": "基準となる一覧がなければ、Claude 自身も抜けを確実には検出できません。",
+        "en": "Claude cannot reliably detect what it has omitted without a reference list."
       },
       "D": {
-        "ja": "重要な論点の欠落は判断を誤らせます。",
-        "en": "Missing a key topic can distort decisions."
+        "ja": "規制の影響は読み手が最も必要とする点かもしれず、無視すると穴が残ります。",
+        "en": "The regulatory impact may be exactly what the reader needs; ignoring it leaves a gap."
       }
     },
     "difficulty": 3
@@ -959,23 +959,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "先に出力された案を自動的に採用する。",
-        "en": "Pick whichever was produced first."
+        "ja": "依頼を最も素直に解釈した結果なので、先に出た下書きを選ぶ。",
+        "en": "Pick whichever draft Claude produced first, since it reflects its most direct reading of the request."
       },
       {
         "id": "B",
-        "ja": "読者・目的・ブランドの基準を定め、それに照らして比較し、必要に応じて良い部分を組み合わせて編集する。",
-        "en": "Define criteria for audience, purpose, and brand voice, compare against them, and combine the best parts through editing."
+        "ja": "読者・目的・ブランドの語り口の基準を決めて両案を比較し、良い部分を編集で組み合わせる。",
+        "en": "Set criteria for audience, purpose, and brand voice, compare both drafts against them, and combine the best parts by editing."
       },
       {
         "id": "C",
-        "ja": "長い方を選ぶ。",
-        "en": "Pick the longer one."
+        "ja": "読み手に伝わる情報が多いはずなので、長いほうの下書きを選ぶ、読み手は不要な部分を読み飛ばせる。",
+        "en": "Pick the longer draft, since it likely contains more information for readers, and readers can skim past anything they do not need."
       },
       {
         "id": "D",
-        "ja": "どちらも使わず、最初から手書きする。",
-        "en": "Discard both and write from scratch."
+        "ja": "トーンを確実に合わせるため、両案を破棄して自分でニュースレターを書く。",
+        "en": "Discard both drafts and write the newsletter yourself so the tone is certain to be right."
       }
     ],
     "answer": [
@@ -987,16 +987,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "順序は品質と無関係です。",
-        "en": "Order is unrelated to quality."
+        "ja": "生成の順序は、読み手や語り口への適合とは関係がありません。",
+        "en": "Order of generation says nothing about fit with the audience or voice."
       },
       "C": {
-        "ja": "長さは適切さの指標ではありません。",
-        "en": "Length is not a measure of fit."
+        "ja": "長さは品質ではありません。長いほうが冗長なだけの場合もあります。",
+        "en": "Length is not quality; the longer draft may be wordier rather than better."
       },
       "D": {
-        "ja": "有用な下書きを捨てるのは非効率です。",
-        "en": "Discarding useful drafts is inefficient."
+        "ja": "両案は有用な素材であり、捨てると効率化の利点を失います。",
+        "en": "Both drafts are useful raw material; discarding them wastes the efficiency gain."
       }
     },
     "difficulty": 2
@@ -1014,23 +1014,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "リンクが付いているため、内容は検証済みと見なす。",
-        "en": "Treat it as verified because links are present."
+        "ja": "出典リンクが付いているので、検証済みの回答として扱う。",
+        "en": "Treat the answer as verified because it comes with source links attached."
       },
       {
         "id": "B",
-        "ja": "リンク先を開き、出典が実際にその主張を裏付けているか、情報源の信頼性や日付も含めて確認する。",
-        "en": "Open the links and confirm the sources actually support the claim, including their reliability and dates."
+        "ja": "リンクを開き、出典が主張を実際に裏づけているか、信頼でき新しい情報かを確認する。",
+        "en": "Open the links and confirm that the sources really support the claim and are reliable and recent."
       },
       {
         "id": "C",
-        "ja": "リンクの数が多いほど正確だと判断する。",
-        "en": "Judge accuracy by the number of links."
+        "ja": "含まれる出典リンクの数で、回答の正確さを判断する。",
+        "en": "Judge how accurate the answer is by how many source links it includes."
       },
       {
         "id": "D",
-        "ja": "出典を無視して要約だけを使う。",
-        "en": "Ignore sources and use only the summary."
+        "ja": "要約が本体なので、出典は無視して要約文だけを使う。",
+        "en": "Ignore the sources and use only the summary text, since the summary is the main content."
       }
     ],
     "answer": [
@@ -1042,16 +1042,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "出典の存在は主張の正しさを保証しません。",
-        "en": "Having a citation does not guarantee correctness."
+        "ja": "リンクが無関係だったり古かったり、要約が内容を歪めていたりすることがあります。",
+        "en": "Links can be irrelevant, outdated, or misrepresented in the summary."
       },
       "C": {
-        "ja": "数は信頼性の指標になりません。",
-        "en": "Count is not a reliability indicator."
+        "ja": "リンクの数は、そのどれかが主張を裏づけている証拠になりません。",
+        "en": "Quantity of links does not show that any of them supports the claim."
       },
       "D": {
-        "ja": "検証手段を自ら放棄することになります。",
-        "en": "This abandons the means of verification."
+        "ja": "出典を捨てると、要約を検証する唯一の手段を失います。",
+        "en": "Dropping the sources removes the only way to verify the summary."
       }
     },
     "difficulty": 2
@@ -1069,28 +1069,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "非常に具体的な統計値、日付、法令の条文番号が含まれている。",
-        "en": "The output includes very specific statistics, dates, or statute numbers."
+        "ja": "出力に、非常に具体的な統計・日付・法令の条番号が含まれている。",
+        "en": "The output contains very specific statistics, dates, or statute numbers."
       },
       {
         "id": "B",
-        "ja": "一般的な言い回しの文章を整えるだけの依頼である。",
-        "en": "The request merely polishes generic wording."
+        "ja": "自分で書いた文章の言い回しを整えるだけの依頼である。",
+        "en": "The request only asks Claude to polish the wording of a text you already wrote."
       },
       {
         "id": "C",
-        "ja": "ニッチで公開情報が少ない分野の事実について回答している。",
-        "en": "It answers factual questions in a niche area with little public information."
+        "ja": "公開情報が少ないニッチな分野についての事実を尋ねている。",
+        "en": "The question is a factual one about a niche area with little public information."
       },
       {
         "id": "D",
-        "ja": "最近の出来事など、最新情報が必要な内容を Web 検索なしで述べている。",
-        "en": "It describes recent events requiring current information without using web search."
+        "ja": "最近の出来事など最新の情報が必要な話題を、ウェブ検索なしで答えさせている。",
+        "en": "The topic is a recent event that requires current information, and web search is not used."
       },
       {
         "id": "E",
-        "ja": "既に提供済みの短い文章を箇条書きに変換するだけである。",
-        "en": "It just converts a short provided passage into bullets."
+        "ja": "提供した短い文章を、箇条書きに変換するだけの依頼である。",
+        "en": "The request only turns a short passage you provided into a bulleted list."
       }
     ],
     "answer": [
@@ -1104,12 +1104,12 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "文章の整形は事実を新たに主張しないため、リスクは低めです。",
-        "en": "Polishing wording adds no new factual claims, so risk is lower."
+        "ja": "事実は自分の文章に由来するため、新たな事実面のリスクはほとんどありません。",
+        "en": "The facts come from your own text, so little new factual risk is introduced."
       },
       "E": {
-        "ja": "入力が与えられた形式変換は事実誤りのリスクが低めです。",
-        "en": "Format conversion of provided text carries lower factual risk."
+        "ja": "与えた文章の構成を変えるだけなので、事実面のリスクは小さいです。",
+        "en": "Restructuring a provided passage adds little factual risk."
       }
     },
     "difficulty": 3
@@ -1127,23 +1127,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "文章が論理的なので計算も正しいと見なす。",
-        "en": "Assume the math is right because the reasoning reads logically."
+        "ja": "説明の筋道が論理的に読めるので、Claude が出した数値を信頼する、数値を1つずつ手で確かめるのは、レポートの価値に見合わない手間だと考える。",
+        "en": "Trust the figures because the reasoning Claude gave for them reads logically, and re-checking each number by hand would take longer than the report is worth."
       },
       {
         "id": "B",
-        "ja": "元の表計算ソフトの数式や電卓、または Claude のコード実行機能で結果を再計算し、数値を突き合わせる。",
-        "en": "Recalculate in the original spreadsheet or calculator, or via Claude's code execution, and compare the numbers."
+        "ja": "合計と成長率を元の表計算ソフトや電卓、またはコード実行で再計算し、結果を比べる。",
+        "en": "Recompute the totals and growth rates in the original spreadsheet or a calculator, or with code execution, and compare."
       },
       {
         "id": "C",
-        "ja": "小数点以下を切り捨てて誤差をなくす。",
-        "en": "Drop decimals to eliminate error."
+        "ja": "小さな誤差が影響しないよう、報告された数値の小数点以下を切り捨てる。",
+        "en": "Drop the decimals from the reported numbers so that small errors cannot matter."
       },
       {
         "id": "D",
-        "ja": "計算結果はすべて Claude に再確認させ、「はい」と返ればよしとする。",
-        "en": "Ask Claude to reconfirm and accept a \"yes.\""
+        "ja": "数値をもう一度確認するよう Claude に頼み、「はい」と答えたら受け入れる。",
+        "en": "Ask Claude to reconfirm the numbers and accept the result once it answers yes."
       }
     ],
     "answer": [
@@ -1155,16 +1155,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "筋の通った説明は計算の正しさを保証しません。",
-        "en": "A coherent explanation does not guarantee correct arithmetic."
+        "ja": "もっともらしい説明でも、計算ミスを含むことがあります。",
+        "en": "Plausible-sounding reasoning can still contain arithmetic mistakes."
       },
       "C": {
-        "ja": "切り捨ては誤りの検出にならず、精度も落とします。",
-        "en": "Truncation neither detects errors nor preserves precision."
+        "ja": "丸めても誤りは消えず、判断を左右しうる誤りが見えにくくなるだけです。",
+        "en": "Rounding hides, but does not remove, an error that may drive the decision."
       },
       "D": {
-        "ja": "自己確認は独立した検証ではありません。",
-        "en": "Self-confirmation is not independent verification."
+        "ja": "同じモデルによる自己確認は、計算の独立した検証ではありません。",
+        "en": "A self-check by the same model is not independent verification of the arithmetic."
       }
     },
     "difficulty": 2
@@ -1182,23 +1182,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "常に最上位モデルを使う。",
-        "en": "Always use the top-tier model."
+        "ja": "誤分類が一件も出ないよう、すべての問い合わせに最上位の高性能モデルを使う。",
+        "en": "Use the most capable top-tier model for every inquiry so that none is ever misclassified."
       },
       {
         "id": "B",
-        "ja": "Haiku のような軽量・高速なモデルを選ぶ。",
-        "en": "Choose a lightweight, fast model such as Haiku."
+        "ja": "Haiku のような軽量で高速なモデルを使う。単純で大量の作業に向いている。",
+        "en": "Use a lightweight, fast model such as Haiku, which is well suited to simple, high-volume work."
       },
       {
         "id": "C",
-        "ja": "作業を実施せず保留する。",
-        "en": "Postpone the work."
+        "ja": "問い合わせごとに担当者が処理できるようになるまで、分類作業を先送りする。",
+        "en": "Postpone the categorization until the task can be handled by a person on each inquiry."
       },
       {
         "id": "D",
-        "ja": "すべて Opus で処理し、その後に人が分類し直す。",
-        "en": "Process all with Opus, then have people reclassify."
+        "ja": "まずすべて Opus で処理し、その後に担当者が手作業で分類をやり直す。",
+        "en": "Run everything through Opus first, then have staff reclassify the results by hand."
       }
     ],
     "answer": [
@@ -1210,16 +1210,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "過剰な性能はコストと待ち時間の無駄になります。",
-        "en": "Excess capability wastes cost and latency."
+        "ja": "単純な分類に最上位の性能は過剰で、大量処理ではコストと遅延が増えます。",
+        "en": "Top-tier capability is wasted on simple labeling and raises cost and latency for large volumes."
       },
       "C": {
-        "ja": "要件を満たす選択肢があるため保留は不要です。",
-        "en": "A suitable option exists, so postponing is unnecessary."
+        "ja": "先送りしても価値は生まれません。高速で安価なモデルで今すぐ処理できます。",
+        "en": "Postponing delivers no value; a fast, inexpensive model can do this work now."
       },
       "D": {
-        "ja": "二重作業で、効率が悪くなります。",
-        "en": "Duplicated effort is inefficient."
+        "ja": "手作業で分類し直すと、モデルを使う速度とコストの利点がなくなります。",
+        "en": "Reclassifying by hand removes the speed and cost advantage of using a model at all."
       }
     },
     "difficulty": 1
@@ -1237,23 +1237,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "最も軽量なモデルを選び、速度を優先する。",
-        "en": "Choose the lightest model to prioritize speed."
+        "ja": "追加の質問で補えるので、最も軽量で高速なモデルを選ぶ。",
+        "en": "Choose the lightest and fastest model, since quick answers can be refined with follow-up questions."
       },
       {
         "id": "B",
-        "ja": "モデルは出力品質に影響しないため、どれでもよい。",
-        "en": "Any model; model choice does not affect quality."
+        "ja": "推論の質にモデル選択は影響しないので、どのモデルでもよい。",
+        "en": "Use any model, since the choice of model has no real effect on the quality of reasoning."
       },
       {
         "id": "C",
-        "ja": "最も高性能な Opus 系のモデルを検討し、必要なら Sonnet と比較する。",
-        "en": "Consider the most capable model tier (Opus) and compare with Sonnet if needed."
+        "ja": "最上位の Opus を検討し、コストの兼ね合いが必要なら Sonnet とも比較する。",
+        "en": "Consider the most capable tier (Opus), and compare it with Sonnet if cost needs balancing."
       },
       {
         "id": "D",
-        "ja": "Haiku を使い、足りない部分は繰り返し質問して補う。",
-        "en": "Use Haiku and make up gaps with repeated questions."
+        "ja": "Haiku を使い、足りない部分は追加の質問を繰り返して補う。",
+        "en": "Use Haiku and make up for the gaps by asking many repeated follow-up questions."
       }
     ],
     "answer": [
@@ -1265,16 +1265,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "難しい分析では品質が不足するおそれがあります。",
-        "en": "Quality may fall short on hard analysis."
+        "ja": "速度重視のモデルでは、この作業に欠かせない相互に絡む制約を見落とすことがあります。",
+        "en": "Speed-first models can miss interacting constraints that this task depends on."
       },
       "B": {
-        "ja": "モデルごとに能力・速度・コストが異なります。",
-        "en": "Models differ in capability, speed, and cost."
+        "ja": "モデルの階層ごとに推論能力は異なり、複雑な作業では選択が重要です。",
+        "en": "Model tiers differ in reasoning capability; the choice matters for complex work."
       },
       "D": {
-        "ja": "能力不足を反復で補うのは非効率で、品質も不安定です。",
-        "en": "Compensating for capability by repetition is inefficient and unreliable."
+        "ja": "追加質問を重ねると時間がかかり、それでも強力なモデルの深さに届かないことがあります。",
+        "en": "Repeated follow-ups cost time and still may not reach the depth a stronger model gives."
       }
     },
     "difficulty": 2
@@ -1292,23 +1292,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "通常のチャットで1回だけ質問する。",
-        "en": "Ask a single question in a normal chat."
+        "ja": "通常のチャットで質問を1つ投げ、1回の回答で出典付きの包括的なレポートを期待する。",
+        "en": "Ask one question in a normal chat and expect a comprehensive, cited report in one reply."
       },
       {
         "id": "B",
-        "ja": "Artifacts でゲームを作る。",
-        "en": "Build a game in Artifacts."
+        "ja": "Claude が記憶している市場の数値を表示する対話型ダッシュボードを Artifacts で作る。",
+        "en": "Build an interactive dashboard in Artifacts that displays the market figures Claude remembers."
       },
       {
         "id": "C",
-        "ja": "Claude の research（リサーチ）モードで、調査の範囲と観点を指定して実行する。",
-        "en": "Use Claude's research mode, specifying scope and angles."
+        "ja": "Claude のリサーチモードを使い、調査の範囲と求める切り口を指定する。",
+        "en": "Use Claude's research mode, and specify the scope and the angles you want covered."
       },
       {
         "id": "D",
-        "ja": "記憶に頼って回答させる。",
-        "en": "Rely on Claude's memory of training."
+        "ja": "学習時に得た知識に頼り、記憶だけでレポートを書くよう依頼する。",
+        "en": "Rely on what Claude learned in training and ask it to write the report from memory."
       }
     ],
     "answer": [
@@ -1320,16 +1320,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "単発の質問では網羅的な調査になりにくいです。",
-        "en": "A single question rarely yields comprehensive research."
+        "ja": "通常チャットの1回の回答では、多数の情報源を体系的に調べて集約することはできません。",
+        "en": "A single normal-chat answer does not systematically search and compile many sources."
       },
       "B": {
-        "ja": "目的に合いません。",
-        "en": "Does not match the goal."
+        "ja": "Artifacts は内容を表示するもので、新たな調査はしません。記憶した数値は古い可能性もあります。",
+        "en": "Artifacts presents content; it does not research new sources, and remembered figures may be outdated."
       },
       "D": {
-        "ja": "最新情報や出典が必要な調査には不適切です。",
-        "en": "Inadequate where current information and sources are needed."
+        "ja": "学習知識には期限があり、出典付きの最新情報は得られません。",
+        "en": "Training knowledge has a cutoff and gives no cited, current sources."
       }
     },
     "difficulty": 2
@@ -1347,23 +1347,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "毎回新しいチャットに貼り付け続ける。",
-        "en": "Keep pasting into new chats each time."
+        "ja": "レポートが必要になるたびに、業務ルールとテンプレートを新しいチャットに貼り付ける。",
+        "en": "Keep pasting the business rules and the template into a new chat each time a report is needed."
       },
       {
         "id": "B",
-        "ja": "Projects を作成し、ルール文書とテンプレートを知識として追加して、その中で作業する。",
+        "ja": "プロジェクトを作り、ルール文書とテンプレートをナレッジとして追加して、その中で作業する。",
         "en": "Create a Project, add the rules document and template as knowledge, and work inside it."
       },
       {
         "id": "C",
-        "ja": "文書を印刷して見ながら入力する。",
-        "en": "Print the documents and type from them."
+        "ja": "文書を印刷し、毎月のプロンプトに必要な部分を手で書き写す。",
+        "en": "Print the documents and copy the relevant parts by hand into each month's prompt."
       },
       {
         "id": "D",
-        "ja": "ルールを記憶してもらうため、チャットをずっと開いたままにする。",
-        "en": "Keep one chat open forever so Claude remembers."
+        "ja": "前の資料を忘れないよう、1つのチャットを開いたままずっと使い続ける。",
+        "en": "Keep a single chat open indefinitely so that Claude never loses the earlier material."
       }
     ],
     "answer": [
@@ -1375,16 +1375,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "非効率で、ミスの原因になります。",
-        "en": "Inefficient and error-prone."
+        "ja": "貼り付けの繰り返しは手間がかかりミスも出やすく、管理された単一の原本もありません。",
+        "en": "Repeated pasting is slow and error-prone, and there is no single maintained copy."
       },
       "C": {
-        "ja": "手作業が増え、Claude を活用できていません。",
-        "en": "Adds manual work and underuses Claude."
+        "ja": "手で書き写すと手間と誤字が増え、Claude が資料を常に参照できるようにもなりません。",
+        "en": "Retyping adds work and typos without giving Claude persistent access to the material."
       },
       "D": {
-        "ja": "会話が長くなるとコンテキストの制約で品質が落ちる可能性があります。",
-        "en": "Very long chats hit context limits and quality can degrade."
+        "ja": "非常に長いチャットは文脈の制約に近づき、前の内容を失うことがあります。この用途にはプロジェクトが適しています。",
+        "en": "Very long chats strain context limits and may lose earlier details; a Project is built for this."
       }
     },
     "difficulty": 2
@@ -1402,23 +1402,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "同じ指示を大文字で何度も繰り返す。",
-        "en": "Repeat the same instruction in capitals."
+        "ja": "以前の決定を優先させるため、その指示を大文字で繰り返し書く。",
+        "en": "Repeat the instruction in capital letters so that Claude treats the earlier decision as a priority."
       },
       {
         "id": "B",
-        "ja": "チャットを続け、さらに情報を追加していく。",
-        "en": "Keep going and add even more information."
+        "ja": "同じチャットで続け、新しいメッセージごとにさらに背景情報を追加する。",
+        "en": "Continue in the same chat and add even more background in each new message."
       },
       {
         "id": "C",
-        "ja": "別のサービスへ乗り換える。",
-        "en": "Switch services."
+        "ja": "別の AI サービスに切り替え、プロジェクトを最初からやり直す。",
+        "en": "Switch to a different AI service and start the whole project again from the beginning."
       },
       {
         "id": "D",
-        "ja": "決定事項や要点を Claude に要約させ、それを新しいチャット（または Project）の冒頭に引き継いで再開する。",
-        "en": "Have Claude summarize decisions and key points, then carry the summary into a new chat (or Project) and continue."
+        "ja": "決定事項と要点を Claude に要約させ、その要約を新しいチャットまたはプロジェクトに持ち越して続ける。",
+        "en": "Have Claude summarize the decisions and key points, then carry the summary into a new chat or Project."
       }
     ],
     "answer": [
@@ -1430,16 +1430,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "繰り返しは根本原因を解決しません。",
-        "en": "Repetition does not fix the root cause."
+        "ja": "大文字は強調にはなっても、失われた記憶を補いません。文脈の負荷は変わりません。",
+        "en": "Capital letters add emphasis, not the missing memory; the context is still strained."
       },
       "B": {
-        "ja": "情報を足すと問題が悪化することがあります。",
-        "en": "Adding more can worsen the problem."
+        "ja": "テキストを足すと、文脈の問題は軽くなるどころか深刻になります。",
+        "en": "Adding more text deepens the context problem instead of relieving it."
       },
       "C": {
-        "ja": "乗り換えても同様の制約は残ります。",
-        "en": "Similar limits persist elsewhere."
+        "ja": "サービスを替えると進捗がすべて失われ、原因の解決にもなりません。",
+        "en": "Changing services discards all progress and does not address the cause."
       }
     },
     "difficulty": 3
@@ -1457,28 +1457,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "過去のやり取りの全文を一字一句コピーして貼る。",
-        "en": "Copy and paste the entire prior transcript verbatim."
+        "ja": "前回のやり取りの全文をそのまま、新しいチャットの最初のメッセージに貼り付ける。",
+        "en": "Copy the entire previous transcript word for word into the first message of the new chat."
       },
       {
         "id": "B",
-        "ja": "現時点の決定事項・未解決事項・次のステップを要約させ、新しい会話の最初に貼る。",
-        "en": "Have Claude summarize decisions, open issues, and next steps, and paste that at the start of the new chat."
+        "ja": "決定事項・未解決の課題・次のステップを Claude に要約させ、新しいチャットの冒頭に貼り付ける。",
+        "en": "Have Claude summarize the decisions, open issues, and next steps, and paste that at the start of the new chat."
       },
       {
         "id": "C",
-        "ja": "何も引き継がず、背景は推測に任せる。",
-        "en": "Carry nothing over and let Claude guess the background."
+        "ja": "何も引き継がず、新しい質問だけから Claude に背景を推測させる。",
+        "en": "Carry nothing over and let Claude work out the background from the new questions alone."
       },
       {
         "id": "D",
-        "ja": "継続的に必要な資料や指示は Project の知識・指示に保存して再利用する。",
+        "ja": "再利用する資料や指示を、プロジェクトのナレッジと指示に保存する。",
         "en": "Store reusable materials and instructions in a Project's knowledge and instructions."
       },
       {
         "id": "E",
-        "ja": "古いチャットを開いたままにして並行利用する。",
-        "en": "Keep the old chat open and use both in parallel."
+        "ja": "古いチャットも開いたままにして、2つのチャットで並行して関連する質問をする。",
+        "en": "Keep the old chat open and ask related questions in both chats at the same time."
       }
     ],
     "answer": [
@@ -1491,16 +1491,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "全文の貼り付けはコンテキストを大量に消費し、本来の問題を再現します。",
-        "en": "Pasting everything consumes context and recreates the problem."
+        "ja": "全文を貼ると、置いていきたかった大量の内容で再び文脈が埋まります。",
+        "en": "A full transcript refills the context with the very bulk you wanted to leave behind."
       },
       "C": {
-        "ja": "背景がないと精度が下がります。",
-        "en": "Without background, accuracy drops."
+        "ja": "背景がなければ Claude は推測し、すでに決めたことが覆されるかもしれません。",
+        "en": "Without background Claude will guess, and decisions already made may be reversed."
       },
       "E": {
-        "ja": "並行利用では情報が分散し、整合性が取れなくなります。",
-        "en": "Parallel use scatters information and breeds inconsistency."
+        "ja": "2つのチャットに分けると、決定事項が散らばり、食い違いが生じます。",
+        "en": "Splitting work across two chats makes the decisions scattered and inconsistent."
       }
     },
     "difficulty": 2
@@ -1518,23 +1518,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "すべての回答を Artifacts として生成する。",
-        "en": "Generate every answer as an Artifact."
+        "ja": "返答の見た目をそろえるため、すべての回答を Artifact として作る、1行で済む回答も含め、担当者がいつでも開いて再利用できる文書が手元に残るようにする。",
+        "en": "Produce every answer as an Artifact so that all of the replies look consistent, even one-line answers, so that the rep always has a document to open and reuse."
       },
       {
         "id": "B",
-        "ja": "簡単な質問はチャット内で回答させ、独立した文書やツールなど再利用する成果物の作成には Artifacts を使う。",
-        "en": "Answer simple questions inline in chat and use Artifacts for standalone, reusable deliverables like documents or tools."
+        "ja": "簡単な質問はチャット内で直接答え、Artifacts は文書やツールなど単体で再利用する成果物に使う。",
+        "en": "Answer simple questions inline in chat, and use Artifacts for standalone, reusable deliverables such as documents or tools."
       },
       {
         "id": "C",
-        "ja": "Artifacts は使わず、成果物はメモ帳に手入力する。",
-        "en": "Never use Artifacts; retype deliverables in a notepad."
+        "ja": "Artifacts は一切使わず、成果物が必要になったらメモ帳に打ち直す。",
+        "en": "Avoid Artifacts entirely and retype any deliverable into a notepad when it is needed."
       },
       {
         "id": "D",
-        "ja": "簡単な質問ほど research モードを使う。",
-        "en": "Use research mode for the simplest questions."
+        "ja": "徹底するため、最も簡単な質問も含めてすべてリサーチモードで処理する。",
+        "en": "Run every question, including the simplest ones, through research mode to be thorough."
       }
     ],
     "answer": [
@@ -1546,16 +1546,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "簡単な質問には過剰で、かえって手間が増えます。",
-        "en": "Excessive for simple questions and adds friction."
+        "ja": "短い回答まで Artifact にすると煩雑になり、すぐ答えが欲しい営業担当の妨げになります。",
+        "en": "Wrapping quick answers in Artifacts adds clutter and slows a rep who needs a fast reply."
       },
       "C": {
-        "ja": "手作業が増え、機能を活用していません。",
-        "en": "More manual work; ignores available features."
+        "ja": "Artifacts は再利用する成果物のための機能で、避けるとその有用性を捨てることになります。",
+        "en": "Artifacts exist for reusable deliverables; avoiding them forfeits their usefulness."
       },
       "D": {
-        "ja": "簡単な質問には不要で、時間もかかります。",
-        "en": "Unnecessary and slow for simple questions."
+        "ja": "簡単な質問にリサーチモードは過剰で、価値を足さずに回答が遅くなります。",
+        "en": "Research mode is heavy for simple questions and slows the answer without adding value."
       }
     },
     "difficulty": 1
@@ -1573,23 +1573,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "メモを Claude に渡し、要件の一覧、矛盾や曖昧な点、追加で確認すべき質問を抽出させ、結果を関係者と確認する。",
-        "en": "Give Claude the notes to extract a requirements list, contradictions, ambiguities, and follow-up questions, then validate with stakeholders."
+        "ja": "メモを渡して要件の一覧・矛盾点・未解決の質問を抽出させ、その結果をステークホルダーと確認する。",
+        "en": "Give Claude the notes to extract a requirements list, contradictions, and open questions, then validate it with stakeholders."
       },
       {
         "id": "B",
-        "ja": "Claude の出力した要件を確認なしで正式な要件とする。",
-        "en": "Adopt Claude's requirements as final without review."
+        "ja": "すべてのメモを処理したのだから、Claude がまとめた要件をそのまま最終版として採用する、問題があればステークホルダーが後から異議を出せばよいと考える。",
+        "en": "Adopt the requirements Claude produces as final because it has processed all of the notes, and stakeholders can raise objections later if something looks wrong."
       },
       {
         "id": "C",
-        "ja": "要件は人だけが整理できるため Claude は使わない。",
-        "en": "Never use Claude; only humans can structure requirements."
+        "ja": "要件を整理できるのはインタビューに出た人だけなので、この作業では Claude を使わない。",
+        "en": "Avoid Claude here, since only people who attended the interviews can structure requirements."
       },
       {
         "id": "D",
-        "ja": "メモを読み込ませず、一般的な要件を新たに作らせる。",
-        "en": "Skip the notes and have Claude invent generic requirements."
+        "ja": "ばらばらのメモは使わず、この種のプロジェクトにありがちな要件を Claude に起案させる。",
+        "en": "Skip the scattered notes and ask Claude to draft a typical set of requirements for this kind of project."
       }
     ],
     "answer": [
@@ -1601,16 +1601,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "確認なしでは誤解や抜けが残ります。",
-        "en": "Without review, misunderstandings and gaps remain."
+        "ja": "確認なしの出力はメモを読み違えたり文脈を落としたりします。ステークホルダーの確認が必要です。",
+        "en": "Unreviewed output can misread notes or miss context; stakeholders must confirm the result."
       },
       "C": {
-        "ja": "整理作業の効率化という価値を逃します。",
-        "en": "Forgoes the efficiency benefit."
+        "ja": "整理や抜けの洗い出しは Claude の得意分野で、使わなければその強みを無駄にします。",
+        "en": "Claude is well suited to organizing and surfacing gaps; excluding it wastes that strength."
       },
       "D": {
-        "ja": "実際のニーズに基づきません。",
-        "en": "Not grounded in actual needs."
+        "ja": "一般的な要件では、ステークホルダーが実際に述べた内容が反映されません。",
+        "en": "Generic requirements ignore what the stakeholders actually said."
       }
     },
     "difficulty": 2
@@ -1628,23 +1628,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "Claude が出した計画をそのまま確定する。",
-        "en": "Finalize Claude's plan as is."
+        "ja": "日程と作業が一通り入っているので、Claude が作った計画をそのまま確定する、予算と実際の見積もりの突き合わせは、イベントが近づいてからでよいと考える。",
+        "en": "Finalize the plan exactly as Claude drafted it, since it already covers the schedule and tasks, and checking the budget against real quotes can be left until the event is closer."
       },
       {
         "id": "B",
-        "ja": "目的・予算・日程などの制約を伝えて計画案とリスク、チェックリストを作らせ、人が実現性と費用を確認して調整する。",
-        "en": "Provide goals, budget, and timing constraints; have Claude draft a plan, risks, and checklist; then people validate feasibility and cost and adjust."
+        "ja": "目的・予算・時期を伝えて計画・リスク・チェックリストの案を作らせ、実現可能性とコストは人が確認する。",
+        "en": "Provide goals, budget, and timing; have Claude draft the plan, risks, and checklist; then people check feasibility and cost."
       },
       {
         "id": "C",
-        "ja": "制約は伝えず自由に提案させる。",
-        "en": "Give no constraints and let it propose freely."
+        "ja": "制約は与えず、Claude が考えうる最も独創的なイベントを提案させる。",
+        "en": "Give no constraints so that Claude can propose the most creative event it can come up with."
       },
       {
         "id": "D",
-        "ja": "計画は人間のみの仕事のため、Claude に相談しない。",
-        "en": "Do not consult Claude; planning is human-only."
+        "ja": "計画の判断は人の役割なので、イベントの企画に Claude は使わない。",
+        "en": "Leave Claude out of event planning, since planning decisions belong entirely to people."
       }
     ],
     "answer": [
@@ -1656,16 +1656,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "実現性やコストの検証が欠け、リスクが高まります。",
-        "en": "Lacks feasibility and cost validation."
+        "ja": "Claude は実際のコスト、会場の制約、社内事情を知りません。人による確認が必要です。",
+        "en": "Claude does not know your real costs, venue limits, or politics; people must validate."
       },
       "C": {
-        "ja": "制約なしでは実行不能な案になりがちです。",
-        "en": "Without constraints, plans tend to be unworkable."
+        "ja": "制約がなければ、予算と時間内で実現できる提案になりにくくなります。",
+        "en": "Without constraints the proposals are unlikely to be feasible within budget and time."
       },
       "D": {
-        "ja": "有用な支援を使わず、時間がかかります。",
-        "en": "Forgoes useful help and takes longer."
+        "ja": "案やチェックリストの作成は Claude に向いており、使わないのは手間の無駄です。",
+        "en": "Drafting options and checklists is a good fit for Claude; excluding it wastes effort."
       }
     },
     "difficulty": 2
@@ -1683,23 +1683,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "完成版を一度で出させ、修正は行わない。",
-        "en": "Request a finished version once and make no changes."
+        "ja": "フォームの完成版を1回の依頼で出してもらい、修正せずにそのまま使う。",
+        "en": "Ask Claude for a finished version of the form in one request and use it without changes."
       },
       {
         "id": "B",
-        "ja": "最初から開発チームに引き渡す。",
-        "en": "Hand it to a development team from the start."
+        "ja": "誰も下書きを見る前に、アイデアを開発チームにそのまま渡して設計してもらう。",
+        "en": "Pass the idea straight to a development team to design before anyone sees a draft."
       },
       {
         "id": "C",
-        "ja": "Artifacts などで試作を作らせ、利用者の意見を取り入れながら反復して改善する。",
-        "en": "Have Claude build a prototype (for example in Artifacts) and iterate with user feedback."
+        "ja": "Claude に(たとえば Artifacts で)試作品を作らせ、利用者のフィードバックで改善を重ねる。",
+        "en": "Have Claude build a prototype, for example in Artifacts, and iterate on it with user feedback."
       },
       {
         "id": "D",
-        "ja": "仕様を書かずに口頭で説明するだけにする。",
-        "en": "Explain it verbally without writing any spec."
+        "ja": "この段階では仕様を書かず、会議で口頭でアイデアを説明する。",
+        "en": "Describe the idea verbally in meetings and avoid writing any specification at this stage."
       }
     ],
     "answer": [
@@ -1711,16 +1711,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "フィードバックなしでは品質が上がりません。",
-        "en": "Without feedback quality will not improve."
+        "ja": "一度で終えるとフィードバックの機会がなく、フォームのアイデアを練る過程が抜けます。",
+        "en": "A one-shot result skips feedback, which is where a form idea gets shaped."
       },
       "B": {
-        "ja": "簡易な試作の段階で価値を検証でき、過剰な負担になります。",
-        "en": "A simple prototype can validate value first; handing off is premature."
+        "ja": "アイデアを試す前に開発者を巻き込むと、未検証の作業で時間を使わせます。",
+        "en": "Engaging developers before the idea is tested wastes their time on unvalidated work."
       },
       "D": {
-        "ja": "記録がなく、再現性や共有に問題が出ます。",
-        "en": "Undocumented ideas are hard to reproduce and share."
+        "ja": "口頭の説明は誤解されやすく、目に見える試作品のほうが具体的な意見を得られます。",
+        "en": "Verbal explanations are easily misread; a visible prototype makes feedback concrete."
       }
     },
     "difficulty": 2
@@ -1738,23 +1738,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "全工程を一度に Claude に置き換える。",
-        "en": "Replace the whole process with Claude at once."
+        "ja": "効果を最大化するため、文書作成のプロセス全体を一度に Claude へ置き換える、最初に何か月もかけて試行するよりも早いと考える。",
+        "en": "Replace the whole document-production process with Claude at once to capture the full benefit, rather than spending months on a pilot first."
       },
       {
         "id": "B",
-        "ja": "既存プロセスを可視化し、反復的で文章中心かつリスクの低い工程から小さく試行して効果を測定し、レビュー工程を維持して拡大する。",
-        "en": "Map the current process, pilot on repetitive, text-heavy, low-risk steps, measure results, keep review steps, then expand."
+        "ja": "現行の流れを整理し、反復的でリスクの低い工程で試行して効果を測り、レビューは残したまま範囲を広げる。",
+        "en": "Map the current process, pilot Claude on repetitive, low-risk steps, measure results, keep reviews, then expand."
       },
       {
         "id": "C",
-        "ja": "社内への説明は行わず、各自が自由に使うのに任せる。",
-        "en": "Give no guidance and let everyone improvise."
+        "ja": "指針は示さず、Claude の使い方は各メンバーの判断に任せる。",
+        "en": "Give no guidance and let each team member decide how to use Claude in their own way."
       },
       {
         "id": "D",
-        "ja": "効果の測定は不要として導入を完了とする。",
-        "en": "Skip measurement and declare it done."
+        "ja": "試行はするが測定はせず、使っている人が気に入ったら成功と宣言する。",
+        "en": "Run the pilot but skip measurement, and declare success once people say they like the tool."
       }
     ],
     "answer": [
@@ -1766,16 +1766,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "リスクが高く、品質や責任の所在が不明確になります。",
-        "en": "High risk; quality and accountability become unclear."
+        "ja": "一斉に切り替えると、代替手段も学びもないまま品質問題を起こすリスクがあります。",
+        "en": "A full switch at once risks quality problems with no fallback or learning."
       },
       "C": {
-        "ja": "品質や情報管理のばらつきが生じます。",
-        "en": "Leads to inconsistent quality and data handling."
+        "ja": "共通の運用がないと品質やデータの扱いがばらつき、学びも得られません。",
+        "en": "Without shared practices, quality and data handling vary and nothing is learned."
       },
       "D": {
-        "ja": "改善効果や課題が分からないままになります。",
-        "en": "You would not know the effect or problems."
+        "ja": "測定がなければ価値を示せず、拡大するかどうかも判断できません。",
+        "en": "Without measurement you cannot show value or decide whether to expand."
       }
     },
     "difficulty": 3
@@ -1793,23 +1793,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "Claude は常に正確で、人の確認は不要だと伝える。",
-        "en": "State that Claude is always accurate and needs no review."
+        "ja": "出力のレビューが不要なほど Claude は正確だと、経営層に伝える。",
+        "en": "Tell executives that Claude is accurate enough that its output no longer needs any review."
       },
       {
         "id": "B",
-        "ja": "限界を伏せ、成功例のみを強調する。",
-        "en": "Hide limitations and highlight only successes."
+        "ja": "成功例だけを示し、限界は質問されたときにだけ触れる。",
+        "en": "Present only the successes, and mention limitations only if someone asks about them."
       },
       {
         "id": "C",
-        "ja": "測定した時間削減や品質の改善、人のレビューが必要な領域、ハルシネーションやデータ管理などのリスクと対策をあわせて伝える。",
-        "en": "Share measured time savings and quality gains alongside where review is needed and the risks (hallucination, data handling) with mitigations."
+        "ja": "測定した時間削減と品質向上に加え、レビューが必要な箇所と主要なリスク・対策を共有する。",
+        "en": "Share measured time and quality gains together with where review is needed and the main risks and mitigations."
       },
       {
         "id": "D",
-        "ja": "技術的に難しいため、説明は IT 部門に任せる。",
-        "en": "Leave all communication to IT as it is too technical."
+        "ja": "内容が技術的すぎるので、説明はすべて IT 部門に任せる。",
+        "en": "Leave the whole explanation to the IT department, since the topic is too technical for the business side."
       }
     ],
     "answer": [
@@ -1821,16 +1821,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "過大な期待を招き、問題発生時の信頼を損ないます。",
-        "en": "Creates inflated expectations and erodes trust."
+        "ja": "正確さを誇張すると非現実的な期待を生み、レビューの必要性も見えなくなります。",
+        "en": "Overclaiming accuracy creates unrealistic expectations and hides the need for review."
       },
       "B": {
-        "ja": "リスクの見落としにつながります。",
-        "en": "Leads to overlooked risks."
+        "ja": "限界を隠すと、のちに問題が出たときに信頼を損ないます。",
+        "en": "Hiding limits erodes trust when problems surface later."
       },
       "D": {
-        "ja": "業務上の価値は担当者が最もよく説明できます。",
-        "en": "The practitioner is best placed to explain business value."
+        "ja": "ビジネス上の価値とリスクは担当者自身が伝えるべきで、IT が成果を代弁することはできません。",
+        "en": "Business value and risk are the associate's to communicate; IT cannot speak for the results."
       }
     },
     "difficulty": 2
@@ -1848,28 +1848,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "毎週繰り返される会議メモからのアクション項目の抽出と要約。",
-        "en": "Extracting and summarizing action items from weekly meeting notes."
+        "ja": "週次会議のメモから、アクション項目を抽出して要約する。",
+        "en": "Extracting and summarizing action items from the notes of weekly meetings."
       },
       {
         "id": "B",
-        "ja": "最終的な法的判断の確定。",
-        "en": "Making final legal determinations."
+        "ja": "契約条項が有効かどうかについて、最終的な法的判断を下す。",
+        "en": "Making the final legal determination on whether a contract clause is enforceable."
       },
       {
         "id": "C",
-        "ja": "顧客向けお知らせ文の初稿作成（公開前に担当者が確認）。",
-        "en": "Drafting first versions of customer announcements, reviewed by a staff member before release."
+        "ja": "公開前に担当者が確認することを前提に、顧客向けお知らせの初稿を作る。",
+        "en": "Drafting a first version of customer announcements that a staff member reviews before release."
       },
       {
         "id": "D",
-        "ja": "人事の昇給可否の自動決定。",
-        "en": "Automatically deciding pay raises."
+        "ja": "業績メモに基づいて、昇給の対象者を自動的に決める。",
+        "en": "Deciding automatically which employees receive pay raises based on their performance notes."
       },
       {
         "id": "E",
-        "ja": "機密性の高い個人情報を含むデータの未承認ツールへの入力。",
-        "en": "Entering sensitive personal data into an unapproved tool."
+        "ja": "会社が承認していないツールに、機微な個人データを入力する。",
+        "en": "Entering sensitive personal data into a tool the company has not approved to process it."
       }
     ],
     "answer": [
@@ -1882,16 +1882,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "重大な判断は人と専門家が責任を持つべきです。",
-        "en": "High-stakes judgments belong to accountable people and experts."
+        "ja": "最終的な法的判断は資格のある人が行うべきで、Claude は補助できても決定はできません。",
+        "en": "Final legal determinations require qualified people; Claude can assist but not decide."
       },
       "D": {
-        "ja": "人の処遇に関わる判断を自動化するのは不適切です。",
-        "en": "Automating decisions affecting people is inappropriate."
+        "ja": "報酬の判断は人に大きく影響するため、AI の自動判断に任せるべきではありません。",
+        "en": "Pay decisions affect people and must not be left to automatic AI judgment."
       },
       "E": {
-        "ja": "データ保護方針に反するおそれがあります。",
-        "en": "Likely violates data-protection policy."
+        "ja": "未承認のツールで機微なデータを扱うと、方針に反し、データが危険にさらされます。",
+        "en": "Using an unapproved tool for sensitive data breaks policy and exposes the data."
       }
     },
     "difficulty": 2
@@ -1909,23 +1909,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "自分で設計し、本番環境に導入する。",
-        "en": "Design it yourself and deploy it to production."
+        "ja": "時間を節約するため、基幹システムへの接続を自分で設計し、本番に展開する、連携のコードは Claude がほぼ書いてくれると考える。",
+        "en": "Design the connection to the core system yourself and deploy it to production to save time, since Claude can generate most of the integration code for you."
       },
       {
         "id": "B",
-        "ja": "要望の目的や要件を整理し、システム連携や自動化は Claude Architect や Developer などの技術担当にエスカレーションする。",
-        "en": "Clarify the goals and requirements, then escalate the system integration and automation to technical Claude Architect/Developer roles."
+        "ja": "目的と要件を明確にしたうえで、システム連携と自動化は技術担当の Claude Architect / Developer に引き継ぐ。",
+        "en": "Clarify the goals and requirements, then escalate the integration and automation to technical Claude Architect or Developer roles."
       },
       {
         "id": "C",
-        "ja": "要望を断り、検討もしない。",
-        "en": "Decline and do not investigate."
+        "ja": "何を実現したいのかも確認せず、依頼をそのまま断る。",
+        "en": "Decline the request outright without looking into what the team is trying to achieve."
       },
       {
         "id": "D",
-        "ja": "チャットに注文データを手動で貼り付ける運用で代替し、機密性は考慮しない。",
-        "en": "Substitute pasting order data into chat manually, ignoring sensitivity."
+        "ja": "機微性を確認せず、暫定策として注文データをチャットに手で貼り付ける。",
+        "en": "Paste order data into a chat manually as a stopgap, without checking how sensitive it is."
       }
     ],
     "answer": [
@@ -1937,16 +1937,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "権限・知識の範囲を超え、セキュリティや品質のリスクがあります。",
-        "en": "Beyond your scope; security and quality risks."
+        "ja": "基幹システムとの連携はアソシエイトの範囲を超え、本番の注文を危険にさらします。",
+        "en": "Enterprise integration is beyond an associate's scope and risks production orders."
       },
       "C": {
-        "ja": "業務改善の機会を逃します。",
-        "en": "Loses an improvement opportunity."
+        "ja": "一律に断ると依頼者は先に進めません。要件の整理は役割の一部です。",
+        "en": "A flat refusal gives the team no path forward; defining requirements is part of the role."
       },
       "D": {
-        "ja": "データ保護の観点で不適切です。",
-        "en": "Problematic from a data-protection standpoint."
+        "ja": "注文データは機微な場合があり、手貼りはリアルタイムでもなく、方針の確認もされていません。",
+        "en": "Order data may be sensitive, and manual pasting is neither real-time nor policy-checked."
       }
     },
     "difficulty": 3
@@ -1964,28 +1964,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "成功した事例のみで、失敗や課題は載せない。",
-        "en": "Only successes; omit failures and issues."
+        "ja": "報告が前向きな内容になるよう、失敗や課題は省き、成功だけを載せる。",
+        "en": "Only the pilot's successes, leaving out failures and issues so that the report is positive."
       },
       {
         "id": "B",
-        "ja": "作業時間や品質など、導入前後を比較した測定結果。",
-        "en": "Measured before-and-after results such as time and quality."
+        "ja": "所要時間や品質など、導入前後を比較した測定結果。",
+        "en": "Measured before-and-after results, such as time spent and quality."
       },
       {
         "id": "C",
-        "ja": "誤りが見つかった事例と、それに対する確認手順や改善策。",
-        "en": "Cases where errors were found and the verification steps and improvements applied."
+        "ja": "誤りが見つかった事例と、その後の検証手順や改善内容。",
+        "en": "Cases where errors were found, and the verification steps and improvements that followed."
       },
       {
         "id": "D",
-        "ja": "Claude 自身の「うまくいった」という自己評価のみ。",
-        "en": "Only Claude's own claim that it went well."
+        "ja": "試行はうまくいったという Claude 自身の発言を、成果の根拠として引用する。",
+        "en": "Claude's own statement that the pilot went well, quoted as evidence of the outcome."
       },
       {
         "id": "E",
-        "ja": "個人名入りの顧客データをそのまま添付する。",
-        "en": "Attach customer data with personal names as is."
+        "ja": "管理職が実例を確認できるよう、個人名入りの顧客データをそのまま添付する。",
+        "en": "The raw customer data with personal names, attached so that managers can see real examples."
       }
     ],
     "answer": [
@@ -1998,16 +1998,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "偏った報告は意思決定を誤らせます。",
-        "en": "One-sided reporting misleads decisions."
+        "ja": "失敗を省くと、展開判断に必要なリスクが見えなくなります。",
+        "en": "Leaving out failures hides the risks that scaling decisions depend on."
       },
       "D": {
-        "ja": "自己評価は客観的な証拠ではありません。",
-        "en": "Self-assessment is not objective evidence."
+        "ja": "Claude 自身の評価は根拠になりません。結果は測定する必要があります。",
+        "en": "Claude's self-assessment is not evidence; results must be measured."
       },
       "E": {
-        "ja": "個人情報の不必要な共有は避けるべきです。",
-        "en": "Avoid unnecessary sharing of personal data."
+        "ja": "個人データを経営会議の資料として配布すべきではありません。",
+        "en": "Personal data should not be circulated in a management report."
       }
     },
     "difficulty": 2
@@ -2025,23 +2025,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "担当者を外し、Claude の出力をそのまま配信する。",
-        "en": "Remove the owner and distribute Claude's output directly."
+        "ja": "レポートの担当者をなくし、Claude の出力を毎週そのまま読み手に配布する、レポートが誰かの都合を待たずに済むようにする。",
+        "en": "Remove the report's owner and send Claude's output directly to its readers each week, so that the report no longer waits on anyone's availability."
       },
       {
         "id": "B",
-        "ja": "データ収集は人が行い、Claude に下書きを作らせ、担当者がレビューして承認するステップを明確に定義する。",
-        "en": "Keep data collection with people, have Claude draft, and define a clear review-and-approve step by the owner."
+        "ja": "データ収集は人が担い、Claude に下書きを作らせ、担当者による確認と承認の手順を明確に定める。",
+        "en": "Keep data collection with people, have Claude draft the report, and give the owner a clear review-and-approve step."
       },
       {
         "id": "C",
-        "ja": "出力の形式や基準を定めず、毎回自由に作る。",
-        "en": "Define no format or standards; improvise each week."
+        "ja": "Claude が毎週自由に変えられるよう、形式や基準は定めない。",
+        "en": "Set no format or standards, so that Claude can vary the report each week."
       },
       {
         "id": "D",
-        "ja": "引き継ぎ手順を作らず、1人の個人アカウントで運用する。",
-        "en": "Run it on one person's personal account with no handoff procedure."
+        "ja": "引き継ぎ手順を設けず、ワークフロー全体を1人の個人アカウントで運用する。",
+        "en": "Run the whole workflow from one person's personal account without a handoff procedure."
       }
     ],
     "answer": [
@@ -2053,16 +2053,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "検証なしの配信はリスクが高いです。",
-        "en": "Unreviewed distribution is risky."
+        "ja": "担当者がいなければ、週次レポートの誤りに責任を持つ人がいません。",
+        "en": "Without an owner nobody is accountable for errors in the weekly report."
       },
       "C": {
-        "ja": "品質が安定せず、再現できません。",
-        "en": "Inconsistent and not repeatable."
+        "ja": "基準がなければ出力がばらつき、一貫した確認ができません。",
+        "en": "Without standards the output varies and cannot be reviewed consistently."
       },
       "D": {
-        "ja": "属人化とガバナンス上の問題を生みます。",
-        "en": "Creates single-person dependency and governance issues."
+        "ja": "引き継ぎのない個人アカウントでの運用は、脆く、継続も困難です。",
+        "en": "A personal account with no handoff makes the workflow fragile and hard to continue."
       }
     },
     "difficulty": 2
@@ -2080,23 +2080,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "担当者が好んでいる作業であるか。",
-        "en": "Whether the owner enjoys the task."
+        "ja": "そのプロセスの担当者が、今その作業を楽しんでいるかどうか。",
+        "en": "Whether the person who owns the process enjoys doing the task today."
       },
       {
         "id": "B",
-        "ja": "作業量が多く、パターンがあり、誤りの影響が管理可能で、人が確認できる業務であるか。",
-        "en": "Whether it is high-volume, patterned, has manageable error impact, and can be reviewed by people."
+        "ja": "量が多くパターン化されており、誤りの影響が許容範囲で、人が確認できるかどうか。",
+        "en": "Whether it is high-volume and patterned, has manageable error impact, and can be reviewed by people."
       },
       {
         "id": "C",
-        "ja": "社内で最も重要性が高く、失敗が許されない業務であるか。",
-        "en": "Whether it is the most critical process where failure is unacceptable."
+        "ja": "失敗が事業として許されない、最も重要なプロセスかどうか。",
+        "en": "Whether it is the most critical process, where failure would be unacceptable to the business."
       },
       {
         "id": "D",
-        "ja": "導入にかかるコストを検討しなくてよい業務であるか。",
-        "en": "Whether cost need not be considered."
+        "ja": "重要なプロセスなので、Claude の利用コストを考慮しなくてよいかどうか。",
+        "en": "Whether the cost of using Claude can be ignored because the process is considered important."
       }
     ],
     "answer": [
@@ -2108,16 +2108,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "好みは適合性の基準になりません。",
-        "en": "Preference is not a suitability criterion."
+        "ja": "個人の好みは、量、リスク、確認のしやすさとは無関係です。",
+        "en": "Personal enjoyment says nothing about volume, risk, or reviewability."
       },
       "C": {
-        "ja": "失敗が許されない業務は、初期の試行には不向きです。",
-        "en": "Zero-failure-tolerance processes are poor first pilots."
+        "ja": "失敗が許されない重要プロセスは最初の対象に向きません。誤りを許容できるところから始めます。",
+        "en": "A critical, zero-failure process is a poor first candidate; start where errors are manageable."
       },
       "D": {
-        "ja": "費用対効果の検討は必要です。",
-        "en": "Cost-benefit should be considered."
+        "ja": "対象を選ぶ際は、常にコストと効果を比べる必要があります。",
+        "en": "Cost and benefit must always be weighed when choosing candidates."
       }
     },
     "difficulty": 1
@@ -2135,23 +2135,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "各自が毎回、好みの指示をチャットに入力する。",
-        "en": "Everyone types their own preferences into each chat."
+        "ja": "各メンバーが、プロジェクト内の新しいチャットごとに希望のトーンやルールを入力する。",
+        "en": "Ask each team member to type their preferred tone and rules into every new chat in the Project."
       },
       {
         "id": "B",
-        "ja": "Project のカスタム指示に、役割・文体・禁止事項・出力形式を記述する。",
+        "ja": "プロジェクトのカスタム指示に、役割・トーン・禁止事項・出力形式を書く。",
         "en": "Write the role, tone, prohibitions, and output format in the Project's custom instructions."
       },
       {
         "id": "C",
-        "ja": "指示は書かず、Claude の判断に任せる。",
-        "en": "Write no instructions and leave it to Claude."
+        "ja": "指示は空のままにして、レポートごとに Claude に適切な文体を選ばせる。",
+        "en": "Leave the instructions empty so that Claude can choose a suitable style for each report."
       },
       {
         "id": "D",
-        "ja": "指示を1つの長い文章にして、優先順位や構成を付けない。",
-        "en": "Write one long unstructured block with no priorities."
+        "ja": "優先順位をつけず、思いついた順に1つの長い指示文として書く。",
+        "en": "Write one long block of instructions in whatever order they come to mind, without any priorities."
       }
     ],
     "answer": [
@@ -2163,16 +2163,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "ばらつきや手間が生じます。",
-        "en": "Causes inconsistency and extra effort."
+        "ja": "チャットごとの入力では、チームで結果がばらつきます。",
+        "en": "Per-chat typing leads to inconsistent results across the team."
       },
       "C": {
-        "ja": "出力の一貫性が保証されません。",
-        "en": "No guarantee of consistency."
+        "ja": "指示がなければ、トーンやルールが人によって変わります。",
+        "en": "Without instructions the tone and rules vary from person to person."
       },
       "D": {
-        "ja": "構造のない指示は解釈のぶれを生みます。",
-        "en": "Unstructured instructions invite inconsistent interpretation."
+        "ja": "優先順位のない構造化されていない文章は読み取りにくく、矛盾も含みやすくなります。",
+        "en": "An unstructured block without priorities is hard to follow and can contain conflicts."
       }
     },
     "difficulty": 1
@@ -2190,23 +2190,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "社内にある全ての資料を無差別にアップロードする。",
-        "en": "Upload every document you have, indiscriminately."
+        "ja": "資料は多いほど Claude が活用できるので、手持ちの文書をすべてアップロードする。",
+        "en": "Upload every document you have, since more material always gives Claude more to work with."
       },
       {
         "id": "B",
-        "ja": "タスクに関連する最新で正確な資料を厳選し、機密情報の取り扱いルールを満たすものだけを追加する。",
-        "en": "Curate relevant, current, accurate materials that satisfy sensitive-data rules."
+        "ja": "関連性が高く最新で正確、かつ機微データの規則にも適合する資料を選んで追加する。",
+        "en": "Curate relevant, current, accurate materials that also comply with the rules on sensitive data."
       },
       {
         "id": "C",
-        "ja": "古い版と新しい版を区別せず両方追加する。",
-        "en": "Add old and new versions together without distinction."
+        "ja": "履歴が失われないよう、各文書の旧版と新版をまとめて追加する。",
+        "en": "Add the old and new versions of each document together so that no history is lost."
       },
       {
         "id": "D",
-        "ja": "出典が不明でも、量が多いほどよいので追加する。",
-        "en": "Add anything, even without provenance, since more is better."
+        "ja": "分量が回答の質を上げるので、出どころが分からないファイルも見つけ次第追加する。",
+        "en": "Add any file you find, even if you do not know where it came from, because volume improves answers."
       }
     ],
     "answer": [
@@ -2218,16 +2218,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "無関係な情報が回答の質を下げ、情報管理上も問題です。",
-        "en": "Irrelevant content degrades answers and raises data-handling issues."
+        "ja": "無関係な資料は回答の質を薄め、文脈を消費します。",
+        "en": "Irrelevant material dilutes answers and uses up context."
       },
       "C": {
-        "ja": "矛盾する情報が混在し、誤答の原因になります。",
-        "en": "Conflicting content causes wrong answers."
+        "ja": "版が混在すると、Claude が古い内容を引用するおそれがあります。",
+        "en": "Mixing versions risks Claude citing outdated content."
       },
       "D": {
-        "ja": "信頼性の低い情報は誤りの原因になります。",
-        "en": "Unreliable content leads to errors."
+        "ja": "出どころ不明の資料は信頼できず、データ規則に反する可能性もあります。",
+        "en": "Unknown provenance cannot be trusted and may break data rules."
       }
     },
     "difficulty": 2
@@ -2245,23 +2245,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "組織で承認された方法とアカウントを用い、アクセスを許可する範囲と必要な権限を確認して、必要な情報に限って連携する。",
-        "en": "Use organization-approved methods and accounts, confirm what access you grant and the permissions needed, and connect only what the task requires."
+        "ja": "組織が承認した方法とアカウントを使い、付与するアクセス権を確認し、作業に必要なものだけを接続する。",
+        "en": "Use an organization-approved method and account, check what access you grant, and connect only what the task needs."
       },
       {
         "id": "B",
-        "ja": "業務と無関係な個人のアカウントも含め、すべて連携する。",
-        "en": "Connect everything, including unrelated personal accounts."
+        "ja": "文脈を最大にするため、無関係な個人アカウントも含めてすべて接続する、作業ごとに必要なものを判断する手間を省く。",
+        "en": "Connect all of your accounts, including unrelated personal ones, so Claude has maximum context, rather than deciding case by case what each task needs."
       },
       {
         "id": "C",
-        "ja": "権限の確認はせず、手早く連携する。",
-        "en": "Connect quickly without checking permissions."
+        "ja": "できるだけ早く接続し、問題が出たら後から権限を確認する。",
+        "en": "Connect as quickly as possible and look at the permissions later if a problem appears."
       },
       {
         "id": "D",
-        "ja": "コネクタは使わず、毎回すべてのファイルを手動で貼り付ける。",
-        "en": "Avoid connectors and paste every file manually."
+        "ja": "コネクタは使わず、必要なファイルを毎回手作業でチャットに貼り付ける。",
+        "en": "Avoid connectors entirely and paste every needed file into the chat by hand each time."
       }
     ],
     "answer": [
@@ -2273,16 +2273,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "不要な情報へのアクセスはリスクを高めます。",
-        "en": "Unneeded access increases risk."
+        "ja": "不要な接続は無関係なデータを晒し、リスクを広げます。",
+        "en": "Unneeded connections expose unrelated data and widen the risk."
       },
       "C": {
-        "ja": "過剰な共有や権限の誤りを招きます。",
-        "en": "Invites over-sharing and permission mistakes."
+        "ja": "確認せずにアクセスを許可すると、意図以上のデータが露出しかねません。",
+        "en": "Granting access without checking it can expose more than intended."
       },
       "D": {
-        "ja": "手間が大きく、必ずしも安全でもありません。",
-        "en": "Laborious and not necessarily safer."
+        "ja": "手貼りは時間がかかり、承認済みコネクタが提供する統制も迂回しかねません。",
+        "en": "Manual pasting is slow and can bypass the controls that approved connectors provide."
       }
     },
     "difficulty": 2
@@ -2300,23 +2300,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "旧版を残し、新版を追加するだけにする。",
-        "en": "Leave the old version and just add the new one."
+        "ja": "比較できるよう、旧版の方針ファイルは残したまま、改訂版を追加する、どちらが最新の版かは Claude に判断させる。",
+        "en": "Keep the old policy file and simply add the revised one next to it for comparison, and let Claude work out which version is the current one."
       },
       {
         "id": "B",
-        "ja": "回答の都度、手作業で訂正する。",
-        "en": "Correct each answer by hand."
+        "ja": "誤った回答が出るたびに手で訂正し、ナレッジ自体は変更しない。",
+        "en": "Correct each wrong answer by hand when it appears, and leave the knowledge unchanged."
       },
       {
         "id": "C",
-        "ja": "旧版を削除または置き換えて新版をアップロードし、必要に応じて指示も更新して、回答を確認する。",
-        "en": "Remove or replace the old file with the new one, update instructions if needed, and test the answers."
+        "ja": "旧版を削除するか新版に差し替え、必要なら指示も更新し、回答を確認する。",
+        "en": "Remove or replace the old file with the new one, update the instructions if needed, and test the answers."
       },
       {
         "id": "D",
-        "ja": "Claude に旧規程を無視するよう、新規のチャットで伝える。",
-        "en": "Tell Claude in a new chat to ignore the old policy."
+        "ja": "新しいチャットを開き、回答時は旧方針を無視するよう Claude に伝える。",
+        "en": "Open a new chat and tell Claude to ignore the old policy whenever it answers."
       }
     ],
     "answer": [
@@ -2328,16 +2328,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "旧新が混在し、矛盾した回答の原因になります。",
-        "en": "Mixing versions creates contradictory answers."
+        "ja": "ナレッジに矛盾する2つの方針があると、誤った回答が出やすくなります。",
+        "en": "Two conflicting policies in the knowledge make wrong answers likely."
       },
       "B": {
-        "ja": "再発し、根本対応になりません。",
-        "en": "Recurs; not a root fix."
+        "ja": "回答ごとの訂正は症状への対処にすぎず、古い資料が誤りを出し続けます。",
+        "en": "Patching each answer treats the symptom; the stale source keeps producing errors."
       },
       "D": {
-        "ja": "Project の設定は変わらず、他のメンバーには影響が残ります。",
-        "en": "The Project is unchanged and others remain affected."
+        "ja": "1つのチャットでの指示はプロジェクトのナレッジを変えず、他の人は古い回答を受け取り続けます。",
+        "en": "A note in one chat does not change the Project knowledge, so others still get old answers."
       }
     },
     "difficulty": 3
@@ -2355,23 +2355,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "「いい感じにして」のように、簡潔で抽象的に書く。",
-        "en": "Keep it brief and abstract, like \"make it nice.\""
+        "ja": "Claude の裁量に任せるため、「いい感じにして」のように短く抽象的にする、ルールは実際に問題が起きてから足せばよいと考える。",
+        "en": "Keep the instructions brief and abstract, for example \"make it nice,\" so that Claude has room to decide, and add rules only if a problem actually appears."
       },
       {
         "id": "B",
-        "ja": "役割、対象読者、守るべきルール、出力形式、不明点があれば確認することを構造化して書き、必要なら例を添える。",
-        "en": "Structure it: role, audience, rules, output format, asking when unclear, with an example if helpful."
+        "ja": "役割・読み手・ルール・出力形式で構成し、不明なときは質問するよう伝え、必要なら例も添える。",
+        "en": "Structure them as role, audience, rules, and output format, tell Claude to ask when unclear, and add an example if helpful."
       },
       {
         "id": "C",
-        "ja": "矛盾する指示も含め、思いついた順にすべて書く。",
-        "en": "Write everything as it comes to mind, including conflicting rules."
+        "ja": "矛盾するものがあっても、思いついたルールをそのまま書き並べる。",
+        "en": "Write every rule as it comes to mind, even if some of them contradict each other."
       },
       {
         "id": "D",
-        "ja": "機密情報や個人情報を指示にそのまま書き込む。",
-        "en": "Embed confidential or personal data directly."
+        "ja": "Claude が常に参照できるよう、機密情報や個人データを指示文に直接埋め込む。",
+        "en": "Embed confidential or personal data directly in the instructions so that Claude always has it."
       }
     ],
     "answer": [
@@ -2383,16 +2383,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "曖昧な指示は解釈のばらつきを生みます。",
-        "en": "Vague instructions produce varied interpretations."
+        "ja": "あいまいな指示では文体やルールが定まらず、挙動がばらつきます。",
+        "en": "Vague instructions leave the style and rules undefined, so behavior varies."
       },
       "C": {
-        "ja": "矛盾した指示は挙動を不安定にします。",
-        "en": "Conflicting rules destabilize behavior."
+        "ja": "矛盾するルールは、挙動を予測できなくします。",
+        "en": "Conflicting rules make behavior unpredictable."
       },
       "D": {
-        "ja": "指示は共有されうるため、機密情報の記載は避けるべきです。",
-        "en": "Instructions may be shared, so avoid sensitive data."
+        "ja": "指示に入れた機密データは、その設定を使う全員に見えてしまいます。",
+        "en": "Confidential data in instructions is visible to everyone who uses the setup."
       }
     },
     "difficulty": 2
@@ -2410,28 +2410,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "業務ルールが変わったら、指示と知識を更新する。",
-        "en": "Update instructions and knowledge when business rules change."
+        "ja": "業務ルールが変わったら、そのつど指示とナレッジを更新する。",
+        "en": "Update the instructions and knowledge whenever the business rules change."
       },
       {
         "id": "B",
-        "ja": "資料は増える一方なので、削除はしない。",
-        "en": "Never remove anything; just keep adding."
+        "ja": "履歴をすべて残せるよう、何も削除せず新しいファイルを追加し続ける。",
+        "en": "Never remove anything, and keep adding new files so that all history stays available."
       },
       {
         "id": "C",
-        "ja": "定期的に見直し、古い資料や重複を整理し、変更点を共有する。",
-        "en": "Review periodically, prune outdated or duplicate materials, and communicate changes."
+        "ja": "プロジェクトを定期的に見直し、古い資料や重複を整理し、変更点をチームに伝える。",
+        "en": "Review the Project periodically, prune outdated or duplicate materials, and tell the team what changed."
       },
       {
         "id": "D",
-        "ja": "変更は担当者が個人の判断で、周知せずに行う。",
-        "en": "Make changes at an individual's discretion without notice."
+        "ja": "各メンバーが、誰にも知らせずに指示やファイルを自由に変更できるようにする。",
+        "en": "Let each member change the instructions or files whenever they like, without telling anyone."
       },
       {
         "id": "E",
-        "ja": "問題が起きるまで一切見直さない。",
-        "en": "Never review until something breaks."
+        "ja": "回答に問題が見つかるまで、プロジェクトの見直しは行わない。",
+        "en": "Wait to review the Project until a problem is noticed in the answers."
       }
     ],
     "answer": [
@@ -2444,16 +2444,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "不要・古い情報の蓄積は誤答とコンテキストの浪費を招きます。",
-        "en": "Accumulated stale content causes errors and wastes context."
+        "ja": "古い資料や重複が溜まると、回答の質が下がり文脈も無駄になります。",
+        "en": "Accumulated outdated and duplicate files degrade answers and waste context."
       },
       "D": {
-        "ja": "周知しない変更は混乱を生みます。",
-        "en": "Unannounced changes cause confusion."
+        "ja": "通知のない変更はチームを混乱させ、結果を不統一にします。",
+        "en": "Unannounced changes confuse the team and cause inconsistent results."
       },
       "E": {
-        "ja": "事後対応では品質問題を事前に防げません。",
-        "en": "Reactive-only maintenance misses preventable issues."
+        "ja": "不具合を待つと、誰かが気づく前に誤った回答が出回ります。",
+        "en": "Waiting for a failure lets bad answers circulate before anyone notices."
       }
     },
     "difficulty": 2
@@ -2471,23 +2471,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "モデルを必ず変更する。",
-        "en": "Always change the model."
+        "ja": "参照されない原因はモデルにある可能性が高いので、まず別のモデルに切り替える。",
+        "en": "Switch to a different model first, since the model is the most likely reason for the missing reference."
       },
       {
         "id": "B",
-        "ja": "資料が正しいプロジェクトに追加されているか、読み取れる形式・内容か、質問がその資料を参照するよう具体的に指示しているかを確認する。",
-        "en": "Whether the file is in the right Project, is in a readable format with usable content, and whether your question clearly directs Claude to reference it."
+        "ja": "ファイルが正しいプロジェクトにあり読み取り可能か、質問が Claude にそのファイルを明確に示しているかを確認する。",
+        "en": "Check that the file is in the right Project and readable, and that your question clearly points Claude to it."
       },
       {
         "id": "C",
-        "ja": "同じ資料を10回追加する。",
-        "en": "Upload the same file ten times."
+        "ja": "Claude が気づきやすいよう、同じファイルを10回アップロードする。",
+        "en": "Upload the same file ten times so that Claude is more likely to notice it."
       },
       {
         "id": "D",
-        "ja": "Project を削除して作り直す。",
-        "en": "Delete and recreate the Project."
+        "ja": "見えない問題を解消するため、プロジェクトを削除して最初から作り直す。",
+        "en": "Delete the Project and rebuild it from the beginning to clear any hidden problem."
       }
     ],
     "answer": [
@@ -2499,16 +2499,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "原因が特定されないまま変更しても改善するとは限りません。",
-        "en": "Changing without a diagnosis may not help."
+        "ja": "モデルを替えると基本の確認が飛ばされます。原因は設定やプロンプトにある可能性が高いです。",
+        "en": "Changing the model skips the basics; configuration and prompt are more likely causes."
       },
       "C": {
-        "ja": "重複は混乱を招き、解決になりません。",
-        "en": "Duplicates add confusion without solving anything."
+        "ja": "重複しても参照されやすくはならず、散らかるだけです。",
+        "en": "Duplicates do not make a file more visible and add clutter."
       },
       "D": {
-        "ja": "過剰な対応で、設定内容も失います。",
-        "en": "Excessive and loses configuration."
+        "ja": "簡単な確認をする前に作り直すのは、大がかりすぎる対応です。",
+        "en": "Rebuilding is a drastic step before the simple checks are done."
       }
     },
     "difficulty": 3
@@ -2526,23 +2526,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "患者の最終的な診断を決定する。",
-        "en": "Determining a patient's final diagnosis."
+        "ja": "医師の時間を節約するため、診療記録から患者の最終診断を Claude に決めさせる。",
+        "en": "Having Claude determine a patient's final diagnosis from the records, so the doctor can save time."
       },
       {
         "id": "B",
-        "ja": "社内向け説明資料の初稿を作成し、担当者が確認して仕上げる。",
-        "en": "Drafting a first version of internal explanatory material that an owner reviews and finalizes."
+        "ja": "社内向け説明資料の初稿を作り、担当者が確認して仕上げる。",
+        "en": "Drafting a first version of internal explanatory material that its owner then reviews and finalizes."
       },
       {
         "id": "C",
-        "ja": "社員の解雇可否を自動で判断する。",
-        "en": "Automatically deciding whether to dismiss an employee."
+        "ja": "勤務実績の記録をもとに、従業員を解雇するかどうかを Claude に自動で決めさせる。",
+        "en": "Letting Claude automatically decide whether to dismiss an employee based on performance records."
       },
       {
         "id": "D",
-        "ja": "出典を確認せずに規制対応の最終文書を提出する。",
-        "en": "Submitting final regulatory documents without checking sources."
+        "ja": "期限に間に合わせるため、Claude が作成した規制当局への提出書類を出典の確認なしで提出する。",
+        "en": "Submitting regulatory filings Claude drafted without checking the cited sources, to meet the deadline."
       }
     ],
     "answer": [
@@ -2554,16 +2554,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "医療上の判断は専門家が責任を持つべきです。",
-        "en": "Medical judgment requires accountable professionals."
+        "ja": "最終診断は影響の大きい判断であり、資格のある医師が担うべきです。",
+        "en": "A final diagnosis is a high-stakes decision that must stay with a qualified clinician."
       },
       "C": {
-        "ja": "人の処遇に関わる重大な判断の自動化は不適切です。",
-        "en": "Automating consequential decisions about people is inappropriate."
+        "ja": "雇用の判断は人に大きな影響を与えるため、人の判断と責任が必要です。",
+        "en": "Employment decisions affect people and need human judgment and accountability."
       },
       "D": {
-        "ja": "検証なしの提出は重大なリスクを伴います。",
-        "en": "Unverified submission carries serious risk."
+        "ja": "規制当局への提出書類で出典を確認しないと、誤りや罰則のリスクがあります。",
+        "en": "Unverified citations in a regulatory filing risk errors and penalties."
       }
     },
     "difficulty": 1
@@ -2581,23 +2581,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "社内利用なので、そのままアップロードする。",
-        "en": "Upload as is since it is internal use."
+        "ja": "分析は社内用でデータも社内にとどまるので、スプレッドシートをそのままアップロードする。",
+        "en": "Upload the spreadsheet as it is, since the analysis is for internal use and the data stays in the company."
       },
       {
         "id": "B",
-        "ja": "分析に不要な個人識別子を除去または匿名化し、ポリシーに沿った形でアップロードする。",
-        "en": "Remove or anonymize unneeded personal identifiers and upload in line with policy."
+        "ja": "不要な個人識別情報を削除または匿名化してから、方針に沿ってアップロードする。",
+        "en": "Remove or anonymize the personal identifiers you do not need, then upload the file in line with policy."
       },
       {
         "id": "C",
-        "ja": "「保存しないで」と指示してアップロードする。",
-        "en": "Upload but instruct Claude not to retain."
+        "ja": "ファイルは加工せずアップロードし、データを保持しないようプロンプトで Claude に伝える。",
+        "en": "Upload the file unchanged but tell Claude in the prompt not to retain any of the data."
       },
       {
         "id": "D",
-        "ja": "分析自体を断念する。",
-        "en": "Abandon the analysis."
+        "ja": "規制対象の個人情報を含むので、傾向分析そのものを断念する。",
+        "en": "Give up on the trend analysis altogether, since the data contains regulated personal information."
       }
     ],
     "answer": [
@@ -2609,16 +2609,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "社内であっても規程違反になります。",
-        "en": "Still a policy violation."
+        "ja": "社内用途であっても、規制対象の個人データに関する方針の制限はなくなりません。",
+        "en": "Internal purpose does not lift a policy restriction on regulated personal data."
       },
       "C": {
-        "ja": "指示によって規程上の統制を満たすことにはなりません。",
-        "en": "An instruction does not satisfy the policy control."
+        "ja": "プロンプトでの依頼は方針上の統制を満たしません。データはすでに共有されています。",
+        "en": "A prompt request does not satisfy the policy control; the data has already been shared."
       },
       "D": {
-        "ja": "匿名化で対応できるため、断念は不要です。",
-        "en": "Anonymization makes abandoning unnecessary."
+        "ja": "匿名化すれば保護対象のデータを晒さずに分析できるため、断念する必要はありません。",
+        "en": "Anonymizing lets the analysis go ahead without exposing protected data, so abandoning it is unnecessary."
       }
     },
     "difficulty": 2
@@ -2636,23 +2636,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "ポリシーに禁止がないので、自己判断で進める。",
-        "en": "Proceed on your own judgment because nothing prohibits it."
+        "ja": "方針に契約書の作成を禁じる記載はないので、自分の判断で進める。",
+        "en": "Go ahead on your own judgment, because nothing in the policy explicitly prohibits drafting contracts."
       },
       {
         "id": "B",
-        "ja": "誰にも知らせず、個人アカウントで試す。",
-        "en": "Quietly try it on a personal account."
+        "ja": "誰かに話す前に、個人アカウントでこっそり試して使えるかを確かめる。",
+        "en": "Try the use case quietly on a personal account first to see whether it works before telling anyone."
       },
       {
         "id": "C",
-        "ja": "法務・情報セキュリティ・AI ガバナンス担当に確認し、承認された範囲で進める。",
-        "en": "Consult legal, security, and AI governance owners and proceed within approved bounds."
+        "ja": "法務・セキュリティ・AIガバナンスの担当者に相談し、承認された範囲で進める。",
+        "en": "Consult legal, security, and AI governance owners, and proceed within the bounds they approve."
       },
       {
         "id": "D",
-        "ja": "ポリシー改訂まで、あらゆる Claude 利用を止める。",
-        "en": "Stop all Claude use until the policy changes."
+        "ja": "契約書が方針に明記されるまで、すべての業務で Claude の利用を止める。",
+        "en": "Stop using Claude for all work until the policy is formally updated to cover contracts."
       }
     ],
     "answer": [
@@ -2664,16 +2664,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "未確認のリスクを負うことになります。",
-        "en": "Takes on unvetted risk."
+        "ja": "方針に記載がないのは解決すべき空白であって許可ではなく、特に外部向けの契約書では注意が要ります。",
+        "en": "Silence in the policy is a gap to resolve, not permission, especially for external contracts."
       },
       "B": {
-        "ja": "承認外の利用で、統制を逸脱します。",
-        "en": "Unsanctioned use bypasses controls."
+        "ja": "個人アカウントは会社の統制を回避し、会社の情報を危険にさらします。",
+        "en": "A personal account sidesteps company controls and puts company information at risk."
       },
       "D": {
-        "ja": "過剰な反応で、確認で解決できます。",
-        "en": "Overreaction; consultation resolves it."
+        "ja": "全面停止は過剰です。承認が必要なのは、方針で扱われていないその用途だけです。",
+        "en": "A blanket stop is disproportionate; only the uncovered use case needs approval."
       }
     },
     "difficulty": 2
@@ -2691,28 +2691,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "ローンの審査結果を、人の確認なしに Claude の判断だけで申請者に通知する。",
-        "en": "Notifying loan applicants of decisions based solely on Claude's judgment with no human review."
+        "ja": "人の確認なしに、Claude の判断だけにもとづいて融資申込者へ審査結果を通知する。",
+        "en": "Telling loan applicants their decision based solely on Claude's judgment, with no human review."
       },
       {
         "id": "B",
-        "ja": "社内資料の誤字脱字を確認させる。",
-        "en": "Having Claude proofread internal documents."
+        "ja": "社内文書を配布する前に、誤字や分かりにくい文を Claude にチェックさせる。",
+        "en": "Having Claude proofread internal documents for typos and unclear sentences before circulation."
       },
       {
         "id": "C",
-        "ja": "承認されていない個人アカウントに顧客の個人情報を貼り付けて要約させる。",
-        "en": "Pasting customer personal data into an unapproved personal account for summarization."
+        "ja": "すばやく要約するため、承認されていない個人アカウントに顧客の個人データを貼り付ける。",
+        "en": "Pasting customer personal data into an unapproved personal account to get a quick summary."
       },
       {
         "id": "D",
-        "ja": "会議の議事録の構成案を作らせる。",
-        "en": "Having Claude outline meeting minutes."
+        "ja": "機密情報を含まないメモから、Claude に議事録の骨子を作らせる。",
+        "en": "Having Claude outline meeting minutes from notes that contain no confidential information."
       },
       {
         "id": "E",
-        "ja": "公開情報をもとにした調査の下書きを作り、出典を確認する。",
-        "en": "Drafting research from public information and checking sources."
+        "ja": "公開情報から調査の要約を下書きし、その後に出典を確認する。",
+        "en": "Drafting a research summary from public information, and then checking its sources."
       }
     ],
     "answer": [
@@ -2725,16 +2725,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "低リスクな用途です。",
-        "en": "Low-risk use."
+        "ja": "社内文書の校正はリスクが低く、責任ある利用の範囲内です。",
+        "en": "Proofreading internal text is low-risk and consistent with responsible use."
       },
       "D": {
-        "ja": "低リスクな用途です。",
-        "en": "Low-risk use."
+        "ja": "機密を含まない議事録の骨子づくりは、適切でリスクの低い利用です。",
+        "en": "Outlining non-confidential minutes is an appropriate, low-risk use."
       },
       "E": {
-        "ja": "出典確認を前提とした適切な用途です。",
-        "en": "Appropriate, with source checking."
+        "ja": "公開情報にもとづく下書きと出典確認は、責任ある業務の進め方です。",
+        "en": "Public-source drafting with source checks is a responsible workflow."
       }
     },
     "difficulty": 2
@@ -2752,23 +2752,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "方針に沿って AI の利用を開示し、内容の正確性は人が確認した上で納品する。",
-        "en": "Disclose AI use as required and deliver after a person has verified accuracy."
+        "ja": "契約や方針の定めに従って AI の利用を開示し、人が正確性を確認してから納品する。",
+        "en": "Disclose the use of AI as the contract or policy requires, and deliver after a person has verified the accuracy."
       },
       {
         "id": "B",
-        "ja": "発覚しなければ問題ないので、開示しない。",
-        "en": "Do not disclose; it is fine if nobody notices."
+        "ja": "気づかれなければ問題ないので、AI を使ったことは開示しない、成果物の質がすべてを物語ると考える。",
+        "en": "Leave the AI use undisclosed, because it does not matter if the client never notices it, and the quality of the deliverable speaks for itself."
       },
       {
         "id": "C",
-        "ja": "文章を少し書き換え、AI の痕跡を消す。",
-        "en": "Lightly reword to hide traces of AI."
+        "ja": "AI が書いた形跡が見えなくなるよう、下書きの表現を少し変える。",
+        "en": "Lightly reword the draft so that any signs of AI-generated text are no longer visible."
       },
       {
         "id": "D",
-        "ja": "AI が作成したので、内容の責任は Claude にあると伝える。",
-        "en": "Say Claude is responsible for the content."
+        "ja": "内容の責任は自社ではなく Claude にあると、成果物に記載する。",
+        "en": "State in the deliverable that Claude is responsible for the content, not your team."
       }
     ],
     "answer": [
@@ -2780,16 +2780,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "契約・ポリシー違反であり、信頼を損ないます。",
-        "en": "Breaches contract/policy and erodes trust."
+        "ja": "開示しないことは定められた要件に反し、発覚すれば信頼を損ないます。",
+        "en": "Non-disclosure breaks a stated requirement and damages trust if discovered."
       },
       "C": {
-        "ja": "不誠実な対応です。",
-        "en": "Dishonest."
+        "ja": "形跡を隠すのは欺瞞的で、開示の要件にも違反します。",
+        "en": "Hiding traces is deceptive and still violates the disclosure requirement."
       },
       "D": {
-        "ja": "AI に責任を転嫁することはできません。",
-        "en": "Responsibility cannot be shifted to the AI."
+        "ja": "成果物の責任は人が負うもので、ツールに転嫁することはできません。",
+        "en": "People remain accountable for deliverables; responsibility cannot be shifted to the tool."
       }
     },
     "difficulty": 2
@@ -2807,23 +2807,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "データ保護法令や社内規程、承認されたツール・契約条件を確認し、必要最小限のデータだけを承認された環境で扱う。",
-        "en": "Check applicable data-protection law, internal policy, and approved tools and terms, and handle only the minimum data in an approved environment."
+        "ja": "適用されるデータ保護法、社内方針、承認済みのツールと規約を確認し、承認された環境で必要最小限のデータだけを扱う。",
+        "en": "Check the applicable data-protection law, internal policy, and approved tools and terms, and handle only the minimum data in an approved environment."
       },
       {
         "id": "B",
-        "ja": "国が違うので法令は無関係と判断する。",
-        "en": "Assume the law is irrelevant."
+        "ja": "社内分析にしか使わないので、法律は関係ないと考える、AI提供事業者との一般的な契約で、あり得る法的要件はすでにカバーされているはずだと考える。",
+        "en": "Assume the law does not apply, because the data is being used only for internal analysis, and the company's general terms with its AI provider presumably already cover any legal requirements that might exist."
       },
       {
         "id": "C",
-        "ja": "顧客データを全件貼り付け、後で考える。",
-        "en": "Paste all customer data and sort it out later."
+        "ja": "便宜上、顧客データをすべて Claude に貼り付け、コンプライアンスの整理は後で行う。",
+        "en": "Paste all of the customer data into Claude for convenience and sort out compliance afterwards."
       },
       {
         "id": "D",
-        "ja": "無料の個人アカウントを使えば問題ない。",
-        "en": "A free personal account is fine."
+        "ja": "手軽で承認も要らないので、無料の個人アカウントを使う。",
+        "en": "Use a free personal account, since it is quick and does not require any approval."
       }
     ],
     "answer": [
@@ -2835,16 +2835,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "法令は顧客の所在地などに基づき適用されます。",
-        "en": "Laws can apply based on where customers are."
+        "ja": "社内利用でも、EU顧客の個人データはデータ保護法の対象外になりません。",
+        "en": "Internal use does not exempt personal data of EU customers from data-protection law."
       },
       "C": {
-        "ja": "法令・規程違反のリスクがあります。",
-        "en": "Risks legal and policy violations."
+        "ja": "先に共有して後で整理すると、取り返しのつかない違反を招きかねません。",
+        "en": "Sharing first and sorting out compliance later can cause an irreversible violation."
       },
       "D": {
-        "ja": "承認されていない環境は業務データに不適切です。",
-        "en": "Unapproved environments are inappropriate for business data."
+        "ja": "個人の無料アカウントには、個人データの扱いに必要な組織向けの規約や統制がありません。",
+        "en": "A personal free account lacks the organizational terms and controls needed for personal data."
       }
     },
     "difficulty": 2
@@ -2862,23 +2862,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "提案された基準を自動的に適用する。",
-        "en": "Apply the criteria automatically."
+        "ja": "Claude が一貫して提案した基準なので、全候補者に自動で適用する、すべての応募者に厳密に同じ基準を当てはめられるとも考える。",
+        "en": "Apply the criteria automatically to all candidates, since Claude proposed them consistently, which also keeps every applicant to exactly the same standard."
       },
       {
         "id": "B",
-        "ja": "職務に関連する基準かを人が確認し、差別や偏りの懸念がないかをレビューして、最終判断は人が行う。",
-        "en": "Have people confirm criteria are job-relevant, review for discrimination or bias concerns, and keep final decisions with people."
+        "ja": "基準が職務に関連しているかを人が確認し、偏りがないか見直し、最終判断は人が行う。",
+        "en": "Have people confirm the criteria are job-relevant, review them for bias, and keep final decisions with people."
       },
       {
         "id": "C",
-        "ja": "基準は非公開にして、候補者に説明しない。",
-        "en": "Keep criteria secret and unexplained."
+        "ja": "応募者との議論を避けるため、基準は非公開にして説明もしない。",
+        "en": "Keep the criteria undisclosed and unexplained to avoid arguments with applicants."
       },
       {
         "id": "D",
-        "ja": "応募者数が多いほど AI の判断が公平になるため、人は関与しない。",
-        "en": "More applicants make AI fairer, so exclude humans."
+        "ja": "データが多いほど AI は公平になるとして、大量の応募者を人を介さずに処理する。",
+        "en": "Handle large numbers of applicants without people, on the view that more data makes AI fairer."
       }
     ],
     "answer": [
@@ -2890,16 +2890,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "偏りや不当な基準が残る可能性があります。",
-        "en": "Biased or improper criteria may remain."
+        "ja": "人に影響する基準は、使う前に関連性と偏りの確認が必要です。",
+        "en": "Criteria that affect people need review for relevance and bias before use."
       },
       "C": {
-        "ja": "透明性や説明責任に欠けます。",
-        "en": "Lacks transparency and accountability."
+        "ja": "基準が不透明だと、不公平に気づいたり異議を唱えたりできません。",
+        "en": "Opaque criteria prevent anyone from spotting or challenging unfairness."
       },
       "D": {
-        "ja": "量が多いほど公平になるわけではありません。",
-        "en": "Volume does not guarantee fairness."
+        "ja": "データを増やしても偏りは消えず、人を外せば監督も失われます。",
+        "en": "More data does not remove bias, and excluding humans removes oversight."
       }
     },
     "difficulty": 3
@@ -2917,23 +2917,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "黙認する。",
-        "en": "Let it go."
+        "ja": "同僚は社内ルールを知っていて効率を重視しているのだろうと考え、見過ごす、指摘すれば職場の関係を損なうかもしれないとも考える。",
+        "en": "Let it go, since the colleague presumably knows the company's rules and is trying to be efficient, and raising it could damage the working relationship."
       },
       {
         "id": "B",
-        "ja": "同僚に承認された環境の利用を促し、ポリシーに従って情報セキュリティ担当などへ共有する。",
-        "en": "Encourage the colleague to use the approved environment and report per policy to security or the responsible team."
+        "ja": "承認済みの環境に切り替えるよう同僚に促し、方針に従ってセキュリティや担当部署に報告する。",
+        "en": "Encourage the colleague to move to the approved environment, and report it to security or the responsible team per policy."
       },
       {
         "id": "C",
-        "ja": "自分も同じ方法で作業する。",
-        "en": "Do the same yourself."
+        "ja": "全員にとって明らかに速い方法なので、自分も同じようにする。",
+        "en": "Do the same yourself, since it is clearly the faster way for everyone to work."
       },
       {
         "id": "D",
-        "ja": "公開の場でその同僚を非難する。",
-        "en": "Publicly criticize the colleague."
+        "ja": "他の人の教訓になるよう、チームのチャンネルで同僚を公に批判する。",
+        "en": "Criticize the colleague publicly in the team channel so that others learn from the mistake."
       }
     ],
     "answer": [
@@ -2945,16 +2945,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "情報漏えいのリスクが続きます。",
-        "en": "Leaves the leakage risk in place."
+        "ja": "見過ごすと、機密データは露出したままになります。",
+        "en": "Ignoring the issue lets confidential data stay exposed."
       },
       "C": {
-        "ja": "リスクを拡大させます。",
-        "en": "Spreads the risk."
+        "ja": "同じことをすると、方針違反が広がります。",
+        "en": "Copying the behavior spreads the policy violation."
       },
       "D": {
-        "ja": "建設的でなく、組織の安全文化にも逆効果です。",
-        "en": "Not constructive and harms safety culture."
+        "ja": "公然と非難するのは定められた手段ではなく、リスクの低減にもなりません。",
+        "en": "Public shaming is not a defined channel and does not reduce the risk."
       }
     },
     "difficulty": 2
@@ -2972,28 +2972,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "氏名・連絡先など分析に不要な識別情報を事前に取り除く。",
-        "en": "Remove names, contact details, and other identifiers not needed for the analysis beforehand."
+        "ja": "入力する前に、分析に不要な氏名・連絡先などの識別情報を取り除く。",
+        "en": "Remove names, contact details, and other identifiers that the analysis does not need, before inputting."
       },
       {
         "id": "B",
-        "ja": "全回答を、そのまま個人のメールアドレスとともに投入する。",
-        "en": "Input all responses as is, including personal email addresses."
+        "ja": "回答者の個人メールアドレスも含め、集めたとおりにすべての回答を入力する。",
+        "en": "Input every response exactly as collected, including respondents' personal email addresses."
       },
       {
         "id": "C",
-        "ja": "ポリシーで承認されたアカウントとツールを使い、データの取り扱いルールを確認する。",
-        "en": "Use accounts and tools approved by policy and confirm the data-handling rules."
+        "ja": "方針で承認されたアカウントとツールを使い、適用されるデータの取り扱いルールを確認する。",
+        "en": "Use accounts and tools approved by policy, and confirm the data-handling rules that apply."
       },
       {
         "id": "D",
-        "ja": "データの機密性は分析結果の質に関係ないので考慮しない。",
-        "en": "Ignore sensitivity because it does not affect analysis quality."
+        "ja": "個人情報は分析の質に影響しないので、機微性は気にしない。",
+        "en": "Ignore sensitivity, because the personal details do not change the quality of the analysis."
       },
       {
         "id": "E",
-        "ja": "結果の共有範囲は、後で考える。",
-        "en": "Decide who can see the results later."
+        "ja": "分析結果を誰が見てよいかは、分析を終えた後に決める。",
+        "en": "Decide only afterwards who is allowed to see the results of the analysis."
       }
     ],
     "answer": [
@@ -3006,16 +3006,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "不要な個人情報の投入は避けるべきです。",
-        "en": "Avoid inputting unnecessary personal data."
+        "ja": "個人メールアドレスは分析に不要で、露出するリスクを増やすだけです。",
+        "en": "Personal email addresses are unnecessary for the analysis and add exposure."
       },
       "D": {
-        "ja": "機密性は利用判断に直接関係します。",
-        "en": "Sensitivity directly affects whether and how data may be used."
+        "ja": "詳細が分析に影響するかどうかは、データを保護すべきかどうかとは関係ありません。",
+        "en": "Whether details affect the analysis is irrelevant to whether the data must be protected."
       },
       "E": {
-        "ja": "共有範囲は事前に管理すべきです。",
-        "en": "Sharing scope should be controlled up front."
+        "ja": "結果へのアクセスは、データ処理の後ではなく先に決めておくべきです。",
+        "en": "Access to results should be decided up front, not left until after the data is processed."
       }
     },
     "difficulty": 2
@@ -3033,23 +3033,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "出力を見ずに破棄する。",
-        "en": "Discard outputs unread."
+        "ja": "長い出力は読まずに捨て、次のチャットで同じ質問をし直す、今度は短い回答が返ってくることを期待する。",
+        "en": "Discard the long outputs without reading them and re-ask the question in the next chat, hoping that a shorter answer comes back this time."
       },
       {
         "id": "B",
-        "ja": "長さ、構成（結論を先に、箇条書き5点まで等）、不要な前置きを省くことを指示に明記する。",
-        "en": "State length, structure (conclusion first, up to five bullets, etc.), and no preamble in the prompt."
+        "ja": "プロンプトで長さと構成を指定する。たとえば結論を先に、箇条書き5点以内、前置きなし。",
+        "en": "State the length and structure in the prompt, such as conclusion first, up to five bullets, and no preamble."
       },
       {
         "id": "C",
-        "ja": "質問を極端に短くする。",
-        "en": "Make your question extremely short."
+        "ja": "短く答えてもらえるよう、こちらの質問を極端に短くする。",
+        "en": "Make your own questions extremely short so that Claude is encouraged to respond briefly."
       },
       {
         "id": "D",
-        "ja": "別のモデルに必ず切り替える。",
-        "en": "Always switch models."
+        "ja": "回答が長いと感じるたびに、別のモデルに切り替える。",
+        "en": "Switch to a different model every time an answer feels too long."
       }
     ],
     "answer": [
@@ -3061,16 +3061,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "読まずに捨てても問題は解決しません。",
-        "en": "Doesn't solve the problem."
+        "ja": "出力を捨てるのは無駄です。必要な形式を指定して依頼すれば解決します。",
+        "en": "Discarding output wastes the work; the fix is to ask for the form you want."
       },
       "C": {
-        "ja": "質問の情報が減り、かえって曖昧になります。",
-        "en": "Less information makes answers vaguer."
+        "ja": "極端に短い質問は指示が乏しくなり、かえって広い回答を招きがちです。",
+        "en": "A very short question gives Claude less direction and often invites broader answers."
       },
       "D": {
-        "ja": "プロンプトの改善で解決できる可能性が高く、まず指示を見直すべきです。",
-        "en": "Prompt refinement likely solves it; revise instructions first."
+        "ja": "原因はモデルではなく、長さと形式を指定していないことです。",
+        "en": "Models are not the cause; unspecified length and form are."
       }
     },
     "difficulty": 1
@@ -3088,23 +3088,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "全く同じ指示を再送する。",
-        "en": "Resend the exact same instruction."
+        "ja": "同じ長い指示をそのまま再送し、今度は10個の要件がすべて満たされることを期待する、漏れはたまたまで、繰り返されないだろうと考える。",
+        "en": "Resend the identical long instruction and hope that all ten requirements are covered this time, since the omissions were probably random and will not repeat."
       },
       {
         "id": "B",
-        "ja": "要件を番号付きで整理して優先順位を示し、満たされなかった項目を指摘して修正を依頼する。必要ならタスクを分割する。",
-        "en": "Reorganize requirements as a numbered list with priorities, point out missed items for correction, and split the task if needed."
+        "ja": "要件を優先順位つきの番号付きリストに整理し、漏れた項目を指摘し、必要ならタスクを分割する。",
+        "en": "Restructure the requirements as a numbered list with priorities, point out the missed items, and split the task if needed."
       },
       {
         "id": "C",
-        "ja": "満たされなかった項目は諦める。",
-        "en": "Give up on the missed items."
+        "ja": "3つの要件が欠けるのは仕方ないと受け入れ、出力をそのまま使う。",
+        "en": "Accept that three requirements will be missing and use the output as it is."
       },
       {
         "id": "D",
-        "ja": "要件をさらに増やして補う。",
-        "en": "Add even more requirements."
+        "ja": "漏れた要件が改めて伝わるよう、指示にさらに要件を数点追加する。",
+        "en": "Add several more requirements to the instruction so that the missed ones are mentioned again."
       }
     ],
     "answer": [
@@ -3116,16 +3116,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "同じ入力では同じ結果になりがちです。",
-        "en": "The same input tends to yield the same result."
+        "ja": "同じ入力では、同じ漏れが起きる可能性が高くなります。",
+        "en": "The same input is likely to produce the same omissions."
       },
       "C": {
-        "ja": "改善可能な問題を放置することになります。",
-        "en": "Leaves a fixable issue."
+        "ja": "漏れは構造化とフィードバックで直せるので、受け入れる必要はありません。",
+        "en": "The omissions are fixable through structure and feedback, so accepting them is unnecessary."
       },
       "D": {
-        "ja": "複雑さが増し、取りこぼしが悪化する可能性があります。",
-        "en": "More complexity can worsen omissions."
+        "ja": "要件を増やすと指示が重くなり、さらに漏れやすくなります。",
+        "en": "Adding more requirements makes the instruction heavier and more likely to be missed."
       }
     },
     "difficulty": 2
@@ -3143,23 +3143,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "そのまま続ける。",
-        "en": "Carry on regardless."
+        "ja": "新しい話題が役立つかもしれないので、会話をそのまま続ける、当初の目的は新しい話題を掘り下げた後で見直せばよいと考える。",
+        "en": "Carry on with the conversation as it is, since the new topics may turn out to be useful, and the original goal can be revisited once they have been explored."
       },
       {
         "id": "B",
-        "ja": "元の目的と現在までの合意事項を要約して明示し、軌道修正する。必要なら新しいチャットでその要約から再開する。",
-        "en": "Restate the original goal and agreed points in a summary and redirect; if needed, restart a new chat from that summary."
+        "ja": "当初の目的と合意事項を要約して軌道を戻す。必要ならその要約から新しいチャットを始める。",
+        "en": "Restate the original goal and the agreed points in a summary to redirect, or restart a new chat from that summary."
       },
       {
         "id": "C",
-        "ja": "ずれは Claude の故障とみなして使用を中止する。",
-        "en": "Treat the drift as a malfunction and stop using it."
+        "ja": "逸脱はツールの不具合とみなし、このプロジェクトでは使うのをやめる。",
+        "en": "Treat the drift as a malfunction of the tool and stop using it for this project."
       },
       {
         "id": "D",
-        "ja": "関係のない質問を増やす。",
-        "en": "Add more unrelated questions."
+        "ja": "目的に使える材料が増えるよう、関係の薄い質問をさらに足す。",
+        "en": "Add further unrelated questions so that Claude has more material to draw on for the goal."
       }
     ],
     "answer": [
@@ -3171,16 +3171,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "ずれが拡大し、時間を浪費します。",
-        "en": "Drift grows and wastes time."
+        "ja": "軌道修正をしなければ、議論は目的から離れ続けます。",
+        "en": "Without redirecting, the discussion keeps drifting from the goal."
       },
       "C": {
-        "ja": "プロンプトや会話管理で対処できる問題です。",
-        "en": "Manageable through prompting and conversation management."
+        "ja": "逸脱は長いチャットで普通に起こり、目的を言い直せば直せます。",
+        "en": "Drift is a normal feature of long chats and is fixable by restating the goal."
       },
       "D": {
-        "ja": "さらに混乱します。",
-        "en": "Adds confusion."
+        "ja": "無関係な質問は逸脱を深め、文脈を消費します。",
+        "en": "Unrelated questions deepen the drift and consume context."
       }
     },
     "difficulty": 2
@@ -3198,23 +3198,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "今後も毎回手作業で伝える。",
-        "en": "Keep repeating it manually."
+        "ja": "数秒で済むので、同じフィードバックを各チャットで手入力し続ける、結果を毎回自分の手で管理できるとも考える。",
+        "en": "Keep typing the same feedback by hand in each chat, as it only takes a few seconds, and it keeps you in control of each result."
       },
       {
         "id": "B",
-        "ja": "共通の好みやルールを Project の指示（またはスタイル設定）に取り込み、結果を見ながら更新していく。",
-        "en": "Fold the recurring preferences into Project instructions (or style settings) and update them as you see results."
+        "ja": "繰り返し伝えている希望をプロジェクトの指示やスタイル設定に組み込み、結果を見ながら調整する。",
+        "en": "Fold the recurring preferences into Project instructions or style settings, and refine them as you see results."
       },
       {
         "id": "C",
-        "ja": "フィードバックは行わず、出力を受け入れる。",
-        "en": "Stop giving feedback and accept output."
+        "ja": "会話を短く保つため、フィードバックはやめて出力をそのまま受け入れる。",
+        "en": "Stop giving feedback and accept the output as it comes, to keep each conversation short."
       },
       {
         "id": "D",
-        "ja": "より高価なモデルに変えれば解決する。",
-        "en": "A more expensive model will solve it."
+        "ja": "指示しなくても普段の好みに従ってくれる、より高価なモデルに切り替える。",
+        "en": "Move to a more expensive model, which will follow your usual preferences without being told."
       }
     ],
     "answer": [
@@ -3226,16 +3226,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "非効率で、ばらつきも生じます。",
-        "en": "Inefficient and inconsistent."
+        "ja": "毎回の繰り返しは手間がかさみ、言い忘れも起きやすくなります。",
+        "en": "Repeating feedback every time adds up and is easy to forget."
       },
       "C": {
-        "ja": "品質改善の機会を失います。",
-        "en": "Forfeits quality improvement."
+        "ja": "フィードバックをやめると、トーンや長さが合わないままになります。",
+        "en": "Giving up on feedback leaves the output at the wrong tone and length."
       },
       "D": {
-        "ja": "モデルの変更は、好みを反映する代わりにはなりません。",
-        "en": "A different model is no substitute for encoding preferences."
+        "ja": "高価なモデルでも、伝えない限りあなたの好みは分かりません。",
+        "en": "A pricier model does not know your preferences unless they are stated."
       }
     },
     "difficulty": 3
@@ -3253,28 +3253,28 @@
     "options": [
       {
         "id": "A",
-        "ja": "プロンプトを保存した再利用可能なテンプレートにして、入力部分だけを差し替える。",
-        "en": "Save it as a reusable template and swap only the inputs."
+        "ja": "プロンプトを再利用できるテンプレートとして保存し、毎週入力だけを差し替える。",
+        "en": "Save the prompt as a reusable template and change only the inputs each week."
       },
       {
         "id": "B",
-        "ja": "毎週異なる表現で書き直して、新鮮さを保つ。",
-        "en": "Rewrite it differently each week for freshness."
+        "ja": "結果に新鮮さと変化が出るよう、毎週プロンプトを書き換える。",
+        "en": "Rewrite the prompt differently every week to keep the results fresh and varied."
       },
       {
         "id": "C",
-        "ja": "手順や資料が決まっているなら、Project や再利用可能な仕組み（Skills など）にまとめる。",
-        "en": "If steps and materials are fixed, package them in a Project or reusable mechanism such as Skills."
+        "ja": "手順と資料が固定なら、プロジェクトや Skills のような再利用できる仕組みにまとめる。",
+        "en": "When the steps and materials are fixed, package them in a Project or a reusable mechanism such as Skills."
       },
       {
         "id": "D",
-        "ja": "出力の確認を省いて時間を節約する。",
-        "en": "Skip checking outputs to save time."
+        "ja": "先週と同じプロンプトなので、時間短縮のため出力の確認は省く。",
+        "en": "Skip checking the outputs to save time, since the prompt is the same as last week's."
       },
       {
         "id": "E",
-        "ja": "メモに頼らず、毎回記憶を頼りに書く。",
-        "en": "Rely on memory every time."
+        "ja": "手順は毎週記憶を頼りに思い出し、プロンプトをゼロから書く。",
+        "en": "Rely on memory each week to recall the steps and write the prompt from scratch."
       }
     ],
     "answer": [
@@ -3287,16 +3287,16 @@
     },
     "optionRationale": {
       "B": {
-        "ja": "不要なばらつきを生みます。",
-        "en": "Adds needless variation."
+        "ja": "毎回書き換えると手間が増え、結果の一貫性も下がります。",
+        "en": "Rewriting each time adds effort and makes results less consistent."
       },
       "D": {
-        "ja": "品質の低下を招きます。",
-        "en": "Degrades quality."
+        "ja": "確認を省くと、同じプロンプトでも誤りに気づけなくなります。",
+        "en": "Skipping checks risks undetected errors even with a repeated prompt."
       },
       "E": {
-        "ja": "再現性がなく非効率です。",
-        "en": "Not repeatable and inefficient."
+        "ja": "記憶頼みは間違いやすく、保存したテンプレートなら避けられる時間を無駄にします。",
+        "en": "Memory is error-prone and wastes time that a saved template would avoid."
       }
     },
     "difficulty": 2
@@ -3314,23 +3314,23 @@
     "options": [
       {
         "id": "A",
-        "ja": "モデルが壊れていると判断し、利用を止める。",
-        "en": "Conclude the model is broken and stop."
+        "ja": "モデルが壊れていると判断し、この種の作業での利用をやめる、新しいモデルが出るまで待ってから、この作業を再び Claude に任せる。",
+        "en": "Conclude that the model is broken and stop using it for this kind of task, and wait for a newer model release before trying the work with Claude again."
       },
       {
         "id": "B",
-        "ja": "プロンプトに目的・文脈・制約・形式が十分に含まれていたか、必要な資料が提供されていたかを見直し、1点ずつ調整して再試行する。",
-        "en": "Review whether the prompt had enough purpose, context, constraints, and format and whether needed materials were provided; adjust one factor at a time and retry."
+        "ja": "プロンプトに目的・文脈・制約・形式と必要な資料が十分あったかを確認し、要素を1つずつ変えて再試行する。",
+        "en": "Check whether the prompt gave enough purpose, context, constraints, and format and the needed materials, then adjust one factor at a time."
       },
       {
         "id": "C",
-        "ja": "一度にすべてを変更して、効果の要因を特定しにくくする。",
-        "en": "Change everything at once, obscuring what helped."
+        "ja": "どれかは効くはずなので、プロンプト・モデル・資料を一度にすべて変える。",
+        "en": "Change the prompt, model, and materials all at once so that something is bound to help."
       },
       {
         "id": "D",
-        "ja": "出力をそのまま使い、問題の原因は調べない。",
-        "en": "Use the output and skip diagnosing."
+        "ja": "次はうまくいくかもしれないので、診断はせず出力をそのまま使う。",
+        "en": "Use the output as it is and skip diagnosing, since the next attempt may be better."
       }
     ],
     "answer": [
@@ -3342,16 +3342,16 @@
     },
     "optionRationale": {
       "A": {
-        "ja": "多くの場合、入力側の改善で解決できます。",
-        "en": "Usually solvable by improving inputs."
+        "ja": "期待外れの出力は、通常モデルの故障ではなく入力の不足から生じます。",
+        "en": "Disappointing output usually comes from input gaps, not a broken model."
       },
       "C": {
-        "ja": "要因の特定が困難になります。",
-        "en": "Makes root-cause isolation difficult."
+        "ja": "一度にすべて変えると、何が効いたのか分からなくなります。",
+        "en": "Changing everything at once hides which change helped."
       },
       "D": {
-        "ja": "同じ問題が繰り返されます。",
-        "en": "The same problem will recur."
+        "ja": "診断を省くと、同じ弱い結果を繰り返します。",
+        "en": "Skipping diagnosis repeats the same weak result."
       }
     },
     "difficulty": 3
